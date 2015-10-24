@@ -1,0 +1,1 @@
+ elm-make main.elm --output js/main.js
