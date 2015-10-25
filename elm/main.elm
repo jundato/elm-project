@@ -6,8 +6,8 @@ import Graphics.Element exposing (..)
   
 main =
   collage 1024 600
-    [ move (0,-55) blueSquare
-    , move (0, 55) redSquare
+    [ move (0, 0) blueSquare
+    , move (0, 0) redSquare
     ]
 
 blueSquare : Form

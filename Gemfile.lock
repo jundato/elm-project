@@ -1,8 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    commonjs (0.2.7)
     filewatcher (0.5.2)
       trollop (~> 2.0)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
     rack (1.6.4)
     trollop (2.1.2)
 
@@ -10,8 +13,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  filewatcher
-  rack
+  filewatcher (= 0.5.2)
+  less (= 2.6.0)
+  rack (= 1.6.4)
 
 BUNDLED WITH
    1.10.4
