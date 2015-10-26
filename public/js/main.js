@@ -1556,47 +1556,77 @@ Elm.GreenGui.Main.make = function (_elm) {
    _L = _N.List.make(_elm),
    $moduleName = "GreenGui.Main",
    $Basics = Elm.Basics.make(_elm),
-   $Color = Elm.Color.make(_elm),
    $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
-   var square = $Graphics$Collage.path(_L.fromArray([{ctor: "_Tuple2"
-                                                     ,_0: 50
-                                                     ,_1: 50}
-                                                    ,{ctor: "_Tuple2"
-                                                     ,_0: 50
-                                                     ,_1: -50}
-                                                    ,{ctor: "_Tuple2"
-                                                     ,_0: -50
-                                                     ,_1: -50}
-                                                    ,{ctor: "_Tuple2"
-                                                     ,_0: -50
-                                                     ,_1: 50}
-                                                    ,{ctor: "_Tuple2"
-                                                     ,_0: 50
-                                                     ,_1: 50}]));
-   var redSquare = A2($Graphics$Collage.traced,
-   $Graphics$Collage.solid($Color.red),
-   square);
-   var blueSquare = A2($Graphics$Collage.traced,
-   $Graphics$Collage.dashed($Color.blue),
-   square);
-   var main = A3($Graphics$Collage.collage,
-   1024,
-   600,
-   _L.fromArray([A2($Graphics$Collage.move,
-                {ctor: "_Tuple2",_0: 0,_1: 0},
-                blueSquare)
-                ,A2($Graphics$Collage.move,
-                {ctor: "_Tuple2",_0: 0,_1: 0},
-                redSquare)]));
+   var monitorButtons = _L.fromArray([]);
+   var monitorButtonPanel = _L.fromArray([]);
+   var view = F2(function (address,
+   appState) {
+      return A3($Graphics$Collage.collage,
+      1024,
+      600,
+      _L.fromArray([$Graphics$Collage.toForm(A2($Graphics$Element.flow,
+      $Graphics$Element.down,
+      _L.fromArray([$Graphics$Element.show("By using the \'flow\' function,")
+                   ,$Graphics$Element.show("we can stack elements")
+                   ,$Graphics$Element.show("on top of other elements.")
+                   ,$Graphics$Element.show("on top of other elements.")
+                   ,$Graphics$Element.show("on top of other elements.")
+                   ,$Graphics$Element.show("on top of other elements.")
+                   ,$Graphics$Element.show("on top of other elements.")
+                   ,$Graphics$Element.show("on top of other elements.")
+                   ,$Graphics$Element.show("on top of other elements.11")])))]));
+   });
+   var update = F2(function (action,
+   appState) {
+      return function () {
+         switch (action.ctor)
+         {case "Decrement":
+            return appState;
+            case "Increment":
+            return appState;
+            case "NoOp": return appState;}
+         _U.badCase($moduleName,
+         "between lines 26 and 29");
+      }();
+   });
+   var Decrement = {ctor: "Decrement"};
+   var Increment = {ctor: "Increment"};
+   var NoOp = {ctor: "NoOp"};
+   var actions = $Signal.mailbox(NoOp);
+   var defaultAppState = {_: {}
+                         ,monitors: _L.fromArray([])};
+   var appState = A3($Signal.foldp,
+   update,
+   defaultAppState,
+   actions.signal);
+   var main = A2($Signal.map,
+   view(actions.address),
+   appState);
+   var Monitor = function (a) {
+      return {_: {},number: a};
+   };
+   var AppState = function (a) {
+      return {_: {},monitors: a};
+   };
    _elm.GreenGui.Main.values = {_op: _op
+                               ,AppState: AppState
+                               ,Monitor: Monitor
+                               ,defaultAppState: defaultAppState
+                               ,NoOp: NoOp
+                               ,Increment: Increment
+                               ,Decrement: Decrement
+                               ,update: update
                                ,main: main
-                               ,blueSquare: blueSquare
-                               ,redSquare: redSquare
-                               ,square: square};
+                               ,appState: appState
+                               ,actions: actions
+                               ,view: view
+                               ,monitorButtonPanel: monitorButtonPanel
+                               ,monitorButtons: monitorButtons};
    return _elm.GreenGui.Main.values;
 };
 Elm.List = Elm.List || {};
