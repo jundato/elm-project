@@ -1,0 +1,10 @@
+canvas {
+  background-color: #f1fdfd;
+}
+.monitor-view {
+  float: left;
+  width: 16.5%;
+}
+.monitor-icon {
+  width: 10px;
+}
