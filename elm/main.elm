@@ -1,3 +1,4 @@
+-- author: virgilio dato
 module GreenGui.Main where
 
 import Window
@@ -16,36 +17,73 @@ import Basics
 import String
 import Debug
 
-type alias AppState = { monitors : List Monitor
-                      , displayedMonitors : List Monitor
+-- app states model have screeen states that models what state each screen
+type alias AppState = { homeScreenState : HomeScreenState
                       }
 
-type alias Monitor = {
-  number : String
-  }
+type alias HomeScreenState =  { monitors : List Monitor
+                              }
+
+type alias Monitor =  { number : String
+                      , isSelected : Bool
+                      , isVisible : Bool
+                      }
 
 defaultAppState : AppState 
-defaultAppState = { monitors = []
-                  , displayedMonitors = [ defaultMonitor "1", defaultMonitor "2", defaultMonitor "3", defaultMonitor "4", defaultMonitor "5", defaultMonitor "6"]
-                  } 
+defaultAppState = { homeScreenState = defaultHomeScreenState } 
+
+defaultHomeScreenState =  { monitors =  [ defaultMonitor "1" True
+                                        , defaultMonitor "2" True
+                                        , defaultMonitor "3" True
+                                        , defaultMonitor "4" True
+                                        , defaultMonitor "5" True
+                                        , defaultMonitor "6" True
+                                        , defaultMonitor "7" False 
+                                        , defaultMonitor "8" False
+                                        , defaultMonitor "9" False
+                                        , defaultMonitor "10" False
+                                        , defaultMonitor "11" False
+                                        , defaultMonitor "12" False]
+                          }
 
 type Action 
   = NoOp
-  | Increment 
-  | Decrement
+  | SelectMonitor Monitor
+  | SelectAllMonitors
 
-defaultMonitor : String -> Monitor
-defaultMonitor number' = {
-  number = number'
-  }
+defaultMonitor : String -> Bool -> Monitor
+defaultMonitor number' isVisible' =  { number = number'
+                          , isSelected = False
+                          , isVisible = isVisible'
+                          }
 
 update : Action -> AppState -> AppState
 update action appState =
   case action of
     NoOp -> appState
-    Increment -> appState
-    Decrement -> appState
+    SelectMonitor monitor -> 
+      let homeScreenState' = appState.homeScreenState
+      in { appState | homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected monitor homeScreenState'.monitors } }
+    SelectAllMonitors ->
+            let homeScreenState' = appState.homeScreenState
+      in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors } }
 
+
+------ SETTER FUNCTIONS
+---- HOME SCREEN VIEW FUNCTIONS
+-- sets the monitor to selected and returns the new list
+setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
+setMonitorAsSelected monitor monitors = 
+  List.map (\m -> if  | m.number == monitor.number -> { monitor | isSelected <- not monitor.isSelected }
+                      | otherwise -> m ) monitors
+
+-- sets all monitors to selected
+setAllMonitorAsSelected : List Monitor -> List Monitor
+setAllMonitorAsSelected  monitors = 
+  List.map (\m -> { m | isSelected <- True } ) monitors
+
+
+--- entry point
 main : Signal Element
 main =
   Signal.map2 (appView actions.address) appState Window.dimensions 
@@ -60,11 +98,60 @@ actions : Signal.Mailbox Action
 actions =
   Signal.mailbox NoOp
 
+------ VIEWS
+---- Main View
+-- app view handles which screen state view is being displayed
 appView :Address Action -> AppState -> (Int,Int) -> Element
-appView address appState (w,h) =  
-  div [] [
-    div [] (List.map (monitorButton address) appState.displayedMonitors)
-  ] |> toElement w h
+appView address appState (w,h) =
+  let homeScreenState = appState.homeScreenState
 
-monitorButton address monitor = div [ class "monitor-view" ] [ div [] [ text monitor.number ]
-                                       , div [] [ img [ class "monitor-icon", src "images/gear_icon.svg" ] [] ] ]
+  in homeScreenView address homeScreenState |> toElement w h
+---- Main View
+-- home screen view
+homeScreenView address homeScreenState =
+  div []  [ monitorPanelView address homeScreenState.monitors
+          , homePanelView address 
+          , homeMenuView address
+  ] 
+-- monitor panel view contains buttons container and pager
+monitorPanelView address monitors =  
+  div [ class "monitor-panel-view" ]  [ div [ class "monitor-views" ] ( monitorViewButtons address monitors )
+                                                , monitorViewPager address ]
+
+-- list of monitor buttons
+monitorViewButtons address monitors = 
+  (List.map (monitorViewButton address) monitors)
+
+--- view of a monitor button
+monitorViewButton address monitor = 
+  let visibility = if | monitor.isVisible /= True -> "hidden"
+                      | otherwise -> ""
+      isHighlighted = if | monitor.isSelected -> "selected"
+                         | otherwise -> ""
+  in
+    div [ class ("monitor-view-container " ++ visibility) ]
+    [ div [ class (isHighlighted ++ " " ++ "monitor-view" ), onClick address (SelectMonitor monitor)]  
+          [ div [ class "monitor-button-body" ] 
+                [ p [ class "monitor-button-label" ] [ text monitor.number ] ]
+    , div [ class "monitor-button-configuration" ] [ img [ class "monitor-configure-icon", src "images/gear_icon.svg" ] [] ] ]]
+
+--- view of a monitor view pager, it is located at the upper portion of the screen
+monitorViewPager address = div  [ class "monitor-pager-view" ]
+                                [ div [ class "monitor-pager-button-view align-left" ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
+                                , div [ class "monitor-selectall-view" ] [ div [ class "monitor-selectall-graphic" ] [ ]
+                                                                         , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ text "SELECT ALL"] ] ] 
+                                , div [ class "monitor-pager-button-view align-right" ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
+
+--- view of the home panel, the home panel is located on the center of the screen
+homePanelView address = div [ class "home-panel-view" ] 
+                                    [ div [ class "home-panel-division" ] [ img [ class "home-panel-button", src "images/power_button.svg" ] [ ] ]
+                                    , div [ class "home-panel-division" ] [ div []  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
+                                                                                    , div [ class "home-panel-count-label" ] [ text "BRIGHTNESS" ] 
+                                                                                    , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
+                                    , div [ class "home-panel-division" ] [ img [ class "home-panel-button", src "images/night_mode_button.svg" ] [ ]]
+                                    , div [ class "home-panel-division" ] [ img [ class "home-panel-button", src "images/preset_button.svg" ] [ ]] ]
+
+--- view of menus of the home panel, it is located at the bottom of the screen
+homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item" ] [ text "lock" ]
+                                                      , div [ class "home-menu-item" ] [ text "menu" ]
+                                                      , div [ class "home-menu-item" ] [ text "information" ] ] 

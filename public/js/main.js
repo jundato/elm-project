@@ -2736,73 +2736,274 @@ Elm.GreenGui.Main.make = function (_elm) {
    $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Window = Elm.Window.make(_elm);
-   var monitorButton = F2(function (address,
-   monitor) {
+   var homeMenuView = function (address) {
       return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("monitor-view")]),
+      _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([]),
-                   _L.fromArray([$Html.text(monitor.number)]))
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item")]),
+                   _L.fromArray([$Html.text("lock")]))
                    ,A2($Html.div,
-                   _L.fromArray([]),
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item")]),
+                   _L.fromArray([$Html.text("menu")]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item")]),
+                   _L.fromArray([$Html.text("information")]))]));
+   };
+   var homePanelView = function (address) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("home-panel-view")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
                    _L.fromArray([A2($Html.img,
-                   _L.fromArray([$Html$Attributes.$class("monitor-icon")
-                                ,$Html$Attributes.src("images/gear_icon.svg")]),
+                   _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                                ,$Html$Attributes.src("images/power_button.svg")]),
+                   _L.fromArray([]))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([A2($Html.div,
+                   _L.fromArray([]),
+                   _L.fromArray([A2($Html.div,
+                                _L.fromArray([]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("home-panel-count-button")
+                                             ,$Html$Attributes.src("images/increment_button.svg")]),
+                                _L.fromArray([]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("home-panel-count-label")]),
+                                _L.fromArray([$Html.text("BRIGHTNESS")]))
+                                ,A2($Html.div,
+                                _L.fromArray([]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("home-panel-count-button")
+                                             ,$Html$Attributes.src("images/decrement_button.svg")]),
+                                _L.fromArray([]))]))]))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([A2($Html.img,
+                   _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                                ,$Html$Attributes.src("images/night_mode_button.svg")]),
+                   _L.fromArray([]))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([A2($Html.img,
+                   _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                                ,$Html$Attributes.src("images/preset_button.svg")]),
                    _L.fromArray([]))]))]));
-   });
-   var appView = F3(function (address,
-   appState,
-   _v0) {
-      return function () {
-         switch (_v0.ctor)
-         {case "_Tuple2":
-            return A2($Html.toElement,
-              _v0._0,
-              _v0._1)(A2($Html.div,
-              _L.fromArray([]),
-              _L.fromArray([A2($Html.div,
-              _L.fromArray([]),
-              A2($List.map,
-              monitorButton(address),
-              appState.displayedMonitors))])));}
-         _U.badCase($moduleName,
-         "between lines 65 and 67");
-      }();
+   };
+   var setAllMonitorAsSelected = function (monitors) {
+      return A2($List.map,
+      function (m) {
+         return _U.replace([["isSelected"
+                            ,true]],
+         m);
+      },
+      monitors);
+   };
+   var setMonitorAsSelected = F2(function (monitor,
+   monitors) {
+      return A2($List.map,
+      function (m) {
+         return _U.eq(m.number,
+         monitor.number) ? _U.replace([["isSelected"
+                                       ,$Basics.not(monitor.isSelected)]],
+         monitor) : m;
+      },
+      monitors);
    });
    var update = F2(function (action,
    appState) {
       return function () {
          switch (action.ctor)
-         {case "Decrement":
-            return appState;
-            case "Increment":
-            return appState;
-            case "NoOp": return appState;}
+         {case "NoOp": return appState;
+            case "SelectAllMonitors":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,setAllMonitorAsSelected(homeScreenState$.monitors)]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "SelectMonitor":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,A2(setMonitorAsSelected,
+                                                 action._0,
+                                                 homeScreenState$.monitors)]],
+                                    homeScreenState$)]],
+                 appState);
+              }();}
          _U.badCase($moduleName,
-         "between lines 44 and 47");
+         "between lines 62 and 69");
       }();
    });
-   var defaultMonitor = function (number$) {
+   var defaultMonitor = F2(function (number$,
+   isVisible$) {
       return {_: {}
+             ,isSelected: false
+             ,isVisible: isVisible$
              ,number: number$};
+   });
+   var SelectAllMonitors = {ctor: "SelectAllMonitors"};
+   var monitorViewPager = function (address) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("monitor-pager-view")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-left")]),
+                   _L.fromArray([A2($Html.img,
+                   _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
+                                ,$Html$Attributes.src("images/left_arrow_icon.svg")]),
+                   _L.fromArray([]))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("monitor-selectall-view")]),
+                   _L.fromArray([A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-graphic")]),
+                                _L.fromArray([]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-container")]),
+                                _L.fromArray([A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-button")
+                                             ,A2($Html$Events.onClick,
+                                             address,
+                                             SelectAllMonitors)]),
+                                _L.fromArray([$Html.text("SELECT ALL")]))]))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-right")]),
+                   _L.fromArray([A2($Html.img,
+                   _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
+                                ,$Html$Attributes.src("images/right_arrow_icon.svg")]),
+                   _L.fromArray([]))]))]));
    };
-   var Decrement = {ctor: "Decrement"};
-   var Increment = {ctor: "Increment"};
+   var SelectMonitor = function (a) {
+      return {ctor: "SelectMonitor"
+             ,_0: a};
+   };
+   var monitorViewButton = F2(function (address,
+   monitor) {
+      return function () {
+         var isHighlighted = monitor.isSelected ? "selected" : "";
+         var visibility = !_U.eq(monitor.isVisible,
+         true) ? "hidden" : "";
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
+         "monitor-view-container ",
+         visibility))]),
+         _L.fromArray([A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
+                      isHighlighted,
+                      A2($Basics._op["++"],
+                      " ",
+                      "monitor-view")))
+                      ,A2($Html$Events.onClick,
+                      address,
+                      SelectMonitor(monitor))]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("monitor-button-body")]),
+                      _L.fromArray([A2($Html.p,
+                      _L.fromArray([$Html$Attributes.$class("monitor-button-label")]),
+                      _L.fromArray([$Html.text(monitor.number)]))]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("monitor-button-configuration")]),
+                      _L.fromArray([A2($Html.img,
+                      _L.fromArray([$Html$Attributes.$class("monitor-configure-icon")
+                                   ,$Html$Attributes.src("images/gear_icon.svg")]),
+                      _L.fromArray([]))]))]))]));
+      }();
+   });
+   var monitorViewButtons = F2(function (address,
+   monitors) {
+      return A2($List.map,
+      monitorViewButton(address),
+      monitors);
+   });
+   var monitorPanelView = F2(function (address,
+   monitors) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("monitor-panel-view")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("monitor-views")]),
+                   A2(monitorViewButtons,
+                   address,
+                   monitors))
+                   ,monitorViewPager(address)]));
+   });
+   var homeScreenView = F2(function (address,
+   homeScreenState) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2(monitorPanelView,
+                   address,
+                   homeScreenState.monitors)
+                   ,homePanelView(address)
+                   ,homeMenuView(address)]));
+   });
+   var appView = F3(function (address,
+   appState,
+   _v2) {
+      return function () {
+         switch (_v2.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var homeScreenState = appState.homeScreenState;
+                 return A2($Html.toElement,
+                 _v2._0,
+                 _v2._1)(A2(homeScreenView,
+                 address,
+                 homeScreenState));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 106 and 108");
+      }();
+   });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
+   var defaultHomeScreenState = {_: {}
+                                ,monitors: _L.fromArray([A2(defaultMonitor,
+                                                        "1",
+                                                        true)
+                                                        ,A2(defaultMonitor,
+                                                        "2",
+                                                        true)
+                                                        ,A2(defaultMonitor,
+                                                        "3",
+                                                        true)
+                                                        ,A2(defaultMonitor,
+                                                        "4",
+                                                        true)
+                                                        ,A2(defaultMonitor,
+                                                        "5",
+                                                        true)
+                                                        ,A2(defaultMonitor,
+                                                        "6",
+                                                        true)
+                                                        ,A2(defaultMonitor,
+                                                        "7",
+                                                        false)
+                                                        ,A2(defaultMonitor,
+                                                        "8",
+                                                        false)
+                                                        ,A2(defaultMonitor,
+                                                        "9",
+                                                        false)
+                                                        ,A2(defaultMonitor,
+                                                        "10",
+                                                        false)
+                                                        ,A2(defaultMonitor,
+                                                        "11",
+                                                        false)
+                                                        ,A2(defaultMonitor,
+                                                        "12",
+                                                        false)])};
    var defaultAppState = {_: {}
-                         ,displayedMonitors: _L.fromArray([defaultMonitor("1")
-                                                          ,defaultMonitor("2")
-                                                          ,defaultMonitor("3")
-                                                          ,defaultMonitor("4")
-                                                          ,defaultMonitor("5")
-                                                          ,defaultMonitor("6")])
-                         ,monitors: _L.fromArray([])};
+                         ,homeScreenState: defaultHomeScreenState};
    var appState = A3($Signal.foldp,
    update,
    defaultAppState,
@@ -2811,29 +3012,45 @@ Elm.GreenGui.Main.make = function (_elm) {
    appView(actions.address),
    appState,
    $Window.dimensions);
-   var Monitor = function (a) {
-      return {_: {},number: a};
-   };
-   var AppState = F2(function (a,
-   b) {
+   var Monitor = F3(function (a,
+   b,
+   c) {
       return {_: {}
-             ,displayedMonitors: b
-             ,monitors: a};
+             ,isSelected: b
+             ,isVisible: c
+             ,number: a};
    });
+   var HomeScreenState = function (a) {
+      return {_: {},monitors: a};
+   };
+   var AppState = function (a) {
+      return {_: {}
+             ,homeScreenState: a};
+   };
    _elm.GreenGui.Main.values = {_op: _op
                                ,AppState: AppState
+                               ,HomeScreenState: HomeScreenState
                                ,Monitor: Monitor
                                ,defaultAppState: defaultAppState
+                               ,defaultHomeScreenState: defaultHomeScreenState
                                ,NoOp: NoOp
-                               ,Increment: Increment
-                               ,Decrement: Decrement
+                               ,SelectMonitor: SelectMonitor
+                               ,SelectAllMonitors: SelectAllMonitors
                                ,defaultMonitor: defaultMonitor
                                ,update: update
+                               ,setMonitorAsSelected: setMonitorAsSelected
+                               ,setAllMonitorAsSelected: setAllMonitorAsSelected
                                ,main: main
                                ,appState: appState
                                ,actions: actions
                                ,appView: appView
-                               ,monitorButton: monitorButton};
+                               ,homeScreenView: homeScreenView
+                               ,monitorPanelView: monitorPanelView
+                               ,monitorViewButtons: monitorViewButtons
+                               ,monitorViewButton: monitorViewButton
+                               ,monitorViewPager: monitorViewPager
+                               ,homePanelView: homePanelView
+                               ,homeMenuView: homeMenuView};
    return _elm.GreenGui.Main.values;
 };
 Elm.Html = Elm.Html || {};
