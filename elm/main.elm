@@ -39,7 +39,7 @@ defaultHomeScreenState =  { monitorPageIndex = 0
                                         , defaultMonitor "3" True
                                         , defaultMonitor "4" True
                                         , defaultMonitor "5" True
-                                        , defaultMonitor "6" True
+                                        , defaultMonitor "6" False
                                         , defaultMonitor "7" False 
                                         , defaultMonitor "8" False
                                         , defaultMonitor "9" False
@@ -73,12 +73,12 @@ update action appState =
       in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors } }
     --- Moves monitor page to the next page
     PreviousMonitorPage ->
-      let monitorsPerPage = 6
+      let monitorsPerPage = 5
           homeScreenState' = appState.homeScreenState
           maxFlips = ceiling ((toFloat (List.length homeScreenState'.monitors)) / monitorsPerPage)
       in { appState | homeScreenState <- flipMonitorPage -1 maxFlips monitorsPerPage homeScreenState' }
     NextMonitorPage ->
-      let monitorsPerPage = 6
+      let monitorsPerPage = 5
           homeScreenState' = appState.homeScreenState
           maxFlips = ceiling ((toFloat (List.length homeScreenState'.monitors)) / monitorsPerPage)
       in { appState | homeScreenState <- flipMonitorPage 1 maxFlips monitorsPerPage homeScreenState' }

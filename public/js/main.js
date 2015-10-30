@@ -2856,7 +2856,7 @@ Elm.GreenGui.Main.make = function (_elm) {
          {case "NextMonitorPage":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
-                 var monitorsPerPage = 6;
+                 var monitorsPerPage = 5;
                  var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
                  return _U.replace([["homeScreenState"
                                     ,A4(flipMonitorPage,
@@ -2870,7 +2870,7 @@ Elm.GreenGui.Main.make = function (_elm) {
             case "PreviousMonitorPage":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
-                 var monitorsPerPage = 6;
+                 var monitorsPerPage = 5;
                  var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
                  return _U.replace([["homeScreenState"
                                     ,A4(flipMonitorPage,
@@ -3051,7 +3051,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                         true)
                                                         ,A2(defaultMonitor,
                                                         "6",
-                                                        true)
+                                                        false)
                                                         ,A2(defaultMonitor,
                                                         "7",
                                                         false)
