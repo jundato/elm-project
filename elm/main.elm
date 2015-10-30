@@ -22,6 +22,7 @@ type alias AppState = { homeScreenState : HomeScreenState
                       }
 
 type alias HomeScreenState =  { monitors : List Monitor
+                              , monitorPageIndex : Int 
                               }
 
 type alias Monitor =  { number : String
@@ -32,7 +33,8 @@ type alias Monitor =  { number : String
 defaultAppState : AppState 
 defaultAppState = { homeScreenState = defaultHomeScreenState } 
 
-defaultHomeScreenState =  { monitors =  [ defaultMonitor "1" True
+defaultHomeScreenState =  { monitorPageIndex = 0
+                          , monitors =  [ defaultMonitor "1" True
                                         , defaultMonitor "2" True
                                         , defaultMonitor "3" True
                                         , defaultMonitor "4" True
@@ -50,6 +52,8 @@ type Action
   = NoOp
   | SelectMonitor Monitor
   | SelectAllMonitors
+  | NextMonitorPage
+  | PreviousMonitorPage
 
 defaultMonitor : String -> Bool -> Monitor
 defaultMonitor number' isVisible' =  { number = number'
@@ -65,11 +69,22 @@ update action appState =
       let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected monitor homeScreenState'.monitors } }
     SelectAllMonitors ->
-            let homeScreenState' = appState.homeScreenState
+      let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors } }
+    --- Moves monitor page to the next page
+    PreviousMonitorPage ->
+      let monitorsPerPage = 6
+          homeScreenState' = appState.homeScreenState
+          maxFlips = ceiling ((toFloat (List.length homeScreenState'.monitors)) / monitorsPerPage)
+      in { appState | homeScreenState <- flipMonitorPage -1 maxFlips monitorsPerPage homeScreenState' }
+    NextMonitorPage ->
+      let monitorsPerPage = 6
+          homeScreenState' = appState.homeScreenState
+          maxFlips = ceiling ((toFloat (List.length homeScreenState'.monitors)) / monitorsPerPage)
+      in { appState | homeScreenState <- flipMonitorPage 1 maxFlips monitorsPerPage homeScreenState' }
 
 
------- SETTER FUNCTIONS
+------ CONVERSION FUNCTIONS
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
@@ -82,13 +97,30 @@ setAllMonitorAsSelected : List Monitor -> List Monitor
 setAllMonitorAsSelected  monitors = 
   List.map (\m -> { m | isSelected <- True } ) monitors
 
+-- moves monitor pages left and right : negative for left, positive for right
+flipMonitorPage : Int -> Int -> Int -> HomeScreenState -> HomeScreenState
+flipMonitorPage flips maxFlips monitorsPerPage homeScreenState =
+  let monitors' = homeScreenState.monitors
+      newPageIndex = clamp 0 (maxFlips - 1) (homeScreenState.monitorPageIndex + flips)
+      
+  in 
+    { homeScreenState | monitorPageIndex <- newPageIndex 
+                      , monitors <- (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
+
+-- set visibility of page by index
+setVisibilityByPageIndex : Int -> Int -> Int -> Monitor -> Monitor
+setVisibilityByPageIndex newPageIndex monitorsPerPage index monitor = 
+  let isVisible' = if  | index // monitorsPerPage == newPageIndex -> True
+                      | otherwise -> False
+  in { monitor | isVisible <- isVisible' }
+  
 
 --- entry point
 main : Signal Element
 main =
   Signal.map2 (appView actions.address) appState Window.dimensions 
 
--- manage the appstate of our application over time
+-- manage the appState of our application over time
 appState : Signal AppState
 appState =
   Signal.foldp update defaultAppState actions.signal
@@ -137,10 +169,10 @@ monitorViewButton address monitor =
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
 monitorViewPager address = div  [ class "monitor-pager-view" ]
-                                [ div [ class "monitor-pager-button-view align-left" ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
+                                [ div [ class "monitor-pager-button-view align-left", onClick address PreviousMonitorPage ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
                                 , div [ class "monitor-selectall-view" ] [ div [ class "monitor-selectall-graphic" ] [ ]
                                                                          , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ text "SELECT ALL"] ] ] 
-                                , div [ class "monitor-pager-button-view align-right" ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
+                                , div [ class "monitor-pager-button-view align-right", onClick address NextMonitorPage ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
 
 --- view of the home panel, the home panel is located on the center of the screen
 homePanelView address = div [ class "home-panel-view" ] 

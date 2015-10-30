@@ -2796,6 +2796,39 @@ Elm.GreenGui.Main.make = function (_elm) {
                                 ,$Html$Attributes.src("images/preset_button.svg")]),
                    _L.fromArray([]))]))]));
    };
+   var setVisibilityByPageIndex = F4(function (newPageIndex,
+   monitorsPerPage,
+   index,
+   monitor) {
+      return function () {
+         var isVisible$ = _U.eq(index / monitorsPerPage | 0,
+         newPageIndex) ? true : false;
+         return _U.replace([["isVisible"
+                            ,isVisible$]],
+         monitor);
+      }();
+   });
+   var flipMonitorPage = F4(function (flips,
+   maxFlips,
+   monitorsPerPage,
+   homeScreenState) {
+      return function () {
+         var newPageIndex = A3($Basics.clamp,
+         0,
+         maxFlips - 1,
+         homeScreenState.monitorPageIndex + flips);
+         var monitors$ = homeScreenState.monitors;
+         return _U.replace([["monitorPageIndex"
+                            ,newPageIndex]
+                           ,["monitors"
+                            ,A2($List.indexedMap,
+                            A2(setVisibilityByPageIndex,
+                            newPageIndex,
+                            monitorsPerPage),
+                            monitors$)]],
+         homeScreenState);
+      }();
+   });
    var setAllMonitorAsSelected = function (monitors) {
       return A2($List.map,
       function (m) {
@@ -2820,7 +2853,33 @@ Elm.GreenGui.Main.make = function (_elm) {
    appState) {
       return function () {
          switch (action.ctor)
-         {case "NoOp": return appState;
+         {case "NextMonitorPage":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var monitorsPerPage = 6;
+                 var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+                 return _U.replace([["homeScreenState"
+                                    ,A4(flipMonitorPage,
+                                    1,
+                                    maxFlips,
+                                    monitorsPerPage,
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "NoOp": return appState;
+            case "PreviousMonitorPage":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var monitorsPerPage = 6;
+                 var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+                 return _U.replace([["homeScreenState"
+                                    ,A4(flipMonitorPage,
+                                    -1,
+                                    maxFlips,
+                                    monitorsPerPage,
+                                    homeScreenState$)]],
+                 appState);
+              }();
             case "SelectAllMonitors":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
@@ -2842,7 +2901,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                  appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 62 and 69");
+         "between lines 66 and 84");
       }();
    });
    var defaultMonitor = F2(function (number$,
@@ -2852,12 +2911,17 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isVisible: isVisible$
              ,number: number$};
    });
+   var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
+   var NextMonitorPage = {ctor: "NextMonitorPage"};
    var SelectAllMonitors = {ctor: "SelectAllMonitors"};
    var monitorViewPager = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("monitor-pager-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-left")]),
+                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-left")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                PreviousMonitorPage)]),
                    _L.fromArray([A2($Html.img,
                    _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
                                 ,$Html$Attributes.src("images/left_arrow_icon.svg")]),
@@ -2876,7 +2940,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                              SelectAllMonitors)]),
                                 _L.fromArray([$Html.text("SELECT ALL")]))]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-right")]),
+                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-right")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                NextMonitorPage)]),
                    _L.fromArray([A2($Html.img,
                    _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
                                 ,$Html$Attributes.src("images/right_arrow_icon.svg")]),
@@ -2960,12 +3027,13 @@ Elm.GreenGui.Main.make = function (_elm) {
                  homeScreenState));
               }();}
          _U.badCase($moduleName,
-         "between lines 106 and 108");
+         "between lines 138 and 140");
       }();
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
    var defaultHomeScreenState = {_: {}
+                                ,monitorPageIndex: 0
                                 ,monitors: _L.fromArray([A2(defaultMonitor,
                                                         "1",
                                                         true)
@@ -3020,9 +3088,12 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isVisible: c
              ,number: a};
    });
-   var HomeScreenState = function (a) {
-      return {_: {},monitors: a};
-   };
+   var HomeScreenState = F2(function (a,
+   b) {
+      return {_: {}
+             ,monitorPageIndex: b
+             ,monitors: a};
+   });
    var AppState = function (a) {
       return {_: {}
              ,homeScreenState: a};
@@ -3036,10 +3107,14 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,NoOp: NoOp
                                ,SelectMonitor: SelectMonitor
                                ,SelectAllMonitors: SelectAllMonitors
+                               ,NextMonitorPage: NextMonitorPage
+                               ,PreviousMonitorPage: PreviousMonitorPage
                                ,defaultMonitor: defaultMonitor
                                ,update: update
                                ,setMonitorAsSelected: setMonitorAsSelected
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
+                               ,flipMonitorPage: flipMonitorPage
+                               ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                ,main: main
                                ,appState: appState
                                ,actions: actions
