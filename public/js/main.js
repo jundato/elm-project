@@ -2742,6 +2742,126 @@ Elm.GreenGui.Main.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Window = Elm.Window.make(_elm);
+   var signalMatrixView = F3(function (address,
+   signalType,
+   signalName) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("signal-matrix-view")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("signal-matrix-label")]),
+                   _L.fromArray([$Html.text(signalType)]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("signal-matrix-container")]),
+                   _L.fromArray([A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("signal-text-box")]),
+                                _L.fromArray([A2($Html.input,
+                                _L.fromArray([$Html$Attributes.type$("text")
+                                             ,$Html$Attributes.value(signalType)]),
+                                _L.fromArray([]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("matrix-button")]),
+                                _L.fromArray([$Html.text("MATRIX")]))]))]));
+   });
+   var monitorSettingLowerBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("monitor-setting-lower-body")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("monitor-setting-button-panel")]),
+                   _L.fromArray([A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-button-container")]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("monitor-button")
+                                             ,$Html$Attributes.src("images/cycle_button.svg")]),
+                                _L.fromArray([]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-button-container")]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("monitor-button")
+                                             ,$Html$Attributes.src("images/pip_button.svg")]),
+                                _L.fromArray([]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-button-container")]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("monitor-button")
+                                             ,$Html$Attributes.src("images/osd_button.svg")]),
+                                _L.fromArray([]))]))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("osd-buttons-panel")]),
+                   _L.fromArray([]))]));
+   });
+   var monitorSettingUpperBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("monitor-setting-upper-body")]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("monitor-setting-division")]),
+                      _L.fromArray([A3(signalMatrixView,
+                                   address,
+                                   "VGA 1",
+                                   monitor.vgaOne)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "VGA 2",
+                                   monitor.vgaTwo)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("monitor-setting-division")]),
+                      _L.fromArray([A3(signalMatrixView,
+                                   address,
+                                   "DVI 1",
+                                   monitor.dviOne)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "DVI 2",
+                                   monitor.dviTwo)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("monitor-setting-division")]),
+                      _L.fromArray([A3(signalMatrixView,
+                                   address,
+                                   "VIDEO 1",
+                                   monitor.videoOne)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "VIDEO 2",
+                                   monitor.videoTwo)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "VIDEO 3",
+                                   monitor.vgaOne)]))]));
+      }();
+   });
+   var monitorSettingBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("app-body")]),
+      _L.fromArray([A2(monitorSettingUpperBodyView,
+                   address,
+                   monitorSettingScreenState)
+                   ,A2(monitorSettingLowerBodyView,
+                   address,
+                   monitorSettingScreenState)]));
+   });
+   var monitorSettingTopBarView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("app-top-bar")]),
+      _L.fromArray([$Html.text(A2($Basics._op["++"],
+      "MONITOR ",
+      $Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]));
+   });
+   var monitorSettingScreenView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2(monitorSettingTopBarView,
+                   address,
+                   monitorSettingScreenState)
+                   ,A2(monitorSettingBodyView,
+                   address,
+                   monitorSettingScreenState)]));
+   });
    var homeMenuView = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
@@ -2899,20 +3019,28 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                  homeScreenState$.monitors)]],
                                     homeScreenState$)]],
                  appState);
+              }();
+            case "SelectMonitorToConfigure":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,2]
+                                   ,["monitorSettingScreenState"
+                                    ,_U.replace([["selectedMonitor"
+                                                 ,action._0]],
+                                    monitorSettingScreenState$)]],
+                 appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 66 and 84");
+         "between lines 100 and 122");
       }();
-   });
-   var defaultMonitor = F2(function (number$,
-   isVisible$) {
-      return {_: {}
-             ,isSelected: false
-             ,isVisible: isVisible$
-             ,number: number$};
    });
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};
+   var SelectMonitorToConfigure = function (a) {
+      return {ctor: "SelectMonitorToConfigure"
+             ,_0: a};
+   };
    var SelectAllMonitors = {ctor: "SelectAllMonitors"};
    var monitorViewPager = function (address) {
       return A2($Html.div,
@@ -2981,7 +3109,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _L.fromArray([$Html$Attributes.$class("monitor-button-configuration")]),
                       _L.fromArray([A2($Html.img,
                       _L.fromArray([$Html$Attributes.$class("monitor-configure-icon")
-                                   ,$Html$Attributes.src("images/gear_icon.svg")]),
+                                   ,$Html$Attributes.src("images/gear_icon.svg")
+                                   ,A2($Html$Events.onClick,
+                                   address,
+                                   SelectMonitorToConfigure(monitor))]),
                       _L.fromArray([]))]))]))]));
       }();
    });
@@ -3014,24 +3145,56 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var appView = F3(function (address,
    appState,
-   _v2) {
+   _v3) {
       return function () {
-         switch (_v2.ctor)
+         switch (_v3.ctor)
          {case "_Tuple2":
             return function () {
+                 var monitorSettingScreenState = appState.monitorSettingScreenState;
                  var homeScreenState = appState.homeScreenState;
+                 var viewToDisplay = function () {
+                    var _v7 = appState.currentScreenState;
+                    switch (_v7)
+                    {case 1:
+                       return A2(homeScreenView,
+                         address,
+                         homeScreenState);
+                       case 2:
+                       return A2(monitorSettingScreenView,
+                         address,
+                         monitorSettingScreenState);}
+                    return A2($Html.div,
+                    _L.fromArray([]),
+                    _L.fromArray([$Html.text("nothing to display")]));
+                 }();
                  return A2($Html.toElement,
-                 _v2._0,
-                 _v2._1)(A2(homeScreenView,
-                 address,
-                 homeScreenState));
+                 _v3._0,
+                 _v3._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 138 and 140");
+         "between lines 176 and 182");
       }();
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
+   var defaultMonitor = F2(function (number$,
+   isVisible$) {
+      return {_: {}
+             ,dviOne: ""
+             ,dviTwo: ""
+             ,isSelected: false
+             ,isVisible: isVisible$
+             ,number: number$
+             ,vgaOne: ""
+             ,vgaTwo: ""
+             ,videoOne: ""
+             ,videoThree: ""
+             ,videoTwo: ""};
+   });
+   var defaultMonitorSettingScreenState = {_: {}
+                                          ,selectedMonitor: A2(defaultMonitor,
+                                          "1",
+                                          true)};
    var defaultHomeScreenState = {_: {}
                                 ,monitorPageIndex: 0
                                 ,monitors: _L.fromArray([A2(defaultMonitor,
@@ -3071,7 +3234,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                         "12",
                                                         false)])};
    var defaultAppState = {_: {}
-                         ,homeScreenState: defaultHomeScreenState};
+                         ,currentScreenState: 2
+                         ,homeScreenState: defaultHomeScreenState
+                         ,monitorSettingScreenState: defaultMonitorSettingScreenState};
    var appState = A3($Signal.foldp,
    update,
    defaultAppState,
@@ -3080,36 +3245,70 @@ Elm.GreenGui.Main.make = function (_elm) {
    appView(actions.address),
    appState,
    $Window.dimensions);
-   var Monitor = F3(function (a,
-   b,
-   c) {
+   var Monitor = function (a) {
+      return function (b) {
+         return function (c) {
+            return function (d) {
+               return function (e) {
+                  return function (f) {
+                     return function (g) {
+                        return function (h) {
+                           return function (i) {
+                              return function (j) {
+                                 return {_: {}
+                                        ,dviOne: f
+                                        ,dviTwo: g
+                                        ,isSelected: b
+                                        ,isVisible: c
+                                        ,number: a
+                                        ,vgaOne: d
+                                        ,vgaTwo: e
+                                        ,videoOne: h
+                                        ,videoThree: j
+                                        ,videoTwo: i};
+                              };
+                           };
+                        };
+                     };
+                  };
+               };
+            };
+         };
+      };
+   };
+   var MonitorSettingScreenState = function (a) {
       return {_: {}
-             ,isSelected: b
-             ,isVisible: c
-             ,number: a};
-   });
+             ,selectedMonitor: a};
+   };
    var HomeScreenState = F2(function (a,
    b) {
       return {_: {}
              ,monitorPageIndex: b
              ,monitors: a};
    });
-   var AppState = function (a) {
+   var AppState = F3(function (a,
+   b,
+   c) {
       return {_: {}
-             ,homeScreenState: a};
-   };
+             ,currentScreenState: a
+             ,homeScreenState: b
+             ,monitorSettingScreenState: c};
+   });
    _elm.GreenGui.Main.values = {_op: _op
                                ,AppState: AppState
                                ,HomeScreenState: HomeScreenState
+                               ,MonitorSettingScreenState: MonitorSettingScreenState
                                ,Monitor: Monitor
                                ,defaultAppState: defaultAppState
                                ,defaultHomeScreenState: defaultHomeScreenState
+                               ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
+                               ,defaultMonitor: defaultMonitor
                                ,NoOp: NoOp
                                ,SelectMonitor: SelectMonitor
                                ,SelectAllMonitors: SelectAllMonitors
+                               ,SelectMonitorToConfigure: SelectMonitorToConfigure
                                ,NextMonitorPage: NextMonitorPage
                                ,PreviousMonitorPage: PreviousMonitorPage
-                               ,defaultMonitor: defaultMonitor
                                ,update: update
                                ,setMonitorAsSelected: setMonitorAsSelected
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
@@ -3125,7 +3324,13 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,monitorViewButton: monitorViewButton
                                ,monitorViewPager: monitorViewPager
                                ,homePanelView: homePanelView
-                               ,homeMenuView: homeMenuView};
+                               ,homeMenuView: homeMenuView
+                               ,monitorSettingScreenView: monitorSettingScreenView
+                               ,monitorSettingTopBarView: monitorSettingTopBarView
+                               ,monitorSettingBodyView: monitorSettingBodyView
+                               ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
+                               ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
+                               ,signalMatrixView: signalMatrixView};
    return _elm.GreenGui.Main.values;
 };
 Elm.Html = Elm.Html || {};

@@ -18,21 +18,42 @@ import String
 import Debug
 
 -- app states model have screeen states that models what state each screen
-type alias AppState = { homeScreenState : HomeScreenState
+-- 1) home screen
+-- 2) monitor setting screen
+type alias AppState = { currentScreenState : Int
+                      , homeScreenState : HomeScreenState
+                      , monitorSettingScreenState : MonitorSettingScreenState
+                      
                       }
 
+-- initial page that should be displayed, it contains the list of monitors, power down, etc.
 type alias HomeScreenState =  { monitors : List Monitor
                               , monitorPageIndex : Int 
                               }
 
+-- when a monitor is selected this screen state handles it
+type alias MonitorSettingScreenState =  { selectedMonitor : Monitor }
+
+-- model for monitor
 type alias Monitor =  { number : String
                       , isSelected : Bool
                       , isVisible : Bool
+                      , vgaOne : String
+                      , vgaTwo : String
+                      , dviOne : String
+                      , dviTwo : String
+                      , videoOne : String
+                      , videoTwo : String
+                      , videoThree : String
                       }
 
+------ DEFAULT MODELS
 defaultAppState : AppState 
-defaultAppState = { homeScreenState = defaultHomeScreenState } 
+defaultAppState = { currentScreenState = 2
+                  , homeScreenState = defaultHomeScreenState
+                  , monitorSettingScreenState = defaultMonitorSettingScreenState } 
 
+defaultHomeScreenState : HomeScreenState
 defaultHomeScreenState =  { monitorPageIndex = 0
                           , monitors =  [ defaultMonitor "1" True
                                         , defaultMonitor "2" True
@@ -45,22 +66,35 @@ defaultHomeScreenState =  { monitorPageIndex = 0
                                         , defaultMonitor "9" False
                                         , defaultMonitor "10" False
                                         , defaultMonitor "11" False
-                                        , defaultMonitor "12" False]
+                                        , defaultMonitor "12" False ]
                           }
 
-type Action 
-  = NoOp
-  | SelectMonitor Monitor
-  | SelectAllMonitors
-  | NextMonitorPage
-  | PreviousMonitorPage
+defaultMonitorSettingScreenState : MonitorSettingScreenState
+defaultMonitorSettingScreenState  = { selectedMonitor = defaultMonitor "1" True }
 
 defaultMonitor : String -> Bool -> Monitor
 defaultMonitor number' isVisible' =  { number = number'
                           , isSelected = False
                           , isVisible = isVisible'
+                          , vgaOne = ""
+                          , vgaTwo = ""
+                          , dviOne = ""
+                          , dviTwo = ""
+                          , videoOne = ""
+                          , videoTwo = ""
+                          , videoThree = ""
                           }
 
+-- actions
+type Action 
+  = NoOp
+  | SelectMonitor Monitor
+  | SelectAllMonitors
+  | SelectMonitorToConfigure Monitor
+  | NextMonitorPage
+  | PreviousMonitorPage
+
+-- logic when an update signal is emitted
 update : Action -> AppState -> AppState
 update action appState =
   case action of
@@ -71,6 +105,10 @@ update action appState =
     SelectAllMonitors ->
       let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors } }
+    SelectMonitorToConfigure monitor' ->
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+      in { appState | currentScreenState <- 2
+                    , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- monitor' } }
     --- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
@@ -136,8 +174,12 @@ actions =
 appView :Address Action -> AppState -> (Int,Int) -> Element
 appView address appState (w,h) =
   let homeScreenState = appState.homeScreenState
-
-  in homeScreenView address homeScreenState |> toElement w h
+      monitorSettingScreenState = appState.monitorSettingScreenState
+      viewToDisplay = case appState.currentScreenState of
+                        1 -> homeScreenView address homeScreenState
+                        2 -> monitorSettingScreenView address monitorSettingScreenState
+                        _ -> div [] [ text "nothing to display" ]
+  in viewToDisplay |> toElement w h
 ---- Main View
 -- home screen view
 homeScreenView address homeScreenState =
@@ -165,7 +207,7 @@ monitorViewButton address monitor =
     [ div [ class (isHighlighted ++ " " ++ "monitor-view" ), onClick address (SelectMonitor monitor)]  
           [ div [ class "monitor-button-body" ] 
                 [ p [ class "monitor-button-label" ] [ text monitor.number ] ]
-    , div [ class "monitor-button-configuration" ] [ img [ class "monitor-configure-icon", src "images/gear_icon.svg" ] [] ] ]]
+    , div [ class "monitor-button-configuration" ] [ img [ class "monitor-configure-icon", src "images/gear_icon.svg", onClick address (SelectMonitorToConfigure monitor) ] [] ] ]]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
 monitorViewPager address = div  [ class "monitor-pager-view" ]
@@ -187,3 +229,43 @@ homePanelView address = div [ class "home-panel-view" ]
 homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item" ] [ text "lock" ]
                                                       , div [ class "home-menu-item" ] [ text "menu" ]
                                                       , div [ class "home-menu-item" ] [ text "information" ] ] 
+
+
+---- Monitor Setting View
+-- monitor view
+monitorSettingScreenView address monitorSettingScreenState = 
+  div [ ] [ monitorSettingTopBarView address monitorSettingScreenState
+          , monitorSettingBodyView address monitorSettingScreenState ]
+
+-- top bar for monitor setting view
+monitorSettingTopBarView address monitorSettingScreenState = 
+  div [ class "app-top-bar" ] [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
+
+-- main body for monitor setting view
+monitorSettingBodyView address monitorSettingScreenState = 
+  div [ class "app-body" ]  [ monitorSettingUpperBodyView address monitorSettingScreenState
+                            , monitorSettingLowerBodyView address monitorSettingScreenState ]
+
+-- monitor setting upper body view
+monitorSettingUpperBodyView address monitorSettingScreenState =
+  let monitor = monitorSettingScreenState.selectedMonitor
+  in div [ class "monitor-setting-upper-body" ] [ div  [ class "monitor-setting-division" ] [ signalMatrixView address "VGA 1" monitor.vgaOne
+                                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo ]
+                                                , div [ class "monitor-setting-division" ]  [ signalMatrixView address "DVI 1" monitor.dviOne
+                                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo ]
+                                                , div [ class "monitor-setting-division" ]  [ signalMatrixView address "VIDEO 1" monitor.videoOne
+                                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo
+                                                                                            , signalMatrixView address "VIDEO 3" monitor.vgaOne ]]
+
+-- monitor lower body view
+monitorSettingLowerBodyView address monitorSettingScreenState = 
+  div [ class "monitor-setting-lower-body" ] [ div [ class "monitor-setting-button-panel" ] [ div [ class "monitor-button-container" ] [ img [ class "monitor-button", src "images/cycle_button.svg" ] [ ] ]
+                                                                                            , div [ class "monitor-button-container" ] [ img [ class "monitor-button", src "images/pip_button.svg" ] [ ] ] 
+                                                                                            , div [ class "monitor-button-container" ] [ img [ class "monitor-button", src "images/osd_button.svg" ] [ ] ]] 
+                                             , div [ class "osd-buttons-panel" ] [ ] ]
+
+-- signal matrix view
+signalMatrixView address signalType signalName = 
+  div [ class "signal-matrix-view" ]  [ div [ class "signal-matrix-label" ] [ text signalType ]
+                                                            , div [ class "signal-matrix-container" ] [ div [ class "signal-text-box" ] [ input [ type' "text", value signalType ][ ] ]
+                                                                                                      , div [ class "matrix-button" ] [ text "MATRIX" ] ]] 
