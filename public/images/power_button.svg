@@ -5,7 +5,6 @@
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
 	.st1{fill:#BE1E2D;}
-	.st2{fill:none;}
 	.st3{font-family:'Tahoma-Bold';}
 	.st4{font-size:108px;}
 </style>
@@ -18,7 +17,6 @@
 </g>
 <g id="Layer_2">
 	<circle class="st1" cx="238.6" cy="239.1" r="210.3"/>
-	<rect x="30.3" y="196.4" class="st2" width="474.2" height="227"/>
 	<text transform="matrix(1 0 0 1 30.2605 278.5048)" class="st3 st4">POWER</text>
 </g>
 </svg>
