@@ -80,7 +80,7 @@ type alias Preset = { id : Int
 
 ------ DEFAULT MODELS
 defaultAppState : AppState 
-defaultAppState = { currentScreenState = 3
+defaultAppState = { currentScreenState = 1
                   , homeScreenState = defaultHomeScreenState
                   , monitorSettingScreenState = defaultMonitorSettingScreenState
                   , presetSettingScreenState = defaulPresetSettingScreenState } 

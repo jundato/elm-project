@@ -3874,7 +3874,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                         "12",
                                                         false)])};
    var defaultAppState = {_: {}
-                         ,currentScreenState: 3
+                         ,currentScreenState: 1
                          ,homeScreenState: defaultHomeScreenState
                          ,monitorSettingScreenState: defaultMonitorSettingScreenState
                          ,presetSettingScreenState: defaulPresetSettingScreenState};
