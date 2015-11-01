@@ -2742,6 +2742,31 @@ Elm.GreenGui.Main.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Window = Elm.Window.make(_elm);
+   var presetButtonView = F2(function (address,
+   preset) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("preset-button")]),
+      _L.fromArray([$Html.text($Basics.toString(preset.id))]));
+   });
+   var presetContainerView = F2(function (address,
+   preset) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("vdiv-1-3 div-1-2 align-center")]),
+      _L.fromArray([$Html.text($Basics.toString(preset.id))]));
+   });
+   var presetSettingBodyView = F2(function (address,
+   presets) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("app-body")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("vdiv-1-2 div-1-1")]),
+                   A2($List.map,
+                   presetContainerView(address),
+                   presets))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("vdiv-1-2 div-1-1")]),
+                   _L.fromArray([]))]));
+   });
    var homeMenuView = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
@@ -2849,7 +2874,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,$Basics.not(monitor.isVideoThreeCycle)]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 319 and 327");
+            "between lines 353 and 361");
          }();
          return newMonitor;
       }();
@@ -2915,7 +2940,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,value]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 283 and 291");
+            "between lines 317 and 325");
          }();
          return newMonitor;
       }();
@@ -3020,6 +3045,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                     homeScreenState$)]],
                  appState);
               }();
+            case "ClosePresetSettings":
+            return _U.replace([["currentScreenState"
+                               ,1]],
+              appState);
             case "CycleButtonPress":
             return function () {
                  var monitorSettingScreenState$ = appState.monitorSettingScreenState;
@@ -3106,6 +3135,13 @@ Elm.GreenGui.Main.make = function (_elm) {
                                     homeScreenState$)]],
                  appState);
               }();
+            case "PresetPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,3]],
+                 appState);
+              }();
             case "PreviousMonitorPage":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
@@ -3176,8 +3212,34 @@ Elm.GreenGui.Main.make = function (_elm) {
                  appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 159 and 235");
+         "between lines 187 and 268");
       }();
+   });
+   var ClosePresetSettings = {ctor: "ClosePresetSettings"};
+   var presetSettingTopBarView = F2(function (address,
+   presetSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("app-top-bar")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("float-left")]),
+                   _L.fromArray([$Html.text("PRESETS")]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("float-right button")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                ClosePresetSettings)]),
+                   _L.fromArray([$Html.text("CLOSE")]))]));
+   });
+   var presetSettingScreenView = F2(function (address,
+   presetSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2(presetSettingTopBarView,
+                   address,
+                   presetSettingScreenState)
+                   ,A2(presetSettingBodyView,
+                   address,
+                   presetSettingScreenState.presets)]));
    });
    var SignalInputChange = F2(function (a,
    b) {
@@ -3344,7 +3406,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                case "VIDEO 3":
                return monitor.isVideoThreeCycle;}
             _U.badCase($moduleName,
-            "between lines 483 and 491");
+            "between lines 519 and 527");
          }() : false;
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("signal-matrix-view")
@@ -3518,6 +3580,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                    address,
                    monitorSettingScreenState)]));
    });
+   var PresetPress = {ctor: "PresetPress"};
    var PowerPress = {ctor: "PowerPress"};
    var homePanelView = F2(function (address,
    homeScreenState) {
@@ -3563,7 +3626,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                       _L.fromArray([A2($Html.img,
                       _L.fromArray([$Html$Attributes.$class("home-panel-button")
-                                   ,$Html$Attributes.src("images/preset_button.svg")]),
+                                   ,$Html$Attributes.src("images/preset_button.svg")
+                                   ,A2($Html$Events.onClick,
+                                   address,
+                                   PresetPress)]),
                       _L.fromArray([]))]))]));
       }();
    });
@@ -3684,6 +3750,7 @@ Elm.GreenGui.Main.make = function (_elm) {
          switch (_v9.ctor)
          {case "_Tuple2":
             return function () {
+                 var presetSettingScreenState = appState.presetSettingScreenState;
                  var monitorSettingScreenState = appState.monitorSettingScreenState;
                  var homeScreenState = appState.homeScreenState;
                  var viewToDisplay = function () {
@@ -3696,7 +3763,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                        case 2:
                        return A2(monitorSettingScreenView,
                          address,
-                         monitorSettingScreenState);}
+                         monitorSettingScreenState);
+                       case 3:
+                       return A2(presetSettingScreenView,
+                         address,
+                         presetSettingScreenState);}
                     return A2($Html.div,
                     _L.fromArray([]),
                     _L.fromArray([$Html.text("nothing to display")]));
@@ -3706,11 +3777,18 @@ Elm.GreenGui.Main.make = function (_elm) {
                  _v9._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 377 and 383");
+         "between lines 411 and 419");
       }();
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
+   var defaultPreset = function (id$) {
+      return {_: {}
+             ,id: id$
+             ,isSelected: false
+             ,monitors: _L.fromArray([])
+             ,name: ""};
+   };
    var defaultMonitor = F2(function (number$,
    isVisible$) {
       return {_: {}
@@ -3739,6 +3817,13 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,videoThree: ""
              ,videoTwo: ""};
    });
+   var defaulPresetSettingScreenState = {_: {}
+                                        ,presets: _L.fromArray([defaultPreset(1)
+                                                               ,defaultPreset(2)
+                                                               ,defaultPreset(3)
+                                                               ,defaultPreset(4)
+                                                               ,defaultPreset(5)
+                                                               ,defaultPreset(6)])};
    var defaultMonitorSettingScreenState = {_: {}
                                           ,isCycleDisabled: false
                                           ,isCyclePressed: false
@@ -3789,9 +3874,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                         "12",
                                                         false)])};
    var defaultAppState = {_: {}
-                         ,currentScreenState: 1
+                         ,currentScreenState: 3
                          ,homeScreenState: defaultHomeScreenState
-                         ,monitorSettingScreenState: defaultMonitorSettingScreenState};
+                         ,monitorSettingScreenState: defaultMonitorSettingScreenState
+                         ,presetSettingScreenState: defaulPresetSettingScreenState};
    var appState = A3($Signal.foldp,
    update,
    defaultAppState,
@@ -3800,6 +3886,16 @@ Elm.GreenGui.Main.make = function (_elm) {
    appView(actions.address),
    appState,
    $Window.dimensions);
+   var Preset = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,id: a
+             ,isSelected: d
+             ,monitors: c
+             ,name: b};
+   });
    var Monitor = function (a) {
       return function (b) {
          return function (c) {
@@ -3873,6 +3969,9 @@ Elm.GreenGui.Main.make = function (_elm) {
          };
       };
    };
+   var PresetSettingScreenState = function (a) {
+      return {_: {},presets: a};
+   };
    var MonitorSettingScreenState = F7(function (a,
    b,
    c,
@@ -3897,23 +3996,29 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,monitorPageIndex: b
              ,monitors: a};
    });
-   var AppState = F3(function (a,
+   var AppState = F4(function (a,
    b,
-   c) {
+   c,
+   d) {
       return {_: {}
              ,currentScreenState: a
              ,homeScreenState: b
-             ,monitorSettingScreenState: c};
+             ,monitorSettingScreenState: c
+             ,presetSettingScreenState: d};
    });
    _elm.GreenGui.Main.values = {_op: _op
                                ,AppState: AppState
                                ,HomeScreenState: HomeScreenState
                                ,MonitorSettingScreenState: MonitorSettingScreenState
+                               ,PresetSettingScreenState: PresetSettingScreenState
                                ,Monitor: Monitor
+                               ,Preset: Preset
                                ,defaultAppState: defaultAppState
                                ,defaultHomeScreenState: defaultHomeScreenState
                                ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
+                               ,defaulPresetSettingScreenState: defaulPresetSettingScreenState
                                ,defaultMonitor: defaultMonitor
+                               ,defaultPreset: defaultPreset
                                ,NoOp: NoOp
                                ,SelectMonitor: SelectMonitor
                                ,SelectAllMonitors: SelectAllMonitors
@@ -3921,6 +4026,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,NextMonitorPage: NextMonitorPage
                                ,PreviousMonitorPage: PreviousMonitorPage
                                ,PowerPress: PowerPress
+                               ,PresetPress: PresetPress
                                ,CloseMonitorConfiguration: CloseMonitorConfiguration
                                ,CycleButtonPress: CycleButtonPress
                                ,PipButtonPress: PipButtonPress
@@ -3933,6 +4039,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
                                ,OsdSelectButtonPress: OsdSelectButtonPress
                                ,SignalInputChange: SignalInputChange
+                               ,ClosePresetSettings: ClosePresetSettings
                                ,update: update
                                ,setMonitorAsSelected: setMonitorAsSelected
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
@@ -3969,7 +4076,12 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
                                ,signalMatrixView: signalMatrixView
                                ,pipButtonSetView: pipButtonSetView
-                               ,osdButtonSetView: osdButtonSetView};
+                               ,osdButtonSetView: osdButtonSetView
+                               ,presetSettingScreenView: presetSettingScreenView
+                               ,presetSettingTopBarView: presetSettingTopBarView
+                               ,presetSettingBodyView: presetSettingBodyView
+                               ,presetContainerView: presetContainerView
+                               ,presetButtonView: presetButtonView};
    return _elm.GreenGui.Main.values;
 };
 Elm.Html = Elm.Html || {};

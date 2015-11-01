@@ -4,7 +4,7 @@
 	 viewBox="-18 20.8 474.2 473.2" style="enable-background:new -18 20.8 474.2 473.2;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:#94B5DB;}
+	.st1{fill:#7192B9;}
 	.st2{font-family:'Arial-BoldMT';}
 	.st3{font-size:82px;}
 </style>
@@ -20,6 +20,6 @@
 </g>
 <g id="Layer_4">
 	<circle class="st1" cx="220.6" cy="259.9" r="210.3"/>
-	<text transform="matrix(1 0 0 1 15.3 303.6)" class="st2 st3">PRESETS</text>
+	<text transform="matrix(1 0 0 1 117.6511 298.6002)" class="st2 st3">SAVE</text>
 </g>
 </svg>
