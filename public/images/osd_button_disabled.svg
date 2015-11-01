@@ -5,18 +5,12 @@
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
 	.st2{display:inline;}
-	.st3{fill:#BE1E2D;}
-	.st5{font-family:'Tahoma-Bold';}
 	.st8{font-family:'Arial-BoldMT';}
 	.st9{font-size:82px;}
-	.st10{fill:#7799DD;}
-	.st11{display:inline;fill:#6D6D6D;}
-	.st13{font-size:300px;}
-	.st14{fill:#FFF200;}
+	.st12{fill:#888888;}
 </style>
 <g id="Layer_2">
 	<g id="Main">
-		
 			<radialGradient id="SVGID_1_" cx="220.1" cy="259.7" r="236.1" gradientTransform="matrix(1 0 0 -1 0 517.6)" gradientUnits="userSpaceOnUse">
 			<stop  offset="0.8128" style="stop-color:#E1E0E0"/>
 			<stop  offset="1" style="stop-color:#606060"/>
@@ -24,8 +18,8 @@
 		<circle class="st0" cx="220.1" cy="257.9" r="236.1"/>
 	</g>
 </g>
-<g id="Layer_4_copy">
-	<circle class="st10" cx="220.6" cy="259.9" r="210.3"/>
-	<text transform="matrix(1 0 0 1 87.3444 283.8)" class="st8 st9">CYCLE</text>
+<g id="OSD">
+	<circle class="st12" cx="220.6" cy="259.9" r="210.3"/>
+	<text transform="matrix(1 0 0 1 137.4533 283.8)" class="st8 st9">OSD</text>
 </g>
 </svg>

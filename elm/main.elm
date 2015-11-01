@@ -34,8 +34,12 @@ type alias HomeScreenState =  { monitors : List Monitor
 
 -- when a monitor is selected this screen state handles it
 type alias MonitorSettingScreenState =  { selectedMonitor : Monitor
+                                        , isCyclePressed : Bool
                                         , isPipSetPressed : Bool
-                                        , isOsdSetPressed : Bool }
+                                        , isOsdSetPressed : Bool
+                                        , isCycleDisabled : Bool
+                                        , isPipDisabled : Bool
+                                        , isOsdDisabled : Bool }
 
 -- model for monitor
 type alias Monitor =  { number : String
@@ -48,6 +52,13 @@ type alias Monitor =  { number : String
                       , videoOne : String
                       , videoTwo : String
                       , videoThree : String
+                      , isVgaOneCycle : Bool
+                      , isVgaTwoCycle : Bool
+                      , isDviOneCycle : Bool
+                      , isDviTwoCycle : Bool
+                      , isVideoOneCycle : Bool
+                      , isVideoTwoCycle : Bool
+                      , isVideoThreeCycle : Bool
                       , isPipUpDownPressed : Bool
                       , isPipLeftRightPressed : Bool
                       , isPipResizePressed : Bool
@@ -80,8 +91,12 @@ defaultHomeScreenState =  { monitorPageIndex = 0
 
 defaultMonitorSettingScreenState : MonitorSettingScreenState
 defaultMonitorSettingScreenState  = { selectedMonitor = defaultMonitor "1" True
+                                    , isCyclePressed = False
                                     , isPipSetPressed = False
-                                    , isOsdSetPressed = False }
+                                    , isOsdSetPressed = False
+                                    , isCycleDisabled = False
+                                    , isPipDisabled = False
+                                    , isOsdDisabled = False }
 
 defaultMonitor : String -> Bool -> Monitor
 defaultMonitor number' isVisible' =  { number = number'
@@ -94,6 +109,13 @@ defaultMonitor number' isVisible' =  { number = number'
                           , videoOne = ""
                           , videoTwo = ""
                           , videoThree = ""
+                          , isVgaOneCycle = False
+                          , isVgaTwoCycle = False
+                          , isDviOneCycle = False
+                          , isDviTwoCycle = False
+                          , isVideoOneCycle = False
+                          , isVideoTwoCycle = False
+                          , isVideoThreeCycle = False
                           , isPipUpDownPressed = False
                           , isPipLeftRightPressed = False
                           , isPipResizePressed = False
@@ -113,15 +135,17 @@ type Action
   | PreviousMonitorPage
 -- monitor setting actions
   | CloseMonitorConfiguration
+  | CycleButtonPress
   | PipButtonPress
   | OsdButtonPress
+  | ActivateCycleSignalMatrixPress String
   | PipUpDownButtonPress
   | PipLeftRightButtonPress
   | PipResizeButtonPress
   | OsdUpDownButtonPress
   | OsdLeftRightButtonPress
   | OsdSelectButtonPress
--- types : VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
+-- * types : VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
   | SignalInputChange String String
 
 -- logic when an update signal is emitted
@@ -163,12 +187,22 @@ update action appState =
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           monitor' = monitorSettingScreenState'.selectedMonitor
       in { appState | monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- setSignalInputChange signalType value monitor' } }
+    CycleButtonPress ->
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+      in if | not monitorSettingScreenState'.isCycleDisabled -> { appState | monitorSettingScreenState <- setCycleButtonPress monitorSettingScreenState' }
+            | otherwise -> appState
     PipButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setPipButtonPress monitorSettingScreenState' }
+      in if | not monitorSettingScreenState'.isPipDisabled -> { appState | monitorSettingScreenState <- setPipButtonPress monitorSettingScreenState' }
+            | otherwise -> appState
     OsdButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setOsdButtonPress monitorSettingScreenState' }
+      in if | not monitorSettingScreenState'.isOsdDisabled -> { appState | monitorSettingScreenState <- setOsdButtonPress monitorSettingScreenState' }
+            | otherwise -> appState
+    ActivateCycleSignalMatrixPress signalType ->
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+      in if | monitorSettingScreenState'.isCyclePressed -> { appState | monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- activateCycleSignalMatrix signalType monitorSettingScreenState'.selectedMonitor } }
+            | otherwise -> appState
     PipUpDownButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | monitorSettingScreenState <- setPipUpDownButtonPress monitorSettingScreenState' }
@@ -223,12 +257,6 @@ setVisibilityByPageIndex newPageIndex monitorsPerPage index monitor =
 updateMonitorList : Monitor -> List Monitor -> List Monitor
 updateMonitorList monitor monitors =
   List.map (\m -> if m.number ==  monitor.number then monitor else m ) monitors
--- toggles pip button and sets the rest to false
-setPipButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
-setPipButtonPress monitorSettingScreenState =
-  { monitorSettingScreenState | isPipSetPressed <- not monitorSettingScreenState.isPipSetPressed
-                              , isOsdSetPressed <- False }
-
 
 -- set signal input depending on control
 -- VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
@@ -244,11 +272,42 @@ setSignalInputChange signalType value monitor =
                                 "VIDEO 3" -> { monitor | videoThree <- value } 
   in newMonitor
 
+-- toggle cycle button
+setCycleButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
+setCycleButtonPress monitorSettingScreenState =
+  { monitorSettingScreenState | isCyclePressed <- not monitorSettingScreenState.isCyclePressed
+                              , isPipDisabled <- if not monitorSettingScreenState.isCyclePressed then True else False
+                              , isOsdDisabled <- if not monitorSettingScreenState.isCyclePressed then True else False
+                              }
+-- toggles pip button and sets the rest to false
+setPipButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
+setPipButtonPress monitorSettingScreenState =
+  { monitorSettingScreenState | isPipSetPressed <- not monitorSettingScreenState.isPipSetPressed
+                              , isOsdSetPressed <- False
+                              , isCycleDisabled <- if not monitorSettingScreenState.isPipSetPressed then True else False
+                              }
+
 -- toggles osd button and sets the rest to false
 setOsdButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdButtonPress monitorSettingScreenState =
   { monitorSettingScreenState | isPipSetPressed <- False
-                              , isOsdSetPressed <- not monitorSettingScreenState.isOsdSetPressed }
+                              , isOsdSetPressed <- not monitorSettingScreenState.isOsdSetPressed
+                              , isCycleDisabled <- if not monitorSettingScreenState.isOsdSetPressed then True else False
+                              }
+
+-- toggle signal matrix button
+activateCycleSignalMatrix : String -> Monitor -> Monitor
+activateCycleSignalMatrix signalType monitor =
+  let newMonitor = case signalType of
+                                "VGA 1" -> { monitor | isVgaOneCycle <- not monitor.isVgaOneCycle } 
+                                "VGA 2" -> { monitor | isVgaTwoCycle <- not monitor.isVgaTwoCycle }  
+                                "DVI 1" -> { monitor | isDviOneCycle <- not monitor.isDviOneCycle }  
+                                "DVI 2" -> { monitor | isDviTwoCycle <- not monitor.isDviTwoCycle } 
+                                "VIDEO 1" -> { monitor | isVideoOneCycle <- not monitor.isVideoOneCycle } 
+                                "VIDEO 2" -> { monitor | isVideoTwoCycle <- not monitor.isVideoTwoCycle } 
+                                "VIDEO 3" -> { monitor | isVideoThreeCycle <- not monitor.isVideoThreeCycle } 
+  in newMonitor
+
 -- toggles pip butons
 setPipUpDownButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setPipUpDownButtonPress monitorSettingScreenState =
@@ -374,35 +433,54 @@ monitorSettingBodyView address monitorSettingScreenState =
 -- monitor setting upper body view
 monitorSettingUpperBodyView address monitorSettingScreenState =
   let monitor = monitorSettingScreenState.selectedMonitor
-  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ]  [ signalMatrixView address "VGA 1" monitor.vgaOne
-                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo ]
-                                                , div [ class "div-1-3" ]   [ signalMatrixView address "DVI 1" monitor.dviOne
-                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo ]
-                                                , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne
-                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo
-                                                                            , signalMatrixView address "VIDEO 3" monitor.videoThree ]]
+  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ]  [ signalMatrixView address "VGA 1" monitor.vgaOne monitorSettingScreenState.isCyclePressed monitor
+                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo monitorSettingScreenState.isCyclePressed monitor ]
+                                                , div [ class "div-1-3" ]   [ signalMatrixView address "DVI 1" monitor.dviOne monitorSettingScreenState.isCyclePressed monitor
+                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo monitorSettingScreenState.isCyclePressed monitor ]
+                                                , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne monitorSettingScreenState.isCyclePressed monitor
+                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo monitorSettingScreenState.isCyclePressed monitor
+                                                                            , signalMatrixView address "VIDEO 3" monitor.videoThree monitorSettingScreenState.isCyclePressed monitor]]
 
 -- monitor lower body view
 monitorSettingLowerBodyView address monitorSettingScreenState = 
-  let pipButtonSrc = if monitorSettingScreenState.isPipSetPressed then "images/pip_button_pressed.svg" else "images/pip_button.svg"
-      osdButtonSrc = if monitorSettingScreenState.isOsdSetPressed then "images/osd_button_pressed.svg" else "images/osd_button.svg"
-  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ] [ div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src "images/cycle_button.svg" ] [ ] ]
-                                                                        , div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src pipButtonSrc, onClick address PipButtonPress ] [ ] ] 
-                                                                        , div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src osdButtonSrc, onClick address OsdButtonPress ] [ ] ] ]
+  let cycleButtonSrc = if | monitorSettingScreenState.isCycleDisabled -> "images/cycle_button_disabled.svg"
+                          | monitorSettingScreenState.isCyclePressed -> "images/cycle_button_pressed.svg"
+                          | otherwise -> "images/cycle_button.svg"
+      pipButtonSrc = if | monitorSettingScreenState.isPipDisabled -> "images/pip_button_disabled.svg"
+                        | monitorSettingScreenState.isPipSetPressed -> "images/pip_button_pressed.svg"
+                        | otherwise -> "images/pip_button.svg"
+      osdButtonSrc = if | monitorSettingScreenState.isOsdDisabled -> "images/osd_button_disabled.svg"
+                        | monitorSettingScreenState.isOsdSetPressed -> "images/osd_button_pressed.svg" 
+                        | otherwise -> "images/osd_button.svg"
+  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src cycleButtonSrc, onClick address CycleButtonPress ] [ ] ]
+                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src pipButtonSrc, onClick address PipButtonPress ] [ ] ] 
+                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src osdButtonSrc, onClick address OsdButtonPress ] [ ] ] ]
                                               , pipButtonSetView address monitorSettingScreenState
                                               , osdButtonSetView address monitorSettingScreenState  ]
 
 -- signal matrix view
-signalMatrixView address signalType signalName = 
-  div [ class "signal-matrix-view" ]  
-      [ div [ class "signal-matrix-label" ] 
-            [ text signalType ]
-      , div [ class "signal-matrix-container" ] 
-            [ div [ class "div-7-10" ] 
-                  [ input [ type' "text"
-                          , value signalName
-                          , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ]
-                  , div [ class "div-3-10" ] [ text "MATRIX" ] ]] 
+signalMatrixView address signalType signalName isCyclePressed monitor = 
+  let isActivated = if  | isCyclePressed -> case signalType of
+                                              "VGA 1" -> monitor.isVgaOneCycle 
+                                              "VGA 2" -> monitor.isVgaTwoCycle
+                                              "DVI 1" -> monitor.isDviOneCycle
+                                              "DVI 2" -> monitor.isDviTwoCycle
+                                              "VIDEO 1" -> monitor.isVideoOneCycle
+                                              "VIDEO 2" -> monitor.isVideoTwoCycle
+                                              "VIDEO 3" -> monitor.isVideoThreeCycle
+                        | otherwise -> False
+
+  in div  [ class "signal-matrix-view", onClick address (ActivateCycleSignalMatrixPress signalType) ]  
+          [ div [ class "signal-matrix-label" ] 
+                [ text signalType ]
+          , div [ class "signal-matrix-container" ] 
+                [ div [ class "div-7-10" ] 
+                      [ input [ type' "text"
+                              , disabled isCyclePressed
+                              , class (if isActivated then "signal-matrix-container-activated" else "")
+                              , value signalName
+                              , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ]
+                      , div [ class "div-3-10" ] [ text "MATRIX" ] ]] 
 
 -- view for pip buttons set                                            
 pipButtonSetView address monitorSettingScreenState = 

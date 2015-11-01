@@ -2856,11 +2856,69 @@ Elm.GreenGui.Main.make = function (_elm) {
          monitorSettingScreenState);
       }();
    };
+   var activateCycleSignalMatrix = F2(function (signalType,
+   monitor) {
+      return function () {
+         var newMonitor = function () {
+            switch (signalType)
+            {case "DVI 1":
+               return _U.replace([["isDviOneCycle"
+                                  ,$Basics.not(monitor.isDviOneCycle)]],
+                 monitor);
+               case "DVI 2":
+               return _U.replace([["isDviTwoCycle"
+                                  ,$Basics.not(monitor.isDviTwoCycle)]],
+                 monitor);
+               case "VGA 1":
+               return _U.replace([["isVgaOneCycle"
+                                  ,$Basics.not(monitor.isVgaOneCycle)]],
+                 monitor);
+               case "VGA 2":
+               return _U.replace([["isVgaTwoCycle"
+                                  ,$Basics.not(monitor.isVgaTwoCycle)]],
+                 monitor);
+               case "VIDEO 1":
+               return _U.replace([["isVideoOneCycle"
+                                  ,$Basics.not(monitor.isVideoOneCycle)]],
+                 monitor);
+               case "VIDEO 2":
+               return _U.replace([["isVideoTwoCycle"
+                                  ,$Basics.not(monitor.isVideoTwoCycle)]],
+                 monitor);
+               case "VIDEO 3":
+               return _U.replace([["isVideoThreeCycle"
+                                  ,$Basics.not(monitor.isVideoThreeCycle)]],
+                 monitor);}
+            _U.badCase($moduleName,
+            "between lines 301 and 309");
+         }();
+         return newMonitor;
+      }();
+   });
    var setOsdButtonPress = function (monitorSettingScreenState) {
       return _U.replace([["isPipSetPressed"
                          ,false]
                         ,["isOsdSetPressed"
-                         ,$Basics.not(monitorSettingScreenState.isOsdSetPressed)]],
+                         ,$Basics.not(monitorSettingScreenState.isOsdSetPressed)]
+                        ,["isCycleDisabled"
+                         ,$Basics.not(monitorSettingScreenState.isOsdSetPressed) ? true : false]],
+      monitorSettingScreenState);
+   };
+   var setPipButtonPress = function (monitorSettingScreenState) {
+      return _U.replace([["isPipSetPressed"
+                         ,$Basics.not(monitorSettingScreenState.isPipSetPressed)]
+                        ,["isOsdSetPressed",false]
+                        ,["isCycleDisabled"
+                         ,$Basics.not(monitorSettingScreenState.isPipSetPressed) ? true : false]],
+      monitorSettingScreenState);
+   };
+   var setCycleButtonPress = function (monitorSettingScreenState) {
+      return _U.replace([["isCyclePressed"
+                         ,$Basics.not(monitorSettingScreenState.isCyclePressed)]
+                        ,["isPipDisabled"
+                         ,$Basics.not(monitorSettingScreenState.isCyclePressed) ? true : false]
+                        ,["isOsdDisabled"
+                         ,$Basics.not(monitorSettingScreenState.isCyclePressed) ? true : false]],
       monitorSettingScreenState);
    };
    var setSignalInputChange = F3(function (signalType,
@@ -2898,17 +2956,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,value]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 237 and 245");
+            "between lines 265 and 273");
          }();
          return newMonitor;
       }();
    });
-   var setPipButtonPress = function (monitorSettingScreenState) {
-      return _U.replace([["isPipSetPressed"
-                         ,$Basics.not(monitorSettingScreenState.isPipSetPressed)]
-                        ,["isOsdSetPressed",false]],
-      monitorSettingScreenState);
-   };
    var updateMonitorList = F2(function (monitor,
    monitors) {
       return A2($List.map,
@@ -2975,7 +3027,18 @@ Elm.GreenGui.Main.make = function (_elm) {
    appState) {
       return function () {
          switch (action.ctor)
-         {case "CloseMonitorConfiguration":
+         {case "ActivateCycleSignalMatrixPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return monitorSettingScreenState$.isCyclePressed ? _U.replace([["monitorSettingScreenState"
+                                                                                ,_U.replace([["selectedMonitor"
+                                                                                             ,A2(activateCycleSignalMatrix,
+                                                                                             action._0,
+                                                                                             monitorSettingScreenState$.selectedMonitor)]],
+                                                                                monitorSettingScreenState$)]],
+                 appState) : appState;
+              }();
+            case "CloseMonitorConfiguration":
             return function () {
                  var monitorSettingScreenState$ = appState.monitorSettingScreenState;
                  var homeScreenState$ = appState.homeScreenState;
@@ -2988,6 +3051,13 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                  homeScreenState$.monitors)]],
                                     homeScreenState$)]],
                  appState);
+              }();
+            case "CycleButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.replace([["monitorSettingScreenState"
+                                                                                              ,setCycleButtonPress(monitorSettingScreenState$)]],
+                 appState) : appState;
               }();
             case "NextMonitorPage":
             return function () {
@@ -3006,9 +3076,9 @@ Elm.GreenGui.Main.make = function (_elm) {
             case "OsdButtonPress":
             return function () {
                  var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setOsdButtonPress(monitorSettingScreenState$)]],
-                 appState);
+                 return $Basics.not(monitorSettingScreenState$.isOsdDisabled) ? _U.replace([["monitorSettingScreenState"
+                                                                                            ,setOsdButtonPress(monitorSettingScreenState$)]],
+                 appState) : appState;
               }();
             case "OsdLeftRightButtonPress":
             return function () {
@@ -3034,9 +3104,9 @@ Elm.GreenGui.Main.make = function (_elm) {
             case "PipButtonPress":
             return function () {
                  var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setPipButtonPress(monitorSettingScreenState$)]],
-                 appState);
+                 return $Basics.not(monitorSettingScreenState$.isPipDisabled) ? _U.replace([["monitorSettingScreenState"
+                                                                                            ,setPipButtonPress(monitorSettingScreenState$)]],
+                 appState) : appState;
               }();
             case "PipLeftRightButtonPress":
             return function () {
@@ -3119,7 +3189,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                  appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 130 and 189");
+         "between lines 154 and 223");
       }();
    });
    var SignalInputChange = F2(function (a,
@@ -3127,74 +3197,6 @@ Elm.GreenGui.Main.make = function (_elm) {
       return {ctor: "SignalInputChange"
              ,_0: a
              ,_1: b};
-   });
-   var signalMatrixView = F3(function (address,
-   signalType,
-   signalName) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("signal-matrix-view")]),
-      _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("signal-matrix-label")]),
-                   _L.fromArray([$Html.text(signalType)]))
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("signal-matrix-container")]),
-                   _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("div-7-10")]),
-                                _L.fromArray([A2($Html.input,
-                                _L.fromArray([$Html$Attributes.type$("text")
-                                             ,$Html$Attributes.value(signalName)
-                                             ,A3($Html$Events.on,
-                                             "input",
-                                             $Html$Events.targetValue,
-                                             function ($) {
-                                                return $Signal.message(address)(SignalInputChange(signalType)($));
-                                             })]),
-                                _L.fromArray([]))]))
-                                ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("div-3-10")]),
-                                _L.fromArray([$Html.text("MATRIX")]))]))]));
-   });
-   var monitorSettingUpperBodyView = F2(function (address,
-   monitorSettingScreenState) {
-      return function () {
-         var monitor = monitorSettingScreenState.selectedMonitor;
-         return A2($Html.div,
-         _L.fromArray([$Html$Attributes.$class("monitor-setting-upper-body")]),
-         _L.fromArray([A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
-                      _L.fromArray([A3(signalMatrixView,
-                                   address,
-                                   "VGA 1",
-                                   monitor.vgaOne)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "VGA 2",
-                                   monitor.vgaTwo)]))
-                      ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
-                      _L.fromArray([A3(signalMatrixView,
-                                   address,
-                                   "DVI 1",
-                                   monitor.dviOne)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "DVI 2",
-                                   monitor.dviTwo)]))
-                      ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
-                      _L.fromArray([A3(signalMatrixView,
-                                   address,
-                                   "VIDEO 1",
-                                   monitor.videoOne)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "VIDEO 2",
-                                   monitor.videoTwo)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "VIDEO 3",
-                                   monitor.videoThree)]))]));
-      }();
    });
    var OsdSelectButtonPress = {ctor: "OsdSelectButtonPress"};
    var OsdLeftRightButtonPress = {ctor: "OsdLeftRightButtonPress"};
@@ -3328,13 +3330,129 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    _L.fromArray([]))]))]))]))]));
       }();
    });
+   var ActivateCycleSignalMatrixPress = function (a) {
+      return {ctor: "ActivateCycleSignalMatrixPress"
+             ,_0: a};
+   };
+   var signalMatrixView = F5(function (address,
+   signalType,
+   signalName,
+   isCyclePressed,
+   monitor) {
+      return function () {
+         var isActivated = isCyclePressed ? function () {
+            switch (signalType)
+            {case "DVI 1":
+               return monitor.isDviOneCycle;
+               case "DVI 2":
+               return monitor.isDviTwoCycle;
+               case "VGA 1":
+               return monitor.isVgaOneCycle;
+               case "VGA 2":
+               return monitor.isVgaTwoCycle;
+               case "VIDEO 1":
+               return monitor.isVideoOneCycle;
+               case "VIDEO 2":
+               return monitor.isVideoTwoCycle;
+               case "VIDEO 3":
+               return monitor.isVideoThreeCycle;}
+            _U.badCase($moduleName,
+            "between lines 463 and 471");
+         }() : false;
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("signal-matrix-view")
+                      ,A2($Html$Events.onClick,
+                      address,
+                      ActivateCycleSignalMatrixPress(signalType))]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("signal-matrix-label")]),
+                      _L.fromArray([$Html.text(signalType)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("signal-matrix-container")]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-7-10")]),
+                                   _L.fromArray([A2($Html.input,
+                                   _L.fromArray([$Html$Attributes.type$("text")
+                                                ,$Html$Attributes.disabled(isCyclePressed)
+                                                ,$Html$Attributes.$class(isActivated ? "signal-matrix-container-activated" : "")
+                                                ,$Html$Attributes.value(signalName)
+                                                ,A3($Html$Events.on,
+                                                "input",
+                                                $Html$Events.targetValue,
+                                                function ($) {
+                                                   return $Signal.message(address)(SignalInputChange(signalType)($));
+                                                })]),
+                                   _L.fromArray([]))]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-3-10")]),
+                                   _L.fromArray([$Html.text("MATRIX")]))]))]));
+      }();
+   });
+   var monitorSettingUpperBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("monitor-setting-upper-body")]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
+                      _L.fromArray([A5(signalMatrixView,
+                                   address,
+                                   "VGA 1",
+                                   monitor.vgaOne,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)
+                                   ,A5(signalMatrixView,
+                                   address,
+                                   "VGA 2",
+                                   monitor.vgaTwo,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
+                      _L.fromArray([A5(signalMatrixView,
+                                   address,
+                                   "DVI 1",
+                                   monitor.dviOne,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)
+                                   ,A5(signalMatrixView,
+                                   address,
+                                   "DVI 2",
+                                   monitor.dviTwo,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
+                      _L.fromArray([A5(signalMatrixView,
+                                   address,
+                                   "VIDEO 1",
+                                   monitor.videoOne,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)
+                                   ,A5(signalMatrixView,
+                                   address,
+                                   "VIDEO 2",
+                                   monitor.videoTwo,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)
+                                   ,A5(signalMatrixView,
+                                   address,
+                                   "VIDEO 3",
+                                   monitor.videoThree,
+                                   monitorSettingScreenState.isCyclePressed,
+                                   monitor)]))]));
+      }();
+   });
    var OsdButtonPress = {ctor: "OsdButtonPress"};
    var PipButtonPress = {ctor: "PipButtonPress"};
+   var CycleButtonPress = {ctor: "CycleButtonPress"};
    var monitorSettingLowerBodyView = F2(function (address,
    monitorSettingScreenState) {
       return function () {
-         var osdButtonSrc = monitorSettingScreenState.isOsdSetPressed ? "images/osd_button_pressed.svg" : "images/osd_button.svg";
-         var pipButtonSrc = monitorSettingScreenState.isPipSetPressed ? "images/pip_button_pressed.svg" : "images/pip_button.svg";
+         var osdButtonSrc = monitorSettingScreenState.isOsdDisabled ? "images/osd_button_disabled.svg" : monitorSettingScreenState.isOsdSetPressed ? "images/osd_button_pressed.svg" : "images/osd_button.svg";
+         var pipButtonSrc = monitorSettingScreenState.isPipDisabled ? "images/pip_button_disabled.svg" : monitorSettingScreenState.isPipSetPressed ? "images/pip_button_pressed.svg" : "images/pip_button.svg";
+         var cycleButtonSrc = monitorSettingScreenState.isCycleDisabled ? "images/cycle_button_disabled.svg" : monitorSettingScreenState.isCyclePressed ? "images/cycle_button_pressed.svg" : "images/cycle_button.svg";
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("monitor-setting-lower-body")]),
          _L.fromArray([A2($Html.div,
@@ -3343,7 +3461,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
                                    _L.fromArray([A2($Html.img,
                                    _L.fromArray([$Html$Attributes.$class("monitor-button")
-                                                ,$Html$Attributes.src("images/cycle_button.svg")]),
+                                                ,$Html$Attributes.src(cycleButtonSrc)
+                                                ,A2($Html$Events.onClick,
+                                                address,
+                                                CycleButtonPress)]),
                                    _L.fromArray([]))]))
                                    ,A2($Html.div,
                                    _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
@@ -3520,16 +3641,16 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var appView = F3(function (address,
    appState,
-   _v6) {
+   _v9) {
       return function () {
-         switch (_v6.ctor)
+         switch (_v9.ctor)
          {case "_Tuple2":
             return function () {
                  var monitorSettingScreenState = appState.monitorSettingScreenState;
                  var homeScreenState = appState.homeScreenState;
                  var viewToDisplay = function () {
-                    var _v10 = appState.currentScreenState;
-                    switch (_v10)
+                    var _v13 = appState.currentScreenState;
+                    switch (_v13)
                     {case 1:
                        return A2(homeScreenView,
                          address,
@@ -3543,11 +3664,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                     _L.fromArray([$Html.text("nothing to display")]));
                  }();
                  return A2($Html.toElement,
-                 _v6._0,
-                 _v6._1)(viewToDisplay);
+                 _v9._0,
+                 _v9._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 300 and 306");
+         "between lines 359 and 365");
       }();
    });
    var NoOp = {ctor: "NoOp"};
@@ -3557,6 +3678,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       return {_: {}
              ,dviOne: ""
              ,dviTwo: ""
+             ,isDviOneCycle: false
+             ,isDviTwoCycle: false
              ,isOsdLeftRightPressed: false
              ,isOsdSelectPressed: false
              ,isOsdUpDownPressed: false
@@ -3564,6 +3687,11 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isPipResizePressed: false
              ,isPipUpDownPressed: false
              ,isSelected: false
+             ,isVgaOneCycle: false
+             ,isVgaTwoCycle: false
+             ,isVideoOneCycle: false
+             ,isVideoThreeCycle: false
+             ,isVideoTwoCycle: false
              ,isVisible: isVisible$
              ,number: number$
              ,vgaOne: ""
@@ -3573,7 +3701,11 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,videoTwo: ""};
    });
    var defaultMonitorSettingScreenState = {_: {}
+                                          ,isCycleDisabled: false
+                                          ,isCyclePressed: false
+                                          ,isOsdDisabled: false
                                           ,isOsdSetPressed: false
+                                          ,isPipDisabled: false
                                           ,isPipSetPressed: false
                                           ,selectedMonitor: A2(defaultMonitor,
                                           "1",
@@ -3644,23 +3776,44 @@ Elm.GreenGui.Main.make = function (_elm) {
                                           return function (n) {
                                              return function (o) {
                                                 return function (p) {
-                                                   return {_: {}
-                                                          ,dviOne: f
-                                                          ,dviTwo: g
-                                                          ,isOsdLeftRightPressed: o
-                                                          ,isOsdSelectPressed: p
-                                                          ,isOsdUpDownPressed: n
-                                                          ,isPipLeftRightPressed: l
-                                                          ,isPipResizePressed: m
-                                                          ,isPipUpDownPressed: k
-                                                          ,isSelected: b
-                                                          ,isVisible: c
-                                                          ,number: a
-                                                          ,vgaOne: d
-                                                          ,vgaTwo: e
-                                                          ,videoOne: h
-                                                          ,videoThree: j
-                                                          ,videoTwo: i};
+                                                   return function (q) {
+                                                      return function (r) {
+                                                         return function (s) {
+                                                            return function (t) {
+                                                               return function (u) {
+                                                                  return function (v) {
+                                                                     return function (w) {
+                                                                        return {_: {}
+                                                                               ,dviOne: f
+                                                                               ,dviTwo: g
+                                                                               ,isDviOneCycle: m
+                                                                               ,isDviTwoCycle: n
+                                                                               ,isOsdLeftRightPressed: v
+                                                                               ,isOsdSelectPressed: w
+                                                                               ,isOsdUpDownPressed: u
+                                                                               ,isPipLeftRightPressed: s
+                                                                               ,isPipResizePressed: t
+                                                                               ,isPipUpDownPressed: r
+                                                                               ,isSelected: b
+                                                                               ,isVgaOneCycle: k
+                                                                               ,isVgaTwoCycle: l
+                                                                               ,isVideoOneCycle: o
+                                                                               ,isVideoThreeCycle: q
+                                                                               ,isVideoTwoCycle: p
+                                                                               ,isVisible: c
+                                                                               ,number: a
+                                                                               ,vgaOne: d
+                                                                               ,vgaTwo: e
+                                                                               ,videoOne: h
+                                                                               ,videoThree: j
+                                                                               ,videoTwo: i};
+                                                                     };
+                                                                  };
+                                                               };
+                                                            };
+                                                         };
+                                                      };
+                                                   };
                                                 };
                                              };
                                           };
@@ -3677,12 +3830,20 @@ Elm.GreenGui.Main.make = function (_elm) {
          };
       };
    };
-   var MonitorSettingScreenState = F3(function (a,
+   var MonitorSettingScreenState = F7(function (a,
    b,
-   c) {
+   c,
+   d,
+   e,
+   f,
+   g) {
       return {_: {}
-             ,isOsdSetPressed: c
-             ,isPipSetPressed: b
+             ,isCycleDisabled: e
+             ,isCyclePressed: b
+             ,isOsdDisabled: g
+             ,isOsdSetPressed: d
+             ,isPipDisabled: f
+             ,isPipSetPressed: c
              ,selectedMonitor: a};
    });
    var HomeScreenState = F2(function (a,
@@ -3715,8 +3876,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,NextMonitorPage: NextMonitorPage
                                ,PreviousMonitorPage: PreviousMonitorPage
                                ,CloseMonitorConfiguration: CloseMonitorConfiguration
+                               ,CycleButtonPress: CycleButtonPress
                                ,PipButtonPress: PipButtonPress
                                ,OsdButtonPress: OsdButtonPress
+                               ,ActivateCycleSignalMatrixPress: ActivateCycleSignalMatrixPress
                                ,PipUpDownButtonPress: PipUpDownButtonPress
                                ,PipLeftRightButtonPress: PipLeftRightButtonPress
                                ,PipResizeButtonPress: PipResizeButtonPress
@@ -3730,9 +3893,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,flipMonitorPage: flipMonitorPage
                                ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                ,updateMonitorList: updateMonitorList
-                               ,setPipButtonPress: setPipButtonPress
                                ,setSignalInputChange: setSignalInputChange
+                               ,setCycleButtonPress: setCycleButtonPress
+                               ,setPipButtonPress: setPipButtonPress
                                ,setOsdButtonPress: setOsdButtonPress
+                               ,activateCycleSignalMatrix: activateCycleSignalMatrix
                                ,setPipUpDownButtonPress: setPipUpDownButtonPress
                                ,setPipLeftRightButtonPress: setPipLeftRightButtonPress
                                ,setPipResizeButtonPress: setPipResizeButtonPress
