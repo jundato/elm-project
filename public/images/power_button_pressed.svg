@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 474.2 473.2" style="enable-background:new 0 0 474.2 473.2;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:url(#SVGID_1_);}
+  .st1{fill:#BE1E2D;}
+  .st3{font-family:'Tahoma-Bold';}
+  .st4{font-size:108px;}
+</style>
+<g id="Layer_3">
+  <radialGradient id="SVGID_1_" cx="238.0854" cy="237.0854" r="236.0854" gradientUnits="userSpaceOnUse">
+    <stop  offset="0.8128" style="stop-color:#E1E0E0"/>
+    <stop  offset="1" style="stop-color:#606060"/>
+  </radialGradient>
+  <circle class="st0" cx="238.1" cy="237.1" r="236.1"/>
+</g>
+<g id="Layer_2">
+  <circle class="st1" cx="238.6" cy="239.1" r="210.3"/>
+  <text transform="matrix(1 0 0 1 30.2605 278.5048)" class="st3 st4">POWER</text>
+</g>
+</svg>

@@ -2755,47 +2755,6 @@ Elm.GreenGui.Main.make = function (_elm) {
                    _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
                    _L.fromArray([$Html.text("information")]))]));
    };
-   var homePanelView = function (address) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("home-panel-view")]),
-      _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                   _L.fromArray([A2($Html.img,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-button")
-                                ,$Html$Attributes.src("images/power_button.svg")]),
-                   _L.fromArray([]))]))
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                   _L.fromArray([A2($Html.div,
-                   _L.fromArray([]),
-                   _L.fromArray([A2($Html.div,
-                                _L.fromArray([]),
-                                _L.fromArray([A2($Html.img,
-                                _L.fromArray([$Html$Attributes.$class("home-panel-count-button")
-                                             ,$Html$Attributes.src("images/increment_button.svg")]),
-                                _L.fromArray([]))]))
-                                ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("home-panel-count-label")]),
-                                _L.fromArray([$Html.text("BRIGHTNESS")]))
-                                ,A2($Html.div,
-                                _L.fromArray([]),
-                                _L.fromArray([A2($Html.img,
-                                _L.fromArray([$Html$Attributes.$class("home-panel-count-button")
-                                             ,$Html$Attributes.src("images/decrement_button.svg")]),
-                                _L.fromArray([]))]))]))]))
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                   _L.fromArray([A2($Html.img,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-button")
-                                ,$Html$Attributes.src("images/night_mode_button.svg")]),
-                   _L.fromArray([]))]))
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                   _L.fromArray([A2($Html.img,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-button")
-                                ,$Html$Attributes.src("images/preset_button.svg")]),
-                   _L.fromArray([]))]))]));
-   };
    var setOsdSelectButtonPress = function (monitorSettingScreenState) {
       return function () {
          var monitor = monitorSettingScreenState.selectedMonitor;
@@ -2890,7 +2849,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,$Basics.not(monitor.isVideoThreeCycle)]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 301 and 309");
+            "between lines 319 and 327");
          }();
          return newMonitor;
       }();
@@ -2956,7 +2915,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,value]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 265 and 273");
+            "between lines 283 and 291");
          }();
          return newMonitor;
       }();
@@ -2982,6 +2941,15 @@ Elm.GreenGui.Main.make = function (_elm) {
          monitor);
       }();
    });
+   var setSelectedMonitorsToPowerPress = function (monitors) {
+      return A2($List.map,
+      function (m) {
+         return m.isSelected ? _U.replace([["isOn"
+                                           ,$Basics.not(m.isSelected)]],
+         m) : m;
+      },
+      monitors);
+   };
    var flipMonitorPage = F4(function (flips,
    maxFlips,
    monitorsPerPage,
@@ -3129,6 +3097,15 @@ Elm.GreenGui.Main.make = function (_elm) {
                                     ,setPipUpDownButtonPress(monitorSettingScreenState$)]],
                  appState);
               }();
+            case "PowerPress":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,setSelectedMonitorsToPowerPress(homeScreenState$.monitors)]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
             case "PreviousMonitorPage":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
@@ -3147,18 +3124,28 @@ Elm.GreenGui.Main.make = function (_elm) {
                  var homeScreenState$ = appState.homeScreenState;
                  return _U.replace([["homeScreenState"
                                     ,_U.replace([["monitors"
-                                                 ,setAllMonitorAsSelected(homeScreenState$.monitors)]],
+                                                 ,setAllMonitorAsSelected(homeScreenState$.monitors)]
+                                                ,["isPowerDisabled",true]],
                                     homeScreenState$)]],
                  appState);
               }();
             case "SelectMonitor":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
+                 var monitors$ = A2(setMonitorAsSelected,
+                 action._0,
+                 homeScreenState$.monitors);
+                 var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,
+                 function (m) {
+                    return m.isSelected;
+                 },
+                 monitors$)),
+                 0) > 0 ? false : true;
                  return _U.replace([["homeScreenState"
                                     ,_U.replace([["monitors"
-                                                 ,A2(setMonitorAsSelected,
-                                                 action._0,
-                                                 homeScreenState$.monitors)]],
+                                                 ,monitors$]
+                                                ,["isPowerDisabled"
+                                                 ,powerMustBeDisabled]],
                                     homeScreenState$)]],
                  appState);
               }();
@@ -3189,7 +3176,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                  appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 154 and 223");
+         "between lines 159 and 235");
       }();
    });
    var SignalInputChange = F2(function (a,
@@ -3357,7 +3344,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                case "VIDEO 3":
                return monitor.isVideoThreeCycle;}
             _U.badCase($moduleName,
-            "between lines 463 and 471");
+            "between lines 483 and 491");
          }() : false;
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("signal-matrix-view")
@@ -3531,6 +3518,55 @@ Elm.GreenGui.Main.make = function (_elm) {
                    address,
                    monitorSettingScreenState)]));
    });
+   var PowerPress = {ctor: "PowerPress"};
+   var homePanelView = F2(function (address,
+   homeScreenState) {
+      return function () {
+         var powerButtonSrc = $Basics.not(homeScreenState.isPowerDisabled) ? "images/power_button.svg" : "images/power_button_disabled.svg";
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("home-panel-view")]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
+                      _L.fromArray([A2($Html.img,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                                   ,$Html$Attributes.src(powerButtonSrc)
+                                   ,A2($Html$Events.onClick,
+                                   address,
+                                   PowerPress)]),
+                      _L.fromArray([]))]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
+                      _L.fromArray([A2($Html.div,
+                      _L.fromArray([]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("home-panel-count-button")
+                                                ,$Html$Attributes.src("images/increment_button.svg")]),
+                                   _L.fromArray([]))]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("home-panel-count-label")]),
+                                   _L.fromArray([$Html.text("BRIGHTNESS")]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("home-panel-count-button")
+                                                ,$Html$Attributes.src("images/decrement_button.svg")]),
+                                   _L.fromArray([]))]))]))]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
+                      _L.fromArray([A2($Html.img,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                                   ,$Html$Attributes.src("images/night_mode_button.svg")]),
+                      _L.fromArray([]))]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
+                      _L.fromArray([A2($Html.img,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                                   ,$Html$Attributes.src("images/preset_button.svg")]),
+                      _L.fromArray([]))]))]));
+      }();
+   });
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};
    var SelectMonitorToConfigure = function (a) {
@@ -3636,7 +3672,9 @@ Elm.GreenGui.Main.make = function (_elm) {
       _L.fromArray([A2(monitorPanelView,
                    address,
                    homeScreenState.monitors)
-                   ,homePanelView(address)
+                   ,A2(homePanelView,
+                   address,
+                   homeScreenState)
                    ,homeMenuView(address)]));
    });
    var appView = F3(function (address,
@@ -3668,7 +3706,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                  _v9._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 359 and 365");
+         "between lines 377 and 383");
       }();
    });
    var NoOp = {ctor: "NoOp"};
@@ -3680,6 +3718,7 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,dviTwo: ""
              ,isDviOneCycle: false
              ,isDviTwoCycle: false
+             ,isOn: false
              ,isOsdLeftRightPressed: false
              ,isOsdSelectPressed: false
              ,isOsdUpDownPressed: false
@@ -3711,6 +3750,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                           "1",
                                           true)};
    var defaultHomeScreenState = {_: {}
+                                ,isPowerDisabled: true
                                 ,monitorPageIndex: 0
                                 ,monitors: _L.fromArray([A2(defaultMonitor,
                                                         "1",
@@ -3749,7 +3789,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                         "12",
                                                         false)])};
    var defaultAppState = {_: {}
-                         ,currentScreenState: 2
+                         ,currentScreenState: 1
                          ,homeScreenState: defaultHomeScreenState
                          ,monitorSettingScreenState: defaultMonitorSettingScreenState};
    var appState = A3($Signal.foldp,
@@ -3783,30 +3823,33 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                                return function (u) {
                                                                   return function (v) {
                                                                      return function (w) {
-                                                                        return {_: {}
-                                                                               ,dviOne: f
-                                                                               ,dviTwo: g
-                                                                               ,isDviOneCycle: m
-                                                                               ,isDviTwoCycle: n
-                                                                               ,isOsdLeftRightPressed: v
-                                                                               ,isOsdSelectPressed: w
-                                                                               ,isOsdUpDownPressed: u
-                                                                               ,isPipLeftRightPressed: s
-                                                                               ,isPipResizePressed: t
-                                                                               ,isPipUpDownPressed: r
-                                                                               ,isSelected: b
-                                                                               ,isVgaOneCycle: k
-                                                                               ,isVgaTwoCycle: l
-                                                                               ,isVideoOneCycle: o
-                                                                               ,isVideoThreeCycle: q
-                                                                               ,isVideoTwoCycle: p
-                                                                               ,isVisible: c
-                                                                               ,number: a
-                                                                               ,vgaOne: d
-                                                                               ,vgaTwo: e
-                                                                               ,videoOne: h
-                                                                               ,videoThree: j
-                                                                               ,videoTwo: i};
+                                                                        return function (x) {
+                                                                           return {_: {}
+                                                                                  ,dviOne: f
+                                                                                  ,dviTwo: g
+                                                                                  ,isDviOneCycle: m
+                                                                                  ,isDviTwoCycle: n
+                                                                                  ,isOn: x
+                                                                                  ,isOsdLeftRightPressed: v
+                                                                                  ,isOsdSelectPressed: w
+                                                                                  ,isOsdUpDownPressed: u
+                                                                                  ,isPipLeftRightPressed: s
+                                                                                  ,isPipResizePressed: t
+                                                                                  ,isPipUpDownPressed: r
+                                                                                  ,isSelected: b
+                                                                                  ,isVgaOneCycle: k
+                                                                                  ,isVgaTwoCycle: l
+                                                                                  ,isVideoOneCycle: o
+                                                                                  ,isVideoThreeCycle: q
+                                                                                  ,isVideoTwoCycle: p
+                                                                                  ,isVisible: c
+                                                                                  ,number: a
+                                                                                  ,vgaOne: d
+                                                                                  ,vgaTwo: e
+                                                                                  ,videoOne: h
+                                                                                  ,videoThree: j
+                                                                                  ,videoTwo: i};
+                                                                        };
                                                                      };
                                                                   };
                                                                };
@@ -3846,9 +3889,11 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isPipSetPressed: c
              ,selectedMonitor: a};
    });
-   var HomeScreenState = F2(function (a,
-   b) {
+   var HomeScreenState = F3(function (a,
+   b,
+   c) {
       return {_: {}
+             ,isPowerDisabled: c
              ,monitorPageIndex: b
              ,monitors: a};
    });
@@ -3875,6 +3920,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,SelectMonitorToConfigure: SelectMonitorToConfigure
                                ,NextMonitorPage: NextMonitorPage
                                ,PreviousMonitorPage: PreviousMonitorPage
+                               ,PowerPress: PowerPress
                                ,CloseMonitorConfiguration: CloseMonitorConfiguration
                                ,CycleButtonPress: CycleButtonPress
                                ,PipButtonPress: PipButtonPress
@@ -3891,6 +3937,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,setMonitorAsSelected: setMonitorAsSelected
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
                                ,flipMonitorPage: flipMonitorPage
+                               ,setSelectedMonitorsToPowerPress: setSelectedMonitorsToPowerPress
                                ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                ,updateMonitorList: updateMonitorList
                                ,setSignalInputChange: setSignalInputChange

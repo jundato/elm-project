@@ -30,6 +30,7 @@ type alias AppState = { currentScreenState : Int
 -- initial page that should be displayed, it contains the list of monitors, power down, etc.
 type alias HomeScreenState =  { monitors : List Monitor
                               , monitorPageIndex : Int 
+                              , isPowerDisabled : Bool
                               }
 
 -- when a monitor is selected this screen state handles it
@@ -65,16 +66,18 @@ type alias Monitor =  { number : String
                       , isOsdUpDownPressed : Bool
                       , isOsdLeftRightPressed : Bool
                       , isOsdSelectPressed : Bool
+                      , isOn : Bool
                       }
 
 ------ DEFAULT MODELS
 defaultAppState : AppState 
-defaultAppState = { currentScreenState = 2
+defaultAppState = { currentScreenState = 1
                   , homeScreenState = defaultHomeScreenState
                   , monitorSettingScreenState = defaultMonitorSettingScreenState } 
 
 defaultHomeScreenState : HomeScreenState
 defaultHomeScreenState =  { monitorPageIndex = 0
+                          , isPowerDisabled = True
                           , monitors =  [ defaultMonitor "1" True
                                         , defaultMonitor "2" True
                                         , defaultMonitor "3" True
@@ -122,6 +125,7 @@ defaultMonitor number' isVisible' =  { number = number'
                           , isOsdUpDownPressed = False
                           , isOsdLeftRightPressed = False
                           , isOsdSelectPressed = False
+                          , isOn = False
                           }
 
 -- actions
@@ -133,6 +137,7 @@ type Action
   | SelectMonitorToConfigure Monitor
   | NextMonitorPage
   | PreviousMonitorPage
+  | PowerPress
 -- monitor setting actions
   | CloseMonitorConfiguration
   | CycleButtonPress
@@ -156,16 +161,23 @@ update action appState =
 ---- Home Screen Actions
     SelectMonitor monitor -> 
       let homeScreenState' = appState.homeScreenState
-      in { appState | homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected monitor homeScreenState'.monitors } }
+          monitors' = setMonitorAsSelected monitor homeScreenState'.monitors
+          powerMustBeDisabled = if List.length (List.filter (\m -> m.isSelected ) monitors') > 0 then False else True
+      in { appState | homeScreenState <- { homeScreenState' | monitors <- monitors'
+                                                            , isPowerDisabled <- powerMustBeDisabled } }
     SelectAllMonitors ->
       let homeScreenState' = appState.homeScreenState
-      in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors } }
+      in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors
+                                                            , isPowerDisabled <- True } }
     SelectMonitorToConfigure monitor' ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | currentScreenState <- 2
                     , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- monitor'
                                                                                 , isPipSetPressed <- False
                                                                                 , isOsdSetPressed <- False } }
+    PowerPress ->
+      let homeScreenState' = appState.homeScreenState
+      in { appState | homeScreenState <- { homeScreenState' | monitors <- setSelectedMonitorsToPowerPress homeScreenState'.monitors } }
 -- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
@@ -244,6 +256,12 @@ flipMonitorPage flips maxFlips monitorsPerPage homeScreenState =
   in 
     { homeScreenState | monitorPageIndex <- newPageIndex 
                       , monitors <- (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
+
+setSelectedMonitorsToPowerPress : List Monitor -> List Monitor
+setSelectedMonitorsToPowerPress monitors =
+  List.map (\m -> if | m.isSelected -> { m | isOn <- not m.isSelected }
+                     | otherwise -> m ) monitors
+
 
 -- set visibility of page by index
 setVisibilityByPageIndex : Int -> Int -> Int -> Monitor -> Monitor
@@ -367,7 +385,7 @@ appView address appState (w,h) =
 -- home screen view
 homeScreenView address homeScreenState =
   div []  [ monitorPanelView address homeScreenState.monitors
-          , homePanelView address 
+          , homePanelView address homeScreenState
           , homeMenuView address
   ] 
 -- monitor panel view contains buttons container and pager
@@ -400,13 +418,15 @@ monitorViewPager address = div  [ class "monitor-pager-view" ]
                                 , div [ class "align-right div-1-10", onClick address NextMonitorPage ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
 
 --- view of the home panel, the home panel is located on the center of the screen
-homePanelView address = div [ class "home-panel-view" ] 
-                                    [ div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/power_button.svg" ] [ ] ]
-                                    , div [ class "home-panel-division div-1-4" ] [ div []  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
-                                                                                    , div [ class "home-panel-count-label" ] [ text "BRIGHTNESS" ] 
-                                                                                    , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
-                                    , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/night_mode_button.svg" ] [ ]]
-                                    , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/preset_button.svg" ] [ ]] ]
+homePanelView address homeScreenState = 
+  let powerButtonSrc = if not homeScreenState.isPowerDisabled then "images/power_button.svg" else "images/power_button_disabled.svg"
+  in div  [ class "home-panel-view" ] 
+          [ div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src powerButtonSrc, onClick address PowerPress ] [ ] ]
+          , div [ class "home-panel-division div-1-4" ] [ div []  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
+                                                          , div [ class "home-panel-count-label" ] [ text "BRIGHTNESS" ] 
+                                                          , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
+          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/night_mode_button.svg" ] [ ]]
+          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/preset_button.svg" ] [ ]] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
 homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item div-1-3" ] [ text "lock" ]
