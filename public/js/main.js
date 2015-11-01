@@ -2742,68 +2742,6 @@ Elm.GreenGui.Main.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Window = Elm.Window.make(_elm);
-   var signalMatrixView = F3(function (address,
-   signalType,
-   signalName) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("signal-matrix-view")]),
-      _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("signal-matrix-label")]),
-                   _L.fromArray([$Html.text(signalType)]))
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("signal-matrix-container")]),
-                   _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("div-7-10")]),
-                                _L.fromArray([A2($Html.input,
-                                _L.fromArray([$Html$Attributes.type$("text")
-                                             ,$Html$Attributes.value(signalName)]),
-                                _L.fromArray([]))]))
-                                ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("div-3-10")]),
-                                _L.fromArray([$Html.text("MATRIX")]))]))]));
-   });
-   var monitorSettingUpperBodyView = F2(function (address,
-   monitorSettingScreenState) {
-      return function () {
-         var monitor = monitorSettingScreenState.selectedMonitor;
-         return A2($Html.div,
-         _L.fromArray([$Html$Attributes.$class("monitor-setting-upper-body")]),
-         _L.fromArray([A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
-                      _L.fromArray([A3(signalMatrixView,
-                                   address,
-                                   "VGA 1",
-                                   monitor.vgaOne)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "VGA 2",
-                                   monitor.vgaTwo)]))
-                      ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
-                      _L.fromArray([A3(signalMatrixView,
-                                   address,
-                                   "DVI 1",
-                                   monitor.dviOne)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "DVI 2",
-                                   monitor.dviTwo)]))
-                      ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
-                      _L.fromArray([A3(signalMatrixView,
-                                   address,
-                                   "VIDEO 1",
-                                   monitor.videoOne)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "VIDEO 2",
-                                   monitor.videoTwo)
-                                   ,A3(signalMatrixView,
-                                   address,
-                                   "VIDEO 3",
-                                   monitor.vgaOne)]))]));
-      }();
-   });
    var homeMenuView = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
@@ -2862,8 +2800,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       return function () {
          var monitor = monitorSettingScreenState.selectedMonitor;
          return _U.replace([["selectedMonitor"
-                            ,_U.replace([["isPipResizePressed"
-                                         ,$Basics.not(monitor.isPipResizePressed)]],
+                            ,_U.replace([["isOsdSelectPressed"
+                                         ,$Basics.not(monitor.isOsdSelectPressed)]],
                             monitor)]],
          monitorSettingScreenState);
       }();
@@ -2925,6 +2863,46 @@ Elm.GreenGui.Main.make = function (_elm) {
                          ,$Basics.not(monitorSettingScreenState.isOsdSetPressed)]],
       monitorSettingScreenState);
    };
+   var setSignalInputChange = F3(function (signalType,
+   value,
+   monitor) {
+      return function () {
+         var newMonitor = function () {
+            switch (signalType)
+            {case "DVI 1":
+               return _U.replace([["dviOne"
+                                  ,value]],
+                 monitor);
+               case "DVI 2":
+               return _U.replace([["dviTwo"
+                                  ,value]],
+                 monitor);
+               case "VGA 1":
+               return _U.replace([["vgaOne"
+                                  ,value]],
+                 monitor);
+               case "VGA 2":
+               return _U.replace([["vgaTwo"
+                                  ,value]],
+                 monitor);
+               case "VIDEO 1":
+               return _U.replace([["videoOne"
+                                  ,value]],
+                 monitor);
+               case "VIDEO 2":
+               return _U.replace([["videoTwo"
+                                  ,value]],
+                 monitor);
+               case "VIDEO 3":
+               return _U.replace([["videoThree"
+                                  ,value]],
+                 monitor);}
+            _U.badCase($moduleName,
+            "between lines 237 and 245");
+         }();
+         return newMonitor;
+      }();
+   });
    var setPipButtonPress = function (monitorSettingScreenState) {
       return _U.replace([["isPipSetPressed"
                          ,$Basics.not(monitorSettingScreenState.isPipSetPressed)]
@@ -3126,9 +3104,96 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                 ,["isOsdSetPressed",false]],
                                     monitorSettingScreenState$)]],
                  appState);
+              }();
+            case "SignalInputChange":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 var monitor$ = monitorSettingScreenState$.selectedMonitor;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,_U.replace([["selectedMonitor"
+                                                 ,A3(setSignalInputChange,
+                                                 action._0,
+                                                 action._1,
+                                                 monitor$)]],
+                                    monitorSettingScreenState$)]],
+                 appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 127 and 182");
+         "between lines 130 and 189");
+      }();
+   });
+   var SignalInputChange = F2(function (a,
+   b) {
+      return {ctor: "SignalInputChange"
+             ,_0: a
+             ,_1: b};
+   });
+   var signalMatrixView = F3(function (address,
+   signalType,
+   signalName) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("signal-matrix-view")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("signal-matrix-label")]),
+                   _L.fromArray([$Html.text(signalType)]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("signal-matrix-container")]),
+                   _L.fromArray([A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("div-7-10")]),
+                                _L.fromArray([A2($Html.input,
+                                _L.fromArray([$Html$Attributes.type$("text")
+                                             ,$Html$Attributes.value(signalName)
+                                             ,A3($Html$Events.on,
+                                             "input",
+                                             $Html$Events.targetValue,
+                                             function ($) {
+                                                return $Signal.message(address)(SignalInputChange(signalType)($));
+                                             })]),
+                                _L.fromArray([]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("div-3-10")]),
+                                _L.fromArray([$Html.text("MATRIX")]))]))]));
+   });
+   var monitorSettingUpperBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("monitor-setting-upper-body")]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
+                      _L.fromArray([A3(signalMatrixView,
+                                   address,
+                                   "VGA 1",
+                                   monitor.vgaOne)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "VGA 2",
+                                   monitor.vgaTwo)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
+                      _L.fromArray([A3(signalMatrixView,
+                                   address,
+                                   "DVI 1",
+                                   monitor.dviOne)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "DVI 2",
+                                   monitor.dviTwo)]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
+                      _L.fromArray([A3(signalMatrixView,
+                                   address,
+                                   "VIDEO 1",
+                                   monitor.videoOne)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "VIDEO 2",
+                                   monitor.videoTwo)
+                                   ,A3(signalMatrixView,
+                                   address,
+                                   "VIDEO 3",
+                                   monitor.videoThree)]))]));
       }();
    });
    var OsdSelectButtonPress = {ctor: "OsdSelectButtonPress"};
@@ -3204,7 +3269,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    monitorSettingScreenState) {
       return function () {
          var getIsPressedSrc = function (value) {
-            return value ? "images/osd_type_button_pressed.svg" : "images/osd_type_button.svg";
+            return value ? "images/pip_type_button_pressed.svg" : "images/pip_type_button.svg";
          };
          var monitor = monitorSettingScreenState.selectedMonitor;
          var upDownSrc = getIsPressedSrc(monitor.isPipUpDownPressed);
@@ -3455,16 +3520,16 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var appView = F3(function (address,
    appState,
-   _v3) {
+   _v6) {
       return function () {
-         switch (_v3.ctor)
+         switch (_v6.ctor)
          {case "_Tuple2":
             return function () {
                  var monitorSettingScreenState = appState.monitorSettingScreenState;
                  var homeScreenState = appState.homeScreenState;
                  var viewToDisplay = function () {
-                    var _v7 = appState.currentScreenState;
-                    switch (_v7)
+                    var _v10 = appState.currentScreenState;
+                    switch (_v10)
                     {case 1:
                        return A2(homeScreenView,
                          address,
@@ -3478,11 +3543,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                     _L.fromArray([$Html.text("nothing to display")]));
                  }();
                  return A2($Html.toElement,
-                 _v3._0,
-                 _v3._1)(viewToDisplay);
+                 _v6._0,
+                 _v6._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 278 and 284");
+         "between lines 300 and 306");
       }();
    });
    var NoOp = {ctor: "NoOp"};
@@ -3658,6 +3723,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,OsdUpDownButtonPress: OsdUpDownButtonPress
                                ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
                                ,OsdSelectButtonPress: OsdSelectButtonPress
+                               ,SignalInputChange: SignalInputChange
                                ,update: update
                                ,setMonitorAsSelected: setMonitorAsSelected
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
@@ -3665,6 +3731,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                ,updateMonitorList: updateMonitorList
                                ,setPipButtonPress: setPipButtonPress
+                               ,setSignalInputChange: setSignalInputChange
                                ,setOsdButtonPress: setOsdButtonPress
                                ,setPipUpDownButtonPress: setPipUpDownButtonPress
                                ,setPipLeftRightButtonPress: setPipLeftRightButtonPress
@@ -3688,9 +3755,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,monitorSettingBodyView: monitorSettingBodyView
                                ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
                                ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
+                               ,signalMatrixView: signalMatrixView
                                ,pipButtonSetView: pipButtonSetView
-                               ,osdButtonSetView: osdButtonSetView
-                               ,signalMatrixView: signalMatrixView};
+                               ,osdButtonSetView: osdButtonSetView};
    return _elm.GreenGui.Main.values;
 };
 Elm.Html = Elm.Html || {};

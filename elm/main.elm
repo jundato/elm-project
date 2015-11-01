@@ -1,4 +1,5 @@
 -- author: virgilio dato
+-- temporary site : http://ghoulish-scarecrow-6363.herokuapp.com/
 module GreenGui.Main where
 
 import Window
@@ -120,6 +121,8 @@ type Action
   | OsdUpDownButtonPress
   | OsdLeftRightButtonPress
   | OsdSelectButtonPress
+-- types : VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
+  | SignalInputChange String String
 
 -- logic when an update signal is emitted
 update : Action -> AppState -> AppState
@@ -156,6 +159,10 @@ update action appState =
           monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | currentScreenState <- 1
                     , homeScreenState <- { homeScreenState' | monitors <- updateMonitorList monitorSettingScreenState'.selectedMonitor homeScreenState'.monitors } }
+    SignalInputChange signalType value ->
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+          monitor' = monitorSettingScreenState'.selectedMonitor
+      in { appState | monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- setSignalInputChange signalType value monitor' } }
     PipButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | monitorSettingScreenState <- setPipButtonPress monitorSettingScreenState' }
@@ -222,6 +229,21 @@ setPipButtonPress monitorSettingScreenState =
   { monitorSettingScreenState | isPipSetPressed <- not monitorSettingScreenState.isPipSetPressed
                               , isOsdSetPressed <- False }
 
+
+-- set signal input depending on control
+-- VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
+setSignalInputChange : String -> String -> Monitor -> Monitor
+setSignalInputChange signalType value monitor =
+  let newMonitor = case signalType of
+                                "VGA 1" -> { monitor | vgaOne <- value } 
+                                "VGA 2" -> { monitor | vgaTwo <- value }  
+                                "DVI 1" -> { monitor | dviOne <- value }  
+                                "DVI 2" -> { monitor | dviTwo <- value } 
+                                "VIDEO 1" -> { monitor | videoOne <- value } 
+                                "VIDEO 2" -> { monitor | videoTwo <- value } 
+                                "VIDEO 3" -> { monitor | videoThree <- value } 
+  in newMonitor
+
 -- toggles osd button and sets the rest to false
 setOsdButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdButtonPress monitorSettingScreenState =
@@ -253,7 +275,7 @@ setOsdLeftRightButtonPress monitorSettingScreenState =
 setOsdSelectButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdSelectButtonPress monitorSettingScreenState = 
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isPipResizePressed <- not monitor.isPipResizePressed }}
+  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isOsdSelectPressed <- not monitor.isOsdSelectPressed }}
 
 --- entry point
 main : Signal Element
@@ -358,7 +380,7 @@ monitorSettingUpperBodyView address monitorSettingScreenState =
                                                                             , signalMatrixView address "DVI 2" monitor.dviTwo ]
                                                 , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne
                                                                             , signalMatrixView address "VIDEO 2" monitor.videoTwo
-                                                                            , signalMatrixView address "VIDEO 3" monitor.vgaOne ]]
+                                                                            , signalMatrixView address "VIDEO 3" monitor.videoThree ]]
 
 -- monitor lower body view
 monitorSettingLowerBodyView address monitorSettingScreenState = 
@@ -370,11 +392,23 @@ monitorSettingLowerBodyView address monitorSettingScreenState =
                                               , pipButtonSetView address monitorSettingScreenState
                                               , osdButtonSetView address monitorSettingScreenState  ]
 
+-- signal matrix view
+signalMatrixView address signalType signalName = 
+  div [ class "signal-matrix-view" ]  
+      [ div [ class "signal-matrix-label" ] 
+            [ text signalType ]
+      , div [ class "signal-matrix-container" ] 
+            [ div [ class "div-7-10" ] 
+                  [ input [ type' "text"
+                          , value signalName
+                          , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ]
+                  , div [ class "div-3-10" ] [ text "MATRIX" ] ]] 
+
 -- view for pip buttons set                                            
 pipButtonSetView address monitorSettingScreenState = 
   let isVisible = if not monitorSettingScreenState.isPipSetPressed then "hidden" else ""
       monitor = monitorSettingScreenState.selectedMonitor
-      getIsPressedSrc value = if value then "images/osd_type_button_pressed.svg" else "images/osd_type_button.svg"
+      getIsPressedSrc value = if value then "images/pip_type_button_pressed.svg" else "images/pip_type_button.svg"
       upDownSrc = getIsPressedSrc monitor.isPipUpDownPressed
       leftRightSrc = getIsPressedSrc monitor.isPipLeftRightPressed
       resizeSrc = getIsPressedSrc monitor.isPipResizePressed
@@ -428,8 +462,4 @@ osdButtonSetView address monitorSettingScreenState =
                             [ img [ class "vdiv-1-1", src selectSrc, onClick address OsdSelectButtonPress ] [ ] ] ] ]
           ]
 
--- signal matrix view
-signalMatrixView address signalType signalName = 
-  div [ class "signal-matrix-view" ]  [ div [ class "signal-matrix-label" ] [ text signalType ]
-                                                            , div [ class "signal-matrix-container" ] [ div [ class "div-7-10" ] [ input [ type' "text", value signalName ][ ] ]
-                                                                                                      , div [ class "div-3-10" ] [ text "MATRIX" ] ]] 
+
