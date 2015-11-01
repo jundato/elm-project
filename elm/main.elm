@@ -342,7 +342,7 @@ monitorSettingScreenView address monitorSettingScreenState =
 -- top bar for monitor setting view
 monitorSettingTopBarView address monitorSettingScreenState = 
   div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
-                              , div [ class "float-right", onClick address CloseMonitorConfiguration ] [ text "CLOSE" ] ]
+                              , div [ class "float-right button", onClick address CloseMonitorConfiguration ] [ text "CLOSE" ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView address monitorSettingScreenState = 
@@ -352,13 +352,13 @@ monitorSettingBodyView address monitorSettingScreenState =
 -- monitor setting upper body view
 monitorSettingUpperBodyView address monitorSettingScreenState =
   let monitor = monitorSettingScreenState.selectedMonitor
-  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ] [ signalMatrixView address "VGA 1" monitor.vgaOne
-                                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo ]
-                                                , div [ class "div-1-3" ]  [ signalMatrixView address "DVI 1" monitor.dviOne
-                                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo ]
-                                                , div [ class "div-1-3" ]  [ signalMatrixView address "VIDEO 1" monitor.videoOne
-                                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo
-                                                                                            , signalMatrixView address "VIDEO 3" monitor.vgaOne ]]
+  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ]  [ signalMatrixView address "VGA 1" monitor.vgaOne
+                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo ]
+                                                , div [ class "div-1-3" ]   [ signalMatrixView address "DVI 1" monitor.dviOne
+                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo ]
+                                                , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne
+                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo
+                                                                            , signalMatrixView address "VIDEO 3" monitor.vgaOne ]]
 
 -- monitor lower body view
 monitorSettingLowerBodyView address monitorSettingScreenState = 
@@ -431,5 +431,5 @@ osdButtonSetView address monitorSettingScreenState =
 -- signal matrix view
 signalMatrixView address signalType signalName = 
   div [ class "signal-matrix-view" ]  [ div [ class "signal-matrix-label" ] [ text signalType ]
-                                                            , div [ class "signal-matrix-container" ] [ div [ class "div-7-10" ] [ input [ type' "text", value signalType ][ ] ]
+                                                            , div [ class "signal-matrix-container" ] [ div [ class "div-7-10" ] [ input [ type' "text", value signalName ][ ] ]
                                                                                                       , div [ class "div-3-10" ] [ text "MATRIX" ] ]] 

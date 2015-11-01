@@ -2756,7 +2756,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                 _L.fromArray([$Html$Attributes.$class("div-7-10")]),
                                 _L.fromArray([A2($Html.input,
                                 _L.fromArray([$Html$Attributes.type$("text")
-                                             ,$Html$Attributes.value(signalType)]),
+                                             ,$Html$Attributes.value(signalName)]),
                                 _L.fromArray([]))]))
                                 ,A2($Html.div,
                                 _L.fromArray([$Html$Attributes.$class("div-3-10")]),
@@ -3328,7 +3328,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                    "MONITOR ",
                    $Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("float-right")
+                   _L.fromArray([$Html$Attributes.$class("float-right button")
                                 ,A2($Html$Events.onClick,
                                 address,
                                 CloseMonitorConfiguration)]),
