@@ -2753,42 +2753,14 @@ Elm.GreenGui.Main.make = function (_elm) {
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("signal-matrix-container")]),
                    _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("signal-text-box")]),
+                                _L.fromArray([$Html$Attributes.$class("div-7-10")]),
                                 _L.fromArray([A2($Html.input,
                                 _L.fromArray([$Html$Attributes.type$("text")
                                              ,$Html$Attributes.value(signalType)]),
                                 _L.fromArray([]))]))
                                 ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("matrix-button")]),
+                                _L.fromArray([$Html$Attributes.$class("div-3-10")]),
                                 _L.fromArray([$Html.text("MATRIX")]))]))]));
-   });
-   var monitorSettingLowerBodyView = F2(function (address,
-   monitorSettingScreenState) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("monitor-setting-lower-body")]),
-      _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-setting-button-panel")]),
-                   _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("monitor-button-container")]),
-                                _L.fromArray([A2($Html.img,
-                                _L.fromArray([$Html$Attributes.$class("monitor-button")
-                                             ,$Html$Attributes.src("images/cycle_button.svg")]),
-                                _L.fromArray([]))]))
-                                ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("monitor-button-container")]),
-                                _L.fromArray([A2($Html.img,
-                                _L.fromArray([$Html$Attributes.$class("monitor-button")
-                                             ,$Html$Attributes.src("images/pip_button.svg")]),
-                                _L.fromArray([]))]))
-                                ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("monitor-button-container")]),
-                                _L.fromArray([A2($Html.img,
-                                _L.fromArray([$Html$Attributes.$class("monitor-button")
-                                             ,$Html$Attributes.src("images/osd_button.svg")]),
-                                _L.fromArray([]))]))]))
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("osd-buttons-panel")]),
-                   _L.fromArray([]))]));
    });
    var monitorSettingUpperBodyView = F2(function (address,
    monitorSettingScreenState) {
@@ -2797,7 +2769,7 @@ Elm.GreenGui.Main.make = function (_elm) {
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("monitor-setting-upper-body")]),
          _L.fromArray([A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("monitor-setting-division")]),
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
                       _L.fromArray([A3(signalMatrixView,
                                    address,
                                    "VGA 1",
@@ -2807,7 +2779,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    "VGA 2",
                                    monitor.vgaTwo)]))
                       ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("monitor-setting-division")]),
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
                       _L.fromArray([A3(signalMatrixView,
                                    address,
                                    "DVI 1",
@@ -2817,7 +2789,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    "DVI 2",
                                    monitor.dviTwo)]))
                       ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("monitor-setting-division")]),
+                      _L.fromArray([$Html$Attributes.$class("div-1-3")]),
                       _L.fromArray([A3(signalMatrixView,
                                    address,
                                    "VIDEO 1",
@@ -2832,60 +2804,30 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    monitor.vgaOne)]))]));
       }();
    });
-   var monitorSettingBodyView = F2(function (address,
-   monitorSettingScreenState) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("app-body")]),
-      _L.fromArray([A2(monitorSettingUpperBodyView,
-                   address,
-                   monitorSettingScreenState)
-                   ,A2(monitorSettingLowerBodyView,
-                   address,
-                   monitorSettingScreenState)]));
-   });
-   var monitorSettingTopBarView = F2(function (address,
-   monitorSettingScreenState) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("app-top-bar")]),
-      _L.fromArray([$Html.text(A2($Basics._op["++"],
-      "MONITOR ",
-      $Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]));
-   });
-   var monitorSettingScreenView = F2(function (address,
-   monitorSettingScreenState) {
-      return A2($Html.div,
-      _L.fromArray([]),
-      _L.fromArray([A2(monitorSettingTopBarView,
-                   address,
-                   monitorSettingScreenState)
-                   ,A2(monitorSettingBodyView,
-                   address,
-                   monitorSettingScreenState)]));
-   });
    var homeMenuView = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-menu-item")]),
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
                    _L.fromArray([$Html.text("lock")]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-menu-item")]),
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
                    _L.fromArray([$Html.text("menu")]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-menu-item")]),
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
                    _L.fromArray([$Html.text("information")]))]));
    };
    var homePanelView = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("home-panel-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                    _L.fromArray([A2($Html.img,
                    _L.fromArray([$Html$Attributes.$class("home-panel-button")
                                 ,$Html$Attributes.src("images/power_button.svg")]),
                    _L.fromArray([]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                    _L.fromArray([A2($Html.div,
                    _L.fromArray([]),
                    _L.fromArray([A2($Html.div,
@@ -2904,18 +2846,100 @@ Elm.GreenGui.Main.make = function (_elm) {
                                              ,$Html$Attributes.src("images/decrement_button.svg")]),
                                 _L.fromArray([]))]))]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                    _L.fromArray([A2($Html.img,
                    _L.fromArray([$Html$Attributes.$class("home-panel-button")
                                 ,$Html$Attributes.src("images/night_mode_button.svg")]),
                    _L.fromArray([]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-panel-division")]),
+                   _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                    _L.fromArray([A2($Html.img,
                    _L.fromArray([$Html$Attributes.$class("home-panel-button")
                                 ,$Html$Attributes.src("images/preset_button.svg")]),
                    _L.fromArray([]))]))]));
    };
+   var setOsdSelectButtonPress = function (monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return _U.replace([["selectedMonitor"
+                            ,_U.replace([["isPipResizePressed"
+                                         ,$Basics.not(monitor.isPipResizePressed)]],
+                            monitor)]],
+         monitorSettingScreenState);
+      }();
+   };
+   var setOsdLeftRightButtonPress = function (monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return _U.replace([["selectedMonitor"
+                            ,_U.replace([["isOsdLeftRightPressed"
+                                         ,$Basics.not(monitor.isOsdLeftRightPressed)]],
+                            monitor)]],
+         monitorSettingScreenState);
+      }();
+   };
+   var setOsdUpDownButtonPress = function (monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return _U.replace([["selectedMonitor"
+                            ,_U.replace([["isOsdUpDownPressed"
+                                         ,$Basics.not(monitor.isOsdUpDownPressed)]],
+                            monitor)]],
+         monitorSettingScreenState);
+      }();
+   };
+   var setPipResizeButtonPress = function (monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return _U.replace([["selectedMonitor"
+                            ,_U.replace([["isPipResizePressed"
+                                         ,$Basics.not(monitor.isPipResizePressed)]],
+                            monitor)]],
+         monitorSettingScreenState);
+      }();
+   };
+   var setPipLeftRightButtonPress = function (monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return _U.replace([["selectedMonitor"
+                            ,_U.replace([["isPipLeftRightPressed"
+                                         ,$Basics.not(monitor.isPipLeftRightPressed)]],
+                            monitor)]],
+         monitorSettingScreenState);
+      }();
+   };
+   var setPipUpDownButtonPress = function (monitorSettingScreenState) {
+      return function () {
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         return _U.replace([["selectedMonitor"
+                            ,_U.replace([["isPipUpDownPressed"
+                                         ,$Basics.not(monitor.isPipUpDownPressed)]],
+                            monitor)]],
+         monitorSettingScreenState);
+      }();
+   };
+   var setOsdButtonPress = function (monitorSettingScreenState) {
+      return _U.replace([["isPipSetPressed"
+                         ,false]
+                        ,["isOsdSetPressed"
+                         ,$Basics.not(monitorSettingScreenState.isOsdSetPressed)]],
+      monitorSettingScreenState);
+   };
+   var setPipButtonPress = function (monitorSettingScreenState) {
+      return _U.replace([["isPipSetPressed"
+                         ,$Basics.not(monitorSettingScreenState.isPipSetPressed)]
+                        ,["isOsdSetPressed",false]],
+      monitorSettingScreenState);
+   };
+   var updateMonitorList = F2(function (monitor,
+   monitors) {
+      return A2($List.map,
+      function (m) {
+         return _U.eq(m.number,
+         monitor.number) ? monitor : m;
+      },
+      monitors);
+   });
    var setVisibilityByPageIndex = F4(function (newPageIndex,
    monitorsPerPage,
    index,
@@ -2973,7 +2997,21 @@ Elm.GreenGui.Main.make = function (_elm) {
    appState) {
       return function () {
          switch (action.ctor)
-         {case "NextMonitorPage":
+         {case "CloseMonitorConfiguration":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,1]
+                                   ,["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,A2(updateMonitorList,
+                                                 monitorSettingScreenState$.selectedMonitor,
+                                                 homeScreenState$.monitors)]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "NextMonitorPage":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
                  var monitorsPerPage = 5;
@@ -2987,6 +3025,62 @@ Elm.GreenGui.Main.make = function (_elm) {
                  appState);
               }();
             case "NoOp": return appState;
+            case "OsdButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "OsdLeftRightButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdLeftRightButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "OsdSelectButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdSelectButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "OsdUpDownButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdUpDownButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipLeftRightButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipLeftRightButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipResizeButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipResizeButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipUpDownButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipUpDownButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
             case "PreviousMonitorPage":
             return function () {
                  var homeScreenState$ = appState.homeScreenState;
@@ -3027,13 +3121,229 @@ Elm.GreenGui.Main.make = function (_elm) {
                                     ,2]
                                    ,["monitorSettingScreenState"
                                     ,_U.replace([["selectedMonitor"
-                                                 ,action._0]],
+                                                 ,action._0]
+                                                ,["isPipSetPressed",false]
+                                                ,["isOsdSetPressed",false]],
                                     monitorSettingScreenState$)]],
                  appState);
               }();}
          _U.badCase($moduleName,
-         "between lines 100 and 122");
+         "between lines 127 and 182");
       }();
+   });
+   var OsdSelectButtonPress = {ctor: "OsdSelectButtonPress"};
+   var OsdLeftRightButtonPress = {ctor: "OsdLeftRightButtonPress"};
+   var OsdUpDownButtonPress = {ctor: "OsdUpDownButtonPress"};
+   var osdButtonSetView = F2(function (address,
+   monitorSettingScreenState) {
+      return function () {
+         var getIsPressedSrc = function (value) {
+            return value ? "images/osd_type_button_pressed.svg" : "images/osd_type_button.svg";
+         };
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         var upDownSrc = getIsPressedSrc(monitor.isOsdUpDownPressed);
+         var leftRightSrc = getIsPressedSrc(monitor.isOsdLeftRightPressed);
+         var selectSrc = getIsPressedSrc(monitor.isOsdSelectPressed);
+         var isVisible = $Basics.not(monitorSettingScreenState.isOsdSetPressed) ? "hidden" : "";
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
+         "div-1-3 ",
+         isVisible))]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("vdiv-1-2")]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-2 align-center")]),
+                                   _L.fromArray([A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-5")]),
+                                                _L.fromArray([$Html.text("LEFT/RIGHT")]))
+                                                ,A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-4-5")]),
+                                                _L.fromArray([A2($Html.img,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-1")
+                                                             ,$Html$Attributes.src(leftRightSrc)
+                                                             ,A2($Html$Events.onClick,
+                                                             address,
+                                                             OsdLeftRightButtonPress)]),
+                                                _L.fromArray([]))]))]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-2 align-center")]),
+                                   _L.fromArray([A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-5")]),
+                                                _L.fromArray([$Html.text("UP/DOWN")]))
+                                                ,A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-4-5")]),
+                                                _L.fromArray([A2($Html.img,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-1")
+                                                             ,$Html$Attributes.src(upDownSrc)
+                                                             ,A2($Html$Events.onClick,
+                                                             address,
+                                                             OsdUpDownButtonPress)]),
+                                                _L.fromArray([]))]))]))]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("vdiv-1-2 align-center")]),
+                      _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-1 align-center")]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("vdiv-1-5")]),
+                                   _L.fromArray([$Html.text("SELECT")]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("vdiv-4-5")]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("vdiv-1-1")
+                                                ,$Html$Attributes.src(selectSrc)
+                                                ,A2($Html$Events.onClick,
+                                                address,
+                                                OsdSelectButtonPress)]),
+                                   _L.fromArray([]))]))]))]))]));
+      }();
+   });
+   var PipResizeButtonPress = {ctor: "PipResizeButtonPress"};
+   var PipLeftRightButtonPress = {ctor: "PipLeftRightButtonPress"};
+   var PipUpDownButtonPress = {ctor: "PipUpDownButtonPress"};
+   var pipButtonSetView = F2(function (address,
+   monitorSettingScreenState) {
+      return function () {
+         var getIsPressedSrc = function (value) {
+            return value ? "images/osd_type_button_pressed.svg" : "images/osd_type_button.svg";
+         };
+         var monitor = monitorSettingScreenState.selectedMonitor;
+         var upDownSrc = getIsPressedSrc(monitor.isPipUpDownPressed);
+         var leftRightSrc = getIsPressedSrc(monitor.isPipLeftRightPressed);
+         var resizeSrc = getIsPressedSrc(monitor.isPipResizePressed);
+         var isVisible = $Basics.not(monitorSettingScreenState.isPipSetPressed) ? "hidden" : "";
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
+         "div-1-3 ",
+         isVisible))]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("vdiv-1-2")]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-2 align-center")]),
+                                   _L.fromArray([A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-5")]),
+                                                _L.fromArray([$Html.text("LEFT/RIGHT")]))
+                                                ,A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-4-5")]),
+                                                _L.fromArray([A2($Html.img,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-1")
+                                                             ,$Html$Attributes.src(leftRightSrc)
+                                                             ,A2($Html$Events.onClick,
+                                                             address,
+                                                             PipLeftRightButtonPress)]),
+                                                _L.fromArray([]))]))]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-2 align-center")]),
+                                   _L.fromArray([A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-5")]),
+                                                _L.fromArray([$Html.text("UP/DOWN")]))
+                                                ,A2($Html.div,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-4-5")]),
+                                                _L.fromArray([A2($Html.img,
+                                                _L.fromArray([$Html$Attributes.$class("vdiv-1-1")
+                                                             ,$Html$Attributes.src(upDownSrc)
+                                                             ,A2($Html$Events.onClick,
+                                                             address,
+                                                             PipUpDownButtonPress)]),
+                                                _L.fromArray([]))]))]))]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("vdiv-1-2 align-center")]),
+                      _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-1-1 align-center")]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("vdiv-1-5")]),
+                                   _L.fromArray([$Html.text("RESIZE")]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("vdiv-4-5")]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("vdiv-1-1")
+                                                ,$Html$Attributes.src(resizeSrc)
+                                                ,A2($Html$Events.onClick,
+                                                address,
+                                                PipResizeButtonPress)]),
+                                   _L.fromArray([]))]))]))]))]));
+      }();
+   });
+   var OsdButtonPress = {ctor: "OsdButtonPress"};
+   var PipButtonPress = {ctor: "PipButtonPress"};
+   var monitorSettingLowerBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return function () {
+         var osdButtonSrc = monitorSettingScreenState.isOsdSetPressed ? "images/osd_button_pressed.svg" : "images/osd_button.svg";
+         var pipButtonSrc = monitorSettingScreenState.isPipSetPressed ? "images/pip_button_pressed.svg" : "images/pip_button.svg";
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("monitor-setting-lower-body")]),
+         _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("div-2-3")]),
+                      _L.fromArray([A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("monitor-button")
+                                                ,$Html$Attributes.src("images/cycle_button.svg")]),
+                                   _L.fromArray([]))]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("monitor-button")
+                                                ,$Html$Attributes.src(pipButtonSrc)
+                                                ,A2($Html$Events.onClick,
+                                                address,
+                                                PipButtonPress)]),
+                                   _L.fromArray([]))]))
+                                   ,A2($Html.div,
+                                   _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
+                                   _L.fromArray([A2($Html.img,
+                                   _L.fromArray([$Html$Attributes.$class("monitor-button")
+                                                ,$Html$Attributes.src(osdButtonSrc)
+                                                ,A2($Html$Events.onClick,
+                                                address,
+                                                OsdButtonPress)]),
+                                   _L.fromArray([]))]))]))
+                      ,A2(pipButtonSetView,
+                      address,
+                      monitorSettingScreenState)
+                      ,A2(osdButtonSetView,
+                      address,
+                      monitorSettingScreenState)]));
+      }();
+   });
+   var monitorSettingBodyView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("app-body")]),
+      _L.fromArray([A2(monitorSettingUpperBodyView,
+                   address,
+                   monitorSettingScreenState)
+                   ,A2(monitorSettingLowerBodyView,
+                   address,
+                   monitorSettingScreenState)]));
+   });
+   var CloseMonitorConfiguration = {ctor: "CloseMonitorConfiguration"};
+   var monitorSettingTopBarView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("app-top-bar")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("float-left")]),
+                   _L.fromArray([$Html.text(A2($Basics._op["++"],
+                   "MONITOR ",
+                   $Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("float-right")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                CloseMonitorConfiguration)]),
+                   _L.fromArray([$Html.text("CLOSE")]))]));
+   });
+   var monitorSettingScreenView = F2(function (address,
+   monitorSettingScreenState) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2(monitorSettingTopBarView,
+                   address,
+                   monitorSettingScreenState)
+                   ,A2(monitorSettingBodyView,
+                   address,
+                   monitorSettingScreenState)]));
    });
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};
@@ -3046,7 +3356,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("monitor-pager-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-left")
+                   _L.fromArray([$Html$Attributes.$class("align-left div-1-10")
                                 ,A2($Html$Events.onClick,
                                 address,
                                 PreviousMonitorPage)]),
@@ -3055,7 +3365,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                 ,$Html$Attributes.src("images/left_arrow_icon.svg")]),
                    _L.fromArray([]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-selectall-view")]),
+                   _L.fromArray([$Html$Attributes.$class("monitor-selectall-view div-4-5")]),
                    _L.fromArray([A2($Html.div,
                                 _L.fromArray([$Html$Attributes.$class("monitor-selectall-graphic")]),
                                 _L.fromArray([]))
@@ -3068,7 +3378,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                              SelectAllMonitors)]),
                                 _L.fromArray([$Html.text("SELECT ALL")]))]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-pager-button-view align-right")
+                   _L.fromArray([$Html$Attributes.$class("align-right div-1-10")
                                 ,A2($Html$Events.onClick,
                                 address,
                                 NextMonitorPage)]),
@@ -3089,7 +3399,7 @@ Elm.GreenGui.Main.make = function (_elm) {
          true) ? "hidden" : "";
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
-         "monitor-view-container ",
+         " div-1-5 monitor-view-container ",
          visibility))]),
          _L.fromArray([A2($Html.div,
          _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
@@ -3172,7 +3482,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                  _v3._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 176 and 182");
+         "between lines 278 and 284");
       }();
    });
    var NoOp = {ctor: "NoOp"};
@@ -3182,6 +3492,12 @@ Elm.GreenGui.Main.make = function (_elm) {
       return {_: {}
              ,dviOne: ""
              ,dviTwo: ""
+             ,isOsdLeftRightPressed: false
+             ,isOsdSelectPressed: false
+             ,isOsdUpDownPressed: false
+             ,isPipLeftRightPressed: false
+             ,isPipResizePressed: false
+             ,isPipUpDownPressed: false
              ,isSelected: false
              ,isVisible: isVisible$
              ,number: number$
@@ -3192,6 +3508,8 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,videoTwo: ""};
    });
    var defaultMonitorSettingScreenState = {_: {}
+                                          ,isOsdSetPressed: false
+                                          ,isPipSetPressed: false
                                           ,selectedMonitor: A2(defaultMonitor,
                                           "1",
                                           true)};
@@ -3255,17 +3573,35 @@ Elm.GreenGui.Main.make = function (_elm) {
                         return function (h) {
                            return function (i) {
                               return function (j) {
-                                 return {_: {}
-                                        ,dviOne: f
-                                        ,dviTwo: g
-                                        ,isSelected: b
-                                        ,isVisible: c
-                                        ,number: a
-                                        ,vgaOne: d
-                                        ,vgaTwo: e
-                                        ,videoOne: h
-                                        ,videoThree: j
-                                        ,videoTwo: i};
+                                 return function (k) {
+                                    return function (l) {
+                                       return function (m) {
+                                          return function (n) {
+                                             return function (o) {
+                                                return function (p) {
+                                                   return {_: {}
+                                                          ,dviOne: f
+                                                          ,dviTwo: g
+                                                          ,isOsdLeftRightPressed: o
+                                                          ,isOsdSelectPressed: p
+                                                          ,isOsdUpDownPressed: n
+                                                          ,isPipLeftRightPressed: l
+                                                          ,isPipResizePressed: m
+                                                          ,isPipUpDownPressed: k
+                                                          ,isSelected: b
+                                                          ,isVisible: c
+                                                          ,number: a
+                                                          ,vgaOne: d
+                                                          ,vgaTwo: e
+                                                          ,videoOne: h
+                                                          ,videoThree: j
+                                                          ,videoTwo: i};
+                                                };
+                                             };
+                                          };
+                                       };
+                                    };
+                                 };
                               };
                            };
                         };
@@ -3276,10 +3612,14 @@ Elm.GreenGui.Main.make = function (_elm) {
          };
       };
    };
-   var MonitorSettingScreenState = function (a) {
+   var MonitorSettingScreenState = F3(function (a,
+   b,
+   c) {
       return {_: {}
+             ,isOsdSetPressed: c
+             ,isPipSetPressed: b
              ,selectedMonitor: a};
-   };
+   });
    var HomeScreenState = F2(function (a,
    b) {
       return {_: {}
@@ -3309,11 +3649,29 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,SelectMonitorToConfigure: SelectMonitorToConfigure
                                ,NextMonitorPage: NextMonitorPage
                                ,PreviousMonitorPage: PreviousMonitorPage
+                               ,CloseMonitorConfiguration: CloseMonitorConfiguration
+                               ,PipButtonPress: PipButtonPress
+                               ,OsdButtonPress: OsdButtonPress
+                               ,PipUpDownButtonPress: PipUpDownButtonPress
+                               ,PipLeftRightButtonPress: PipLeftRightButtonPress
+                               ,PipResizeButtonPress: PipResizeButtonPress
+                               ,OsdUpDownButtonPress: OsdUpDownButtonPress
+                               ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
+                               ,OsdSelectButtonPress: OsdSelectButtonPress
                                ,update: update
                                ,setMonitorAsSelected: setMonitorAsSelected
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
                                ,flipMonitorPage: flipMonitorPage
                                ,setVisibilityByPageIndex: setVisibilityByPageIndex
+                               ,updateMonitorList: updateMonitorList
+                               ,setPipButtonPress: setPipButtonPress
+                               ,setOsdButtonPress: setOsdButtonPress
+                               ,setPipUpDownButtonPress: setPipUpDownButtonPress
+                               ,setPipLeftRightButtonPress: setPipLeftRightButtonPress
+                               ,setPipResizeButtonPress: setPipResizeButtonPress
+                               ,setOsdUpDownButtonPress: setOsdUpDownButtonPress
+                               ,setOsdLeftRightButtonPress: setOsdLeftRightButtonPress
+                               ,setOsdSelectButtonPress: setOsdSelectButtonPress
                                ,main: main
                                ,appState: appState
                                ,actions: actions
@@ -3330,6 +3688,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,monitorSettingBodyView: monitorSettingBodyView
                                ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
                                ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
+                               ,pipButtonSetView: pipButtonSetView
+                               ,osdButtonSetView: osdButtonSetView
                                ,signalMatrixView: signalMatrixView};
    return _elm.GreenGui.Main.values;
 };
