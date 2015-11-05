@@ -17,6 +17,7 @@ import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Basics
 import String
 import Debug
+import Json.Decode as Json
 
 -- app states model have screeen states that models what state each screen
 -- 1) home screen
@@ -75,16 +76,20 @@ type alias Monitor =  { number : String
 
 type alias Preset = { id : Int
                     , name : String 
+                    , tempName : String
                     , monitors : List Monitor 
-                    , isSelected : Bool }
+                    , isSelected : Bool
+                    , isEditingName : Bool }
 
 ------ DEFAULT MODELS
+-- model for the whole app
 defaultAppState : AppState 
 defaultAppState = { currentScreenState = 1
                   , homeScreenState = defaultHomeScreenState
                   , monitorSettingScreenState = defaultMonitorSettingScreenState
                   , presetSettingScreenState = defaulPresetSettingScreenState } 
 
+-- model for home screen
 defaultHomeScreenState : HomeScreenState
 defaultHomeScreenState =  { monitorPageIndex = 0
                           , isPowerDisabled = True
@@ -101,7 +106,7 @@ defaultHomeScreenState =  { monitorPageIndex = 0
                                         , defaultMonitor "11" False
                                         , defaultMonitor "12" False ]
                           }
-
+-- model for monitor settings screen 
 defaultMonitorSettingScreenState : MonitorSettingScreenState
 defaultMonitorSettingScreenState  = { selectedMonitor = defaultMonitor "1" True
                                     , isCyclePressed = False
@@ -111,6 +116,7 @@ defaultMonitorSettingScreenState  = { selectedMonitor = defaultMonitor "1" True
                                     , isPipDisabled = False
                                     , isOsdDisabled = False }
 
+-- model for preset setttings screen
 defaulPresetSettingScreenState : PresetSettingScreenState
 defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
                                               , defaultPreset 2 
@@ -119,6 +125,7 @@ defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
                                               , defaultPreset 5
                                               , defaultPreset 6 ] }
 
+-- model for monitors
 defaultMonitor : String -> Bool -> Monitor
 defaultMonitor number' isVisible' =  { number = number'
                           , isSelected = False
@@ -146,11 +153,14 @@ defaultMonitor number' isVisible' =  { number = number'
                           , isOn = False
                           }
 
+-- model for presets
 defaultPreset : Int -> Preset
 defaultPreset id' = { id = id'
-                    , name = ""
+                    , name = "PRE-SET"
+                    , tempName = ""
                     , monitors = []
-                    , isSelected = False }
+                    , isSelected = False
+                    , isEditingName = False }
 
 
 -- actions
@@ -180,6 +190,11 @@ type Action
   | SignalInputChange String String
 -- preset setting actions
   | ClosePresetSettings
+  | PresetSelected Preset
+  | PresetEdit Preset
+  | PresetCommitThenSelect Preset
+  | PresetNameInput Preset String
+  | PresetEditCancel Preset
 
 -- logic when an update signal is emitted
 update : Action -> AppState -> AppState
@@ -189,7 +204,7 @@ update action appState =
 ---- Home Screen Actions
     SelectMonitor monitor -> 
       let homeScreenState' = appState.homeScreenState
-          monitors' = setMonitorAsSelected monitor homeScreenState'.monitors
+          monitors' = toggleMonitorAsSelected monitor homeScreenState'.monitors
           powerMustBeDisabled = if List.length (List.filter (\m -> m.isSelected ) monitors') > 0 then False else True
       in { appState | homeScreenState <- { homeScreenState' | monitors <- monitors'
                                                             , isPowerDisabled <- powerMustBeDisabled } }
@@ -199,7 +214,9 @@ update action appState =
                                                             , isPowerDisabled <- True } }
     SelectMonitorToConfigure monitor' ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
+          homeScreenState' = appState.homeScreenState
       in { appState | currentScreenState <- 2
+                    , homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected monitor' homeScreenState'.monitors }
                     , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- monitor'
                                                                                 , isPipSetPressed <- False
                                                                                 , isOsdSetPressed <- False } }
@@ -209,8 +226,6 @@ update action appState =
     PresetPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | currentScreenState <- 3 }
-    ClosePresetSettings ->
-      { appState | currentScreenState <- 1 }
 -- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
@@ -266,13 +281,37 @@ update action appState =
     OsdSelectButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | monitorSettingScreenState <- setOsdSelectButtonPress monitorSettingScreenState' }
-
+---- Preset setting action
+    ClosePresetSettings ->
+      { appState | currentScreenState <- 1 }
+    PresetSelected preset ->
+      let homeScreenState' = appState.homeScreenState
+      in { appState | homeScreenState <- { homeScreenState' | monitors <- preset.monitors } }
+    PresetEdit preset ->
+      let presetSettingScreenState' = appState.presetSettingScreenState
+      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets  <- setPresetToEdit preset presetSettingScreenState'.presets } }
+    PresetCommitThenSelect preset ->
+      let presetSettingScreenState' = appState.presetSettingScreenState
+          monitors = appState.homeScreenState.monitors
+      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets  <- setPresetCommitThenSelect preset monitors presetSettingScreenState'.presets } }
+    PresetNameInput preset value ->
+      let presetSettingScreenState' = appState.presetSettingScreenState
+      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets <- setPresetName preset value presetSettingScreenState'.presets } }
+    PresetEditCancel preset ->
+      let presetSettingScreenState' = appState.presetSettingScreenState
+      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets <- cancelPresetEdit preset presetSettingScreenState'.presets}}
 
 ------ CONVERSION FUNCTIONS
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
 setMonitorAsSelected monitor monitors = 
+  List.map (\m -> if  | m.number == monitor.number -> { monitor | isSelected <- not True }
+                      | otherwise -> m ) monitors
+
+-- negates the value of wether the monitor selected or not
+toggleMonitorAsSelected : Monitor -> List Monitor -> List Monitor
+toggleMonitorAsSelected monitor monitors = 
   List.map (\m -> if  | m.number == monitor.number -> { monitor | isSelected <- not monitor.isSelected }
                       | otherwise -> m ) monitors
 
@@ -308,7 +347,7 @@ setVisibilityByPageIndex newPageIndex monitorsPerPage index monitor =
 -- updates monitor on list
 updateMonitorList : Monitor -> List Monitor -> List Monitor
 updateMonitorList monitor monitors =
-  List.map (\m -> if m.number ==  monitor.number then monitor else m ) monitors
+  List.map (\m -> if m.number ==  monitor.number then { monitor | isSelected <- True }  else m ) monitors
 
 -- set signal input depending on control
 -- VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
@@ -388,6 +427,32 @@ setOsdSelectButtonPress monitorSettingScreenState =
   let monitor = monitorSettingScreenState.selectedMonitor 
   in { monitorSettingScreenState | selectedMonitor <- { monitor |  isOsdSelectPressed <- not monitor.isOsdSelectPressed }}
 
+--List.map (\m -> if m.number ==  monitor.number then monitor else m ) monitors
+---- PRESET SETTING FUNCTIONS
+setPresetToEdit : Preset -> List Preset -> List Preset
+setPresetToEdit preset presets =
+  List.map (\p -> if  | p.id == preset.id -> { p  | isEditingName <- not p.isEditingName
+                                                  , tempName <- p.name } 
+                      | otherwise -> { p  | isEditingName <- False
+                                          , tempName <- "" } ) presets
+
+setPresetCommitThenSelect : Preset -> List Monitor -> List Preset -> List Preset
+setPresetCommitThenSelect preset monitors presets =
+  List.map (\p -> if  | p.id == preset.id -> { p  | name <- p.tempName
+                                                  , isEditingName <- False
+                                                  , monitors <- monitors } 
+                      | otherwise -> p ) presets
+
+cancelPresetEdit : Preset -> List Preset -> List Preset
+cancelPresetEdit preset presets =
+  List.map (\p -> if  | p.id == preset.id -> { p | isEditingName <- False }
+                      | otherwise -> p ) presets
+
+
+setPresetName : Preset -> String -> List Preset -> List Preset
+setPresetName preset value presets =
+  List.map (\p -> if  | p.id == preset.id -> { p | tempName <- value } 
+                      | otherwise -> p ) presets
 --- entry point
 main : Signal Element
 main =
@@ -441,10 +506,12 @@ monitorViewButton address monitor =
                          | otherwise -> ""
   in
     div [ class (" div-1-5 monitor-view-container " ++ visibility ) ]
-    [ div [ class (isHighlighted ++ " " ++ "monitor-view" ), onClick address (SelectMonitor monitor)]  
+    [ div [ class (isHighlighted ++ " " ++ "monitor-view" )
+          , onClick address (SelectMonitor monitor)
+          , onDoubleClick address (SelectMonitorToConfigure monitor)]  
           [ div [ class "monitor-button-body" ] 
                 [ p [ class "monitor-button-label" ] [ text monitor.number ] ]
-    , div [ class "monitor-button-configuration" ] [ img [ class "monitor-configure-icon", src "images/gear_icon.svg", onClick address (SelectMonitorToConfigure monitor) ] [] ] ]]
+    ]]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
 monitorViewPager address = div  [ class "monitor-pager-view" ]
@@ -455,14 +522,14 @@ monitorViewPager address = div  [ class "monitor-pager-view" ]
 
 --- view of the home panel, the home panel is located on the center of the screen
 homePanelView address homeScreenState = 
-  let powerButtonSrc = if not homeScreenState.isPowerDisabled then "images/power_button.svg" else "images/power_button_disabled.svg"
+  let powerButtonState = if not homeScreenState.isPowerDisabled then "images/power_button.svg" else "images/power_button_disabled.svg"
   in div  [ class "home-panel-view" ] 
-          [ div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src powerButtonSrc, onClick address PowerPress ] [ ] ]
+          [ div [ class "home-panel-division div-1-4" ] [ img [ class ("home-panel-button " ++ powerButtonState), onClick address PowerPress ] [ ] ]
           , div [ class "home-panel-division div-1-4" ] [ div []  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
                                                           , div [ class "home-panel-count-label" ] [ text "BRIGHTNESS" ] 
                                                           , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
-          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/night_mode_button.svg" ] [ ]]
-          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", src "images/preset_button.svg", onClick address PresetPress ] [ ]] ]
+          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button" ] [ ]]
+          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", onClick address PresetPress ] [ ]] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
 homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item div-1-3" ] [ text "lock" ]
@@ -499,18 +566,18 @@ monitorSettingUpperBodyView address monitorSettingScreenState =
 
 -- monitor lower body view
 monitorSettingLowerBodyView address monitorSettingScreenState = 
-  let cycleButtonSrc = if | monitorSettingScreenState.isCycleDisabled -> "images/cycle_button_disabled.svg"
-                          | monitorSettingScreenState.isCyclePressed -> "images/cycle_button_pressed.svg"
-                          | otherwise -> "images/cycle_button.svg"
-      pipButtonSrc = if | monitorSettingScreenState.isPipDisabled -> "images/pip_button_disabled.svg"
-                        | monitorSettingScreenState.isPipSetPressed -> "images/pip_button_pressed.svg"
-                        | otherwise -> "images/pip_button.svg"
-      osdButtonSrc = if | monitorSettingScreenState.isOsdDisabled -> "images/osd_button_disabled.svg"
-                        | monitorSettingScreenState.isOsdSetPressed -> "images/osd_button_pressed.svg" 
-                        | otherwise -> "images/osd_button.svg"
-  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src cycleButtonSrc, onClick address CycleButtonPress ] [ ] ]
-                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src pipButtonSrc, onClick address PipButtonPress ] [ ] ] 
-                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "monitor-button", src osdButtonSrc, onClick address OsdButtonPress ] [ ] ] ]
+  let cycleButtonClass = if | monitorSettingScreenState.isCycleDisabled -> "disabled"
+                          | monitorSettingScreenState.isCyclePressed -> "pressed"
+                          | otherwise -> ""
+      pipButtonClass = if | monitorSettingScreenState.isPipDisabled -> "disabled"
+                        | monitorSettingScreenState.isPipSetPressed -> "pressed"
+                        | otherwise -> ""
+      osdButtonClass = if | monitorSettingScreenState.isOsdDisabled -> "disabled"
+                        | monitorSettingScreenState.isOsdSetPressed -> "pressed" 
+                        | otherwise -> ""
+  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "power-button circle-button monitor-button ", onClick address CycleButtonPress ] [ ] ]
+                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "pip-button circle-button monitor-button ", onClick address PipButtonPress ] [ ] ] 
+                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "osd-button circle-button monitor-button ", onClick address OsdButtonPress ] [ ] ] ]
                                               , pipButtonSetView address monitorSettingScreenState
                                               , osdButtonSetView address monitorSettingScreenState  ]
 
@@ -612,8 +679,39 @@ presetSettingBodyView address presets =
   div [ class "app-body" ]  [ div [ class "vdiv-1-2 div-1-1" ] (List.map (presetContainerView address) presets)
                             , div [ class "vdiv-1-2 div-1-1" ] [ ] ]
 -- container for the preset button
-presetContainerView address preset = div [ class "vdiv-1-3 div-1-2 align-center" ] [ text (toString preset.id) ]
+presetContainerView address preset = div [ class "vdiv-1-3 div-1-2 align-center preset-button-container" ] [ presetButtonView address preset ]
 
-presetButtonView address preset = div [ class "preset-button" ] [ text (toString  preset.id) ]
+presetButtonView address preset = 
+  div [ class "preset-button button", onClick address (PresetSelected preset), onDoubleClick address (PresetEdit preset) ] 
+      [ if not preset.isEditingName then div [ ] [ text (toString  preset.name ) ] else div [ ] 
+                                                                                            [ input [ class "preset-button-input"
+                                                                                                    , type' "text"
+                                                                                                    , value preset.tempName
+                                                                                                    , on "input" targetValue (Signal.message address << (PresetNameInput preset))
+                                                                                                    , onEnter address (PresetCommitThenSelect preset)
+                                                                                                    , onEsc (Signal.message address (PresetEditCancel preset)) ][ ] ]]
+
+--* WORK AROUNDS *--
+-- when enter is pressed on an element message will be sent to the mailbox
+onEnter : Address a -> a -> Attribute
+onEnter address value =
+    on "keydown"
+      (Json.customDecoder keyCode is13)
+      (\_ -> Signal.message address value)
+
+-- determine if key code pressed is enter
+is13 : Int -> Result String ()
+is13 code =
+  if code == 13 then Ok () else Err "not the right key code"
+
+-- when esc is pressed on an element message will be sent to the mailbox
+onEsc : Signal.Message -> Attribute
+onEsc message = on "keydown"
+                       (Json.customDecoder keyCode isEsc)
+                       (always message)
+
+-- determine if key code pressed is esc
+isEsc : Int -> Result String ()
+isEsc code = if code == 27 then Ok () else Err ""
 
 

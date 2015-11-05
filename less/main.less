@@ -12,6 +12,15 @@ input {
 #elm {
   height: 100%;
 }
+
+#elm > div {
+  padding: 0px;
+  margin: 0px;
+  width: 1280px;
+  height: 447px;
+  background-color: #BBB;
+}
+
 canvas {
   background-color: #f1fdfd;
 }
@@ -135,6 +144,14 @@ canvas {
 }
 .button{
   cursor: pointer;
+  background-color: #bbb;
+}
+.button:hover{
+  background-color: #ccc;
+}
+
+.circle-button{
+   border-radius: 50%;
 }
 
 /* --- */
@@ -149,9 +166,10 @@ canvas {
 
 .app-body{
   height: 90%;
-  background-color: #ddd;
+  background-color: #eee;
   padding: 2px;
 }
+
 
 /* --- */
 /* home screen */
@@ -309,6 +327,21 @@ canvas {
 /* preset setting */
 /* --- */
 
-.preset-button{
+.preset-button-container{
+  text-align: center;
+  position: relative;
+  display: block;
+}
 
+.preset-button{
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  top: 25%;
+  left: 10%;
+}
+
+.preset-button-input{
+  height: 100%;
+  text-align: center;
 }
