@@ -2743,18 +2743,6 @@ Elm.GreenGui.Main.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Window = Elm.Window.make(_elm);
-   var isEsc = function (code) {
-      return _U.eq(code,
-      27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");
-   };
-   var onEsc = function (message) {
-      return A3($Html$Events.on,
-      "keydown",
-      A2($Json$Decode.customDecoder,
-      $Html$Events.keyCode,
-      isEsc),
-      $Basics.always(message));
-   };
    var is13 = function (code) {
       return _U.eq(code,
       13) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("not the right key code");
@@ -2774,6 +2762,24 @@ Elm.GreenGui.Main.make = function (_elm) {
          }();
       });
    });
+   var in_longPressedMonitor = Elm.Native.Port.make(_elm).inboundSignal("in_longPressedMonitor",
+   "String",
+   function (v) {
+      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
+      v);
+   });
+   var isEsc = function (code) {
+      return _U.eq(code,
+      27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");
+   };
+   var onEsc = function (message) {
+      return A3($Html$Events.on,
+      "keydown",
+      A2($Json$Decode.customDecoder,
+      $Html$Events.keyCode,
+      isEsc),
+      $Basics.always(message));
+   };
    var homeMenuView = function (address) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
@@ -2939,7 +2945,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,$Basics.not(monitor.isVideoThreeCycle)]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 392 and 400");
+            "between lines 414 and 422");
          }();
          return newMonitor;
       }();
@@ -3005,7 +3011,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                   ,value]],
                  monitor);}
             _U.badCase($moduleName,
-            "between lines 356 and 364");
+            "between lines 378 and 386");
          }();
          return newMonitor;
       }();
@@ -3095,268 +3101,6 @@ Elm.GreenGui.Main.make = function (_elm) {
          m);
       },
       monitors);
-   });
-   var update = F2(function (action,
-   appState) {
-      return function () {
-         switch (action.ctor)
-         {case "ActivateCycleSignalMatrixPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return monitorSettingScreenState$.isCyclePressed ? _U.replace([["monitorSettingScreenState"
-                                                                                ,_U.replace([["selectedMonitor"
-                                                                                             ,A2(activateCycleSignalMatrix,
-                                                                                             action._0,
-                                                                                             monitorSettingScreenState$.selectedMonitor)]],
-                                                                                monitorSettingScreenState$)]],
-                 appState) : appState;
-              }();
-            case "CloseMonitorConfiguration":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 var homeScreenState$ = appState.homeScreenState;
-                 return _U.replace([["currentScreenState"
-                                    ,1]
-                                   ,["homeScreenState"
-                                    ,_U.replace([["monitors"
-                                                 ,A2(updateMonitorList,
-                                                 monitorSettingScreenState$.selectedMonitor,
-                                                 homeScreenState$.monitors)]],
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "ClosePresetSettings":
-            return _U.replace([["currentScreenState"
-                               ,1]],
-              appState);
-            case "CycleButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.replace([["monitorSettingScreenState"
-                                                                                              ,setCycleButtonPress(monitorSettingScreenState$)]],
-                 appState) : appState;
-              }();
-            case "NextMonitorPage":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 var monitorsPerPage = 5;
-                 var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
-                 return _U.replace([["homeScreenState"
-                                    ,A4(flipMonitorPage,
-                                    1,
-                                    maxFlips,
-                                    monitorsPerPage,
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "NoOp": return appState;
-            case "OsdButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return $Basics.not(monitorSettingScreenState$.isOsdDisabled) ? _U.replace([["monitorSettingScreenState"
-                                                                                            ,setOsdButtonPress(monitorSettingScreenState$)]],
-                 appState) : appState;
-              }();
-            case "OsdLeftRightButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setOsdLeftRightButtonPress(monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "OsdSelectButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setOsdSelectButtonPress(monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "OsdUpDownButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setOsdUpDownButtonPress(monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "PipButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return $Basics.not(monitorSettingScreenState$.isPipDisabled) ? _U.replace([["monitorSettingScreenState"
-                                                                                            ,setPipButtonPress(monitorSettingScreenState$)]],
-                 appState) : appState;
-              }();
-            case "PipLeftRightButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setPipLeftRightButtonPress(monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "PipResizeButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setPipResizeButtonPress(monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "PipUpDownButtonPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,setPipUpDownButtonPress(monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "PowerPress":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 return _U.replace([["homeScreenState"
-                                    ,_U.replace([["monitors"
-                                                 ,setSelectedMonitorsToPowerPress(homeScreenState$.monitors)]],
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "PresetCommitThenSelect":
-            return function () {
-                 var monitors = appState.homeScreenState.monitors;
-                 var presetSettingScreenState$ = appState.presetSettingScreenState;
-                 return _U.replace([["presetSettingScreenState"
-                                    ,_U.replace([["presets"
-                                                 ,A3(setPresetCommitThenSelect,
-                                                 action._0,
-                                                 monitors,
-                                                 presetSettingScreenState$.presets)]],
-                                    presetSettingScreenState$)]],
-                 appState);
-              }();
-            case "PresetEdit":
-            return function () {
-                 var presetSettingScreenState$ = appState.presetSettingScreenState;
-                 return _U.replace([["presetSettingScreenState"
-                                    ,_U.replace([["presets"
-                                                 ,A2(setPresetToEdit,
-                                                 action._0,
-                                                 presetSettingScreenState$.presets)]],
-                                    presetSettingScreenState$)]],
-                 appState);
-              }();
-            case "PresetEditCancel":
-            return function () {
-                 var presetSettingScreenState$ = appState.presetSettingScreenState;
-                 return _U.replace([["presetSettingScreenState"
-                                    ,_U.replace([["presets"
-                                                 ,A2(cancelPresetEdit,
-                                                 action._0,
-                                                 presetSettingScreenState$.presets)]],
-                                    presetSettingScreenState$)]],
-                 appState);
-              }();
-            case "PresetNameInput":
-            return function () {
-                 var presetSettingScreenState$ = appState.presetSettingScreenState;
-                 return _U.replace([["presetSettingScreenState"
-                                    ,_U.replace([["presets"
-                                                 ,A3(setPresetName,
-                                                 action._0,
-                                                 action._1,
-                                                 presetSettingScreenState$.presets)]],
-                                    presetSettingScreenState$)]],
-                 appState);
-              }();
-            case "PresetPress":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["currentScreenState"
-                                    ,3]],
-                 appState);
-              }();
-            case "PresetSelected":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 return _U.replace([["homeScreenState"
-                                    ,_U.replace([["monitors"
-                                                 ,action._0.monitors]],
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "PreviousMonitorPage":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 var monitorsPerPage = 5;
-                 var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
-                 return _U.replace([["homeScreenState"
-                                    ,A4(flipMonitorPage,
-                                    -1,
-                                    maxFlips,
-                                    monitorsPerPage,
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "SelectAllMonitors":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 return _U.replace([["homeScreenState"
-                                    ,_U.replace([["monitors"
-                                                 ,setAllMonitorAsSelected(homeScreenState$.monitors)]
-                                                ,["isPowerDisabled",true]],
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "SelectMonitor":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 var monitors$ = A2(toggleMonitorAsSelected,
-                 action._0,
-                 homeScreenState$.monitors);
-                 var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,
-                 function (m) {
-                    return m.isSelected;
-                 },
-                 monitors$)),
-                 0) > 0 ? false : true;
-                 return _U.replace([["homeScreenState"
-                                    ,_U.replace([["monitors"
-                                                 ,monitors$]
-                                                ,["isPowerDisabled"
-                                                 ,powerMustBeDisabled]],
-                                    homeScreenState$)]],
-                 appState);
-              }();
-            case "SelectMonitorToConfigure":
-            return function () {
-                 var homeScreenState$ = appState.homeScreenState;
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 return _U.replace([["currentScreenState"
-                                    ,2]
-                                   ,["homeScreenState"
-                                    ,_U.replace([["monitors"
-                                                 ,A2(setMonitorAsSelected,
-                                                 action._0,
-                                                 homeScreenState$.monitors)]],
-                                    homeScreenState$)]
-                                   ,["monitorSettingScreenState"
-                                    ,_U.replace([["selectedMonitor"
-                                                 ,action._0]
-                                                ,["isPipSetPressed",false]
-                                                ,["isOsdSetPressed",false]],
-                                    monitorSettingScreenState$)]],
-                 appState);
-              }();
-            case "SignalInputChange":
-            return function () {
-                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-                 var monitor$ = monitorSettingScreenState$.selectedMonitor;
-                 return _U.replace([["monitorSettingScreenState"
-                                    ,_U.replace([["selectedMonitor"
-                                                 ,A3(setSignalInputChange,
-                                                 action._0,
-                                                 action._1,
-                                                 monitor$)]],
-                                    monitorSettingScreenState$)]],
-                 appState);
-              }();}
-         _U.badCase($moduleName,
-         "between lines 202 and 302");
-      }();
    });
    var PresetEditCancel = function (a) {
       return {ctor: "PresetEditCancel"
@@ -3624,7 +3368,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                case "VIDEO 3":
                return monitor.isVideoThreeCycle;}
             _U.badCase($moduleName,
-            "between lines 593 and 601");
+            "between lines 622 and 630");
          }() : false;
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("signal-matrix-view")
@@ -3853,6 +3597,18 @@ Elm.GreenGui.Main.make = function (_elm) {
       return {ctor: "SelectMonitorToConfigure"
              ,_0: a};
    };
+   var LongPressedMonitor = function (a) {
+      return {ctor: "LongPressedMonitor"
+             ,_0: a};
+   };
+   var MonitorPressReleased = function (a) {
+      return {ctor: "MonitorPressReleased"
+             ,_0: a};
+   };
+   var MonitorPressedDown = function (a) {
+      return {ctor: "MonitorPressedDown"
+             ,_0: a};
+   };
    var SelectAllMonitors = {ctor: "SelectAllMonitors"};
    var monitorViewPager = function (address) {
       return A2($Html.div,
@@ -3924,7 +3680,13 @@ Elm.GreenGui.Main.make = function (_elm) {
                       SelectMonitor(monitor))
                       ,A2($Html$Events.onDoubleClick,
                       address,
-                      SelectMonitorToConfigure(monitor))]),
+                      SelectMonitorToConfigure(monitor))
+                      ,A2($Html$Events.onMouseDown,
+                      address,
+                      MonitorPressedDown(monitor.number))
+                      ,A2($Html$Events.onMouseUp,
+                      address,
+                      MonitorPressReleased(monitor.number))]),
          _L.fromArray([A2($Html.p,
          _L.fromArray([$Html$Attributes.$class("monitor-button-label")]),
          _L.fromArray([$Html.text(monitor.number)]))]))]));
@@ -3961,17 +3723,17 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var appView = F3(function (address,
    appState,
-   _v17) {
+   _v5) {
       return function () {
-         switch (_v17.ctor)
+         switch (_v5.ctor)
          {case "_Tuple2":
             return function () {
                  var presetSettingScreenState = appState.presetSettingScreenState;
                  var monitorSettingScreenState = appState.monitorSettingScreenState;
                  var homeScreenState = appState.homeScreenState;
                  var viewToDisplay = function () {
-                    var _v21 = appState.currentScreenState;
-                    switch (_v21)
+                    var _v9 = appState.currentScreenState;
+                    switch (_v9)
                     {case 1:
                        return A2(homeScreenView,
                          address,
@@ -3989,15 +3751,77 @@ Elm.GreenGui.Main.make = function (_elm) {
                     _L.fromArray([$Html.text("nothing to display")]));
                  }();
                  return A2($Html.toElement,
-                 _v17._0,
-                 _v17._1)(viewToDisplay);
+                 _v5._0,
+                 _v5._1)(viewToDisplay);
               }();}
          _U.badCase($moduleName,
-         "between lines 476 and 484");
+         "between lines 503 and 511");
       }();
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
+   var mergedActions = $Signal.mergeMany(_L.fromArray([actions.signal
+                                                      ,$Signal.map(LongPressedMonitor)(in_longPressedMonitor)]));
+   var pressedMonitor = function () {
+      var toMonitorNumber = function (_v10) {
+         return function () {
+            switch (_v10.ctor)
+            {case "MonitorPressedDown":
+               return _v10._0;}
+            _U.badCase($moduleName,
+            "on line 750, column 69 to 75");
+         }();
+      };
+      var v = function (action) {
+         return function () {
+            switch (action.ctor)
+            {case "MonitorPressedDown":
+               return true;}
+            return false;
+         }();
+      };
+      return A2($Signal.map,
+      toMonitorNumber,
+      A3($Signal.filter,
+      v,
+      MonitorPressedDown(""),
+      actions.signal));
+   }();
+   var out_onPressedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressedMonitor",
+   function (v) {
+      return v;
+   },
+   pressedMonitor);
+   var pressReleasedMonitor = function () {
+      var toMonitorNumber = function (_v15) {
+         return function () {
+            switch (_v15.ctor)
+            {case "MonitorPressReleased":
+               return _v15._0;}
+            _U.badCase($moduleName,
+            "on line 756, column 77 to 83");
+         }();
+      };
+      var v = function (action) {
+         return function () {
+            switch (action.ctor)
+            {case "MonitorPressReleased":
+               return true;}
+            return false;
+         }();
+      };
+      return A2($Signal.map,
+      toMonitorNumber,
+      A3($Signal.filter,
+      v,
+      MonitorPressReleased(""),
+      actions.signal));
+   }();
+   var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",
+   function (v) {
+      return v;
+   },
+   pressReleasedMonitor);
    var defaultPreset = function (id$) {
       return {_: {}
              ,id: id$
@@ -4034,6 +3858,316 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,videoOne: ""
              ,videoThree: ""
              ,videoTwo: ""};
+   });
+   var findMonitor = F2(function (number,
+   monitors) {
+      return function () {
+         var _v20 = A2($List.take,
+         1,
+         A2($List.filter,
+         function (m) {
+            return _U.eq(m.number,
+            number);
+         },
+         monitors));
+         switch (_v20.ctor)
+         {case "::":
+            switch (_v20._1.ctor)
+              {case "[]": return _v20._0;}
+              break;}
+         return A2(defaultMonitor,
+         "-1",
+         false);
+      }();
+   });
+   var update = F2(function (action,
+   appState) {
+      return function () {
+         switch (action.ctor)
+         {case "ActivateCycleSignalMatrixPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return monitorSettingScreenState$.isCyclePressed ? _U.replace([["monitorSettingScreenState"
+                                                                                ,_U.replace([["selectedMonitor"
+                                                                                             ,A2(activateCycleSignalMatrix,
+                                                                                             action._0,
+                                                                                             monitorSettingScreenState$.selectedMonitor)]],
+                                                                                monitorSettingScreenState$)]],
+                 appState) : appState;
+              }();
+            case "CloseMonitorConfiguration":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,1]
+                                   ,["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,A2(updateMonitorList,
+                                                 monitorSettingScreenState$.selectedMonitor,
+                                                 homeScreenState$.monitors)]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "ClosePresetSettings":
+            return _U.replace([["currentScreenState"
+                               ,1]],
+              appState);
+            case "CycleButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.replace([["monitorSettingScreenState"
+                                                                                              ,setCycleButtonPress(monitorSettingScreenState$)]],
+                 appState) : appState;
+              }();
+            case "LongPressedMonitor":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var foundMonitor = A2(findMonitor,
+                 action._0,
+                 homeScreenState$.monitors);
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,2]
+                                   ,["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,A2(setMonitorAsSelected,
+                                                 foundMonitor,
+                                                 homeScreenState$.monitors)]],
+                                    homeScreenState$)]
+                                   ,["monitorSettingScreenState"
+                                    ,_U.replace([["selectedMonitor"
+                                                 ,foundMonitor]
+                                                ,["isPipSetPressed",false]
+                                                ,["isOsdSetPressed",false]],
+                                    monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "MonitorPressReleased":
+            return appState;
+            case "MonitorPressedDown":
+            return appState;
+            case "NextMonitorPage":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var monitorsPerPage = 5;
+                 var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+                 return _U.replace([["homeScreenState"
+                                    ,A4(flipMonitorPage,
+                                    1,
+                                    maxFlips,
+                                    monitorsPerPage,
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "NoOp": return appState;
+            case "OsdButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return $Basics.not(monitorSettingScreenState$.isOsdDisabled) ? _U.replace([["monitorSettingScreenState"
+                                                                                            ,setOsdButtonPress(monitorSettingScreenState$)]],
+                 appState) : appState;
+              }();
+            case "OsdLeftRightButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdLeftRightButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "OsdSelectButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdSelectButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "OsdUpDownButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setOsdUpDownButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return $Basics.not(monitorSettingScreenState$.isPipDisabled) ? _U.replace([["monitorSettingScreenState"
+                                                                                            ,setPipButtonPress(monitorSettingScreenState$)]],
+                 appState) : appState;
+              }();
+            case "PipLeftRightButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipLeftRightButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipResizeButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipResizeButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PipUpDownButtonPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,setPipUpDownButtonPress(monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "PowerPress":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,setSelectedMonitorsToPowerPress(homeScreenState$.monitors)]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "PresetCommitThenSelect":
+            return function () {
+                 var monitors = appState.homeScreenState.monitors;
+                 var presetSettingScreenState$ = appState.presetSettingScreenState;
+                 return _U.replace([["presetSettingScreenState"
+                                    ,_U.replace([["presets"
+                                                 ,A3(setPresetCommitThenSelect,
+                                                 action._0,
+                                                 monitors,
+                                                 presetSettingScreenState$.presets)]],
+                                    presetSettingScreenState$)]],
+                 appState);
+              }();
+            case "PresetEdit":
+            return function () {
+                 var presetSettingScreenState$ = appState.presetSettingScreenState;
+                 return _U.replace([["presetSettingScreenState"
+                                    ,_U.replace([["presets"
+                                                 ,A2(setPresetToEdit,
+                                                 action._0,
+                                                 presetSettingScreenState$.presets)]],
+                                    presetSettingScreenState$)]],
+                 appState);
+              }();
+            case "PresetEditCancel":
+            return function () {
+                 var presetSettingScreenState$ = appState.presetSettingScreenState;
+                 return _U.replace([["presetSettingScreenState"
+                                    ,_U.replace([["presets"
+                                                 ,A2(cancelPresetEdit,
+                                                 action._0,
+                                                 presetSettingScreenState$.presets)]],
+                                    presetSettingScreenState$)]],
+                 appState);
+              }();
+            case "PresetNameInput":
+            return function () {
+                 var presetSettingScreenState$ = appState.presetSettingScreenState;
+                 return _U.replace([["presetSettingScreenState"
+                                    ,_U.replace([["presets"
+                                                 ,A3(setPresetName,
+                                                 action._0,
+                                                 action._1,
+                                                 presetSettingScreenState$.presets)]],
+                                    presetSettingScreenState$)]],
+                 appState);
+              }();
+            case "PresetPress":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,3]],
+                 appState);
+              }();
+            case "PresetSelected":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,action._0.monitors]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "PreviousMonitorPage":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var monitorsPerPage = 5;
+                 var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+                 return _U.replace([["homeScreenState"
+                                    ,A4(flipMonitorPage,
+                                    -1,
+                                    maxFlips,
+                                    monitorsPerPage,
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "SelectAllMonitors":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,setAllMonitorAsSelected(homeScreenState$.monitors)]
+                                                ,["isPowerDisabled",true]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "SelectMonitor":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var monitors$ = A2(toggleMonitorAsSelected,
+                 action._0,
+                 homeScreenState$.monitors);
+                 var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,
+                 function (m) {
+                    return m.isSelected;
+                 },
+                 monitors$)),
+                 0) > 0 ? false : true;
+                 return _U.replace([["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,monitors$]
+                                                ,["isPowerDisabled"
+                                                 ,powerMustBeDisabled]],
+                                    homeScreenState$)]],
+                 appState);
+              }();
+            case "SelectMonitorToConfigure":
+            return function () {
+                 var homeScreenState$ = appState.homeScreenState;
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 return _U.replace([["currentScreenState"
+                                    ,2]
+                                   ,["homeScreenState"
+                                    ,_U.replace([["monitors"
+                                                 ,A2(setMonitorAsSelected,
+                                                 action._0,
+                                                 homeScreenState$.monitors)]],
+                                    homeScreenState$)]
+                                   ,["monitorSettingScreenState"
+                                    ,_U.replace([["selectedMonitor"
+                                                 ,action._0]
+                                                ,["isPipSetPressed",false]
+                                                ,["isOsdSetPressed",false]],
+                                    monitorSettingScreenState$)]],
+                 appState);
+              }();
+            case "SignalInputChange":
+            return function () {
+                 var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+                 var monitor$ = monitorSettingScreenState$.selectedMonitor;
+                 return _U.replace([["monitorSettingScreenState"
+                                    ,_U.replace([["selectedMonitor"
+                                                 ,A3(setSignalInputChange,
+                                                 action._0,
+                                                 action._1,
+                                                 monitor$)]],
+                                    monitorSettingScreenState$)]],
+                 appState);
+              }();}
+         _U.badCase($moduleName,
+         "between lines 205 and 317");
+      }();
    });
    var defaulPresetSettingScreenState = {_: {}
                                         ,presets: _L.fromArray([defaultPreset(1)
@@ -4099,7 +4233,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var appState = A3($Signal.foldp,
    update,
    defaultAppState,
-   actions.signal);
+   mergedActions);
    var main = A3($Signal.map2,
    appView(actions.address),
    appState,
@@ -4244,6 +4378,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,NoOp: NoOp
                                ,SelectMonitor: SelectMonitor
                                ,SelectAllMonitors: SelectAllMonitors
+                               ,MonitorPressedDown: MonitorPressedDown
+                               ,MonitorPressReleased: MonitorPressReleased
+                               ,LongPressedMonitor: LongPressedMonitor
                                ,SelectMonitorToConfigure: SelectMonitorToConfigure
                                ,NextMonitorPage: NextMonitorPage
                                ,PreviousMonitorPage: PreviousMonitorPage
@@ -4273,6 +4410,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,setAllMonitorAsSelected: setAllMonitorAsSelected
                                ,flipMonitorPage: flipMonitorPage
                                ,setSelectedMonitorsToPowerPress: setSelectedMonitorsToPowerPress
+                               ,findMonitor: findMonitor
                                ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                ,updateMonitorList: updateMonitorList
                                ,setSignalInputChange: setSignalInputChange
@@ -4293,6 +4431,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,main: main
                                ,appState: appState
                                ,actions: actions
+                               ,mergedActions: mergedActions
                                ,appView: appView
                                ,homeScreenView: homeScreenView
                                ,monitorPanelView: monitorPanelView
@@ -4314,10 +4453,12 @@ Elm.GreenGui.Main.make = function (_elm) {
                                ,presetSettingBodyView: presetSettingBodyView
                                ,presetContainerView: presetContainerView
                                ,presetButtonView: presetButtonView
+                               ,isEsc: isEsc
+                               ,pressedMonitor: pressedMonitor
+                               ,pressReleasedMonitor: pressReleasedMonitor
                                ,onEnter: onEnter
                                ,is13: is13
-                               ,onEsc: onEsc
-                               ,isEsc: isEsc};
+                               ,onEsc: onEsc};
    return _elm.GreenGui.Main.values;
 };
 Elm.Html = Elm.Html || {};

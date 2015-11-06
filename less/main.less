@@ -30,6 +30,7 @@ canvas {
 
 @primary-color: #2480b0;
 @primary-text-color: #fff;
+@secondary-color: #34b3c7;
 
 /*helpers*/
 .align-left{
@@ -201,7 +202,7 @@ canvas {
 .monitor-view-container {
   box-sizing: border-box;
   height: 100%;
-  outline: 2px solid @primary-color;
+  outline: 2px solid #000;
 }
 
 .monitor-pager-view {
@@ -214,14 +215,14 @@ canvas {
 }
 
 .monitor-view {
-  background-color: #f9f5f8;
+  background-color: @primary-color;
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 
 .monitor-view.selected{
-  background-color: #2480b0;
+  background-color: @secondary-color;
 }
 
 .monitor-button-body {
@@ -349,7 +350,7 @@ canvas {
 
 .home-menu-item:hover{
   text-align: center;
-  background-color: #ddd;
+  background-color: @secondary-color;
 }
 
 .home-panel-brightness-panel{

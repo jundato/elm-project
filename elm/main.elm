@@ -169,6 +169,9 @@ type Action
 -- home screen actions
   | SelectMonitor Monitor
   | SelectAllMonitors
+  | MonitorPressedDown String
+  | MonitorPressReleased String
+  | LongPressedMonitor String
   | SelectMonitorToConfigure Monitor
   | NextMonitorPage
   | PreviousMonitorPage
@@ -220,6 +223,18 @@ update action appState =
                     , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- monitor'
                                                                                 , isPipSetPressed <- False
                                                                                 , isOsdSetPressed <- False } }
+    MonitorPressedDown number -> appState
+    MonitorPressReleased number -> appState
+    LongPressedMonitor number -> 
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+          homeScreenState' = appState.homeScreenState
+          foundMonitor = findMonitor number homeScreenState'.monitors
+      in { appState | currentScreenState <- 2
+                    , homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected foundMonitor homeScreenState'.monitors }
+                    , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- foundMonitor
+                                                                                , isPipSetPressed <- False
+                                                                                , isOsdSetPressed <- False } }
+ 
     PowerPress ->
       let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState <- { homeScreenState' | monitors <- setSelectedMonitorsToPowerPress homeScreenState'.monitors } }
@@ -330,11 +345,18 @@ flipMonitorPage flips maxFlips monitorsPerPage homeScreenState =
     { homeScreenState | monitorPageIndex <- newPageIndex 
                       , monitors <- (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
 
+-- sets a monitor as selected
 setSelectedMonitorsToPowerPress : List Monitor -> List Monitor
 setSelectedMonitorsToPowerPress monitors =
   List.map (\m -> if | m.isSelected -> { m | isOn <- not m.isSelected }
                      | otherwise -> m ) monitors
 
+-- finds and returns a monitor if not returns a default
+findMonitor : String -> List Monitor -> Monitor
+findMonitor number monitors = 
+  case List.take 1 (List.filter (\m -> m.number == number) monitors) of
+    [monitor] -> monitor
+    _ -> defaultMonitor "-1" False
 
 -- set visibility of page by index
 setVisibilityByPageIndex : Int -> Int -> Int -> Monitor -> Monitor
@@ -461,12 +483,17 @@ main =
 -- manage the appState of our application over time
 appState : Signal AppState
 appState =
-  Signal.foldp update defaultAppState actions.signal
+  Signal.foldp update defaultAppState mergedActions
 
 -- actions from user input
 actions : Signal.Mailbox Action
 actions =
   Signal.mailbox NoOp
+
+mergedActions : Signal Action
+mergedActions = Signal.mergeMany [ actions.signal
+                , in_longPressedMonitor |> Signal.map LongPressedMonitor
+                ]
 
 ------ VIEWS
 ---- Main View
@@ -508,7 +535,9 @@ monitorViewButton address monitor =
     div [ class ("div-1-5 monitor-view-container " ++ visibility ) ]
     [ div [ class (isHighlighted ++ " " ++ "monitor-view content-centered" )
           , onClick address (SelectMonitor monitor)
-          , onDoubleClick address (SelectMonitorToConfigure monitor)]  
+          , onDoubleClick address (SelectMonitorToConfigure monitor)
+          , onMouseDown address (MonitorPressedDown monitor.number)
+          , onMouseUp address (MonitorPressReleased monitor.number) ]  
           [  p [ class "monitor-button-label" ] [ text monitor.number ] ]
     ]
 
@@ -698,6 +727,35 @@ presetButtonView address preset =
                                                                                                     , onEnter address (PresetCommitThenSelect preset)
                                                                                                     , onEsc (Signal.message address (PresetEditCancel preset)) ][ ] ]]
 
+-- determine if key code pressed is esc
+isEsc : Int -> Result String ()
+isEsc code = if code == 27 then Ok () else Err ""
+
+--* PORTS IN *---
+port in_longPressedMonitor : Signal String
+
+--* PORTS OUT *--
+port out_onPressedMonitor : Signal String
+port out_onPressedMonitor = pressedMonitor
+
+
+port out_onPressReleasedMonitor : Signal String
+port out_onPressReleasedMonitor = pressReleasedMonitor
+--port out_onReleasedMonitor : Signal SessionId
+--port out_onReleasedMonitor = releasedMonitor
+
+pressedMonitor =  let v action =  case action of
+                                    MonitorPressedDown _ -> True
+                                    _ -> False
+                      toMonitorNumber (MonitorPressedDown number) = number
+                  in Signal.map toMonitorNumber (Signal.filter v (MonitorPressedDown "") actions.signal)
+
+pressReleasedMonitor =  let v action =  case action of
+                                    MonitorPressReleased _ -> True
+                                    _ -> False
+                            toMonitorNumber (MonitorPressReleased number) = number
+                        in Signal.map toMonitorNumber (Signal.filter v (MonitorPressReleased "") actions.signal)
+
 --* WORK AROUNDS *--
 -- when enter is pressed on an element message will be sent to the mailbox
 onEnter : Address a -> a -> Attribute
@@ -716,9 +774,3 @@ onEsc : Signal.Message -> Attribute
 onEsc message = on "keydown"
                        (Json.customDecoder keyCode isEsc)
                        (always message)
-
--- determine if key code pressed is esc
-isEsc : Int -> Result String ()
-isEsc code = if code == 27 then Ok () else Err ""
-
-
