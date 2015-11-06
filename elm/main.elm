@@ -214,7 +214,7 @@ update action appState =
     SelectAllMonitors ->
       let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors
-                                                            , isPowerDisabled <- True } }
+                                                            , isPowerDisabled <- False } }
     SelectMonitorToConfigure monitor' ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           homeScreenState' = appState.homeScreenState

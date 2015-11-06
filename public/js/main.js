@@ -4108,7 +4108,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                  return _U.replace([["homeScreenState"
                                     ,_U.replace([["monitors"
                                                  ,setAllMonitorAsSelected(homeScreenState$.monitors)]
-                                                ,["isPowerDisabled",true]],
+                                                ,["isPowerDisabled",false]],
                                     homeScreenState$)]],
                  appState);
               }();
