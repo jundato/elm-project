@@ -2781,17 +2781,17 @@ Elm.GreenGui.Main.make = function (_elm) {
                    _L.fromArray([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
                    _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("content-centered")]),
-                   _L.fromArray([$Html.text("lock")]))]))
+                   _L.fromArray([$Html.text("LOCK")]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
                    _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("content-centered")]),
-                   _L.fromArray([$Html.text("menu")]))]))
+                   _L.fromArray([$Html.text("MENU")]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
                    _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("content-centered")]),
-                   _L.fromArray([$Html.text("information")]))]))]));
+                   _L.fromArray([$Html.text("INFORMATION")]))]))]));
    };
    var setPresetName = F3(function (preset,
    value,
@@ -3090,7 +3090,9 @@ Elm.GreenGui.Main.make = function (_elm) {
          return _U.eq(m.number,
          monitor.number) ? _U.replace([["isSelected"
                                        ,$Basics.not(true)]],
-         monitor) : m;
+         monitor) : _U.replace([["isSelected"
+                                ,false]],
+         m);
       },
       monitors);
    });
@@ -3622,7 +3624,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                case "VIDEO 3":
                return monitor.isVideoThreeCycle;}
             _U.badCase($moduleName,
-            "between lines 590 and 598");
+            "between lines 593 and 601");
          }() : false;
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("signal-matrix-view")
@@ -3725,7 +3727,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _L.fromArray([A2($Html.div,
                                    _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
                                    _L.fromArray([A2($Html.img,
-                                   _L.fromArray([$Html$Attributes.$class("power-button circle-button monitor-button ")
+                                   _L.fromArray([$Html$Attributes.$class("power-button circle button monitor-button ")
                                                 ,A2($Html$Events.onClick,
                                                 address,
                                                 CycleButtonPress)]),
@@ -3733,7 +3735,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    ,A2($Html.div,
                                    _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
                                    _L.fromArray([A2($Html.img,
-                                   _L.fromArray([$Html$Attributes.$class("pip-button circle-button monitor-button ")
+                                   _L.fromArray([$Html$Attributes.$class("pip-button circle button monitor-button ")
                                                 ,A2($Html$Events.onClick,
                                                 address,
                                                 PipButtonPress)]),
@@ -3741,7 +3743,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    ,A2($Html.div,
                                    _L.fromArray([$Html$Attributes.$class("div-1-3 align-center")]),
                                    _L.fromArray([A2($Html.img,
-                                   _L.fromArray([$Html$Attributes.$class("osd-button circle-button monitor-button ")
+                                   _L.fromArray([$Html$Attributes.$class("osd-button circle button monitor-button ")
                                                 ,A2($Html$Events.onClick,
                                                 address,
                                                 OsdButtonPress)]),
@@ -3805,7 +3807,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
                       _L.fromArray([A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
-                                   "home-panel-button circle-button content-centered power ",
+                                   "home-panel-button circle button content-centered power ",
                                    powerButtonState))
                                    ,A2($Html$Events.onClick,
                                    address,
@@ -3814,7 +3816,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                       _L.fromArray([A2($Html.div,
-                      _L.fromArray([]),
+                      _L.fromArray([$Html$Attributes.$class("home-panel-brightness-panel")]),
                       _L.fromArray([A2($Html.div,
                                    _L.fromArray([]),
                                    _L.fromArray([A2($Html.img,
@@ -3822,7 +3824,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                 ,$Html$Attributes.src("images/increment_button.svg")]),
                                    _L.fromArray([]))]))
                                    ,A2($Html.div,
-                                   _L.fromArray([$Html$Attributes.$class("home-panel-count-label")]),
+                                   _L.fromArray([$Html$Attributes.$class("home-panel-count-label content-centered")]),
                                    _L.fromArray([$Html.text("BRIGHTNESS")]))
                                    ,A2($Html.div,
                                    _L.fromArray([]),
@@ -3833,12 +3835,12 @@ Elm.GreenGui.Main.make = function (_elm) {
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
                       _L.fromArray([A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-button circle-button content-centered night-mode")]),
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button circle button content-centered night-mode")]),
                       _L.fromArray([$Html.text("NIGHT MODE")]))]))
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
                       _L.fromArray([A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-button circle-button content-centered presets")
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button circle button content-centered presets")
                                    ,A2($Html$Events.onClick,
                                    address,
                                    PresetPress)]),
@@ -3856,38 +3858,46 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("monitor-pager-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("align-left div-1-10")
-                                ,A2($Html$Events.onClick,
-                                address,
-                                PreviousMonitorPage)]),
-                   _L.fromArray([A2($Html.img,
-                   _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
-                                ,$Html$Attributes.src("images/left_arrow_icon.svg")]),
-                   _L.fromArray([]))]))
+                   _L.fromArray([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),
+                   _L.fromArray([]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("monitor-selectall-view div-4-5")]),
+                   _L.fromArray([$Html$Attributes.$class("div-4-5")]),
                    _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-graphic")]),
-                                _L.fromArray([]))
-                                ,A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-container")]),
-                                _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-button")
+                                _L.fromArray([$Html$Attributes.$class("align-left div-1-10")
                                              ,A2($Html$Events.onClick,
                                              address,
-                                             SelectAllMonitors)]),
+                                             PreviousMonitorPage)]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
+                                             ,$Html$Attributes.src("images/left_arrow_icon.svg")]),
+                                _L.fromArray([]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("monitor-selectall-view div-4-5")]),
                                 _L.fromArray([A2($Html.div,
-                                _L.fromArray([$Html$Attributes.$class("content-centered")]),
-                                _L.fromArray([$Html.text("SELECT ALL")]))]))]))]))
+                                             _L.fromArray([$Html$Attributes.$class("monitor-selectall-graphic")]),
+                                             _L.fromArray([]))
+                                             ,A2($Html.div,
+                                             _L.fromArray([$Html$Attributes.$class("monitor-selectall-container")]),
+                                             _L.fromArray([A2($Html.div,
+                                             _L.fromArray([$Html$Attributes.$class("monitor-selectall-button")
+                                                          ,A2($Html$Events.onClick,
+                                                          address,
+                                                          SelectAllMonitors)]),
+                                             _L.fromArray([A2($Html.div,
+                                             _L.fromArray([$Html$Attributes.$class("content-centered")]),
+                                             _L.fromArray([$Html.text("SELECT ALL")]))]))]))]))
+                                ,A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("align-right div-1-10")
+                                             ,A2($Html$Events.onClick,
+                                             address,
+                                             NextMonitorPage)]),
+                                _L.fromArray([A2($Html.img,
+                                _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
+                                             ,$Html$Attributes.src("images/right_arrow_icon.svg")]),
+                                _L.fromArray([]))]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("align-right div-1-10")
-                                ,A2($Html$Events.onClick,
-                                address,
-                                NextMonitorPage)]),
-                   _L.fromArray([A2($Html.img,
-                   _L.fromArray([$Html$Attributes.$class("monitor-pager-icon")
-                                ,$Html$Attributes.src("images/right_arrow_icon.svg")]),
-                   _L.fromArray([]))]))]));
+                   _L.fromArray([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),
+                   _L.fromArray([]))]));
    };
    var SelectMonitor = function (a) {
       return {ctor: "SelectMonitor"
@@ -3901,25 +3911,23 @@ Elm.GreenGui.Main.make = function (_elm) {
          true) ? "hidden" : "";
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
-         " div-1-5 monitor-view-container ",
+         "div-1-5 monitor-view-container ",
          visibility))]),
          _L.fromArray([A2($Html.div,
          _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
                       isHighlighted,
                       A2($Basics._op["++"],
                       " ",
-                      "monitor-view")))
+                      "monitor-view content-centered")))
                       ,A2($Html$Events.onClick,
                       address,
                       SelectMonitor(monitor))
                       ,A2($Html$Events.onDoubleClick,
                       address,
                       SelectMonitorToConfigure(monitor))]),
-         _L.fromArray([A2($Html.div,
-         _L.fromArray([$Html$Attributes.$class("monitor-button-body content-centered")]),
          _L.fromArray([A2($Html.p,
          _L.fromArray([$Html$Attributes.$class("monitor-button-label")]),
-         _L.fromArray([$Html.text(monitor.number)]))]))]))]));
+         _L.fromArray([$Html.text(monitor.number)]))]))]));
       }();
    });
    var monitorViewButtons = F2(function (address,

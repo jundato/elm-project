@@ -307,7 +307,7 @@ update action appState =
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
 setMonitorAsSelected monitor monitors = 
   List.map (\m -> if  | m.number == monitor.number -> { monitor | isSelected <- not True }
-                      | otherwise -> m ) monitors
+                      | otherwise -> { m | isSelected <- False } ) monitors
 
 -- negates the value of wether the monitor selected or not
 toggleMonitorAsSelected : Monitor -> List Monitor -> List Monitor
@@ -505,40 +505,43 @@ monitorViewButton address monitor =
       isHighlighted = if | monitor.isSelected -> "selected"
                          | otherwise -> ""
   in
-    div [ class (" div-1-5 monitor-view-container " ++ visibility ) ]
-    [ div [ class (isHighlighted ++ " " ++ "monitor-view" )
+    div [ class ("div-1-5 monitor-view-container " ++ visibility ) ]
+    [ div [ class (isHighlighted ++ " " ++ "monitor-view content-centered" )
           , onClick address (SelectMonitor monitor)
           , onDoubleClick address (SelectMonitorToConfigure monitor)]  
-          [ div [ class "monitor-button-body content-centered" ] 
-                [ p [ class "monitor-button-label" ] [ text monitor.number ] ]
-    ]]
+          [  p [ class "monitor-button-label" ] [ text monitor.number ] ]
+    ]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
-monitorViewPager address = div  [ class "monitor-pager-view" ]
-                                [ div [ class "align-left div-1-10", onClick address PreviousMonitorPage ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
-                                , div [ class "monitor-selectall-view div-4-5" ] [ div [ class "monitor-selectall-graphic" ] [ ]
-                                                                         , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ div [ class "content-centered" ] [ text "SELECT ALL" ] ] ] ]
-                                , div [ class "align-right div-1-10", onClick address NextMonitorPage ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
+monitorViewPager address = 
+  div [ class "monitor-pager-view" ]
+      [ div [ class "div-1-10 vdiv-1-1" ] [ ]
+      , div [ class "div-4-5" ] [ div [ class "align-left div-1-10", onClick address PreviousMonitorPage ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
+                , div [ class "monitor-selectall-view div-4-5" ]  [ div [ class "monitor-selectall-graphic" ] [ ]
+                                                                  , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ div [ class "content-centered" ] [ text "SELECT ALL" ] ] ] ]
+                , div [ class "align-right div-1-10", onClick address NextMonitorPage ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
+      , div [ class "div-1-10 vdiv-1-1" ] [ ]
+      ]
 
 --- view of the home panel, the home panel is located on the center of the screen
 homePanelView address homeScreenState = 
   let powerButtonState = if homeScreenState.isPowerDisabled then "disabled" else ""
   in div  [ class "home-panel-view" ] 
           [ div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
-                [ div [ class ("home-panel-button circle-button content-centered power " ++ powerButtonState), onClick address PowerPress ] 
+                [ div [ class ("home-panel-button circle button content-centered power " ++ powerButtonState), onClick address PowerPress ] 
                       [ text "POWER" ] ] 
-          , div [ class "home-panel-division div-1-4" ] [ div []  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
-                                                          , div [ class "home-panel-count-label" ] [ text "BRIGHTNESS" ] 
+          , div [ class "home-panel-division div-1-4" ] [ div [ class "home-panel-brightness-panel" ]  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
+                                                          , div [ class "home-panel-count-label content-centered" ] [ text "BRIGHTNESS" ] 
                                                           , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
-                [ div [ class "home-panel-button circle-button content-centered night-mode" ] [ text "NIGHT MODE" ]]
+                [ div [ class "home-panel-button circle button content-centered night-mode" ] [ text "NIGHT MODE" ]]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
-                [ div [ class "home-panel-button circle-button content-centered presets", onClick address PresetPress ] [ text "PRESET" ]] ]
+                [ div [ class "home-panel-button circle button content-centered presets", onClick address PresetPress ] [ text "PRESET" ]] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
-homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "lock" ] ]
-                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "menu" ] ]
-                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "information" ] ] ]
+homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "LOCK" ] ]
+                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "MENU" ] ]
+                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "INFORMATION" ] ] ]
 
 
 ---- Monitor Setting View
@@ -579,9 +582,9 @@ monitorSettingLowerBodyView address monitorSettingScreenState =
       osdButtonClass = if | monitorSettingScreenState.isOsdDisabled -> "disabled"
                         | monitorSettingScreenState.isOsdSetPressed -> "pressed" 
                         | otherwise -> ""
-  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "power-button circle-button monitor-button ", onClick address CycleButtonPress ] [ ] ]
-                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "pip-button circle-button monitor-button ", onClick address PipButtonPress ] [ ] ] 
-                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "osd-button circle-button monitor-button ", onClick address OsdButtonPress ] [ ] ] ]
+  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "power-button circle button monitor-button ", onClick address CycleButtonPress ] [ ] ]
+                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "pip-button circle button monitor-button ", onClick address PipButtonPress ] [ ] ] 
+                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "osd-button circle button monitor-button ", onClick address OsdButtonPress ] [ ] ] ]
                                               , pipButtonSetView address monitorSettingScreenState
                                               , osdButtonSetView address monitorSettingScreenState  ]
 

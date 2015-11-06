@@ -1,5 +1,6 @@
 body {
   margin: 0px;
+  font-family: sans-serif;
 }
 input {
   width: 100%;
@@ -15,11 +16,12 @@ input {
   margin: 0px;
   width: 1280px;
   height: 447px;
-  background-color: #BBB;
+  background-color: #000;
 }
 canvas {
   background-color: #f1fdfd;
 }
+/* variable colors */
 /*helpers*/
 .align-left {
   text-align: left;
@@ -114,14 +116,13 @@ canvas {
 }
 .button {
   cursor: pointer;
-  background-color: #bbb;
+  background-color: #DFD;
 }
 .button:hover {
-  background-color: #ccc;
+  background-color: #CED;
 }
-.circle-button {
+.circle.button {
   border-radius: 50%;
-  background-color: #DFD;
 }
 .content-centered {
   display: flex;
@@ -148,26 +149,31 @@ canvas {
   height: 35%;
 }
 .home-panel-view {
-  height: 50%;
+  height: 55%;
 }
 .sub-panel-view {
-  height: 15%;
+  height: 10%;
 }
 .monitor-view-container {
   box-sizing: border-box;
-  padding: 2px;
+  height: 100%;
+  outline: 2px solid #2480b0;
 }
 .monitor-pager-view {
   height: 20%;
 }
 .monitor-views {
   height: 80%;
+  overflow-x: hidden;
 }
 .monitor-view {
   background-color: #f9f5f8;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 .monitor-view.selected {
-  background-color: #999;
+  background-color: #2480b0;
 }
 .monitor-button-body {
   height: 85%;
@@ -182,16 +188,22 @@ canvas {
   height: 100%;
   float: right;
 }
-.power.circle-button {
-  background-color: #F33;
+.power.circle.button {
+  background-color: #eb4843;
   color: #fff;
 }
-.night-mode.circle-button {
-  background-color: #333;
-  color: #ff0;
+.power.circle.button.pressed {
+  background-color: #D33;
 }
-.presets.circle-button {
-  background-color: #33f;
+.power.circle.button.disabled {
+  background-color: #888;
+}
+.night-mode.circle.button {
+  background-color: #333;
+  color: #fbbb40;
+}
+.presets.circle.button {
+  background-color: #2480b0;
   color: #fff;
 }
 .monitor-button-label {
@@ -213,7 +225,7 @@ canvas {
   position: relative;
 }
 .monitor-selectall-graphic {
-  border-color: #000;
+  border-color: #2480b0;
   border-width: 0px 2px 2px 2px;
   border-style: solid;
   height: 100%;
@@ -231,11 +243,16 @@ canvas {
   position: relative;
   left: 44.5%;
   background-color: #FFF;
-  border: 1px solid #000;
+  border: 1px solid #2480b0;
   height: 100%;
   border-radius: 12px;
   padding: 4px;
   display: table;
+  margin: 8px 0px;
+}
+.monitor-selectall-button > div {
+  height: 100%;
+  color: #2480b0;
 }
 .home-panel-division {
   text-align: center;
@@ -247,20 +264,26 @@ canvas {
   margin: 0px auto 0px auto;
   width: 200px;
   height: 200px;
+  font-size: 40px;
 }
 .home-panel-count-button {
   height: 40%;
 }
 .home-panel-count-label {
   height: 20%;
+  color: #fff;
 }
 .home-menu-item {
   text-align: center;
-  background-color: #fff;
+  background-color: #2480b0;
+  color: #fff;
 }
 .home-menu-item:hover {
   text-align: center;
   background-color: #ddd;
+}
+.home-panel-brightness-panel {
+  width: 100%;
 }
 /* --- */
 /* monitor setting */
