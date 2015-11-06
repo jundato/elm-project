@@ -509,7 +509,7 @@ monitorViewButton address monitor =
     [ div [ class (isHighlighted ++ " " ++ "monitor-view" )
           , onClick address (SelectMonitor monitor)
           , onDoubleClick address (SelectMonitorToConfigure monitor)]  
-          [ div [ class "monitor-button-body" ] 
+          [ div [ class "monitor-button-body content-centered" ] 
                 [ p [ class "monitor-button-label" ] [ text monitor.number ] ]
     ]]
 
@@ -517,24 +517,28 @@ monitorViewButton address monitor =
 monitorViewPager address = div  [ class "monitor-pager-view" ]
                                 [ div [ class "align-left div-1-10", onClick address PreviousMonitorPage ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
                                 , div [ class "monitor-selectall-view div-4-5" ] [ div [ class "monitor-selectall-graphic" ] [ ]
-                                                                         , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ text "SELECT ALL"] ] ] 
+                                                                         , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ div [ class "content-centered" ] [ text "SELECT ALL" ] ] ] ]
                                 , div [ class "align-right div-1-10", onClick address NextMonitorPage ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
 
 --- view of the home panel, the home panel is located on the center of the screen
 homePanelView address homeScreenState = 
-  let powerButtonState = if not homeScreenState.isPowerDisabled then "images/power_button.svg" else "images/power_button_disabled.svg"
+  let powerButtonState = if homeScreenState.isPowerDisabled then "disabled" else ""
   in div  [ class "home-panel-view" ] 
-          [ div [ class "home-panel-division div-1-4" ] [ img [ class ("home-panel-button " ++ powerButtonState), onClick address PowerPress ] [ ] ]
+          [ div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
+                [ div [ class ("home-panel-button circle-button content-centered power " ++ powerButtonState), onClick address PowerPress ] 
+                      [ text "POWER" ] ] 
           , div [ class "home-panel-division div-1-4" ] [ div []  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
                                                           , div [ class "home-panel-count-label" ] [ text "BRIGHTNESS" ] 
                                                           , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
-          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button" ] [ ]]
-          , div [ class "home-panel-division div-1-4" ] [ img [ class "home-panel-button", onClick address PresetPress ] [ ]] ]
+          , div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
+                [ div [ class "home-panel-button circle-button content-centered night-mode" ] [ text "NIGHT MODE" ]]
+          , div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
+                [ div [ class "home-panel-button circle-button content-centered presets", onClick address PresetPress ] [ text "PRESET" ]] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
-homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item div-1-3" ] [ text "lock" ]
-                                                      , div [ class "home-menu-item div-1-3" ] [ text "menu" ]
-                                                      , div [ class "home-menu-item div-1-3" ] [ text "information" ] ] 
+homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "lock" ] ]
+                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "menu" ] ]
+                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "information" ] ] ]
 
 
 ---- Monitor Setting View

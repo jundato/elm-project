@@ -2778,14 +2778,20 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("sub-panel-view")]),
       _L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
-                   _L.fromArray([$Html.text("lock")]))
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
+                   _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("content-centered")]),
+                   _L.fromArray([$Html.text("lock")]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
-                   _L.fromArray([$Html.text("menu")]))
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
+                   _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("content-centered")]),
+                   _L.fromArray([$Html.text("menu")]))]))
                    ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("home-menu-item div-1-3")]),
-                   _L.fromArray([$Html.text("information")]))]));
+                   _L.fromArray([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
+                   _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("content-centered")]),
+                   _L.fromArray([$Html.text("information")]))]))]));
    };
    var setPresetName = F3(function (preset,
    value,
@@ -3616,7 +3622,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                case "VIDEO 3":
                return monitor.isVideoThreeCycle;}
             _U.badCase($moduleName,
-            "between lines 586 and 594");
+            "between lines 590 and 598");
          }() : false;
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("signal-matrix-view")
@@ -3792,19 +3798,19 @@ Elm.GreenGui.Main.make = function (_elm) {
    var homePanelView = F2(function (address,
    homeScreenState) {
       return function () {
-         var powerButtonState = $Basics.not(homeScreenState.isPowerDisabled) ? "images/power_button.svg" : "images/power_button_disabled.svg";
+         var powerButtonState = homeScreenState.isPowerDisabled ? "disabled" : "";
          return A2($Html.div,
          _L.fromArray([$Html$Attributes.$class("home-panel-view")]),
          _L.fromArray([A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                      _L.fromArray([A2($Html.img,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
+                      _L.fromArray([A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class(A2($Basics._op["++"],
-                                   "home-panel-button ",
+                                   "home-panel-button circle-button content-centered power ",
                                    powerButtonState))
                                    ,A2($Html$Events.onClick,
                                    address,
                                    PowerPress)]),
-                      _L.fromArray([]))]))
+                      _L.fromArray([$Html.text("POWER")]))]))
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
                       _L.fromArray([A2($Html.div,
@@ -3825,18 +3831,18 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                 ,$Html$Attributes.src("images/decrement_button.svg")]),
                                    _L.fromArray([]))]))]))]))
                       ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                      _L.fromArray([A2($Html.img,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-button")]),
-                      _L.fromArray([]))]))
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
+                      _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button circle-button content-centered night-mode")]),
+                      _L.fromArray([$Html.text("NIGHT MODE")]))]))
                       ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4")]),
-                      _L.fromArray([A2($Html.img,
-                      _L.fromArray([$Html$Attributes.$class("home-panel-button")
+                      _L.fromArray([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
+                      _L.fromArray([A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("home-panel-button circle-button content-centered presets")
                                    ,A2($Html$Events.onClick,
                                    address,
                                    PresetPress)]),
-                      _L.fromArray([]))]))]));
+                      _L.fromArray([$Html.text("PRESET")]))]))]));
       }();
    });
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
@@ -3870,7 +3876,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                              ,A2($Html$Events.onClick,
                                              address,
                                              SelectAllMonitors)]),
-                                _L.fromArray([$Html.text("SELECT ALL")]))]))]))
+                                _L.fromArray([A2($Html.div,
+                                _L.fromArray([$Html$Attributes.$class("content-centered")]),
+                                _L.fromArray([$Html.text("SELECT ALL")]))]))]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("align-right div-1-10")
                                 ,A2($Html$Events.onClick,
@@ -3908,7 +3916,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       address,
                       SelectMonitorToConfigure(monitor))]),
          _L.fromArray([A2($Html.div,
-         _L.fromArray([$Html$Attributes.$class("monitor-button-body")]),
+         _L.fromArray([$Html$Attributes.$class("monitor-button-body content-centered")]),
          _L.fromArray([A2($Html.p,
          _L.fromArray([$Html$Attributes.$class("monitor-button-label")]),
          _L.fromArray([$Html.text(monitor.number)]))]))]))]));

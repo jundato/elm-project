@@ -151,7 +151,15 @@ canvas {
 }
 
 .circle-button{
-   border-radius: 50%;
+  border-radius: 50%;
+  background-color: #DFD;
+  
+}
+
+.content-centered{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* --- */
@@ -175,19 +183,20 @@ canvas {
 /* home screen */
 /* --- */
 
+.monitor-panel-view {
+  height: 35%;
+}
+
 .home-panel-view {
-  height: 40%;
+  height: 50%;
 }
 .sub-panel-view {
   height: 15%;
 }
+
 .monitor-view-container {
   box-sizing: border-box;
   padding: 2px;
-}
-
-.monitor-panel-view {
-  height: 35%;
 }
 
 .monitor-pager-view {
@@ -209,7 +218,6 @@ canvas {
 .monitor-button-body {
   height: 85%;
   width: 100%;
-  display: table;
 }
 .monitor-button-configuration {
   height: 15%;
@@ -220,9 +228,23 @@ canvas {
   height: 100%;
   float: right;
 }
+
+.power.circle-button{
+  background-color: #F33;
+  color: #fff;
+}
+
+.night-mode.circle-button{
+  background-color: #333;
+  color: #ff0;
+}
+
+.presets.circle-button{
+  background-color: #33f;
+  color: #fff;
+}
+
 .monitor-button-label {
-  display: table-cell;
-  vertical-align: middle;
   text-align: center;
   /* width: 100%; */
   font-size: 28px;
@@ -269,14 +291,21 @@ canvas {
   height: 100%;
   border-radius: 12px;
   padding: 4px;
+  display: table;
 }
+
 
 .home-panel-division{
   text-align:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .home-panel-button{
-  height: 100%;
+  margin: 0px auto 0px auto;
+  width: 200px;
+  height: 200px;
 }
 
 .home-panel-count-button{
@@ -289,6 +318,12 @@ canvas {
 
 .home-menu-item{
   text-align: center;
+  background-color: #fff;
+}
+
+.home-menu-item:hover{
+  text-align: center;
+  background-color: #ddd;
 }
 
 /* --- */
