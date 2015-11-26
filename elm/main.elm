@@ -209,131 +209,131 @@ update action appState =
       let homeScreenState' = appState.homeScreenState
           monitors' = toggleMonitorAsSelected monitor homeScreenState'.monitors
           powerMustBeDisabled = if List.length (List.filter (\m -> m.isSelected ) monitors') > 0 then False else True
-      in { appState | homeScreenState <- { homeScreenState' | monitors <- monitors'
-                                                            , isPowerDisabled <- powerMustBeDisabled } }
+      in { appState | homeScreenState = { homeScreenState' | monitors = monitors'
+                                                            , isPowerDisabled = powerMustBeDisabled } }
     SelectAllMonitors ->
       let homeScreenState' = appState.homeScreenState
-      in { appState | homeScreenState <- { homeScreenState' | monitors <- setAllMonitorAsSelected homeScreenState'.monitors
-                                                            , isPowerDisabled <- False } }
+      in { appState | homeScreenState = { homeScreenState' | monitors = setAllMonitorAsSelected homeScreenState'.monitors
+                                                            , isPowerDisabled = False } }
     SelectMonitorToConfigure monitor' ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           homeScreenState' = appState.homeScreenState
-      in { appState | currentScreenState <- 2
-                    , homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected monitor' homeScreenState'.monitors }
-                    , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- monitor'
-                                                                                , isPipSetPressed <- False
-                                                                                , isOsdSetPressed <- False } }
+      in { appState | currentScreenState = 2
+                    , homeScreenState = { homeScreenState' | monitors = setMonitorAsSelected monitor' homeScreenState'.monitors }
+                    , monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = monitor'
+                                                                                , isPipSetPressed = False
+                                                                                , isOsdSetPressed = False } }
     MonitorPressedDown number -> appState
     MonitorPressReleased number -> appState
     LongPressedMonitor number -> 
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           homeScreenState' = appState.homeScreenState
           foundMonitor = findMonitor number homeScreenState'.monitors
-      in { appState | currentScreenState <- 2
-                    , homeScreenState <- { homeScreenState' | monitors <- setMonitorAsSelected foundMonitor homeScreenState'.monitors }
-                    , monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- foundMonitor
-                                                                                , isPipSetPressed <- False
-                                                                                , isOsdSetPressed <- False } }
+      in { appState | currentScreenState = 2
+                    , homeScreenState = { homeScreenState' | monitors = setMonitorAsSelected foundMonitor homeScreenState'.monitors }
+                    , monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = foundMonitor
+                                                                                , isPipSetPressed = False
+                                                                                , isOsdSetPressed = False } }
  
     PowerPress ->
       let homeScreenState' = appState.homeScreenState
-      in { appState | homeScreenState <- { homeScreenState' | monitors <- setSelectedMonitorsToPowerPress homeScreenState'.monitors } }
+      in { appState | homeScreenState = { homeScreenState' | monitors = setSelectedMonitorsToPowerPress homeScreenState'.monitors } }
     PresetPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | currentScreenState <- 3 }
+      in { appState | currentScreenState = 3 }
 -- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
           homeScreenState' = appState.homeScreenState
           maxFlips = ceiling ((toFloat (List.length homeScreenState'.monitors)) / monitorsPerPage)
-      in { appState | homeScreenState <- flipMonitorPage -1 maxFlips monitorsPerPage homeScreenState' }
+      in { appState | homeScreenState = flipMonitorPage -1 maxFlips monitorsPerPage homeScreenState' }
     NextMonitorPage ->
       let monitorsPerPage = 5
           homeScreenState' = appState.homeScreenState
           maxFlips = ceiling ((toFloat (List.length homeScreenState'.monitors)) / monitorsPerPage)
-      in { appState | homeScreenState <- flipMonitorPage 1 maxFlips monitorsPerPage homeScreenState' }
+      in { appState | homeScreenState = flipMonitorPage 1 maxFlips monitorsPerPage homeScreenState' }
 ---- Monitor Setting Actions
     CloseMonitorConfiguration ->
       let homeScreenState' = appState.homeScreenState
           monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | currentScreenState <- 1
-                    , homeScreenState <- { homeScreenState' | monitors <- updateMonitorList monitorSettingScreenState'.selectedMonitor homeScreenState'.monitors } }
+      in { appState | currentScreenState = 1
+                    , homeScreenState = { homeScreenState' | monitors = updateMonitorList monitorSettingScreenState'.selectedMonitor homeScreenState'.monitors } }
     SignalInputChange signalType value ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           monitor' = monitorSettingScreenState'.selectedMonitor
-      in { appState | monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- setSignalInputChange signalType value monitor' } }
+      in { appState | monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = setSignalInputChange signalType value monitor' } }
     CycleButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in if | not monitorSettingScreenState'.isCycleDisabled -> { appState | monitorSettingScreenState <- setCycleButtonPress monitorSettingScreenState' }
-            | otherwise -> appState
+      in  if not monitorSettingScreenState'.isCycleDisabled then { appState | monitorSettingScreenState = setCycleButtonPress monitorSettingScreenState' }
+          else appState
     PipButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in if | not monitorSettingScreenState'.isPipDisabled -> { appState | monitorSettingScreenState <- setPipButtonPress monitorSettingScreenState' }
-            | otherwise -> appState
+      in  if not monitorSettingScreenState'.isPipDisabled then { appState | monitorSettingScreenState = setPipButtonPress monitorSettingScreenState' }
+          else appState
     OsdButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in if | not monitorSettingScreenState'.isOsdDisabled -> { appState | monitorSettingScreenState <- setOsdButtonPress monitorSettingScreenState' }
-            | otherwise -> appState
+      in  if not monitorSettingScreenState'.isOsdDisabled then { appState | monitorSettingScreenState = setOsdButtonPress monitorSettingScreenState' }
+          else appState
     ActivateCycleSignalMatrixPress signalType ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in if | monitorSettingScreenState'.isCyclePressed -> { appState | monitorSettingScreenState <- { monitorSettingScreenState' | selectedMonitor <- activateCycleSignalMatrix signalType monitorSettingScreenState'.selectedMonitor } }
-            | otherwise -> appState
+      in  if monitorSettingScreenState'.isCyclePressed then { appState | monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = activateCycleSignalMatrix signalType monitorSettingScreenState'.selectedMonitor } }
+          else appState
     PipUpDownButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setPipUpDownButtonPress monitorSettingScreenState' }
+      in { appState | monitorSettingScreenState = setPipUpDownButtonPress monitorSettingScreenState' }
     PipLeftRightButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setPipLeftRightButtonPress monitorSettingScreenState' }
+      in { appState | monitorSettingScreenState = setPipLeftRightButtonPress monitorSettingScreenState' }
     PipResizeButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setPipResizeButtonPress monitorSettingScreenState' }
+      in { appState | monitorSettingScreenState = setPipResizeButtonPress monitorSettingScreenState' }
     OsdUpDownButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setOsdUpDownButtonPress monitorSettingScreenState' }
+      in { appState | monitorSettingScreenState = setOsdUpDownButtonPress monitorSettingScreenState' }
     OsdLeftRightButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setOsdLeftRightButtonPress monitorSettingScreenState' }
+      in { appState | monitorSettingScreenState = setOsdLeftRightButtonPress monitorSettingScreenState' }
     OsdSelectButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | monitorSettingScreenState <- setOsdSelectButtonPress monitorSettingScreenState' }
+      in { appState | monitorSettingScreenState = setOsdSelectButtonPress monitorSettingScreenState' }
 ---- Preset setting action
     ClosePresetSettings ->
-      { appState | currentScreenState <- 1 }
+      { appState | currentScreenState = 1 }
     PresetSelected preset ->
       let homeScreenState' = appState.homeScreenState
-      in { appState | homeScreenState <- { homeScreenState' | monitors <- preset.monitors } }
+      in { appState | homeScreenState = { homeScreenState' | monitors = preset.monitors } }
     PresetEdit preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
-      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets  <- setPresetToEdit preset presetSettingScreenState'.presets } }
+      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetToEdit preset presetSettingScreenState'.presets } }
     PresetCommitThenSelect preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
           monitors = appState.homeScreenState.monitors
-      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets  <- setPresetCommitThenSelect preset monitors presetSettingScreenState'.presets } }
+      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetCommitThenSelect preset monitors presetSettingScreenState'.presets } }
     PresetNameInput preset value ->
       let presetSettingScreenState' = appState.presetSettingScreenState
-      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets <- setPresetName preset value presetSettingScreenState'.presets } }
+      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetName preset value presetSettingScreenState'.presets } }
     PresetEditCancel preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
-      in { appState | presetSettingScreenState <- { presetSettingScreenState' | presets <- cancelPresetEdit preset presetSettingScreenState'.presets}}
+      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = cancelPresetEdit preset presetSettingScreenState'.presets}}
 
 ------ CONVERSION FUNCTIONS
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
 setMonitorAsSelected monitor monitors = 
-  List.map (\m -> if  | m.number == monitor.number -> { monitor | isSelected <- not True }
-                      | otherwise -> { m | isSelected <- False } ) monitors
+  List.map (\m -> if m.number == monitor.number then { monitor | isSelected = not True }
+                  else { m | isSelected = False } ) monitors
 
 -- negates the value of wether the monitor selected or not
 toggleMonitorAsSelected : Monitor -> List Monitor -> List Monitor
 toggleMonitorAsSelected monitor monitors = 
-  List.map (\m -> if  | m.number == monitor.number -> { monitor | isSelected <- not monitor.isSelected }
-                      | otherwise -> m ) monitors
+  List.map (\m -> if m.number == monitor.number then { monitor | isSelected = not monitor.isSelected }
+                  else m ) monitors
 
 -- sets all monitors to selected
 setAllMonitorAsSelected : List Monitor -> List Monitor
 setAllMonitorAsSelected  monitors = 
-  List.map (\m -> { m | isSelected <- True } ) monitors
+  List.map (\m -> { m | isSelected = True } ) monitors
 
 -- moves monitor pages left and right : negative for left, positive for right
 flipMonitorPage : Int -> Int -> Int -> HomeScreenState -> HomeScreenState
@@ -342,14 +342,14 @@ flipMonitorPage flips maxFlips monitorsPerPage homeScreenState =
       newPageIndex = clamp 0 (maxFlips - 1) (homeScreenState.monitorPageIndex + flips)
       
   in 
-    { homeScreenState | monitorPageIndex <- newPageIndex 
-                      , monitors <- (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
+    { homeScreenState | monitorPageIndex = newPageIndex 
+                      , monitors = (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
 
 -- sets a monitor as selected
 setSelectedMonitorsToPowerPress : List Monitor -> List Monitor
 setSelectedMonitorsToPowerPress monitors =
-  List.map (\m -> if | m.isSelected -> { m | isOn <- not m.isSelected }
-                     | otherwise -> m ) monitors
+  List.map (\m -> if m.isSelected then { m | isOn = not m.isSelected }
+                  else  m ) monitors
 
 -- finds and returns a monitor if not returns a default
 findMonitor : String -> List Monitor -> Monitor
@@ -361,120 +361,122 @@ findMonitor number monitors =
 -- set visibility of page by index
 setVisibilityByPageIndex : Int -> Int -> Int -> Monitor -> Monitor
 setVisibilityByPageIndex newPageIndex monitorsPerPage index monitor = 
-  let isVisible' = if  | index // monitorsPerPage == newPageIndex -> True
-                      | otherwise -> False
-  in { monitor | isVisible <- isVisible' }
+  let isVisible' =  if index // monitorsPerPage == newPageIndex then True
+                    else False
+  in { monitor | isVisible = isVisible' }
 
 ---- MONITOR SETTING FUNCTION
 -- updates monitor on list
 updateMonitorList : Monitor -> List Monitor -> List Monitor
 updateMonitorList monitor monitors =
-  List.map (\m -> if m.number ==  monitor.number then { monitor | isSelected <- True }  else m ) monitors
+  List.map (\m -> if m.number ==  monitor.number then { monitor | isSelected = True }  else m ) monitors
 
 -- set signal input depending on control
 -- VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
 setSignalInputChange : String -> String -> Monitor -> Monitor
 setSignalInputChange signalType value monitor =
   let newMonitor = case signalType of
-                                "VGA 1" -> { monitor | vgaOne <- value } 
-                                "VGA 2" -> { monitor | vgaTwo <- value }  
-                                "DVI 1" -> { monitor | dviOne <- value }  
-                                "DVI 2" -> { monitor | dviTwo <- value } 
-                                "VIDEO 1" -> { monitor | videoOne <- value } 
-                                "VIDEO 2" -> { monitor | videoTwo <- value } 
-                                "VIDEO 3" -> { monitor | videoThree <- value } 
+                      "VGA 1" -> { monitor | vgaOne = value } 
+                      "VGA 2" -> { monitor | vgaTwo = value }  
+                      "DVI 1" -> { monitor | dviOne = value }  
+                      "DVI 2" -> { monitor | dviTwo = value } 
+                      "VIDEO 1" -> { monitor | videoOne = value } 
+                      "VIDEO 2" -> { monitor | videoTwo = value } 
+                      "VIDEO 3" -> { monitor | videoThree = value } 
+                      _ -> monitor
   in newMonitor
 
 -- toggle cycle button
 setCycleButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setCycleButtonPress monitorSettingScreenState =
-  { monitorSettingScreenState | isCyclePressed <- not monitorSettingScreenState.isCyclePressed
-                              , isPipDisabled <- if not monitorSettingScreenState.isCyclePressed then True else False
-                              , isOsdDisabled <- if not monitorSettingScreenState.isCyclePressed then True else False
+  { monitorSettingScreenState | isCyclePressed = not monitorSettingScreenState.isCyclePressed
+                              , isPipDisabled = if not monitorSettingScreenState.isCyclePressed then True else False
+                              , isOsdDisabled = if not monitorSettingScreenState.isCyclePressed then True else False
                               }
 -- toggles pip button and sets the rest to false
 setPipButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setPipButtonPress monitorSettingScreenState =
-  { monitorSettingScreenState | isPipSetPressed <- not monitorSettingScreenState.isPipSetPressed
-                              , isOsdSetPressed <- False
-                              , isCycleDisabled <- if not monitorSettingScreenState.isPipSetPressed then True else False
+  { monitorSettingScreenState | isPipSetPressed = not monitorSettingScreenState.isPipSetPressed
+                              , isOsdSetPressed = False
+                              , isCycleDisabled = if not monitorSettingScreenState.isPipSetPressed then True else False
                               }
 
 -- toggles osd button and sets the rest to false
 setOsdButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdButtonPress monitorSettingScreenState =
-  { monitorSettingScreenState | isPipSetPressed <- False
-                              , isOsdSetPressed <- not monitorSettingScreenState.isOsdSetPressed
-                              , isCycleDisabled <- if not monitorSettingScreenState.isOsdSetPressed then True else False
+  { monitorSettingScreenState | isPipSetPressed = False
+                              , isOsdSetPressed = not monitorSettingScreenState.isOsdSetPressed
+                              , isCycleDisabled = if not monitorSettingScreenState.isOsdSetPressed then True else False
                               }
 
 -- toggle signal matrix button
 activateCycleSignalMatrix : String -> Monitor -> Monitor
 activateCycleSignalMatrix signalType monitor =
   let newMonitor = case signalType of
-                                "VGA 1" -> { monitor | isVgaOneCycle <- not monitor.isVgaOneCycle } 
-                                "VGA 2" -> { monitor | isVgaTwoCycle <- not monitor.isVgaTwoCycle }  
-                                "DVI 1" -> { monitor | isDviOneCycle <- not monitor.isDviOneCycle }  
-                                "DVI 2" -> { monitor | isDviTwoCycle <- not monitor.isDviTwoCycle } 
-                                "VIDEO 1" -> { monitor | isVideoOneCycle <- not monitor.isVideoOneCycle } 
-                                "VIDEO 2" -> { monitor | isVideoTwoCycle <- not monitor.isVideoTwoCycle } 
-                                "VIDEO 3" -> { monitor | isVideoThreeCycle <- not monitor.isVideoThreeCycle } 
+                      "VGA 1" -> { monitor | isVgaOneCycle = not monitor.isVgaOneCycle } 
+                      "VGA 2" -> { monitor | isVgaTwoCycle = not monitor.isVgaTwoCycle }  
+                      "DVI 1" -> { monitor | isDviOneCycle = not monitor.isDviOneCycle }  
+                      "DVI 2" -> { monitor | isDviTwoCycle = not monitor.isDviTwoCycle } 
+                      "VIDEO 1" -> { monitor | isVideoOneCycle = not monitor.isVideoOneCycle } 
+                      "VIDEO 2" -> { monitor | isVideoTwoCycle = not monitor.isVideoTwoCycle } 
+                      "VIDEO 3" -> { monitor | isVideoThreeCycle = not monitor.isVideoThreeCycle } 
+                      _ -> monitor
   in newMonitor
 
 -- toggles pip butons
 setPipUpDownButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setPipUpDownButtonPress monitorSettingScreenState =
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isPipUpDownPressed <- not monitor.isPipUpDownPressed }}
+  in { monitorSettingScreenState | selectedMonitor = { monitor |  isPipUpDownPressed = not monitor.isPipUpDownPressed }}
 setPipLeftRightButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setPipLeftRightButtonPress monitorSettingScreenState = 
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isPipLeftRightPressed <- not monitor.isPipLeftRightPressed }}
+  in { monitorSettingScreenState | selectedMonitor = { monitor |  isPipLeftRightPressed = not monitor.isPipLeftRightPressed }}
 setPipResizeButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setPipResizeButtonPress monitorSettingScreenState = 
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isPipResizePressed <- not monitor.isPipResizePressed }}
+  in { monitorSettingScreenState | selectedMonitor = { monitor |  isPipResizePressed = not monitor.isPipResizePressed }}
 
 -- toggle osd buttons
 setOsdUpDownButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdUpDownButtonPress monitorSettingScreenState = 
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isOsdUpDownPressed <- not monitor.isOsdUpDownPressed }}
+  in { monitorSettingScreenState | selectedMonitor = { monitor |  isOsdUpDownPressed = not monitor.isOsdUpDownPressed }}
 setOsdLeftRightButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdLeftRightButtonPress monitorSettingScreenState = 
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isOsdLeftRightPressed <- not monitor.isOsdLeftRightPressed }}
+  in { monitorSettingScreenState | selectedMonitor = { monitor |  isOsdLeftRightPressed = not monitor.isOsdLeftRightPressed }}
 setOsdSelectButtonPress : MonitorSettingScreenState -> MonitorSettingScreenState
 setOsdSelectButtonPress monitorSettingScreenState = 
   let monitor = monitorSettingScreenState.selectedMonitor 
-  in { monitorSettingScreenState | selectedMonitor <- { monitor |  isOsdSelectPressed <- not monitor.isOsdSelectPressed }}
+  in { monitorSettingScreenState | selectedMonitor = { monitor |  isOsdSelectPressed = not monitor.isOsdSelectPressed }}
 
 --List.map (\m -> if m.number ==  monitor.number then monitor else m ) monitors
 ---- PRESET SETTING FUNCTIONS
 setPresetToEdit : Preset -> List Preset -> List Preset
 setPresetToEdit preset presets =
-  List.map (\p -> if  | p.id == preset.id -> { p  | isEditingName <- not p.isEditingName
-                                                  , tempName <- p.name } 
-                      | otherwise -> { p  | isEditingName <- False
-                                          , tempName <- "" } ) presets
+  List.map (\p -> if  p.id == preset.id then { p  | isEditingName = not p.isEditingName
+                                                  , tempName = p.name } 
+                  else { p  | isEditingName = False
+                            , tempName = "" } ) presets
 
 setPresetCommitThenSelect : Preset -> List Monitor -> List Preset -> List Preset
 setPresetCommitThenSelect preset monitors presets =
-  List.map (\p -> if  | p.id == preset.id -> { p  | name <- p.tempName
-                                                  , isEditingName <- False
-                                                  , monitors <- monitors } 
-                      | otherwise -> p ) presets
+  List.map (\p -> if  p.id == preset.id then { p  | name = p.tempName
+                                                  , isEditingName = False
+                                                  , monitors = monitors } 
+                  else p ) presets
 
 cancelPresetEdit : Preset -> List Preset -> List Preset
 cancelPresetEdit preset presets =
-  List.map (\p -> if  | p.id == preset.id -> { p | isEditingName <- False }
-                      | otherwise -> p ) presets
+  List.map (\p -> if  p.id == preset.id then { p | isEditingName = False }
+                  else p ) presets
 
 
 setPresetName : Preset -> String -> List Preset -> List Preset
 setPresetName preset value presets =
-  List.map (\p -> if  | p.id == preset.id -> { p | tempName <- value } 
-                      | otherwise -> p ) presets
+  List.map (\p -> if  p.id == preset.id then { p | tempName = value } 
+                  else p ) presets
 --- entry point
 main : Signal Element
 main =
@@ -527,10 +529,10 @@ monitorViewButtons address monitors =
 
 --- view of a monitor button
 monitorViewButton address monitor = 
-  let visibility = if | monitor.isVisible /= True -> "hidden"
-                      | otherwise -> ""
-      isHighlighted = if | monitor.isSelected -> "selected"
-                         | otherwise -> ""
+  let visibility =  if monitor.isVisible /= True then "hidden"
+                    else ""
+      isHighlighted = if monitor.isSelected then "selected"
+                      else ""
   in
     div [ class ("div-1-5 monitor-view-container " ++ visibility ) ]
     [ div [ class (isHighlighted ++ " " ++ "monitor-view content-centered" )
@@ -602,15 +604,15 @@ monitorSettingUpperBodyView address monitorSettingScreenState =
 
 -- monitor lower body view
 monitorSettingLowerBodyView address monitorSettingScreenState = 
-  let cycleButtonClass = if | monitorSettingScreenState.isCycleDisabled -> "disabled"
-                          | monitorSettingScreenState.isCyclePressed -> "pressed"
-                          | otherwise -> ""
-      pipButtonClass = if | monitorSettingScreenState.isPipDisabled -> "disabled"
-                        | monitorSettingScreenState.isPipSetPressed -> "pressed"
-                        | otherwise -> ""
-      osdButtonClass = if | monitorSettingScreenState.isOsdDisabled -> "disabled"
-                        | monitorSettingScreenState.isOsdSetPressed -> "pressed" 
-                        | otherwise -> ""
+  let cycleButtonClass =  if monitorSettingScreenState.isCycleDisabled then "disabled"
+                          else if monitorSettingScreenState.isCyclePressed then "pressed"
+                          else ""
+      pipButtonClass =  if monitorSettingScreenState.isPipDisabled then "disabled"
+                        else if monitorSettingScreenState.isPipSetPressed then "pressed"
+                        else ""
+      osdButtonClass =  if monitorSettingScreenState.isOsdDisabled then "disabled"
+                        else if monitorSettingScreenState.isOsdSetPressed then "pressed" 
+                        else ""
   in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "power-button circle button monitor-button ", onClick address CycleButtonPress ] [ ] ]
                                                                             , div [ class "div-1-3 align-center" ] [ img [ class "pip-button circle button monitor-button ", onClick address PipButtonPress ] [ ] ] 
                                                                             , div [ class "div-1-3 align-center" ] [ img [ class "osd-button circle button monitor-button ", onClick address OsdButtonPress ] [ ] ] ]
@@ -619,7 +621,7 @@ monitorSettingLowerBodyView address monitorSettingScreenState =
 
 -- signal matrix view
 signalMatrixView address signalType signalName isCyclePressed monitor = 
-  let isActivated = if  | isCyclePressed -> case signalType of
+  let isActivated = if isCyclePressed then case signalType of
                                               "VGA 1" -> monitor.isVgaOneCycle 
                                               "VGA 2" -> monitor.isVgaTwoCycle
                                               "DVI 1" -> monitor.isDviOneCycle
@@ -627,7 +629,8 @@ signalMatrixView address signalType signalName isCyclePressed monitor =
                                               "VIDEO 1" -> monitor.isVideoOneCycle
                                               "VIDEO 2" -> monitor.isVideoTwoCycle
                                               "VIDEO 3" -> monitor.isVideoThreeCycle
-                        | otherwise -> False
+                                              _ -> False
+                    else False
 
   in div  [ class "signal-matrix-view", onClick address (ActivateCycleSignalMatrixPress signalType) ]  
           [ div [ class "signal-matrix-label" ] 
@@ -726,7 +729,6 @@ presetButtonView address preset =
                                                                                                     , on "input" targetValue (Signal.message address << (PresetNameInput preset))
                                                                                                     , onEnter address (PresetCommitThenSelect preset)
                                                                                                     , onEsc (Signal.message address (PresetEditCancel preset)) ][ ] ]]
-
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""
@@ -744,17 +746,32 @@ port out_onPressReleasedMonitor = pressReleasedMonitor
 --port out_onReleasedMonitor : Signal SessionId
 --port out_onReleasedMonitor = releasedMonitor
 
-pressedMonitor =  let v action =  case action of
-                                    MonitorPressedDown _ -> True
-                                    _ -> False
-                      toMonitorNumber (MonitorPressedDown number) = number
-                  in Signal.map toMonitorNumber (Signal.filter v (MonitorPressedDown "") actions.signal)
 
-pressReleasedMonitor =  let v action =  case action of
-                                    MonitorPressReleased _ -> True
-                                    _ -> False
-                            toMonitorNumber (MonitorPressReleased number) = number
-                        in Signal.map toMonitorNumber (Signal.filter v (MonitorPressReleased "") actions.signal)
+pressedMonitor =
+  let needsMonitorPressedDown action =
+        case action of
+          MonitorPressedDown number -> True
+          _ -> False
+      toSelector action =
+        case action of
+          MonitorPressedDown number -> number
+          _ -> ""
+  in  actions.signal
+        |> Signal.filter needsMonitorPressedDown (MonitorPressedDown "")
+        |> Signal.map toSelector
+
+pressReleasedMonitor =  
+  let needsMonitorPressReleased action =
+        case action of
+          MonitorPressReleased number -> True
+          _ -> False
+      toSelector action =
+        case action of
+          MonitorPressReleased number -> number
+          _ -> ""
+  in  actions.signal
+        |> Signal.filter needsMonitorPressReleased (MonitorPressReleased "")
+        |> Signal.map toSelector
 
 --* WORK AROUNDS *--
 -- when enter is pressed on an element message will be sent to the mailbox
