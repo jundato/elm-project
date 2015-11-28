@@ -1,5 +1,6 @@
-var Elm = Elm || { Native: {} };
-Elm.Native.Array = {};
+<!DOCTYPE HTML>
+<html><head><meta charset="UTF-8"><title>GreenGui.Main</title><style>html,head,body { padding:0; margin:0; }
+body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">var Elm = Elm || { Native: {} };Elm.Native.Array = {};
 Elm.Native.Array.make = function(localRuntime) {
 
 	localRuntime.Native = localRuntime.Native || {};
@@ -979,7 +980,6 @@ Elm.Native.Array.make = function(localRuntime) {
 
 	return localRuntime.Native.Array.values = Elm.Native.Array.values;
 };
-
 Elm.Native.Basics = {};
 Elm.Native.Basics.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -1116,7 +1116,6 @@ Elm.Native.Basics.make = function(localRuntime) {
 		isInfinite: isInfinite
 	};
 };
-
 Elm.Native.Port = {};
 
 Elm.Native.Port.make = function(localRuntime) {
@@ -1248,7 +1247,6 @@ Elm.Native.Port.make = function(localRuntime) {
 		outboundSignal: outboundSignal
 	};
 };
-
 if (!Elm.fullscreen) {
 	(function() {
 		'use strict';
@@ -1885,7 +1883,6 @@ if (!Elm.fullscreen) {
 			: fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 	}
 }
-
 Elm.Native = Elm.Native || {};
 Elm.Native.Utils = {};
 Elm.Native.Utils.make = function(localRuntime) {
@@ -2416,7 +2413,6 @@ Elm.Native.Utils.make = function(localRuntime) {
 		toString: toString
 	};
 };
-
 Elm.Basics = Elm.Basics || {};
 Elm.Basics.make = function (_elm) {
    "use strict";
@@ -2531,8 +2527,7 @@ Elm.Basics.make = function (_elm) {
                                ,LT: LT
                                ,EQ: EQ
                                ,GT: GT};
-};
-Elm.Maybe = Elm.Maybe || {};
+};Elm.Maybe = Elm.Maybe || {};
 Elm.Maybe.make = function (_elm) {
    "use strict";
    _elm.Maybe = _elm.Maybe || {};
@@ -2613,8 +2608,7 @@ Elm.Maybe.make = function (_elm) {
                               ,oneOf: oneOf
                               ,Just: Just
                               ,Nothing: Nothing};
-};
-Elm.Native.List = {};
+};Elm.Native.List = {};
 Elm.Native.List.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.List = localRuntime.Native.List || {};
@@ -2778,7 +2772,6 @@ Elm.Native.List.make = function(localRuntime) {
 	};
 	return localRuntime.Native.List.values = Elm.Native.List.values;
 };
-
 Elm.List = Elm.List || {};
 Elm.List.make = function (_elm) {
    "use strict";
@@ -2952,8 +2945,7 @@ Elm.List.make = function (_elm) {
                              ,sort: sort
                              ,sortBy: sortBy
                              ,sortWith: sortWith};
-};
-Elm.Array = Elm.Array || {};
+};Elm.Array = Elm.Array || {};
 Elm.Array.make = function (_elm) {
    "use strict";
    _elm.Array = _elm.Array || {};
@@ -3012,8 +3004,7 @@ Elm.Array.make = function (_elm) {
                               ,filter: filter
                               ,foldl: foldl
                               ,foldr: foldr};
-};
-Elm.Native.Char = {};
+};Elm.Native.Char = {};
 Elm.Native.Char.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Char = localRuntime.Native.Char || {};
@@ -3033,7 +3024,6 @@ Elm.Native.Char.make = function(localRuntime) {
 		toLocaleLower: function(c) { return Utils.chr(c.toLocaleLowerCase()); }
 	};
 };
-
 Elm.Char = Elm.Char || {};
 Elm.Char.make = function (_elm) {
    "use strict";
@@ -3067,8 +3057,7 @@ Elm.Char.make = function (_elm) {
                              ,toLocaleLower: toLocaleLower
                              ,toCode: toCode
                              ,fromCode: fromCode};
-};
-Elm.Native.Color = {};
+};Elm.Native.Color = {};
 Elm.Native.Color.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Color = localRuntime.Native.Color || {};
@@ -3107,7 +3096,6 @@ Elm.Native.Color.make = function(localRuntime) {
 		toCss: toCss
 	};
 };
-
 Elm.Color = Elm.Color || {};
 Elm.Color.make = function (_elm) {
    "use strict";
@@ -3270,8 +3258,7 @@ Elm.Color.make = function (_elm) {
                               ,lightGray: lightGray
                               ,gray: gray
                               ,darkGray: darkGray};
-};
-Elm.Native.Signal = {};
+};Elm.Native.Signal = {};
 
 Elm.Native.Signal.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -3741,7 +3728,115 @@ Elm.Native.Signal.make = function(localRuntime) {
 		delay: F2(delay)
 	};
 };
+Elm.Native.Time = {};
 
+Elm.Native.Time.make = function(localRuntime)
+{
+	localRuntime.Native = localRuntime.Native || {};
+	localRuntime.Native.Time = localRuntime.Native.Time || {};
+	if (localRuntime.Native.Time.values)
+	{
+		return localRuntime.Native.Time.values;
+	}
+
+	var NS = Elm.Native.Signal.make(localRuntime);
+	var Maybe = Elm.Maybe.make(localRuntime);
+
+
+	// FRAMES PER SECOND
+
+	function fpsWhen(desiredFPS, isOn)
+	{
+		var msPerFrame = 1000 / desiredFPS;
+		var ticker = NS.input('fps-' + desiredFPS, null);
+
+		function notifyTicker()
+		{
+			localRuntime.notify(ticker.id, null);
+		}
+
+		function firstArg(x, y)
+		{
+			return x;
+		}
+
+		// input fires either when isOn changes, or when ticker fires.
+		// Its value is a tuple with the current timestamp, and the state of isOn
+		var input = NS.timestamp(A3(NS.map2, F2(firstArg), NS.dropRepeats(isOn), ticker));
+
+		var initialState = {
+			isOn: false,
+			time: localRuntime.timer.programStart,
+			delta: 0
+		};
+
+		var timeoutId;
+
+		function update(input, state)
+		{
+			var currentTime = input._0;
+			var isOn = input._1;
+			var wasOn = state.isOn;
+			var previousTime = state.time;
+
+			if (isOn)
+			{
+				timeoutId = localRuntime.setTimeout(notifyTicker, msPerFrame);
+			}
+			else if (wasOn)
+			{
+				clearTimeout(timeoutId);
+			}
+
+			return {
+				isOn: isOn,
+				time: currentTime,
+				delta: (isOn && !wasOn) ? 0 : currentTime - previousTime
+			};
+		}
+
+		return A2(
+			NS.map,
+			function(state) { return state.delta; },
+			A3(NS.foldp, F2(update), update(input.value, initialState), input)
+		);
+	}
+
+
+	// EVERY
+
+	function every(t)
+	{
+		var ticker = NS.input('every-' + t, null);
+		function tellTime()
+		{
+			localRuntime.notify(ticker.id, null);
+		}
+		var clock = A2(NS.map, fst, NS.timestamp(ticker));
+		setInterval(tellTime, t);
+		return clock;
+	}
+
+
+	function fst(pair)
+	{
+		return pair._0;
+	}
+
+
+	function read(s)
+	{
+		var t = Date.parse(s);
+		return isNaN(t) ? Maybe.Nothing : Maybe.Just(t);
+	}
+
+	return localRuntime.Native.Time.values = {
+		fpsWhen: F2(fpsWhen),
+		every: every,
+		toDate: function(t) { return new Date(t); },
+		read: read
+	};
+};
 Elm.Native.Transform2D = {};
 Elm.Native.Transform2D.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -3852,7 +3947,6 @@ Elm.Native.Transform2D.make = function(localRuntime) {
 		*/
 	};
 };
-
 Elm.Transform2D = Elm.Transform2D || {};
 Elm.Transform2D.make = function (_elm) {
    "use strict";
@@ -3879,7 +3973,6 @@ Elm.Transform2D.make = function (_elm) {
                                     ,scaleX: scaleX
                                     ,scaleY: scaleY};
 };
-
 // setup
 Elm.Native = Elm.Native || {};
 Elm.Native.Graphics = Elm.Native.Graphics || {};
@@ -4543,7 +4636,6 @@ Elm.Native.Graphics.Collage.make = function(localRuntime) {
 		collage: F3(collage)
 	};
 };
-
 
 // setup
 Elm.Native = Elm.Native || {};
@@ -5280,7 +5372,6 @@ Elm.Native.Graphics.Element.make = function(localRuntime) {
 		markdown: markdown
 	};
 };
-
 Elm.Native.Text = {};
 Elm.Native.Text.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -5568,7 +5659,6 @@ Elm.Native.Text.make = function(localRuntime) {
 		renderHtml: renderHtml
 	};
 };
-
 Elm.Text = Elm.Text || {};
 Elm.Text.make = function (_elm) {
    "use strict";
@@ -5620,8 +5710,7 @@ Elm.Text.make = function (_elm) {
                              ,Under: Under
                              ,Over: Over
                              ,Through: Through};
-};
-Elm.Graphics = Elm.Graphics || {};
+};Elm.Graphics = Elm.Graphics || {};
 Elm.Graphics.Element = Elm.Graphics.Element || {};
 Elm.Graphics.Element.make = function (_elm) {
    "use strict";
@@ -5818,8 +5907,7 @@ Elm.Graphics.Element.make = function (_elm) {
                                          ,topRightAt: topRightAt
                                          ,bottomLeftAt: bottomLeftAt
                                          ,bottomRightAt: bottomRightAt};
-};
-Elm.Graphics = Elm.Graphics || {};
+};Elm.Graphics = Elm.Graphics || {};
 Elm.Graphics.Collage = Elm.Graphics.Collage || {};
 Elm.Graphics.Collage.make = function (_elm) {
    "use strict";
@@ -5950,8 +6038,7 @@ Elm.Graphics.Collage.make = function (_elm) {
                                          ,Smooth: Smooth
                                          ,Sharp: Sharp
                                          ,Clipped: Clipped};
-};
-Elm.Native.Debug = {};
+};Elm.Native.Debug = {};
 Elm.Native.Debug.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Debug = localRuntime.Native.Debug || {};
@@ -6017,7 +6104,6 @@ Elm.Native.Debug.make = function(localRuntime) {
 		watchSummary: F3(watchSummary)
 	};
 };
-
 Elm.Debug = Elm.Debug || {};
 Elm.Debug.make = function (_elm) {
    "use strict";
@@ -6031,8 +6117,7 @@ Elm.Debug.make = function (_elm) {
    var crash = $Native$Debug.crash;
    var log = $Native$Debug.log;
    return _elm.Debug.values = {_op: _op,log: log,crash: crash,watch: watch,watchSummary: watchSummary,trace: trace};
-};
-Elm.Native.Task = {};
+};Elm.Native.Task = {};
 
 Elm.Native.Task.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -6257,7 +6342,6 @@ Elm.Native.Task.make = function(localRuntime) {
 		sleep: sleep
 	};
 };
-
 Elm.Result = Elm.Result || {};
 Elm.Result.make = function (_elm) {
    "use strict";
@@ -6358,8 +6442,7 @@ Elm.Result.make = function (_elm) {
                                ,formatError: formatError
                                ,Ok: Ok
                                ,Err: Err};
-};
-Elm.Task = Elm.Task || {};
+};Elm.Task = Elm.Task || {};
 Elm.Task.make = function (_elm) {
    "use strict";
    _elm.Task = _elm.Task || {};
@@ -6450,8 +6533,7 @@ Elm.Task.make = function (_elm) {
                              ,fromResult: fromResult
                              ,spawn: spawn
                              ,sleep: sleep};
-};
-Elm.Signal = Elm.Signal || {};
+};Elm.Signal = Elm.Signal || {};
 Elm.Signal.make = function (_elm) {
    "use strict";
    _elm.Signal = _elm.Signal || {};
@@ -6516,8 +6598,52 @@ Elm.Signal.make = function (_elm) {
                                ,message: message
                                ,forwardTo: forwardTo
                                ,Mailbox: Mailbox};
-};
-Elm.Native.String = {};
+};Elm.Time = Elm.Time || {};
+Elm.Time.make = function (_elm) {
+   "use strict";
+   _elm.Time = _elm.Time || {};
+   if (_elm.Time.values) return _elm.Time.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Native$Signal = Elm.Native.Signal.make(_elm),
+   $Native$Time = Elm.Native.Time.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var delay = $Native$Signal.delay;
+   var since = F2(function (time,signal) {
+      var stop = A2($Signal.map,$Basics.always(-1),A2(delay,time,signal));
+      var start = A2($Signal.map,$Basics.always(1),signal);
+      var delaydiff = A3($Signal.foldp,F2(function (x,y) {    return x + y;}),0,A2($Signal.merge,start,stop));
+      return A2($Signal.map,F2(function (x,y) {    return !_U.eq(x,y);})(0),delaydiff);
+   });
+   var timestamp = $Native$Signal.timestamp;
+   var every = $Native$Time.every;
+   var fpsWhen = $Native$Time.fpsWhen;
+   var fps = function (targetFrames) {    return A2(fpsWhen,targetFrames,$Signal.constant(true));};
+   var inMilliseconds = function (t) {    return t;};
+   var millisecond = 1;
+   var second = 1000 * millisecond;
+   var minute = 60 * second;
+   var hour = 60 * minute;
+   var inHours = function (t) {    return t / hour;};
+   var inMinutes = function (t) {    return t / minute;};
+   var inSeconds = function (t) {    return t / second;};
+   return _elm.Time.values = {_op: _op
+                             ,millisecond: millisecond
+                             ,second: second
+                             ,minute: minute
+                             ,hour: hour
+                             ,inMilliseconds: inMilliseconds
+                             ,inSeconds: inSeconds
+                             ,inMinutes: inMinutes
+                             ,inHours: inHours
+                             ,fps: fps
+                             ,fpsWhen: fpsWhen
+                             ,every: every
+                             ,timestamp: timestamp
+                             ,delay: delay
+                             ,since: since};
+};Elm.Native.String = {};
 
 Elm.Native.String.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -6858,7 +6984,6 @@ Elm.Native.String.make = function(localRuntime) {
 		fromList: fromList
 	};
 };
-
 Elm.String = Elm.String || {};
 Elm.String.make = function (_elm) {
    "use strict";
@@ -6949,8 +7074,7 @@ Elm.String.make = function (_elm) {
                                ,foldr: foldr
                                ,any: any
                                ,all: all};
-};
-Elm.Dict = Elm.Dict || {};
+};Elm.Dict = Elm.Dict || {};
 Elm.Dict.make = function (_elm) {
    "use strict";
    _elm.Dict = _elm.Dict || {};
@@ -7510,8 +7634,509 @@ Elm.Dict.make = function (_elm) {
                              ,values: values
                              ,toList: toList
                              ,fromList: fromList};
+};// setup
+Elm.Native = Elm.Native || {};
+Elm.Native.Graphics = Elm.Native.Graphics || {};
+Elm.Native.Graphics.Input = Elm.Native.Graphics.Input || {};
+
+// definition
+Elm.Native.Graphics.Input.make = function(localRuntime) {
+	'use strict';
+
+	// attempt to short-circuit
+	if ('values' in Elm.Native.Graphics.Input) {
+		return Elm.Native.Graphics.Input.values;
+	}
+
+	var Color = Elm.Native.Color.make(localRuntime);
+	var List = Elm.Native.List.make(localRuntime);
+	var Signal = Elm.Native.Signal.make(localRuntime);
+	var Text = Elm.Native.Text.make(localRuntime);
+	var Utils = Elm.Native.Utils.make(localRuntime);
+
+	var Element = Elm.Native.Graphics.Element.make(localRuntime);
+
+
+	function renderDropDown(model)
+	{
+		var drop = Element.createNode('select');
+		drop.style.border = '0 solid';
+		drop.style.pointerEvents = 'auto';
+		drop.style.display = 'block';
+
+		drop.elm_values = List.toArray(model.values);
+		drop.elm_handler = model.handler;
+		var values = drop.elm_values;
+
+		for (var i = 0; i < values.length; ++i)
+		{
+			var option = Element.createNode('option');
+			var name = values[i]._0;
+			option.value = name;
+			option.innerHTML = name;
+			drop.appendChild(option);
+		}
+		drop.addEventListener('change', function() {
+			Signal.sendMessage(drop.elm_handler(drop.elm_values[drop.selectedIndex]._1));
+		});
+
+		return drop;
+	}
+
+	function updateDropDown(node, oldModel, newModel)
+	{
+		node.elm_values = List.toArray(newModel.values);
+		node.elm_handler = newModel.handler;
+
+		var values = node.elm_values;
+		var kids = node.childNodes;
+		var kidsLength = kids.length;
+
+		var i = 0;
+		for (; i < kidsLength && i < values.length; ++i)
+		{
+			var option = kids[i];
+			var name = values[i]._0;
+			option.value = name;
+			option.innerHTML = name;
+		}
+		for (; i < kidsLength; ++i)
+		{
+			node.removeChild(node.lastChild);
+		}
+		for (; i < values.length; ++i)
+		{
+			var option = Element.createNode('option');
+			var name = values[i]._0;
+			option.value = name;
+			option.innerHTML = name;
+			node.appendChild(option);
+		}
+		return node;
+	}
+
+	function dropDown(handler, values)
+	{
+		return A3(Element.newElement, 100, 24, {
+			ctor: 'Custom',
+			type: 'DropDown',
+			render: renderDropDown,
+			update: updateDropDown,
+			model: {
+				values: values,
+				handler: handler
+			}
+		});
+	}
+
+	function renderButton(model)
+	{
+		var node = Element.createNode('button');
+		node.style.display = 'block';
+		node.style.pointerEvents = 'auto';
+		node.elm_message = model.message;
+		function click()
+		{
+			Signal.sendMessage(node.elm_message);
+		}
+		node.addEventListener('click', click);
+		node.innerHTML = model.text;
+		return node;
+	}
+
+	function updateButton(node, oldModel, newModel)
+	{
+		node.elm_message = newModel.message;
+		var txt = newModel.text;
+		if (oldModel.text !== txt)
+		{
+			node.innerHTML = txt;
+		}
+		return node;
+	}
+
+	function button(message, text)
+	{
+		return A3(Element.newElement, 100, 40, {
+			ctor: 'Custom',
+			type: 'Button',
+			render: renderButton,
+			update: updateButton,
+			model: {
+				message: message,
+				text: text
+			}
+		});
+	}
+
+	function renderCustomButton(model)
+	{
+		var btn = Element.createNode('div');
+		btn.style.pointerEvents = 'auto';
+		btn.elm_message = model.message;
+
+		btn.elm_up    = Element.render(model.up);
+		btn.elm_hover = Element.render(model.hover);
+		btn.elm_down  = Element.render(model.down);
+
+		btn.elm_up.style.display = 'block';
+		btn.elm_hover.style.display = 'none';
+		btn.elm_down.style.display = 'none';
+
+		btn.appendChild(btn.elm_up);
+		btn.appendChild(btn.elm_hover);
+		btn.appendChild(btn.elm_down);
+
+		function swap(visibleNode, hiddenNode1, hiddenNode2)
+		{
+			visibleNode.style.display = 'block';
+			hiddenNode1.style.display = 'none';
+			hiddenNode2.style.display = 'none';
+		}
+
+		var overCount = 0;
+		function over(e)
+		{
+			if (overCount++ > 0) return;
+			swap(btn.elm_hover, btn.elm_down, btn.elm_up);
+		}
+		function out(e)
+		{
+			if (btn.contains(e.toElement || e.relatedTarget)) return;
+			overCount = 0;
+			swap(btn.elm_up, btn.elm_down, btn.elm_hover);
+		}
+		function up()
+		{
+			swap(btn.elm_hover, btn.elm_down, btn.elm_up);
+			Signal.sendMessage(btn.elm_message);
+		}
+		function down()
+		{
+			swap(btn.elm_down, btn.elm_hover, btn.elm_up);
+		}
+
+		btn.addEventListener('mouseover', over);
+		btn.addEventListener('mouseout', out);
+		btn.addEventListener('mousedown', down);
+		btn.addEventListener('mouseup', up);
+
+		return btn;
+	}
+
+	function updateCustomButton(node, oldModel, newModel)
+	{
+		node.elm_message = newModel.message;
+
+		var kids = node.childNodes;
+		var styleUp    = kids[0].style.display;
+		var styleHover = kids[1].style.display;
+		var styleDown  = kids[2].style.display;
+
+		Element.updateAndReplace(kids[0], oldModel.up, newModel.up);
+		Element.updateAndReplace(kids[1], oldModel.hover, newModel.hover);
+		Element.updateAndReplace(kids[2], oldModel.down, newModel.down);
+
+		var kids = node.childNodes;
+		kids[0].style.display = styleUp;
+		kids[1].style.display = styleHover;
+		kids[2].style.display = styleDown;
+
+		return node;
+	}
+
+	function max3(a, b, c)
+	{
+		var ab = a > b ? a : b;
+		return ab > c ? ab : c;
+	}
+
+	function customButton(message, up, hover, down)
+	{
+		return A3(Element.newElement,
+				  max3(up._0.props.width, hover._0.props.width, down._0.props.width),
+				  max3(up._0.props.height, hover._0.props.height, down._0.props.height),
+				  { ctor: 'Custom',
+					type: 'CustomButton',
+					render: renderCustomButton,
+					update: updateCustomButton,
+					model: {
+						message: message,
+						up: up,
+						hover: hover,
+						down: down
+					}
+				  });
+	}
+
+	function renderCheckbox(model)
+	{
+		var node = Element.createNode('input');
+		node.type = 'checkbox';
+		node.checked = model.checked;
+		node.style.display = 'block';
+		node.style.pointerEvents = 'auto';
+		node.elm_handler = model.handler;
+		function change()
+		{
+			Signal.sendMessage(node.elm_handler(node.checked));
+		}
+		node.addEventListener('change', change);
+		return node;
+	}
+
+	function updateCheckbox(node, oldModel, newModel)
+	{
+		node.elm_handler = newModel.handler;
+		node.checked = newModel.checked;
+		return node;
+	}
+
+	function checkbox(handler, checked)
+	{
+		return A3(Element.newElement, 13, 13, {
+			ctor: 'Custom',
+			type: 'CheckBox',
+			render: renderCheckbox,
+			update: updateCheckbox,
+			model: { handler: handler, checked: checked }
+		});
+	}
+
+	function setRange(node, start, end, dir)
+	{
+		if (node.parentNode)
+		{
+			node.setSelectionRange(start, end, dir);
+		}
+		else
+		{
+			setTimeout(function() {node.setSelectionRange(start, end, dir); }, 0);
+		}
+	}
+
+	function updateIfNeeded(css, attribute, latestAttribute)
+	{
+		if (css[attribute] !== latestAttribute)
+		{
+			css[attribute] = latestAttribute;
+		}
+	}
+	function cssDimensions(dimensions)
+	{
+		return dimensions.top    + 'px ' +
+			   dimensions.right  + 'px ' +
+			   dimensions.bottom + 'px ' +
+			   dimensions.left   + 'px';
+	}
+	function updateFieldStyle(css, style)
+	{
+		updateIfNeeded(css, 'padding', cssDimensions(style.padding));
+
+		var outline = style.outline;
+		updateIfNeeded(css, 'border-width', cssDimensions(outline.width));
+		updateIfNeeded(css, 'border-color', Color.toCss(outline.color));
+		updateIfNeeded(css, 'border-radius', outline.radius + 'px');
+
+		var highlight = style.highlight;
+		if (highlight.width === 0)
+		{
+			css.outline = 'none';
+		}
+		else
+		{
+			updateIfNeeded(css, 'outline-width', highlight.width + 'px');
+			updateIfNeeded(css, 'outline-color', Color.toCss(highlight.color));
+		}
+
+		var textStyle = style.style;
+		updateIfNeeded(css, 'color', Color.toCss(textStyle.color));
+		if (textStyle.typeface.ctor !== '[]')
+		{
+			updateIfNeeded(css, 'font-family', Text.toTypefaces(textStyle.typeface));
+		}
+		if (textStyle.height.ctor !== 'Nothing')
+		{
+			updateIfNeeded(css, 'font-size', textStyle.height._0 + 'px');
+		}
+		updateIfNeeded(css, 'font-weight', textStyle.bold ? 'bold' : 'normal');
+		updateIfNeeded(css, 'font-style', textStyle.italic ? 'italic' : 'normal');
+		if (textStyle.line.ctor !== 'Nothing')
+		{
+			updateIfNeeded(css, 'text-decoration', Text.toLine(textStyle.line._0));
+		}
+	}
+
+	function renderField(model)
+	{
+		var field = Element.createNode('input');
+		updateFieldStyle(field.style, model.style);
+		field.style.borderStyle = 'solid';
+		field.style.pointerEvents = 'auto';
+
+		field.type = model.type;
+		field.placeholder = model.placeHolder;
+		field.value = model.content.string;
+
+		field.elm_handler = model.handler;
+		field.elm_old_value = field.value;
+
+		function inputUpdate(event)
+		{
+			var curr = field.elm_old_value;
+			var next = field.value;
+			if (curr === next)
+			{
+				return;
+			}
+
+			var direction = field.selectionDirection === 'forward' ? 'Forward' : 'Backward';
+			var start = field.selectionStart;
+			var end = field.selectionEnd;
+			field.value = field.elm_old_value;
+
+			Signal.sendMessage(field.elm_handler({
+				string: next,
+				selection: {
+					start: start,
+					end: end,
+					direction: { ctor: direction }
+				}
+			}));
+		}
+
+		field.addEventListener('input', inputUpdate);
+		field.addEventListener('focus', function() {
+			field.elm_hasFocus = true;
+		});
+		field.addEventListener('blur', function() {
+			field.elm_hasFocus = false;
+		});
+
+		return field;
+	}
+
+	function updateField(field, oldModel, newModel)
+	{
+		if (oldModel.style !== newModel.style)
+		{
+			updateFieldStyle(field.style, newModel.style);
+		}
+		field.elm_handler = newModel.handler;
+
+		field.type = newModel.type;
+		field.placeholder = newModel.placeHolder;
+		var value = newModel.content.string;
+		field.value = value;
+		field.elm_old_value = value;
+		if (field.elm_hasFocus)
+		{
+			var selection = newModel.content.selection;
+			var direction = selection.direction.ctor === 'Forward' ? 'forward' : 'backward';
+			setRange(field, selection.start, selection.end, direction);
+		}
+		return field;
+	}
+
+	function mkField(type)
+	{
+		function field(style, handler, placeHolder, content)
+		{
+			var padding = style.padding;
+			var outline = style.outline.width;
+			var adjustWidth = padding.left + padding.right + outline.left + outline.right;
+			var adjustHeight = padding.top + padding.bottom + outline.top + outline.bottom;
+			return A3(Element.newElement, 200, 30, {
+				ctor: 'Custom',
+				type: type + 'Field',
+				adjustWidth: adjustWidth,
+				adjustHeight: adjustHeight,
+				render: renderField,
+				update: updateField,
+				model: {
+					handler: handler,
+					placeHolder: placeHolder,
+					content: content,
+					style: style,
+					type: type
+				}
+			});
+		}
+		return F4(field);
+	}
+
+	function hoverable(handler, wrappedElement)
+	{
+		function onHover(bool)
+		{
+			Signal.sendMessage(handler(bool));
+		}
+		var element = wrappedElement._0;
+		var newProps = Utils.update(element.props, { hover: onHover });
+		return {
+			ctor: wrappedElement.ctor,
+			_0: {
+				props: newProps,
+				element: element.element
+			}
+		};
+	}
+
+	function clickable(message, wrappedElement)
+	{
+		function onClick()
+		{
+			Signal.sendMessage(message);
+		}
+		var element = wrappedElement._0;
+		var newProps = Utils.update(element.props, { click: onClick });
+		return {
+			ctor: wrappedElement.ctor,
+			_0: {
+				props: newProps,
+				element: element.element
+			}
+		};
+	}
+
+	return Elm.Native.Graphics.Input.values = {
+		button: F2(button),
+		customButton: F4(customButton),
+		checkbox: F2(checkbox),
+		dropDown: F2(dropDown),
+		field: mkField('text'),
+		email: mkField('email'),
+		password: mkField('password'),
+		hoverable: F2(hoverable),
+		clickable: F2(clickable)
+	};
 };
-Elm.Native.Json = {};
+Elm.Graphics = Elm.Graphics || {};
+Elm.Graphics.Input = Elm.Graphics.Input || {};
+Elm.Graphics.Input.make = function (_elm) {
+   "use strict";
+   _elm.Graphics = _elm.Graphics || {};
+   _elm.Graphics.Input = _elm.Graphics.Input || {};
+   if (_elm.Graphics.Input.values) return _elm.Graphics.Input.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Native$Graphics$Input = Elm.Native.Graphics.Input.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var clickable = $Native$Graphics$Input.clickable;
+   var hoverable = $Native$Graphics$Input.hoverable;
+   var dropDown = $Native$Graphics$Input.dropDown;
+   var checkbox = $Native$Graphics$Input.checkbox;
+   var customButton = $Native$Graphics$Input.customButton;
+   var button = $Native$Graphics$Input.button;
+   return _elm.Graphics.Input.values = {_op: _op
+                                       ,button: button
+                                       ,customButton: customButton
+                                       ,checkbox: checkbox
+                                       ,dropDown: dropDown
+                                       ,hoverable: hoverable
+                                       ,clickable: clickable};
+};Elm.Native.Json = {};
 
 Elm.Native.Json.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -8006,7 +8631,6 @@ Elm.Native.Json.make = function(localRuntime) {
 
 	};
 };
-
 Elm.Json = Elm.Json || {};
 Elm.Json.Encode = Elm.Json.Encode || {};
 Elm.Json.Encode.make = function (_elm) {
@@ -8036,8 +8660,7 @@ Elm.Json.Encode.make = function (_elm) {
                                     ,list: list
                                     ,array: array
                                     ,object: object};
-};
-Elm.Json = Elm.Json || {};
+};Elm.Json = Elm.Json || {};
 Elm.Json.Decode = Elm.Json.Decode || {};
 Elm.Json.Decode.make = function (_elm) {
    "use strict";
@@ -8128,8 +8751,85 @@ Elm.Json.Decode.make = function (_elm) {
                                     ,andThen: andThen
                                     ,value: value
                                     ,customDecoder: customDecoder};
+};Elm.Native = Elm.Native || {};
+Elm.Native.Window = {};
+Elm.Native.Window.make = function make(localRuntime) {
+	localRuntime.Native = localRuntime.Native || {};
+	localRuntime.Native.Window = localRuntime.Native.Window || {};
+	if (localRuntime.Native.Window.values)
+	{
+		return localRuntime.Native.Window.values;
+	}
+
+	var NS = Elm.Native.Signal.make(localRuntime);
+	var Tuple2 = Elm.Native.Utils.make(localRuntime).Tuple2;
+
+
+	function getWidth()
+	{
+		return localRuntime.node.clientWidth;
+	}
+
+
+	function getHeight()
+	{
+		if (localRuntime.isFullscreen())
+		{
+			return window.innerHeight;
+		}
+		return localRuntime.node.clientHeight;
+	}
+
+
+	var dimensions = NS.input('Window.dimensions', Tuple2(getWidth(), getHeight()));
+
+
+	function resizeIfNeeded()
+	{
+		// Do not trigger event if the dimensions have not changed.
+		// This should be most of the time.
+		var w = getWidth();
+		var h = getHeight();
+		if (dimensions.value._0 === w && dimensions.value._1 === h)
+		{
+			return;
+		}
+
+		setTimeout(function() {
+			// Check again to see if the dimensions have changed.
+			// It is conceivable that the dimensions have changed
+			// again while some other event was being processed.
+			w = getWidth();
+			h = getHeight();
+			if (dimensions.value._0 === w && dimensions.value._1 === h)
+			{
+				return;
+			}
+			localRuntime.notify(dimensions.id, Tuple2(w, h));
+		}, 0);
+	}
+
+
+	localRuntime.addListener([dimensions.id], window, 'resize', resizeIfNeeded);
+
+
+	return localRuntime.Native.Window.values = {
+		dimensions: dimensions,
+		resizeIfNeeded: resizeIfNeeded
+	};
 };
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+Elm.Window = Elm.Window || {};
+Elm.Window.make = function (_elm) {
+   "use strict";
+   _elm.Window = _elm.Window || {};
+   if (_elm.Window.values) return _elm.Window.values;
+   var _U = Elm.Native.Utils.make(_elm),$Basics = Elm.Basics.make(_elm),$Native$Window = Elm.Native.Window.make(_elm),$Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var dimensions = $Native$Window.dimensions;
+   var width = A2($Signal.map,$Basics.fst,dimensions);
+   var height = A2($Signal.map,$Basics.snd,dimensions);
+   return _elm.Window.values = {_op: _op,dimensions: dimensions,width: width,height: height};
+};(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
 (function (global){
@@ -9723,7 +10423,6 @@ Elm.Native.VirtualDom.make = function(elm)
 };
 
 },{"virtual-dom/vdom/create-element":6,"virtual-dom/vdom/patch":9,"virtual-dom/vnode/is-vhook":13,"virtual-dom/vnode/vnode":18,"virtual-dom/vnode/vtext":20,"virtual-dom/vtree/diff":22}]},{},[23]);
-
 Elm.VirtualDom = Elm.VirtualDom || {};
 Elm.VirtualDom.make = function (_elm) {
    "use strict";
@@ -9771,8 +10470,7 @@ Elm.VirtualDom.make = function (_elm) {
                                    ,lazy2: lazy2
                                    ,lazy3: lazy3
                                    ,Options: Options};
-};
-Elm.Html = Elm.Html || {};
+};Elm.Html = Elm.Html || {};
 Elm.Html.make = function (_elm) {
    "use strict";
    _elm.Html = _elm.Html || {};
@@ -9994,8 +10692,7 @@ Elm.Html.make = function (_elm) {
                              ,summary: summary
                              ,menuitem: menuitem
                              ,menu: menu};
-};
-Elm.Html = Elm.Html || {};
+};Elm.Html = Elm.Html || {};
 Elm.Html.Attributes = Elm.Html.Attributes || {};
 Elm.Html.Attributes.make = function (_elm) {
    "use strict";
@@ -10219,8 +10916,7 @@ Elm.Html.Attributes.make = function (_elm) {
                                         ,manifest: manifest
                                         ,property: property
                                         ,attribute: attribute};
-};
-Elm.Html = Elm.Html || {};
+};Elm.Html = Elm.Html || {};
 Elm.Html.Events = Elm.Html.Events || {};
 Elm.Html.Events.make = function (_elm) {
    "use strict";
@@ -10285,8 +10981,7 @@ Elm.Html.Events.make = function (_elm) {
                                     ,targetChecked: targetChecked
                                     ,keyCode: keyCode
                                     ,Options: Options};
-};
-Elm.Html = Elm.Html || {};
+};Elm.Html = Elm.Html || {};
 Elm.Html.Lazy = Elm.Html.Lazy || {};
 Elm.Html.Lazy.make = function (_elm) {
    "use strict";
@@ -10307,41 +11002,7 @@ Elm.Html.Lazy.make = function (_elm) {
    var lazy2 = $VirtualDom.lazy2;
    var lazy = $VirtualDom.lazy;
    return _elm.Html.Lazy.values = {_op: _op,lazy: lazy,lazy2: lazy2,lazy3: lazy3};
-};
-Elm.StartApp = Elm.StartApp || {};
-Elm.StartApp.Simple = Elm.StartApp.Simple || {};
-Elm.StartApp.Simple.make = function (_elm) {
-   "use strict";
-   _elm.StartApp = _elm.StartApp || {};
-   _elm.StartApp.Simple = _elm.StartApp.Simple || {};
-   if (_elm.StartApp.Simple.values) return _elm.StartApp.Simple.values;
-   var _U = Elm.Native.Utils.make(_elm),
-   $Basics = Elm.Basics.make(_elm),
-   $Debug = Elm.Debug.make(_elm),
-   $Html = Elm.Html.make(_elm),
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
-   var _op = {};
-   var start = function (config) {
-      var update = F2(function (maybeAction,model) {
-         var _p0 = maybeAction;
-         if (_p0.ctor === "Just") {
-               return A2(config.update,_p0._0,model);
-            } else {
-               return _U.crashCase("StartApp.Simple",{start: {line: 91,column: 7},end: {line: 96,column: 52}},_p0)("This should never happen.");
-            }
-      });
-      var actions = $Signal.mailbox($Maybe.Nothing);
-      var address = A2($Signal.forwardTo,actions.address,$Maybe.Just);
-      var model = A3($Signal.foldp,update,config.model,actions.signal);
-      return A2($Signal.map,config.view(address),model);
-   };
-   var Config = F3(function (a,b,c) {    return {model: a,view: b,update: c};});
-   return _elm.StartApp.Simple.values = {_op: _op,Config: Config,start: start};
-};
-Elm.GreenGui = Elm.GreenGui || {};
+};Elm.GreenGui = Elm.GreenGui || {};
 Elm.GreenGui.Types = Elm.GreenGui.Types || {};
 Elm.GreenGui.Types.make = function (_elm) {
    "use strict";
@@ -10356,7 +11017,6 @@ Elm.GreenGui.Types.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var _op = {};
-   var Preset = F6(function (a,b,c,d,e,f) {    return {id: a,name: b,tempName: c,monitors: d,isSelected: e,isEditingName: f};});
    var Monitor = function (a) {
       return function (b) {
          return function (c) {
@@ -10429,31 +11089,37 @@ Elm.GreenGui.Types.make = function (_elm) {
          };
       };
    };
-   var PresetSettingScreenState = function (a) {    return {presets: a};};
-   var MonitorSettingScreenState = F7(function (a,b,c,d,e,f,g) {
-      return {selectedMonitor: a,isCyclePressed: b,isPipSetPressed: c,isOsdSetPressed: d,isCycleDisabled: e,isPipDisabled: f,isOsdDisabled: g};
-   });
-   var HomeScreenState = F3(function (a,b,c) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c};});
-   var AppState = F4(function (a,b,c,d) {    return {currentScreenState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d};});
-   return _elm.GreenGui.Types.values = {_op: _op
-                                       ,AppState: AppState
-                                       ,HomeScreenState: HomeScreenState
-                                       ,MonitorSettingScreenState: MonitorSettingScreenState
-                                       ,PresetSettingScreenState: PresetSettingScreenState
-                                       ,Monitor: Monitor
-                                       ,Preset: Preset};
-};
-Elm.GreenGui = Elm.GreenGui || {};
-Elm.GreenGui.App = Elm.GreenGui.App || {};
-Elm.GreenGui.App.make = function (_elm) {
+   return _elm.GreenGui.Types.values = {_op: _op,Monitor: Monitor};
+};Elm.GreenGui = Elm.GreenGui || {};
+Elm.GreenGui.Home = Elm.GreenGui.Home || {};
+Elm.GreenGui.Home.make = function (_elm) {
    "use strict";
    _elm.GreenGui = _elm.GreenGui || {};
-   _elm.GreenGui.App = _elm.GreenGui.App || {};
-   if (_elm.GreenGui.App.values) return _elm.GreenGui.App.values;
+   _elm.GreenGui.Home = _elm.GreenGui.Home || {};
+   if (_elm.GreenGui.Home.values) return _elm.GreenGui.Home.values;
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
    $GreenGui$Types = Elm.GreenGui.Types.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var _op = {};
+   var HomeScreenState = F3(function (a,b,c) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c};});
+   return _elm.GreenGui.Home.values = {_op: _op,HomeScreenState: HomeScreenState};
+};Elm.GreenGui = Elm.GreenGui || {};
+Elm.GreenGui.Main = Elm.GreenGui.Main || {};
+Elm.GreenGui.Main.make = function (_elm) {
+   "use strict";
+   _elm.GreenGui = _elm.GreenGui || {};
+   _elm.GreenGui.Main = _elm.GreenGui.Main || {};
+   if (_elm.GreenGui.Main.values) return _elm.GreenGui.Main.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $GreenGui$Home = Elm.GreenGui.Home.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
@@ -10461,7 +11127,8 @@ Elm.GreenGui.App.make = function (_elm) {
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
+   $Signal = Elm.Signal.make(_elm),
+   $Window = Elm.Window.make(_elm);
    var _op = {};
    var is13 = function (code) {    return _U.eq(code,13) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("not the right key code");};
    var onEnter = F2(function (address,value) {
@@ -10471,6 +11138,11 @@ Elm.GreenGui.App.make = function (_elm) {
       function (_p0) {
          return A2($Signal.message,address,value);
       });
+   });
+   var in_longPressedMonitor = Elm.Native.Port.make(_elm).inboundSignal("in_longPressedMonitor",
+   "String",
+   function (v) {
+      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",v);
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
@@ -10949,32 +11621,42 @@ Elm.GreenGui.App.make = function (_elm) {
       _U.list([]),
       _U.list([A2(monitorPanelView,address,homeScreenState.monitors),A2(homePanelView,address,homeScreenState),homeMenuView(address)]));
    });
-   var view = F2(function (address,appState) {
+   var appView = F3(function (address,appState,_p6) {
+      var _p7 = _p6;
       var presetSettingScreenState = appState.presetSettingScreenState;
       var monitorSettingScreenState = appState.monitorSettingScreenState;
       var homeScreenState = appState.homeScreenState;
       var viewToDisplay = function () {
-         var _p6 = appState.currentScreenState;
-         switch (_p6)
+         var _p8 = appState.currentScreenState;
+         switch (_p8)
          {case 1: return A2(homeScreenView,address,homeScreenState);
             case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
             case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
             default: return A2($Html.div,_U.list([]),_U.list([$Html.text("nothing to display")]));}
       }();
-      return viewToDisplay;
+      return A3($Html.toElement,_p7._0,_p7._1,viewToDisplay);
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
+   var mergedActions = $Signal.mergeMany(_U.list([actions.signal,A2($Signal.map,LongPressedMonitor,in_longPressedMonitor)]));
    var pressedMonitor = function () {
-      var toSelector = function (action) {    var _p7 = action;if (_p7.ctor === "MonitorPressedDown") {    return _p7._0;} else {    return "";}};
-      var needsMonitorPressedDown = function (action) {    var _p8 = action;if (_p8.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
+      var toSelector = function (action) {    var _p9 = action;if (_p9.ctor === "MonitorPressedDown") {    return _p9._0;} else {    return "";}};
+      var needsMonitorPressedDown = function (action) {
+         var _p10 = action;
+         if (_p10.ctor === "MonitorPressedDown") {
+               return true;
+            } else {
+               return false;
+            }
+      };
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressedDown,MonitorPressedDown(""),actions.signal));
    }();
+   var out_onPressedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressedMonitor",function (v) {    return v;},pressedMonitor);
    var pressReleasedMonitor = function () {
-      var toSelector = function (action) {    var _p9 = action;if (_p9.ctor === "MonitorPressReleased") {    return _p9._0;} else {    return "";}};
+      var toSelector = function (action) {    var _p11 = action;if (_p11.ctor === "MonitorPressReleased") {    return _p11._0;} else {    return "";}};
       var needsMonitorPressReleased = function (action) {
-         var _p10 = action;
-         if (_p10.ctor === "MonitorPressReleased") {
+         var _p12 = action;
+         if (_p12.ctor === "MonitorPressReleased") {
                return true;
             } else {
                return false;
@@ -10982,6 +11664,7 @@ Elm.GreenGui.App.make = function (_elm) {
       };
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressReleased,MonitorPressReleased(""),actions.signal));
    }();
+   var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",function (v) {    return v;},pressReleasedMonitor);
    var defaultPreset = function (id$) {    return {id: id$,name: "PRE-SET",tempName: "",monitors: _U.list([]),isSelected: false,isEditingName: false};};
    var defaultMonitor = F2(function (number$,isVisible$) {
       return {number: number$
@@ -11010,35 +11693,35 @@ Elm.GreenGui.App.make = function (_elm) {
              ,isOn: false};
    });
    var findMonitor = F2(function (number,monitors) {
-      var _p11 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
-      if (_p11.ctor === "::" && _p11._1.ctor === "[]") {
-            return _p11._0;
+      var _p13 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
+      if (_p13.ctor === "::" && _p13._1.ctor === "[]") {
+            return _p13._0;
          } else {
             return A2(defaultMonitor,"-1",false);
          }
    });
    var update = F2(function (action,appState) {
-      var _p12 = action;
-      switch (_p12.ctor)
+      var _p14 = action;
+      switch (_p14.ctor)
       {case "NoOp": return appState;
          case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
-           var monitors$ = A2(toggleMonitorAsSelected,_p12._0,homeScreenState$.monitors);
+           var monitors$ = A2(toggleMonitorAsSelected,_p14._0,homeScreenState$.monitors);
            var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
          case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
            {homeScreenState: _U.update(homeScreenState$,{monitors: setAllMonitorAsSelected(homeScreenState$.monitors),isPowerDisabled: false})});
-         case "SelectMonitorToConfigure": var _p13 = _p12._0;
+         case "SelectMonitorToConfigure": var _p15 = _p14._0;
            var homeScreenState$ = appState.homeScreenState;
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,
            {currentScreenState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p13,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: _p13,isPipSetPressed: false,isOsdSetPressed: false})});
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p15,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: _p15,isPipSetPressed: false,isOsdSetPressed: false})});
          case "MonitorPressedDown": return appState;
          case "MonitorPressReleased": return appState;
          case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
-           var foundMonitor = A2(findMonitor,_p12._0,homeScreenState$.monitors);
+           var foundMonitor = A2(findMonitor,_p14._0,homeScreenState$.monitors);
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,
            {currentScreenState: 2
@@ -11065,7 +11748,7 @@ Elm.GreenGui.App.make = function (_elm) {
          case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            var monitor$ = monitorSettingScreenState$.selectedMonitor;
            return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p12._0,_p12._1,monitor$)})});
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p14._0,_p14._1,monitor$)})});
          case "CycleButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.update(appState,
            {monitorSettingScreenState: setCycleButtonPress(monitorSettingScreenState$)}) : appState;
@@ -11078,7 +11761,7 @@ Elm.GreenGui.App.make = function (_elm) {
          case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
            {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A2(activateCycleSignalMatrix,_p12._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
+           {selectedMonitor: A2(activateCycleSignalMatrix,_p14._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
          case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
          case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
@@ -11093,21 +11776,21 @@ Elm.GreenGui.App.make = function (_elm) {
            return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
          case "ClosePresetSettings": return _U.update(appState,{currentScreenState: 1});
          case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p12._0.monitors})});
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p14._0.monitors})});
          case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p12._0,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p14._0,presetSettingScreenState$.presets)})});
          case "PresetCommitThenSelect": var monitors = appState.homeScreenState.monitors;
            var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
            {presetSettingScreenState: _U.update(presetSettingScreenState$,
-           {presets: A3(setPresetCommitThenSelect,_p12._0,monitors,presetSettingScreenState$.presets)})});
+           {presets: A3(setPresetCommitThenSelect,_p14._0,monitors,presetSettingScreenState$.presets)})});
          case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p12._0,_p12._1,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p14._0,_p14._1,presetSettingScreenState$.presets)})});
          default: var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p12._0,presetSettingScreenState$.presets)})});}
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p14._0,presetSettingScreenState$.presets)})});}
    });
    var defaulPresetSettingScreenState = {presets: _U.list([defaultPreset(1)
                                                           ,defaultPreset(2)
@@ -11140,124 +11823,180 @@ Elm.GreenGui.App.make = function (_elm) {
                          ,homeScreenState: defaultHomeScreenState
                          ,monitorSettingScreenState: defaultMonitorSettingScreenState
                          ,presetSettingScreenState: defaulPresetSettingScreenState};
-   return _elm.GreenGui.App.values = {_op: _op
-                                     ,defaultAppState: defaultAppState
-                                     ,defaultHomeScreenState: defaultHomeScreenState
-                                     ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
-                                     ,defaulPresetSettingScreenState: defaulPresetSettingScreenState
-                                     ,defaultMonitor: defaultMonitor
-                                     ,defaultPreset: defaultPreset
-                                     ,NoOp: NoOp
-                                     ,SelectMonitor: SelectMonitor
-                                     ,SelectAllMonitors: SelectAllMonitors
-                                     ,MonitorPressedDown: MonitorPressedDown
-                                     ,MonitorPressReleased: MonitorPressReleased
-                                     ,LongPressedMonitor: LongPressedMonitor
-                                     ,SelectMonitorToConfigure: SelectMonitorToConfigure
-                                     ,NextMonitorPage: NextMonitorPage
-                                     ,PreviousMonitorPage: PreviousMonitorPage
-                                     ,PowerPress: PowerPress
-                                     ,PresetPress: PresetPress
-                                     ,CloseMonitorConfiguration: CloseMonitorConfiguration
-                                     ,CycleButtonPress: CycleButtonPress
-                                     ,PipButtonPress: PipButtonPress
-                                     ,OsdButtonPress: OsdButtonPress
-                                     ,ActivateCycleSignalMatrixPress: ActivateCycleSignalMatrixPress
-                                     ,PipUpDownButtonPress: PipUpDownButtonPress
-                                     ,PipLeftRightButtonPress: PipLeftRightButtonPress
-                                     ,PipResizeButtonPress: PipResizeButtonPress
-                                     ,OsdUpDownButtonPress: OsdUpDownButtonPress
-                                     ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
-                                     ,OsdSelectButtonPress: OsdSelectButtonPress
-                                     ,SignalInputChange: SignalInputChange
-                                     ,ClosePresetSettings: ClosePresetSettings
-                                     ,PresetSelected: PresetSelected
-                                     ,PresetEdit: PresetEdit
-                                     ,PresetCommitThenSelect: PresetCommitThenSelect
-                                     ,PresetNameInput: PresetNameInput
-                                     ,PresetEditCancel: PresetEditCancel
-                                     ,update: update
-                                     ,setMonitorAsSelected: setMonitorAsSelected
-                                     ,toggleMonitorAsSelected: toggleMonitorAsSelected
-                                     ,setAllMonitorAsSelected: setAllMonitorAsSelected
-                                     ,flipMonitorPage: flipMonitorPage
-                                     ,setSelectedMonitorsToPowerPress: setSelectedMonitorsToPowerPress
-                                     ,findMonitor: findMonitor
-                                     ,setVisibilityByPageIndex: setVisibilityByPageIndex
-                                     ,updateMonitorList: updateMonitorList
-                                     ,setSignalInputChange: setSignalInputChange
-                                     ,setCycleButtonPress: setCycleButtonPress
-                                     ,setPipButtonPress: setPipButtonPress
-                                     ,setOsdButtonPress: setOsdButtonPress
-                                     ,activateCycleSignalMatrix: activateCycleSignalMatrix
-                                     ,setPipUpDownButtonPress: setPipUpDownButtonPress
-                                     ,setPipLeftRightButtonPress: setPipLeftRightButtonPress
-                                     ,setPipResizeButtonPress: setPipResizeButtonPress
-                                     ,setOsdUpDownButtonPress: setOsdUpDownButtonPress
-                                     ,setOsdLeftRightButtonPress: setOsdLeftRightButtonPress
-                                     ,setOsdSelectButtonPress: setOsdSelectButtonPress
-                                     ,setPresetToEdit: setPresetToEdit
-                                     ,setPresetCommitThenSelect: setPresetCommitThenSelect
-                                     ,cancelPresetEdit: cancelPresetEdit
-                                     ,setPresetName: setPresetName
-                                     ,actions: actions
-                                     ,view: view
-                                     ,homeScreenView: homeScreenView
-                                     ,monitorPanelView: monitorPanelView
-                                     ,monitorViewButtons: monitorViewButtons
-                                     ,monitorViewButton: monitorViewButton
-                                     ,monitorViewPager: monitorViewPager
-                                     ,homePanelView: homePanelView
-                                     ,homeMenuView: homeMenuView
-                                     ,monitorSettingScreenView: monitorSettingScreenView
-                                     ,monitorSettingTopBarView: monitorSettingTopBarView
-                                     ,monitorSettingBodyView: monitorSettingBodyView
-                                     ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
-                                     ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
-                                     ,signalMatrixView: signalMatrixView
-                                     ,pipButtonSetView: pipButtonSetView
-                                     ,osdButtonSetView: osdButtonSetView
-                                     ,presetSettingScreenView: presetSettingScreenView
-                                     ,presetSettingTopBarView: presetSettingTopBarView
-                                     ,presetSettingBodyView: presetSettingBodyView
-                                     ,presetContainerView: presetContainerView
-                                     ,presetButtonView: presetButtonView
-                                     ,isEsc: isEsc
-                                     ,pressedMonitor: pressedMonitor
-                                     ,pressReleasedMonitor: pressReleasedMonitor
-                                     ,onEnter: onEnter
-                                     ,is13: is13
-                                     ,onEsc: onEsc};
-};
-Elm.GreenGui = Elm.GreenGui || {};
-Elm.GreenGui.Main = Elm.GreenGui.Main || {};
-Elm.GreenGui.Main.make = function (_elm) {
-   "use strict";
-   _elm.GreenGui = _elm.GreenGui || {};
-   _elm.GreenGui.Main = _elm.GreenGui.Main || {};
-   if (_elm.GreenGui.Main.values) return _elm.GreenGui.Main.values;
-   var _U = Elm.Native.Utils.make(_elm),
-   $Basics = Elm.Basics.make(_elm),
-   $Debug = Elm.Debug.make(_elm),
-   $GreenGui$App = Elm.GreenGui.App.make(_elm),
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm),
-   $StartApp$Simple = Elm.StartApp.Simple.make(_elm);
-   var _op = {};
-   var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",
-   function (v) {
-      return v;
-   },
-   $GreenGui$App.pressReleasedMonitor);
-   var out_onPressedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressedMonitor",function (v) {    return v;},$GreenGui$App.pressedMonitor);
-   var in_longPressedMonitor = Elm.Native.Port.make(_elm).inboundSignal("in_longPressedMonitor",
-   "String",
-   function (v) {
-      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",v);
+   var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
+   var main = A3($Signal.map2,appView(actions.address),appState,$Window.dimensions);
+   var Preset = F6(function (a,b,c,d,e,f) {    return {id: a,name: b,tempName: c,monitors: d,isSelected: e,isEditingName: f};});
+   var Monitor = function (a) {
+      return function (b) {
+         return function (c) {
+            return function (d) {
+               return function (e) {
+                  return function (f) {
+                     return function (g) {
+                        return function (h) {
+                           return function (i) {
+                              return function (j) {
+                                 return function (k) {
+                                    return function (l) {
+                                       return function (m) {
+                                          return function (n) {
+                                             return function (o) {
+                                                return function (p) {
+                                                   return function (q) {
+                                                      return function (r) {
+                                                         return function (s) {
+                                                            return function (t) {
+                                                               return function (u) {
+                                                                  return function (v) {
+                                                                     return function (w) {
+                                                                        return function (x) {
+                                                                           return {number: a
+                                                                                  ,isSelected: b
+                                                                                  ,isVisible: c
+                                                                                  ,vgaOne: d
+                                                                                  ,vgaTwo: e
+                                                                                  ,dviOne: f
+                                                                                  ,dviTwo: g
+                                                                                  ,videoOne: h
+                                                                                  ,videoTwo: i
+                                                                                  ,videoThree: j
+                                                                                  ,isVgaOneCycle: k
+                                                                                  ,isVgaTwoCycle: l
+                                                                                  ,isDviOneCycle: m
+                                                                                  ,isDviTwoCycle: n
+                                                                                  ,isVideoOneCycle: o
+                                                                                  ,isVideoTwoCycle: p
+                                                                                  ,isVideoThreeCycle: q
+                                                                                  ,isPipUpDownPressed: r
+                                                                                  ,isPipLeftRightPressed: s
+                                                                                  ,isPipResizePressed: t
+                                                                                  ,isOsdUpDownPressed: u
+                                                                                  ,isOsdLeftRightPressed: v
+                                                                                  ,isOsdSelectPressed: w
+                                                                                  ,isOn: x};
+                                                                        };
+                                                                     };
+                                                                  };
+                                                               };
+                                                            };
+                                                         };
+                                                      };
+                                                   };
+                                                };
+                                             };
+                                          };
+                                       };
+                                    };
+                                 };
+                              };
+                           };
+                        };
+                     };
+                  };
+               };
+            };
+         };
+      };
+   };
+   var PresetSettingScreenState = function (a) {    return {presets: a};};
+   var MonitorSettingScreenState = F7(function (a,b,c,d,e,f,g) {
+      return {selectedMonitor: a,isCyclePressed: b,isPipSetPressed: c,isOsdSetPressed: d,isCycleDisabled: e,isPipDisabled: f,isOsdDisabled: g};
    });
-   var mergedActions = $Signal.mergeMany(_U.list([$GreenGui$App.actions.signal,A2($Signal.map,$GreenGui$App.LongPressedMonitor,in_longPressedMonitor)]));
-   var main = $StartApp$Simple.start({model: $GreenGui$App.defaultAppState,view: $GreenGui$App.view,update: $GreenGui$App.update});
-   return _elm.GreenGui.Main.values = {_op: _op,main: main,mergedActions: mergedActions};
-};
+   var AppState = F4(function (a,b,c,d) {    return {currentScreenState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d};});
+   return _elm.GreenGui.Main.values = {_op: _op
+                                      ,AppState: AppState
+                                      ,MonitorSettingScreenState: MonitorSettingScreenState
+                                      ,PresetSettingScreenState: PresetSettingScreenState
+                                      ,Monitor: Monitor
+                                      ,Preset: Preset
+                                      ,defaultAppState: defaultAppState
+                                      ,defaultHomeScreenState: defaultHomeScreenState
+                                      ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
+                                      ,defaulPresetSettingScreenState: defaulPresetSettingScreenState
+                                      ,defaultMonitor: defaultMonitor
+                                      ,defaultPreset: defaultPreset
+                                      ,NoOp: NoOp
+                                      ,SelectMonitor: SelectMonitor
+                                      ,SelectAllMonitors: SelectAllMonitors
+                                      ,MonitorPressedDown: MonitorPressedDown
+                                      ,MonitorPressReleased: MonitorPressReleased
+                                      ,LongPressedMonitor: LongPressedMonitor
+                                      ,SelectMonitorToConfigure: SelectMonitorToConfigure
+                                      ,NextMonitorPage: NextMonitorPage
+                                      ,PreviousMonitorPage: PreviousMonitorPage
+                                      ,PowerPress: PowerPress
+                                      ,PresetPress: PresetPress
+                                      ,CloseMonitorConfiguration: CloseMonitorConfiguration
+                                      ,CycleButtonPress: CycleButtonPress
+                                      ,PipButtonPress: PipButtonPress
+                                      ,OsdButtonPress: OsdButtonPress
+                                      ,ActivateCycleSignalMatrixPress: ActivateCycleSignalMatrixPress
+                                      ,PipUpDownButtonPress: PipUpDownButtonPress
+                                      ,PipLeftRightButtonPress: PipLeftRightButtonPress
+                                      ,PipResizeButtonPress: PipResizeButtonPress
+                                      ,OsdUpDownButtonPress: OsdUpDownButtonPress
+                                      ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
+                                      ,OsdSelectButtonPress: OsdSelectButtonPress
+                                      ,SignalInputChange: SignalInputChange
+                                      ,ClosePresetSettings: ClosePresetSettings
+                                      ,PresetSelected: PresetSelected
+                                      ,PresetEdit: PresetEdit
+                                      ,PresetCommitThenSelect: PresetCommitThenSelect
+                                      ,PresetNameInput: PresetNameInput
+                                      ,PresetEditCancel: PresetEditCancel
+                                      ,update: update
+                                      ,setMonitorAsSelected: setMonitorAsSelected
+                                      ,toggleMonitorAsSelected: toggleMonitorAsSelected
+                                      ,setAllMonitorAsSelected: setAllMonitorAsSelected
+                                      ,flipMonitorPage: flipMonitorPage
+                                      ,setSelectedMonitorsToPowerPress: setSelectedMonitorsToPowerPress
+                                      ,findMonitor: findMonitor
+                                      ,setVisibilityByPageIndex: setVisibilityByPageIndex
+                                      ,updateMonitorList: updateMonitorList
+                                      ,setSignalInputChange: setSignalInputChange
+                                      ,setCycleButtonPress: setCycleButtonPress
+                                      ,setPipButtonPress: setPipButtonPress
+                                      ,setOsdButtonPress: setOsdButtonPress
+                                      ,activateCycleSignalMatrix: activateCycleSignalMatrix
+                                      ,setPipUpDownButtonPress: setPipUpDownButtonPress
+                                      ,setPipLeftRightButtonPress: setPipLeftRightButtonPress
+                                      ,setPipResizeButtonPress: setPipResizeButtonPress
+                                      ,setOsdUpDownButtonPress: setOsdUpDownButtonPress
+                                      ,setOsdLeftRightButtonPress: setOsdLeftRightButtonPress
+                                      ,setOsdSelectButtonPress: setOsdSelectButtonPress
+                                      ,setPresetToEdit: setPresetToEdit
+                                      ,setPresetCommitThenSelect: setPresetCommitThenSelect
+                                      ,cancelPresetEdit: cancelPresetEdit
+                                      ,setPresetName: setPresetName
+                                      ,main: main
+                                      ,appState: appState
+                                      ,actions: actions
+                                      ,mergedActions: mergedActions
+                                      ,appView: appView
+                                      ,homeScreenView: homeScreenView
+                                      ,monitorPanelView: monitorPanelView
+                                      ,monitorViewButtons: monitorViewButtons
+                                      ,monitorViewButton: monitorViewButton
+                                      ,monitorViewPager: monitorViewPager
+                                      ,homePanelView: homePanelView
+                                      ,homeMenuView: homeMenuView
+                                      ,monitorSettingScreenView: monitorSettingScreenView
+                                      ,monitorSettingTopBarView: monitorSettingTopBarView
+                                      ,monitorSettingBodyView: monitorSettingBodyView
+                                      ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
+                                      ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
+                                      ,signalMatrixView: signalMatrixView
+                                      ,pipButtonSetView: pipButtonSetView
+                                      ,osdButtonSetView: osdButtonSetView
+                                      ,presetSettingScreenView: presetSettingScreenView
+                                      ,presetSettingTopBarView: presetSettingTopBarView
+                                      ,presetSettingBodyView: presetSettingBodyView
+                                      ,presetContainerView: presetContainerView
+                                      ,presetButtonView: presetButtonView
+                                      ,isEsc: isEsc
+                                      ,pressedMonitor: pressedMonitor
+                                      ,pressReleasedMonitor: pressReleasedMonitor
+                                      ,onEnter: onEnter
+                                      ,is13: is13
+                                      ,onEsc: onEsc};
+};</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.GreenGui.Main)</script></body></html>
