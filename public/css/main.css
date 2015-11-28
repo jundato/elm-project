@@ -271,12 +271,12 @@ canvas {
 }
 .home-panel-count-label {
   height: 20%;
-  color: #ffffff;
+  color: #fff;
 }
 .home-menu-item {
   text-align: center;
   background-color: #2480b0;
-  color: #ffffff;
+  color: #fff;
 }
 .home-menu-item:hover {
   text-align: center;

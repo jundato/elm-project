@@ -6,12 +6,7 @@ GEM
       trollop (~> 2.0)
     less (2.6.0)
       commonjs (~> 0.2.7)
-    libv8 (3.16.14.7)
     rack (1.6.4)
-    ref (1.0.5)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     trollop (2.1.2)
 
 PLATFORMS
@@ -21,7 +16,6 @@ DEPENDENCIES
   filewatcher (= 0.5.2)
   less (= 2.6.0)
   rack (= 1.6.4)
-  therubyracer (= 0.12.2)
 
 BUNDLED WITH
    1.10.4
