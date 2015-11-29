@@ -3,15 +3,11 @@
 module GreenGui.Main where
 
 import Window
-import Graphics.Element exposing (Element, color)
-import Graphics.Input exposing (..)
-import Graphics.Input as Input
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Signal exposing (..)
-import Time
 import List
 import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Basics
@@ -20,13 +16,11 @@ import Debug
 import Json.Decode as Json
 
 -- app states model have screeen states that models what state each screen
--- 1) home screen
--- 2) monitor setting screen
--- 3) preset setting screen
-type alias AppState = { currentScreenState : Int
+type alias AppState = { viewState : Int
                       , homeScreenState : HomeScreenState
                       , monitorSettingScreenState : MonitorSettingScreenState
                       , presetSettingScreenState : PresetSettingScreenState
+                      , menuOptionsScreenState : MenuOptionsScreenState
                       }
 
 -- initial page that should be displayed, it contains the list of monitors, power down, etc.
@@ -47,6 +41,15 @@ type alias MonitorSettingScreenState =  { selectedMonitor : Monitor
 -- stores presets for monitors etc
 type alias PresetSettingScreenState = { presets : List Preset }
 
+-- menu options
+type alias MenuOptionsScreenState = { viewState : Int
+                                    ,  matrixSetupScreenState : MatrixSetupScreenState
+                                    }
+
+type alias MatrixSetupScreenState = { viewState : Int
+                                    , extronSignalMatrixInputs : List SignalMatrixInput
+                                    , ntiSignalMatrixInputs : List SignalMatrixInput
+                                    , atlonaSignalMatrixInputs : List SignalMatrixInput  }
 -- model for monitor
 type alias Monitor =  { number : String
                       , isSelected : Bool
@@ -81,13 +84,23 @@ type alias Preset = { id : Int
                     , isSelected : Bool
                     , isEditingName : Bool }
 
+type alias SignalMatrixInput =  { name : String
+                                , type' : SignalMatrixInputType}
+
+type SignalMatrixInputType = DVI | VGA  | CVBS
+
 ------ DEFAULT MODELS
 -- model for the whole app
+-- 1) home screen
+-- 2) monitor setting screen
+-- 3) preset setting screen
+-- 4) menu options screen
 defaultAppState : AppState 
-defaultAppState = { currentScreenState = 1
+defaultAppState = { viewState = 1
                   , homeScreenState = defaultHomeScreenState
                   , monitorSettingScreenState = defaultMonitorSettingScreenState
-                  , presetSettingScreenState = defaulPresetSettingScreenState } 
+                  , presetSettingScreenState = defaulPresetSettingScreenState
+                  , menuOptionsScreenState = defaultMenuOptionsScreenState } 
 
 -- model for home screen
 defaultHomeScreenState : HomeScreenState
@@ -124,6 +137,22 @@ defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
                                               , defaultPreset 4
                                               , defaultPreset 5
                                               , defaultPreset 6 ] }
+
+-- model for menu options screen state
+-- 1 - home menu options
+-- 2 - matrix setup
+-- 3 - wifi
+-- 4 - version
+defaultMenuOptionsScreenState : MenuOptionsScreenState
+defaultMenuOptionsScreenState = { viewState = 1
+                                , matrixSetupScreenState = defaultMatrixSetupScreenState }
+
+defaultMatrixSetupScreenState : MatrixSetupScreenState
+defaultMatrixSetupScreenState = { viewState = 1
+                                , extronSignalMatrixInputs = defaultExtronSignalMatrixInputs
+                                , ntiSignalMatrixInputs = defaultNtiSignalMatrixInputs
+                                , atlonaSignalMatrixInputs = defaultAtlonaSignalMatrixInputs
+                                }
 
 -- model for monitors
 defaultMonitor : String -> Bool -> Monitor
@@ -162,6 +191,42 @@ defaultPreset id' = { id = id'
                     , isSelected = False
                     , isEditingName = False }
 
+-- default signal matrix inputs
+defaultSignalMatrixInputs : List SignalMatrixInput
+defaultSignalMatrixInputs = [ ]
+
+defaultExtronSignalMatrixInputs : List SignalMatrixInput
+defaultExtronSignalMatrixInputs = [ createSignalMatrixInput "X-BAND RADAR" VGA
+                                  , createSignalMatrixInput "S-BAND RADAR" VGA
+                                  , createSignalMatrixInput "WEATHER" DVI
+                                  , createSignalMatrixInput "S-BAND RADAR" DVI
+                                  , createSignalMatrixInput "ENGINE CAM" CVBS
+                                  , createSignalMatrixInput "DECK CAM" CVBS
+                                  , createSignalMatrixInput "X-BAND RADAR" CVBS ]
+
+defaultNtiSignalMatrixInputs : List SignalMatrixInput
+defaultNtiSignalMatrixInputs = [ createSignalMatrixInput "X-BAND RADAR" VGA
+                                  , createSignalMatrixInput "S-BAND RADAR" VGA
+                                  , createSignalMatrixInput "WEATHER" DVI
+                                  , createSignalMatrixInput "S-BAND RADAR" DVI
+                                  , createSignalMatrixInput "ENGINE CAM" CVBS
+                                  , createSignalMatrixInput "DECK CAM" CVBS
+                                  , createSignalMatrixInput "X-BAND RADAR" CVBS ]
+
+defaultAtlonaSignalMatrixInputs : List SignalMatrixInput
+defaultAtlonaSignalMatrixInputs = [ createSignalMatrixInput "X-BAND RADAR" VGA
+                                  , createSignalMatrixInput "S-BAND RADAR" VGA
+                                  , createSignalMatrixInput "WEATHER" DVI
+                                  , createSignalMatrixInput "S-BAND RADAR" DVI
+                                  , createSignalMatrixInput "ENGINE CAM" CVBS
+                                  , createSignalMatrixInput "DECK CAM" CVBS
+                                  , createSignalMatrixInput "X-BAND RADAR" CVBS ]
+
+createSignalMatrixInput : String -> SignalMatrixInputType -> SignalMatrixInput
+createSignalMatrixInput name type' = 
+  { name = name
+  , type' = type' 
+  }
 
 -- actions
 type Action 
@@ -177,6 +242,7 @@ type Action
   | PreviousMonitorPage
   | PowerPress
   | PresetPress
+  | MenuOptionPress
 -- monitor setting actions
   | CloseMonitorConfiguration
   | CycleButtonPress
@@ -198,6 +264,11 @@ type Action
   | PresetCommitThenSelect Preset
   | PresetNameInput Preset String
   | PresetEditCancel Preset
+-- menu setting actions
+  | MatrixSetupPress
+  | ExtronSetupPress
+  | NtiSetupPress
+  | AtlonaSetupPress
 
 -- logic when an update signal is emitted
 update : Action -> AppState -> AppState
@@ -218,7 +289,7 @@ update action appState =
     SelectMonitorToConfigure monitor' ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           homeScreenState' = appState.homeScreenState
-      in { appState | currentScreenState = 2
+      in { appState | viewState = 2
                     , homeScreenState = { homeScreenState' | monitors = setMonitorAsSelected monitor' homeScreenState'.monitors }
                     , monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = monitor'
                                                                                 , isPipSetPressed = False
@@ -229,7 +300,7 @@ update action appState =
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           homeScreenState' = appState.homeScreenState
           foundMonitor = findMonitor number homeScreenState'.monitors
-      in { appState | currentScreenState = 2
+      in { appState | viewState = 2
                     , homeScreenState = { homeScreenState' | monitors = setMonitorAsSelected foundMonitor homeScreenState'.monitors }
                     , monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = foundMonitor
                                                                                 , isPipSetPressed = False
@@ -239,8 +310,9 @@ update action appState =
       let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState = { homeScreenState' | monitors = setSelectedMonitorsToPowerPress homeScreenState'.monitors } }
     PresetPress ->
-      let monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | currentScreenState = 3 }
+      { appState | viewState = 3 }
+    MenuOptionPress ->
+      { appState | viewState = 4 }
 -- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
@@ -256,7 +328,7 @@ update action appState =
     CloseMonitorConfiguration ->
       let homeScreenState' = appState.homeScreenState
           monitorSettingScreenState' = appState.monitorSettingScreenState
-      in { appState | currentScreenState = 1
+      in { appState | viewState = 1
                     , homeScreenState = { homeScreenState' | monitors = updateMonitorList monitorSettingScreenState'.selectedMonitor homeScreenState'.monitors } }
     SignalInputChange signalType value ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
@@ -298,7 +370,7 @@ update action appState =
       in { appState | monitorSettingScreenState = setOsdSelectButtonPress monitorSettingScreenState' }
 ---- Preset setting action
     ClosePresetSettings ->
-      { appState | currentScreenState = 1 }
+      { appState | viewState = 1 }
     PresetSelected preset ->
       let homeScreenState' = appState.homeScreenState
       in { appState | homeScreenState = { homeScreenState' | monitors = preset.monitors } }
@@ -315,7 +387,23 @@ update action appState =
     PresetEditCancel preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
       in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = cancelPresetEdit preset presetSettingScreenState'.presets}}
-
+---- Menu Option action
+    MatrixSetupPress ->
+      let menuOptionsScreenState' = appState.menuOptionsScreenState
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | viewState = 2 } }
+    ExtronSetupPress ->
+      let menuOptionsScreenState' = appState.menuOptionsScreenState
+          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1
+                                                                                                                              } } }
+    NtiSetupPress ->
+      let menuOptionsScreenState' = appState.menuOptionsScreenState
+          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1 } } }
+    AtlonaSetupPress ->
+      let menuOptionsScreenState' = appState.menuOptionsScreenState
+          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1 } } }
 ------ CONVERSION FUNCTIONS
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
@@ -478,9 +566,9 @@ setPresetName preset value presets =
   List.map (\p -> if  p.id == preset.id then { p | tempName = value } 
                   else p ) presets
 --- entry point
-main : Signal Element
+main : Signal Html
 main =
-  Signal.map2 (appView actions.address) appState Window.dimensions 
+  Signal.map (appView actions.address) appState
 
 -- manage the appState of our application over time
 appState : Signal AppState
@@ -500,28 +588,31 @@ mergedActions = Signal.mergeMany [ actions.signal
 ------ VIEWS
 ---- Main View
 -- app view handles which screen state view is being displayed
-appView :Address Action -> AppState -> (Int,Int) -> Element
-appView address appState (w,h) =
+appView :Address Action -> AppState -> Html
+appView address appState =
   let homeScreenState = appState.homeScreenState
       monitorSettingScreenState = appState.monitorSettingScreenState
       presetSettingScreenState = appState.presetSettingScreenState
-      viewToDisplay = case appState.currentScreenState of
+      menuOptionsScreenState = appState.menuOptionsScreenState
+      viewToDisplay = case appState.viewState of
                         1 -> homeScreenView address homeScreenState
                         2 -> monitorSettingScreenView address monitorSettingScreenState
                         3 -> presetSettingScreenView address presetSettingScreenState
+                        4 -> menuOptionsView address menuOptionsScreenState 
                         _ -> div [] [ text "nothing to display" ]
-  in viewToDisplay |> toElement w h
+  in viewToDisplay
 ---- Main View
 -- home screen view
 homeScreenView address homeScreenState =
-  div []  [ monitorPanelView address homeScreenState.monitors
-          , homePanelView address homeScreenState
-          , homeMenuView address
-  ] 
+  div [ class "main" ]  
+      [ monitorPanelView address homeScreenState.monitors
+      , homePanelView address homeScreenState
+      , homeMenuView address
+      ] 
 -- monitor panel view contains buttons container and pager
 monitorPanelView address monitors =  
-  div [ class "monitor-panel-view" ]  [ div [ class "monitor-views" ] ( monitorViewButtons address monitors )
-                                                , monitorViewPager address ]
+  div [ class "monitor-panel-view" ]  [ monitorViewPager address
+                                      , div [ class "monitor-views" ] ( monitorViewButtons address monitors ) ]
 
 -- list of monitor buttons
 monitorViewButtons address monitors = 
@@ -534,7 +625,7 @@ monitorViewButton address monitor =
       isHighlighted = if monitor.isSelected then "selected"
                       else ""
   in
-    div [ class ("div-1-5 monitor-view-container " ++ visibility ) ]
+    div [ class "div-1-5 monitor-view-container " ]
     [ div [ class (isHighlighted ++ " " ++ "monitor-view content-centered" )
           , onClick address (SelectMonitor monitor)
           , onDoubleClick address (SelectMonitorToConfigure monitor)
@@ -547,10 +638,9 @@ monitorViewButton address monitor =
 monitorViewPager address = 
   div [ class "monitor-pager-view" ]
       [ div [ class "div-1-10 vdiv-1-1" ] [ ]
-      , div [ class "div-4-5" ] [ div [ class "align-left div-1-10", onClick address PreviousMonitorPage ] [ img [ class "monitor-pager-icon", src "images/left_arrow_icon.svg" ] [ ]]
-                , div [ class "monitor-selectall-view div-4-5" ]  [ div [ class "monitor-selectall-graphic" ] [ ]
-                                                                  , div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ div [ class "content-centered" ] [ text "SELECT ALL" ] ] ] ]
-                , div [ class "align-right div-1-10", onClick address NextMonitorPage ] [ img [ class "monitor-pager-icon", src "images/right_arrow_icon.svg" ] [ ]]]
+      , div [ class "div-4-5" ] 
+            [ div [ class "monitor-selectall-view div-1-1" ]  [ div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ div [ class "content-centered" ] [ text "SELECT ALL" ] ] ] ]
+            ]
       , div [ class "div-1-10 vdiv-1-1" ] [ ]
       ]
 
@@ -570,16 +660,22 @@ homePanelView address homeScreenState =
                 [ div [ class "home-panel-button circle button content-centered presets", onClick address PresetPress ] [ text "PRESET" ]] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
-homeMenuView address = div [ class "sub-panel-view" ] [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "LOCK" ] ]
-                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "MENU" ] ]
-                                                      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] [ div [ class "content-centered" ] [ text "INFORMATION" ] ] ]
+homeMenuView address = 
+  div [ class "sub-panel-view" ] 
+      [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] 
+            [ div [ class "content-centered" ] [ text "LOCK" ] ]
+      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered", onClick address MenuOptionPress ] 
+            [ div [ class "content-centered" ] [ text "MENU" ] ]
+      , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] 
+            [ div [ class "content-centered" ] [ text "INFORMATION" ] ] ]
 
 
 ---- Monitor Setting View
 -- monitor view
 monitorSettingScreenView address monitorSettingScreenState = 
-  div [ ] [ monitorSettingTopBarView address monitorSettingScreenState
-          , monitorSettingBodyView address monitorSettingScreenState ]
+  div [ class "main" ] 
+      [ monitorSettingTopBarView address monitorSettingScreenState
+      , monitorSettingBodyView address monitorSettingScreenState ]
 
 -- top bar for monitor setting view
 monitorSettingTopBarView address monitorSettingScreenState = 
@@ -613,11 +709,19 @@ monitorSettingLowerBodyView address monitorSettingScreenState =
       osdButtonClass =  if monitorSettingScreenState.isOsdDisabled then "disabled"
                         else if monitorSettingScreenState.isOsdSetPressed then "pressed" 
                         else ""
-  in div [ class "monitor-setting-lower-body" ]  [ div [ class "div-2-3" ]  [ div [ class "div-1-3 align-center" ] [ img [ class "power-button circle button monitor-button ", onClick address CycleButtonPress ] [ ] ]
-                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "pip-button circle button monitor-button ", onClick address PipButtonPress ] [ ] ] 
-                                                                            , div [ class "div-1-3 align-center" ] [ img [ class "osd-button circle button monitor-button ", onClick address OsdButtonPress ] [ ] ] ]
-                                              , pipButtonSetView address monitorSettingScreenState
-                                              , osdButtonSetView address monitorSettingScreenState  ]
+  in div  [ class "monitor-setting-lower-body" ]  
+          [ div [ class "div-2-3" ]  
+                [ div [ class "div-1-3 content-centered" ] 
+                      [ div [ class ("cycle-button circle button monitor-button content-centered " ++ cycleButtonClass)
+                            , onClick address CycleButtonPress ] [ text "CYCLE" ] ]
+                , div [ class "div-1-3 content-centered" ] 
+                      [ div [ class ("pip-button circle button monitor-button content-centered " ++ pipButtonClass)
+                            , onClick address PipButtonPress ] [ text "PIP" ] ] 
+                , div [ class "div-1-3 content-centered" ] 
+                      [ div [ class ("osd-button circle button monitor-button content-centered " ++ osdButtonClass)
+                            , onClick address OsdButtonPress ] [ text "OSD" ] ] ]
+          , pipButtonSetView address monitorSettingScreenState
+          , osdButtonSetView address monitorSettingScreenState  ]
 
 -- signal matrix view
 signalMatrixView address signalType signalName isCyclePressed monitor = 
@@ -631,7 +735,6 @@ signalMatrixView address signalType signalName isCyclePressed monitor =
                                               "VIDEO 3" -> monitor.isVideoThreeCycle
                                               _ -> False
                     else False
-
   in div  [ class "signal-matrix-view", onClick address (ActivateCycleSignalMatrixPress signalType) ]  
           [ div [ class "signal-matrix-label" ] 
                 [ text signalType ]
@@ -639,10 +742,11 @@ signalMatrixView address signalType signalName isCyclePressed monitor =
                 [ div [ class "div-7-10" ] 
                       [ input [ type' "text"
                               , disabled isCyclePressed
-                              , class (if isActivated then "signal-matrix-container-activated" else "")
+                              , class ("signal-matrix-input" ++ (if isActivated then " signal-matrix-container-activated" else ""))
                               , value signalName
                               , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ]
-                      , div [ class "div-3-10" ] [ text "MATRIX" ] ]] 
+                      , div [ class "div-3-10 content-centered signal-matrix-side" ] [ text "MATRIX" ] ]
+          , div [ class "clear-both" ] [ ] ] 
 
 -- view for pip buttons set                                            
 pipButtonSetView address monitorSettingScreenState = 
@@ -729,6 +833,70 @@ presetButtonView address preset =
                                                                                                     , on "input" targetValue (Signal.message address << (PresetNameInput preset))
                                                                                                     , onEnter address (PresetCommitThenSelect preset)
                                                                                                     , onEsc (Signal.message address (PresetEditCancel preset)) ][ ] ]]
+---- Menu Options View
+-- menu option view
+menuOptionsView address screenState =
+  let view =  case screenState.viewState of
+                1 ->  [ menuOptionsTopBarView address screenState 
+                      , menuOptionsBodyView address screenState ]
+                2 ->  [ matrixSetupTopBarView address screenState
+                      , matrixSetupBodyView address screenState ]                     
+                _ ->  [ ]
+  in div [ class "main" ] view
+
+-- top bar for menu option view
+menuOptionsTopBarView address screenState = 
+  div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text "MENU" ]
+                              , div [ class "float-right button" ] [ text "CLOSE" ] ]
+
+
+-- main body for monitor setting view
+menuOptionsBodyView address screenState = 
+
+  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+                                      , div [ class "div-3-5 vdiv-1-1" ] 
+                                            [ div [ class "vdiv-4-5 div-1-1" ] 
+                                                  [ div [ class "div-1-3 vdiv-1-1 content-centered" ] 
+                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                                              , onClick address MatrixSetupPress ] [ text "MATRIX SETUP" ] ]
+                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ] 
+                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered" ] [ text "WIFI SETUP" ] ]
+                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ]
+                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered" ] [ text "UPDATES" ] ] ]
+                                            ] 
+                                      , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ] 
+
+matrixSetupTopBarView address screenState = 
+  div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text "MENU" ]
+                              , div [ class "float-right button" ] [ text "CLOSE" ] ]
+
+matrixSetupBodyView address screenState =
+  let signalTypes = List.map (\t -> case t of
+                                      VGA -> "VGA"
+                                      DVI -> "DVI"
+                                      CVBS -> "DVBS" ) [VGA, DVI, CVBS]
+      matrixSetupScreenState = screenState.matrixSetupScreenState
+      matrixInputSignals =  case matrixSetupScreenState.viewState of
+                              1 -> matrixSetupScreenState.extronSignalMatrixInputs
+                              2 -> matrixSetupScreenState.ntiSignalMatrixInputs
+                              3 -> matrixSetupScreenState.atlonaSignalMatrixInputs
+                              _ -> [ ]
+  in  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+                                          , div [ class "div-3-5 vdiv-1-1" ] 
+                                                [ div [ class "vdiv-4-5 div-1-1" ] 
+                                                      (List.map (signalMatrixInputSetup signalTypes) matrixInputSignals)
+                                                ] 
+                                          , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ] 
+
+signalMatrixInputSetup signalTypes signalMatrixInput = 
+  let x = 1
+  in  div [ class "signal-matrix-container vdiv-1-10" ] 
+          [ div [ class "div-7-10" ] 
+                [ input [ type' "text"
+                        , class "signal-matrix-input"
+                        , value signalMatrixInput.name ] [ ] ]
+          , div [ class "div-3-10 signal-matrix-side" ] [ select [ ] (List.map (\t -> option [ value t ] [ text t ] ) signalTypes) ] ] 
+
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""
@@ -745,7 +913,6 @@ port out_onPressReleasedMonitor : Signal String
 port out_onPressReleasedMonitor = pressReleasedMonitor
 --port out_onReleasedMonitor : Signal SessionId
 --port out_onReleasedMonitor = releasedMonitor
-
 
 pressedMonitor =
   let needsMonitorPressedDown action =

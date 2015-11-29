@@ -1,23 +1,27 @@
-/* variable colors */
-* {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
 body {
   margin: 0px;
   font-family: sans-serif;
-  -webkit-user-select: none;
-  -moz-user-select: -moz-none;
-  -ms-user-select: none;
-  user-select: none;
 }
 input {
   width: 100%;
 }
+#app {
+  height: 100%;
+}
+#elm {
+  height: 100%;
+}
+#elm > div {
+  padding: 0px;
+  margin: 0px;
+  width: 1280px;
+  height: 447px;
+  background-color: #000;
+}
 canvas {
   background-color: #f1fdfd;
 }
+/* variable colors */
 /*helpers*/
 .align-left {
   text-align: left;
@@ -112,11 +116,7 @@ canvas {
 }
 .button {
   cursor: pointer;
-  background-color: #5577aa;
-  border-radius: 8px;
-}
-.button.disabled {
-  background-color: #666;
+  background-color: #DFD;
 }
 .button:hover {
   background-color: #CED;
@@ -132,32 +132,15 @@ canvas {
 /* --- */
 /* general */
 /* --- */
-.main {
-  height: 100% !important;
-  width: 100% !important;
-}
-#app {
-  height: 100%;
-}
-#elm {
-  height: 100%;
-}
-#elm > div {
-  padding: 0px;
-  margin: 0px;
-  background-color: #9fa0a2;
-}
 .app-top-bar {
   height: 5%;
-  background-color: #2480b0;
+  background-color: #ccc;
   padding: 2px;
-  color: #ffffff;
 }
 .app-body {
-  height: 95%;
-  background-color: #9fa0a2;
+  height: 90%;
+  background-color: #eee;
   padding: 2px;
-  color: #ffffff;
 }
 /* --- */
 /* home screen */
@@ -175,17 +158,13 @@ canvas {
   box-sizing: border-box;
   height: 100%;
   outline: 2px solid #000;
-  display: inline-block;
-  float: none;
 }
 .monitor-pager-view {
   height: 20%;
 }
 .monitor-views {
   height: 80%;
-  width: auto;
-  overflow-x: scroll;
-  white-space: nowrap;
+  overflow-x: hidden;
 }
 .monitor-view {
   background-color: #2480b0;
@@ -247,10 +226,9 @@ canvas {
 }
 .monitor-selectall-graphic {
   border-color: #2480b0;
-  border-width: 2px 2px 0px 2px;
+  border-width: 0px 2px 2px 2px;
   border-style: solid;
   height: 100%;
-  margin-top: 4px;
 }
 .monitor-selectall-container {
   position: absolute;
@@ -261,11 +239,12 @@ canvas {
   text-align: center;
 }
 .monitor-selectall-button {
-  width: 130px;
+  width: 100px;
   position: relative;
-  left: 43.5%;
+  left: 44.5%;
   background-color: #FFF;
   border: 1px solid #2480b0;
+  height: 100%;
   border-radius: 12px;
   padding: 4px;
   display: table;
@@ -309,74 +288,23 @@ canvas {
 /* --- */
 /* monitor setting */
 /* --- */
-.cycle-button,
-.pip-button,
-.osd-button {
-  width: 150px;
-  height: 150px;
-}
-.cycle-button {
-  background-color: #abc3e6;
-}
-.cycle-button:hover {
-  background-color: #9fcfef;
-}
-.cycle-button.pressed {
-  background-color: #9fcfef;
-}
-.pip-button {
-  background-color: #8878d8;
-}
-.pip-button:hover {
-  background-color: #9d8fde;
-}
-.pip-button.pressed {
-  background-color: #9d8fde;
-}
-.osd-button {
-  background-color: #8bbacc;
-}
-.osd-button:hover {
-  background-color: #b4f5e8;
-}
-.osd-button.pressed {
-  background-color: #b4f5e8;
-}
 .signal-matrix-view {
   clear: both;
-  padding: 4px;
-}
-.clear-both {
-  clear: both;
-}
-.signal-matrix-input {
-  background-color: #000;
-  border: 2px solid #24609d;
-  border-radius: 8px 0px 0px 8px;
-  color: #fff;
-  height: 20px;
-}
-.signal-matrix-side {
-  background-color: #24609d;
-  height: 20px;
-  border-radius: 0px 8px 8px 0px;
-}
-.signal-matrix-side > select {
-  width: 100%;
-  background-color: #24609d;
-  border: 0px solid #24609d;
 }
 .signal-matrix-label {
   text-align: center;
 }
 .signal-matrix-container-activated {
-  background-color: #4897DF;
+  background-color: #AFA;
 }
 .monitor-setting-upper-body {
   height: 50%;
 }
 .monitor-setting-lower-body {
   height: 50%;
+}
+.monitor-button {
+  width: 60%;
 }
 /* --- */
 /* preset setting */

@@ -3742,116 +3742,6 @@ Elm.Native.Signal.make = function(localRuntime) {
 	};
 };
 
-Elm.Native.Time = {};
-
-Elm.Native.Time.make = function(localRuntime)
-{
-	localRuntime.Native = localRuntime.Native || {};
-	localRuntime.Native.Time = localRuntime.Native.Time || {};
-	if (localRuntime.Native.Time.values)
-	{
-		return localRuntime.Native.Time.values;
-	}
-
-	var NS = Elm.Native.Signal.make(localRuntime);
-	var Maybe = Elm.Maybe.make(localRuntime);
-
-
-	// FRAMES PER SECOND
-
-	function fpsWhen(desiredFPS, isOn)
-	{
-		var msPerFrame = 1000 / desiredFPS;
-		var ticker = NS.input('fps-' + desiredFPS, null);
-
-		function notifyTicker()
-		{
-			localRuntime.notify(ticker.id, null);
-		}
-
-		function firstArg(x, y)
-		{
-			return x;
-		}
-
-		// input fires either when isOn changes, or when ticker fires.
-		// Its value is a tuple with the current timestamp, and the state of isOn
-		var input = NS.timestamp(A3(NS.map2, F2(firstArg), NS.dropRepeats(isOn), ticker));
-
-		var initialState = {
-			isOn: false,
-			time: localRuntime.timer.programStart,
-			delta: 0
-		};
-
-		var timeoutId;
-
-		function update(input, state)
-		{
-			var currentTime = input._0;
-			var isOn = input._1;
-			var wasOn = state.isOn;
-			var previousTime = state.time;
-
-			if (isOn)
-			{
-				timeoutId = localRuntime.setTimeout(notifyTicker, msPerFrame);
-			}
-			else if (wasOn)
-			{
-				clearTimeout(timeoutId);
-			}
-
-			return {
-				isOn: isOn,
-				time: currentTime,
-				delta: (isOn && !wasOn) ? 0 : currentTime - previousTime
-			};
-		}
-
-		return A2(
-			NS.map,
-			function(state) { return state.delta; },
-			A3(NS.foldp, F2(update), update(input.value, initialState), input)
-		);
-	}
-
-
-	// EVERY
-
-	function every(t)
-	{
-		var ticker = NS.input('every-' + t, null);
-		function tellTime()
-		{
-			localRuntime.notify(ticker.id, null);
-		}
-		var clock = A2(NS.map, fst, NS.timestamp(ticker));
-		setInterval(tellTime, t);
-		return clock;
-	}
-
-
-	function fst(pair)
-	{
-		return pair._0;
-	}
-
-
-	function read(s)
-	{
-		var t = Date.parse(s);
-		return isNaN(t) ? Maybe.Nothing : Maybe.Just(t);
-	}
-
-	return localRuntime.Native.Time.values = {
-		fpsWhen: F2(fpsWhen),
-		every: every,
-		toDate: function(t) { return new Date(t); },
-		read: read
-	};
-};
-
 Elm.Native.Transform2D = {};
 Elm.Native.Transform2D.make = function(localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
@@ -6627,52 +6517,6 @@ Elm.Signal.make = function (_elm) {
                                ,forwardTo: forwardTo
                                ,Mailbox: Mailbox};
 };
-Elm.Time = Elm.Time || {};
-Elm.Time.make = function (_elm) {
-   "use strict";
-   _elm.Time = _elm.Time || {};
-   if (_elm.Time.values) return _elm.Time.values;
-   var _U = Elm.Native.Utils.make(_elm),
-   $Basics = Elm.Basics.make(_elm),
-   $Native$Signal = Elm.Native.Signal.make(_elm),
-   $Native$Time = Elm.Native.Time.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
-   var _op = {};
-   var delay = $Native$Signal.delay;
-   var since = F2(function (time,signal) {
-      var stop = A2($Signal.map,$Basics.always(-1),A2(delay,time,signal));
-      var start = A2($Signal.map,$Basics.always(1),signal);
-      var delaydiff = A3($Signal.foldp,F2(function (x,y) {    return x + y;}),0,A2($Signal.merge,start,stop));
-      return A2($Signal.map,F2(function (x,y) {    return !_U.eq(x,y);})(0),delaydiff);
-   });
-   var timestamp = $Native$Signal.timestamp;
-   var every = $Native$Time.every;
-   var fpsWhen = $Native$Time.fpsWhen;
-   var fps = function (targetFrames) {    return A2(fpsWhen,targetFrames,$Signal.constant(true));};
-   var inMilliseconds = function (t) {    return t;};
-   var millisecond = 1;
-   var second = 1000 * millisecond;
-   var minute = 60 * second;
-   var hour = 60 * minute;
-   var inHours = function (t) {    return t / hour;};
-   var inMinutes = function (t) {    return t / minute;};
-   var inSeconds = function (t) {    return t / second;};
-   return _elm.Time.values = {_op: _op
-                             ,millisecond: millisecond
-                             ,second: second
-                             ,minute: minute
-                             ,hour: hour
-                             ,inMilliseconds: inMilliseconds
-                             ,inSeconds: inSeconds
-                             ,inMinutes: inMinutes
-                             ,inHours: inHours
-                             ,fps: fps
-                             ,fpsWhen: fpsWhen
-                             ,every: every
-                             ,timestamp: timestamp
-                             ,delay: delay
-                             ,since: since};
-};
 Elm.Native.String = {};
 
 Elm.Native.String.make = function(localRuntime) {
@@ -7666,510 +7510,6 @@ Elm.Dict.make = function (_elm) {
                              ,values: values
                              ,toList: toList
                              ,fromList: fromList};
-};
-// setup
-Elm.Native = Elm.Native || {};
-Elm.Native.Graphics = Elm.Native.Graphics || {};
-Elm.Native.Graphics.Input = Elm.Native.Graphics.Input || {};
-
-// definition
-Elm.Native.Graphics.Input.make = function(localRuntime) {
-	'use strict';
-
-	// attempt to short-circuit
-	if ('values' in Elm.Native.Graphics.Input) {
-		return Elm.Native.Graphics.Input.values;
-	}
-
-	var Color = Elm.Native.Color.make(localRuntime);
-	var List = Elm.Native.List.make(localRuntime);
-	var Signal = Elm.Native.Signal.make(localRuntime);
-	var Text = Elm.Native.Text.make(localRuntime);
-	var Utils = Elm.Native.Utils.make(localRuntime);
-
-	var Element = Elm.Native.Graphics.Element.make(localRuntime);
-
-
-	function renderDropDown(model)
-	{
-		var drop = Element.createNode('select');
-		drop.style.border = '0 solid';
-		drop.style.pointerEvents = 'auto';
-		drop.style.display = 'block';
-
-		drop.elm_values = List.toArray(model.values);
-		drop.elm_handler = model.handler;
-		var values = drop.elm_values;
-
-		for (var i = 0; i < values.length; ++i)
-		{
-			var option = Element.createNode('option');
-			var name = values[i]._0;
-			option.value = name;
-			option.innerHTML = name;
-			drop.appendChild(option);
-		}
-		drop.addEventListener('change', function() {
-			Signal.sendMessage(drop.elm_handler(drop.elm_values[drop.selectedIndex]._1));
-		});
-
-		return drop;
-	}
-
-	function updateDropDown(node, oldModel, newModel)
-	{
-		node.elm_values = List.toArray(newModel.values);
-		node.elm_handler = newModel.handler;
-
-		var values = node.elm_values;
-		var kids = node.childNodes;
-		var kidsLength = kids.length;
-
-		var i = 0;
-		for (; i < kidsLength && i < values.length; ++i)
-		{
-			var option = kids[i];
-			var name = values[i]._0;
-			option.value = name;
-			option.innerHTML = name;
-		}
-		for (; i < kidsLength; ++i)
-		{
-			node.removeChild(node.lastChild);
-		}
-		for (; i < values.length; ++i)
-		{
-			var option = Element.createNode('option');
-			var name = values[i]._0;
-			option.value = name;
-			option.innerHTML = name;
-			node.appendChild(option);
-		}
-		return node;
-	}
-
-	function dropDown(handler, values)
-	{
-		return A3(Element.newElement, 100, 24, {
-			ctor: 'Custom',
-			type: 'DropDown',
-			render: renderDropDown,
-			update: updateDropDown,
-			model: {
-				values: values,
-				handler: handler
-			}
-		});
-	}
-
-	function renderButton(model)
-	{
-		var node = Element.createNode('button');
-		node.style.display = 'block';
-		node.style.pointerEvents = 'auto';
-		node.elm_message = model.message;
-		function click()
-		{
-			Signal.sendMessage(node.elm_message);
-		}
-		node.addEventListener('click', click);
-		node.innerHTML = model.text;
-		return node;
-	}
-
-	function updateButton(node, oldModel, newModel)
-	{
-		node.elm_message = newModel.message;
-		var txt = newModel.text;
-		if (oldModel.text !== txt)
-		{
-			node.innerHTML = txt;
-		}
-		return node;
-	}
-
-	function button(message, text)
-	{
-		return A3(Element.newElement, 100, 40, {
-			ctor: 'Custom',
-			type: 'Button',
-			render: renderButton,
-			update: updateButton,
-			model: {
-				message: message,
-				text: text
-			}
-		});
-	}
-
-	function renderCustomButton(model)
-	{
-		var btn = Element.createNode('div');
-		btn.style.pointerEvents = 'auto';
-		btn.elm_message = model.message;
-
-		btn.elm_up    = Element.render(model.up);
-		btn.elm_hover = Element.render(model.hover);
-		btn.elm_down  = Element.render(model.down);
-
-		btn.elm_up.style.display = 'block';
-		btn.elm_hover.style.display = 'none';
-		btn.elm_down.style.display = 'none';
-
-		btn.appendChild(btn.elm_up);
-		btn.appendChild(btn.elm_hover);
-		btn.appendChild(btn.elm_down);
-
-		function swap(visibleNode, hiddenNode1, hiddenNode2)
-		{
-			visibleNode.style.display = 'block';
-			hiddenNode1.style.display = 'none';
-			hiddenNode2.style.display = 'none';
-		}
-
-		var overCount = 0;
-		function over(e)
-		{
-			if (overCount++ > 0) return;
-			swap(btn.elm_hover, btn.elm_down, btn.elm_up);
-		}
-		function out(e)
-		{
-			if (btn.contains(e.toElement || e.relatedTarget)) return;
-			overCount = 0;
-			swap(btn.elm_up, btn.elm_down, btn.elm_hover);
-		}
-		function up()
-		{
-			swap(btn.elm_hover, btn.elm_down, btn.elm_up);
-			Signal.sendMessage(btn.elm_message);
-		}
-		function down()
-		{
-			swap(btn.elm_down, btn.elm_hover, btn.elm_up);
-		}
-
-		btn.addEventListener('mouseover', over);
-		btn.addEventListener('mouseout', out);
-		btn.addEventListener('mousedown', down);
-		btn.addEventListener('mouseup', up);
-
-		return btn;
-	}
-
-	function updateCustomButton(node, oldModel, newModel)
-	{
-		node.elm_message = newModel.message;
-
-		var kids = node.childNodes;
-		var styleUp    = kids[0].style.display;
-		var styleHover = kids[1].style.display;
-		var styleDown  = kids[2].style.display;
-
-		Element.updateAndReplace(kids[0], oldModel.up, newModel.up);
-		Element.updateAndReplace(kids[1], oldModel.hover, newModel.hover);
-		Element.updateAndReplace(kids[2], oldModel.down, newModel.down);
-
-		var kids = node.childNodes;
-		kids[0].style.display = styleUp;
-		kids[1].style.display = styleHover;
-		kids[2].style.display = styleDown;
-
-		return node;
-	}
-
-	function max3(a, b, c)
-	{
-		var ab = a > b ? a : b;
-		return ab > c ? ab : c;
-	}
-
-	function customButton(message, up, hover, down)
-	{
-		return A3(Element.newElement,
-				  max3(up._0.props.width, hover._0.props.width, down._0.props.width),
-				  max3(up._0.props.height, hover._0.props.height, down._0.props.height),
-				  { ctor: 'Custom',
-					type: 'CustomButton',
-					render: renderCustomButton,
-					update: updateCustomButton,
-					model: {
-						message: message,
-						up: up,
-						hover: hover,
-						down: down
-					}
-				  });
-	}
-
-	function renderCheckbox(model)
-	{
-		var node = Element.createNode('input');
-		node.type = 'checkbox';
-		node.checked = model.checked;
-		node.style.display = 'block';
-		node.style.pointerEvents = 'auto';
-		node.elm_handler = model.handler;
-		function change()
-		{
-			Signal.sendMessage(node.elm_handler(node.checked));
-		}
-		node.addEventListener('change', change);
-		return node;
-	}
-
-	function updateCheckbox(node, oldModel, newModel)
-	{
-		node.elm_handler = newModel.handler;
-		node.checked = newModel.checked;
-		return node;
-	}
-
-	function checkbox(handler, checked)
-	{
-		return A3(Element.newElement, 13, 13, {
-			ctor: 'Custom',
-			type: 'CheckBox',
-			render: renderCheckbox,
-			update: updateCheckbox,
-			model: { handler: handler, checked: checked }
-		});
-	}
-
-	function setRange(node, start, end, dir)
-	{
-		if (node.parentNode)
-		{
-			node.setSelectionRange(start, end, dir);
-		}
-		else
-		{
-			setTimeout(function() {node.setSelectionRange(start, end, dir); }, 0);
-		}
-	}
-
-	function updateIfNeeded(css, attribute, latestAttribute)
-	{
-		if (css[attribute] !== latestAttribute)
-		{
-			css[attribute] = latestAttribute;
-		}
-	}
-	function cssDimensions(dimensions)
-	{
-		return dimensions.top    + 'px ' +
-			   dimensions.right  + 'px ' +
-			   dimensions.bottom + 'px ' +
-			   dimensions.left   + 'px';
-	}
-	function updateFieldStyle(css, style)
-	{
-		updateIfNeeded(css, 'padding', cssDimensions(style.padding));
-
-		var outline = style.outline;
-		updateIfNeeded(css, 'border-width', cssDimensions(outline.width));
-		updateIfNeeded(css, 'border-color', Color.toCss(outline.color));
-		updateIfNeeded(css, 'border-radius', outline.radius + 'px');
-
-		var highlight = style.highlight;
-		if (highlight.width === 0)
-		{
-			css.outline = 'none';
-		}
-		else
-		{
-			updateIfNeeded(css, 'outline-width', highlight.width + 'px');
-			updateIfNeeded(css, 'outline-color', Color.toCss(highlight.color));
-		}
-
-		var textStyle = style.style;
-		updateIfNeeded(css, 'color', Color.toCss(textStyle.color));
-		if (textStyle.typeface.ctor !== '[]')
-		{
-			updateIfNeeded(css, 'font-family', Text.toTypefaces(textStyle.typeface));
-		}
-		if (textStyle.height.ctor !== 'Nothing')
-		{
-			updateIfNeeded(css, 'font-size', textStyle.height._0 + 'px');
-		}
-		updateIfNeeded(css, 'font-weight', textStyle.bold ? 'bold' : 'normal');
-		updateIfNeeded(css, 'font-style', textStyle.italic ? 'italic' : 'normal');
-		if (textStyle.line.ctor !== 'Nothing')
-		{
-			updateIfNeeded(css, 'text-decoration', Text.toLine(textStyle.line._0));
-		}
-	}
-
-	function renderField(model)
-	{
-		var field = Element.createNode('input');
-		updateFieldStyle(field.style, model.style);
-		field.style.borderStyle = 'solid';
-		field.style.pointerEvents = 'auto';
-
-		field.type = model.type;
-		field.placeholder = model.placeHolder;
-		field.value = model.content.string;
-
-		field.elm_handler = model.handler;
-		field.elm_old_value = field.value;
-
-		function inputUpdate(event)
-		{
-			var curr = field.elm_old_value;
-			var next = field.value;
-			if (curr === next)
-			{
-				return;
-			}
-
-			var direction = field.selectionDirection === 'forward' ? 'Forward' : 'Backward';
-			var start = field.selectionStart;
-			var end = field.selectionEnd;
-			field.value = field.elm_old_value;
-
-			Signal.sendMessage(field.elm_handler({
-				string: next,
-				selection: {
-					start: start,
-					end: end,
-					direction: { ctor: direction }
-				}
-			}));
-		}
-
-		field.addEventListener('input', inputUpdate);
-		field.addEventListener('focus', function() {
-			field.elm_hasFocus = true;
-		});
-		field.addEventListener('blur', function() {
-			field.elm_hasFocus = false;
-		});
-
-		return field;
-	}
-
-	function updateField(field, oldModel, newModel)
-	{
-		if (oldModel.style !== newModel.style)
-		{
-			updateFieldStyle(field.style, newModel.style);
-		}
-		field.elm_handler = newModel.handler;
-
-		field.type = newModel.type;
-		field.placeholder = newModel.placeHolder;
-		var value = newModel.content.string;
-		field.value = value;
-		field.elm_old_value = value;
-		if (field.elm_hasFocus)
-		{
-			var selection = newModel.content.selection;
-			var direction = selection.direction.ctor === 'Forward' ? 'forward' : 'backward';
-			setRange(field, selection.start, selection.end, direction);
-		}
-		return field;
-	}
-
-	function mkField(type)
-	{
-		function field(style, handler, placeHolder, content)
-		{
-			var padding = style.padding;
-			var outline = style.outline.width;
-			var adjustWidth = padding.left + padding.right + outline.left + outline.right;
-			var adjustHeight = padding.top + padding.bottom + outline.top + outline.bottom;
-			return A3(Element.newElement, 200, 30, {
-				ctor: 'Custom',
-				type: type + 'Field',
-				adjustWidth: adjustWidth,
-				adjustHeight: adjustHeight,
-				render: renderField,
-				update: updateField,
-				model: {
-					handler: handler,
-					placeHolder: placeHolder,
-					content: content,
-					style: style,
-					type: type
-				}
-			});
-		}
-		return F4(field);
-	}
-
-	function hoverable(handler, wrappedElement)
-	{
-		function onHover(bool)
-		{
-			Signal.sendMessage(handler(bool));
-		}
-		var element = wrappedElement._0;
-		var newProps = Utils.update(element.props, { hover: onHover });
-		return {
-			ctor: wrappedElement.ctor,
-			_0: {
-				props: newProps,
-				element: element.element
-			}
-		};
-	}
-
-	function clickable(message, wrappedElement)
-	{
-		function onClick()
-		{
-			Signal.sendMessage(message);
-		}
-		var element = wrappedElement._0;
-		var newProps = Utils.update(element.props, { click: onClick });
-		return {
-			ctor: wrappedElement.ctor,
-			_0: {
-				props: newProps,
-				element: element.element
-			}
-		};
-	}
-
-	return Elm.Native.Graphics.Input.values = {
-		button: F2(button),
-		customButton: F4(customButton),
-		checkbox: F2(checkbox),
-		dropDown: F2(dropDown),
-		field: mkField('text'),
-		email: mkField('email'),
-		password: mkField('password'),
-		hoverable: F2(hoverable),
-		clickable: F2(clickable)
-	};
-};
-
-Elm.Graphics = Elm.Graphics || {};
-Elm.Graphics.Input = Elm.Graphics.Input || {};
-Elm.Graphics.Input.make = function (_elm) {
-   "use strict";
-   _elm.Graphics = _elm.Graphics || {};
-   _elm.Graphics.Input = _elm.Graphics.Input || {};
-   if (_elm.Graphics.Input.values) return _elm.Graphics.Input.values;
-   var _U = Elm.Native.Utils.make(_elm),
-   $Graphics$Element = Elm.Graphics.Element.make(_elm),
-   $Native$Graphics$Input = Elm.Native.Graphics.Input.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
-   var _op = {};
-   var clickable = $Native$Graphics$Input.clickable;
-   var hoverable = $Native$Graphics$Input.hoverable;
-   var dropDown = $Native$Graphics$Input.dropDown;
-   var checkbox = $Native$Graphics$Input.checkbox;
-   var customButton = $Native$Graphics$Input.customButton;
-   var button = $Native$Graphics$Input.button;
-   return _elm.Graphics.Input.values = {_op: _op
-                                       ,button: button
-                                       ,customButton: customButton
-                                       ,checkbox: checkbox
-                                       ,dropDown: dropDown
-                                       ,hoverable: hoverable
-                                       ,clickable: clickable};
 };
 Elm.Native.Json = {};
 
@@ -11058,7 +10398,6 @@ Elm.GreenGui.Main.make = function (_elm) {
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
-   $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
@@ -11066,8 +10405,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm),
-   $Window = Elm.Window.make(_elm);
+   $Signal = Elm.Signal.make(_elm);
    var _op = {};
    var is13 = function (code) {    return _U.eq(code,13) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("not the right key code");};
    var onEnter = F2(function (address,value) {
@@ -11085,19 +10423,33 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
-   var homeMenuView = function (address) {
+   var signalMatrixInputSetup = F2(function (signalTypes,signalMatrixInput) {
+      var x = 1;
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("sub-panel-view")]),
+      _U.list([$Html$Attributes.$class("signal-matrix-container vdiv-1-10")]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("LOCK")]))]))
+              _U.list([$Html$Attributes.$class("div-7-10")]),
+              _U.list([A2($Html.input,
+              _U.list([$Html$Attributes.type$("text"),$Html$Attributes.$class("signal-matrix-input"),$Html$Attributes.value(signalMatrixInput.name)]),
+              _U.list([]))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("MENU")]))]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("INFORMATION")]))]))]));
-   };
+              _U.list([$Html$Attributes.$class("div-3-10 signal-matrix-side")]),
+              _U.list([A2($Html.select,
+              _U.list([]),
+              A2($List.map,function (t) {    return A2($Html.option,_U.list([$Html$Attributes.value(t)]),_U.list([$Html.text(t)]));},signalTypes))]))]));
+   });
+   var matrixSetupTopBarView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left")]),_U.list([$Html.text("MENU")]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("float-right button")]),_U.list([$Html.text("CLOSE")]))]));
+   });
+   var menuOptionsTopBarView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left")]),_U.list([$Html.text("MENU")]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("float-right button")]),_U.list([$Html.text("CLOSE")]))]));
+   });
    var setPresetName = F3(function (preset,value,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{tempName: value}) : p;},presets);
    });
@@ -11221,6 +10573,37 @@ Elm.GreenGui.Main.make = function (_elm) {
          return _U.eq(m.number,monitor.number) ? _U.update(monitor,{isSelected: $Basics.not(true)}) : _U.update(m,{isSelected: false});
       },
       monitors);
+   });
+   var AtlonaSetupPress = {ctor: "AtlonaSetupPress"};
+   var NtiSetupPress = {ctor: "NtiSetupPress"};
+   var ExtronSetupPress = {ctor: "ExtronSetupPress"};
+   var MatrixSetupPress = {ctor: "MatrixSetupPress"};
+   var menuOptionsBodyView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body")]),
+      _U.list([A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1")]),
+              _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,MatrixSetupPress)]),
+                      _U.list([$Html.text("MATRIX SETUP")]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")]),
+                      _U.list([$Html.text("WIFI SETUP")]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")]),
+                      _U.list([$Html.text("UPDATES")]))]))]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
    var PresetEditCancel = function (a) {    return {ctor: "PresetEditCancel",_0: a};};
    var PresetNameInput = F2(function (a,b) {    return {ctor: "PresetNameInput",_0: a,_1: b};});
@@ -11385,7 +10768,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _U.list([A2($Html.input,
                       _U.list([$Html$Attributes.type$("text")
                               ,$Html$Attributes.disabled(isCyclePressed)
-                              ,$Html$Attributes.$class(isActivated ? "signal-matrix-container-activated" : "")
+                              ,$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input",isActivated ? " signal-matrix-container-activated" : ""))
                               ,$Html$Attributes.value(signalName)
                               ,A3($Html$Events.on,
                               "input",
@@ -11394,7 +10777,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                                  return A2($Signal.message,address,A2(SignalInputChange,signalType,_p5));
                               })]),
                       _U.list([]))]))
-                      ,A2($Html.div,_U.list([$Html$Attributes.$class("div-3-10")]),_U.list([$Html.text("MATRIX")]))]))]));
+                      ,A2($Html.div,_U.list([$Html$Attributes.$class("div-3-10 content-centered signal-matrix-side")]),_U.list([$Html.text("MATRIX")]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
    });
    var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
       var monitor = monitorSettingScreenState.selectedMonitor;
@@ -11426,20 +10810,23 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-2-3")]),
               _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 align-center")]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("power-button circle button monitor-button "),A2($Html$Events.onClick,address,CycleButtonPress)]),
-                      _U.list([]))]))
+                      _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"cycle-button circle button monitor-button content-centered ",cycleButtonClass))
+                              ,A2($Html$Events.onClick,address,CycleButtonPress)]),
+                      _U.list([$Html.text("CYCLE")]))]))
                       ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 align-center")]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("pip-button circle button monitor-button "),A2($Html$Events.onClick,address,PipButtonPress)]),
-                      _U.list([]))]))
+                      _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button circle button monitor-button content-centered ",pipButtonClass))
+                              ,A2($Html$Events.onClick,address,PipButtonPress)]),
+                      _U.list([$Html.text("PIP")]))]))
                       ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 align-center")]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("osd-button circle button monitor-button "),A2($Html$Events.onClick,address,OsdButtonPress)]),
-                      _U.list([]))]))]))
+                      _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button circle button monitor-button content-centered ",osdButtonClass))
+                              ,A2($Html$Events.onClick,address,OsdButtonPress)]),
+                      _U.list([$Html.text("OSD")]))]))]))
               ,A2(pipButtonSetView,address,monitorSettingScreenState)
               ,A2(osdButtonSetView,address,monitorSettingScreenState)]));
    });
@@ -11461,9 +10848,23 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var monitorSettingScreenView = F2(function (address,monitorSettingScreenState) {
       return A2($Html.div,
-      _U.list([]),
+      _U.list([$Html$Attributes.$class("main")]),
       _U.list([A2(monitorSettingTopBarView,address,monitorSettingScreenState),A2(monitorSettingBodyView,address,monitorSettingScreenState)]));
    });
+   var MenuOptionPress = {ctor: "MenuOptionPress"};
+   var homeMenuView = function (address) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("sub-panel-view")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("LOCK")]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,MenuOptionPress)]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("MENU")]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("INFORMATION")]))]))]));
+   };
    var PresetPress = {ctor: "PresetPress"};
    var PowerPress = {ctor: "PowerPress"};
    var homePanelView = F2(function (address,homeScreenState) {
@@ -11516,23 +10917,12 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-4-5")]),
               _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("align-left div-1-10"),A2($Html$Events.onClick,address,PreviousMonitorPage)]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("monitor-pager-icon"),$Html$Attributes.src("images/left_arrow_icon.svg")]),
-                      _U.list([]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("monitor-selectall-view div-4-5")]),
-                      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("monitor-selectall-graphic")]),_U.list([]))
-                              ,A2($Html.div,
-                              _U.list([$Html$Attributes.$class("monitor-selectall-container")]),
-                              _U.list([A2($Html.div,
-                              _U.list([$Html$Attributes.$class("monitor-selectall-button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
-                              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("SELECT ALL")]))]))]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("align-right div-1-10"),A2($Html$Events.onClick,address,NextMonitorPage)]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("monitor-pager-icon"),$Html$Attributes.src("images/right_arrow_icon.svg")]),
-                      _U.list([]))]))]))
+              _U.list([$Html$Attributes.$class("monitor-selectall-view div-1-1")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("monitor-selectall-container")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("monitor-selectall-button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("SELECT ALL")]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))]));
    };
    var SelectMonitor = function (a) {    return {ctor: "SelectMonitor",_0: a};};
@@ -11540,7 +10930,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       var isHighlighted = monitor.isSelected ? "selected" : "";
       var visibility = !_U.eq(monitor.isVisible,true) ? "hidden" : "";
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-1-5 monitor-view-container ",visibility))]),
+      _U.list([$Html$Attributes.$class("div-1-5 monitor-view-container ")]),
       _U.list([A2($Html.div,
       _U.list([$Html$Attributes.$class(A2($Basics._op["++"],isHighlighted,A2($Basics._op["++"]," ","monitor-view content-centered")))
               ,A2($Html$Events.onClick,address,SelectMonitor(monitor))
@@ -11553,49 +10943,27 @@ Elm.GreenGui.Main.make = function (_elm) {
    var monitorPanelView = F2(function (address,monitors) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("monitor-panel-view")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("monitor-views")]),A2(monitorViewButtons,address,monitors)),monitorViewPager(address)]));
+      _U.list([monitorViewPager(address),A2($Html.div,_U.list([$Html$Attributes.$class("monitor-views")]),A2(monitorViewButtons,address,monitors))]));
    });
    var homeScreenView = F2(function (address,homeScreenState) {
       return A2($Html.div,
-      _U.list([]),
+      _U.list([$Html$Attributes.$class("main")]),
       _U.list([A2(monitorPanelView,address,homeScreenState.monitors),A2(homePanelView,address,homeScreenState),homeMenuView(address)]));
-   });
-   var appView = F3(function (address,appState,_p6) {
-      var _p7 = _p6;
-      var presetSettingScreenState = appState.presetSettingScreenState;
-      var monitorSettingScreenState = appState.monitorSettingScreenState;
-      var homeScreenState = appState.homeScreenState;
-      var viewToDisplay = function () {
-         var _p8 = appState.currentScreenState;
-         switch (_p8)
-         {case 1: return A2(homeScreenView,address,homeScreenState);
-            case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
-            case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
-            default: return A2($Html.div,_U.list([]),_U.list([$Html.text("nothing to display")]));}
-      }();
-      return A3($Html.toElement,_p7._0,_p7._1,viewToDisplay);
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
    var mergedActions = $Signal.mergeMany(_U.list([actions.signal,A2($Signal.map,LongPressedMonitor,in_longPressedMonitor)]));
    var pressedMonitor = function () {
-      var toSelector = function (action) {    var _p9 = action;if (_p9.ctor === "MonitorPressedDown") {    return _p9._0;} else {    return "";}};
-      var needsMonitorPressedDown = function (action) {
-         var _p10 = action;
-         if (_p10.ctor === "MonitorPressedDown") {
-               return true;
-            } else {
-               return false;
-            }
-      };
+      var toSelector = function (action) {    var _p6 = action;if (_p6.ctor === "MonitorPressedDown") {    return _p6._0;} else {    return "";}};
+      var needsMonitorPressedDown = function (action) {    var _p7 = action;if (_p7.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressedDown,MonitorPressedDown(""),actions.signal));
    }();
    var out_onPressedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressedMonitor",function (v) {    return v;},pressedMonitor);
    var pressReleasedMonitor = function () {
-      var toSelector = function (action) {    var _p11 = action;if (_p11.ctor === "MonitorPressReleased") {    return _p11._0;} else {    return "";}};
+      var toSelector = function (action) {    var _p8 = action;if (_p8.ctor === "MonitorPressReleased") {    return _p8._0;} else {    return "";}};
       var needsMonitorPressReleased = function (action) {
-         var _p12 = action;
-         if (_p12.ctor === "MonitorPressReleased") {
+         var _p9 = action;
+         if (_p9.ctor === "MonitorPressReleased") {
                return true;
             } else {
                return false;
@@ -11604,6 +10972,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressReleased,MonitorPressReleased(""),actions.signal));
    }();
    var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",function (v) {    return v;},pressReleasedMonitor);
+   var createSignalMatrixInput = F2(function (name,type$) {    return {name: name,type$: type$};});
+   var defaultSignalMatrixInputs = _U.list([]);
    var defaultPreset = function (id$) {    return {id: id$,name: "PRE-SET",tempName: "",monitors: _U.list([]),isSelected: false,isEditingName: false};};
    var defaultMonitor = F2(function (number$,isVisible$) {
       return {number: number$
@@ -11632,44 +11002,44 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isOn: false};
    });
    var findMonitor = F2(function (number,monitors) {
-      var _p13 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
-      if (_p13.ctor === "::" && _p13._1.ctor === "[]") {
-            return _p13._0;
+      var _p10 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
+      if (_p10.ctor === "::" && _p10._1.ctor === "[]") {
+            return _p10._0;
          } else {
             return A2(defaultMonitor,"-1",false);
          }
    });
    var update = F2(function (action,appState) {
-      var _p14 = action;
-      switch (_p14.ctor)
+      var _p11 = action;
+      switch (_p11.ctor)
       {case "NoOp": return appState;
          case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
-           var monitors$ = A2(toggleMonitorAsSelected,_p14._0,homeScreenState$.monitors);
+           var monitors$ = A2(toggleMonitorAsSelected,_p11._0,homeScreenState$.monitors);
            var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
          case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
            {homeScreenState: _U.update(homeScreenState$,{monitors: setAllMonitorAsSelected(homeScreenState$.monitors),isPowerDisabled: false})});
-         case "SelectMonitorToConfigure": var _p15 = _p14._0;
+         case "SelectMonitorToConfigure": var _p12 = _p11._0;
            var homeScreenState$ = appState.homeScreenState;
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,
-           {currentScreenState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p15,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: _p15,isPipSetPressed: false,isOsdSetPressed: false})});
+           {viewState: 2
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p12,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: _p12,isPipSetPressed: false,isOsdSetPressed: false})});
          case "MonitorPressedDown": return appState;
          case "MonitorPressReleased": return appState;
          case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
-           var foundMonitor = A2(findMonitor,_p14._0,homeScreenState$.monitors);
+           var foundMonitor = A2(findMonitor,_p11._0,homeScreenState$.monitors);
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,
-           {currentScreenState: 2
+           {viewState: 2
            ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,foundMonitor,homeScreenState$.monitors)})
            ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: foundMonitor,isPipSetPressed: false,isOsdSetPressed: false})});
          case "PowerPress": var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
-         case "PresetPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{currentScreenState: 3});
+         case "PresetPress": return _U.update(appState,{viewState: 3});
+         case "MenuOptionPress": return _U.update(appState,{viewState: 4});
          case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
            var monitorsPerPage = 5;
            var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
@@ -11681,13 +11051,13 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "CloseMonitorConfiguration": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
-           {currentScreenState: 1
+           {viewState: 1
            ,homeScreenState: _U.update(homeScreenState$,
            {monitors: A2(updateMonitorList,monitorSettingScreenState$.selectedMonitor,homeScreenState$.monitors)})});
          case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            var monitor$ = monitorSettingScreenState$.selectedMonitor;
            return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p14._0,_p14._1,monitor$)})});
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p11._0,_p11._1,monitor$)})});
          case "CycleButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.update(appState,
            {monitorSettingScreenState: setCycleButtonPress(monitorSettingScreenState$)}) : appState;
@@ -11700,7 +11070,7 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
            {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A2(activateCycleSignalMatrix,_p14._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
+           {selectedMonitor: A2(activateCycleSignalMatrix,_p11._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
          case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
          case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
@@ -11713,23 +11083,37 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,{monitorSettingScreenState: setOsdLeftRightButtonPress(monitorSettingScreenState$)});
          case "OsdSelectButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
-         case "ClosePresetSettings": return _U.update(appState,{currentScreenState: 1});
+         case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
          case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p14._0.monitors})});
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p11._0.monitors})});
          case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p14._0,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p11._0,presetSettingScreenState$.presets)})});
          case "PresetCommitThenSelect": var monitors = appState.homeScreenState.monitors;
            var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
            {presetSettingScreenState: _U.update(presetSettingScreenState$,
-           {presets: A3(setPresetCommitThenSelect,_p14._0,monitors,presetSettingScreenState$.presets)})});
+           {presets: A3(setPresetCommitThenSelect,_p11._0,monitors,presetSettingScreenState$.presets)})});
          case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p14._0,_p14._1,presetSettingScreenState$.presets)})});
-         default: var presetSettingScreenState$ = appState.presetSettingScreenState;
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p11._0,_p11._1,presetSettingScreenState$.presets)})});
+         case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p14._0,presetSettingScreenState$.presets)})});}
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p11._0,presetSettingScreenState$.presets)})});
+         case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
+         case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
+         case "NtiSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
+         default: var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});}
    });
    var defaulPresetSettingScreenState = {presets: _U.list([defaultPreset(1)
                                                           ,defaultPreset(2)
@@ -11758,12 +11142,100 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                    ,A2(defaultMonitor,"10",false)
                                                    ,A2(defaultMonitor,"11",false)
                                                    ,A2(defaultMonitor,"12",false)])};
-   var defaultAppState = {currentScreenState: 1
+   var CVBS = {ctor: "CVBS"};
+   var VGA = {ctor: "VGA"};
+   var DVI = {ctor: "DVI"};
+   var defaultExtronSignalMatrixInputs = _U.list([A2(createSignalMatrixInput,"X-BAND RADAR",VGA)
+                                                 ,A2(createSignalMatrixInput,"S-BAND RADAR",VGA)
+                                                 ,A2(createSignalMatrixInput,"WEATHER",DVI)
+                                                 ,A2(createSignalMatrixInput,"S-BAND RADAR",DVI)
+                                                 ,A2(createSignalMatrixInput,"ENGINE CAM",CVBS)
+                                                 ,A2(createSignalMatrixInput,"DECK CAM",CVBS)
+                                                 ,A2(createSignalMatrixInput,"X-BAND RADAR",CVBS)]);
+   var defaultNtiSignalMatrixInputs = _U.list([A2(createSignalMatrixInput,"X-BAND RADAR",VGA)
+                                              ,A2(createSignalMatrixInput,"S-BAND RADAR",VGA)
+                                              ,A2(createSignalMatrixInput,"WEATHER",DVI)
+                                              ,A2(createSignalMatrixInput,"S-BAND RADAR",DVI)
+                                              ,A2(createSignalMatrixInput,"ENGINE CAM",CVBS)
+                                              ,A2(createSignalMatrixInput,"DECK CAM",CVBS)
+                                              ,A2(createSignalMatrixInput,"X-BAND RADAR",CVBS)]);
+   var defaultAtlonaSignalMatrixInputs = _U.list([A2(createSignalMatrixInput,"X-BAND RADAR",VGA)
+                                                 ,A2(createSignalMatrixInput,"S-BAND RADAR",VGA)
+                                                 ,A2(createSignalMatrixInput,"WEATHER",DVI)
+                                                 ,A2(createSignalMatrixInput,"S-BAND RADAR",DVI)
+                                                 ,A2(createSignalMatrixInput,"ENGINE CAM",CVBS)
+                                                 ,A2(createSignalMatrixInput,"DECK CAM",CVBS)
+                                                 ,A2(createSignalMatrixInput,"X-BAND RADAR",CVBS)]);
+   var defaultMatrixSetupScreenState = {viewState: 1
+                                       ,extronSignalMatrixInputs: defaultExtronSignalMatrixInputs
+                                       ,ntiSignalMatrixInputs: defaultNtiSignalMatrixInputs
+                                       ,atlonaSignalMatrixInputs: defaultAtlonaSignalMatrixInputs};
+   var defaultMenuOptionsScreenState = {viewState: 1,matrixSetupScreenState: defaultMatrixSetupScreenState};
+   var defaultAppState = {viewState: 1
                          ,homeScreenState: defaultHomeScreenState
                          ,monitorSettingScreenState: defaultMonitorSettingScreenState
-                         ,presetSettingScreenState: defaulPresetSettingScreenState};
+                         ,presetSettingScreenState: defaulPresetSettingScreenState
+                         ,menuOptionsScreenState: defaultMenuOptionsScreenState};
    var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
-   var main = A3($Signal.map2,appView(actions.address),appState,$Window.dimensions);
+   var matrixSetupBodyView = F2(function (address,screenState) {
+      var matrixSetupScreenState = screenState.matrixSetupScreenState;
+      var matrixInputSignals = function () {
+         var _p13 = matrixSetupScreenState.viewState;
+         switch (_p13)
+         {case 1: return matrixSetupScreenState.extronSignalMatrixInputs;
+            case 2: return matrixSetupScreenState.ntiSignalMatrixInputs;
+            case 3: return matrixSetupScreenState.atlonaSignalMatrixInputs;
+            default: return _U.list([]);}
+      }();
+      var signalTypes = A2($List.map,
+      function (t) {
+         var _p14 = t;
+         switch (_p14.ctor)
+         {case "VGA": return "VGA";
+            case "DVI": return "DVI";
+            default: return "DVBS";}
+      },
+      _U.list([VGA,DVI,CVBS]));
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body")]),
+      _U.list([A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1")]),
+              A2($List.map,signalMatrixInputSetup(signalTypes),matrixInputSignals))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
+   });
+   var menuOptionsView = F2(function (address,screenState) {
+      var view = function () {
+         var _p15 = screenState.viewState;
+         switch (_p15)
+         {case 1: return _U.list([A2(menuOptionsTopBarView,address,screenState),A2(menuOptionsBodyView,address,screenState)]);
+            case 2: return _U.list([A2(matrixSetupTopBarView,address,screenState),A2(matrixSetupBodyView,address,screenState)]);
+            default: return _U.list([]);}
+      }();
+      return A2($Html.div,_U.list([$Html$Attributes.$class("main")]),view);
+   });
+   var appView = F2(function (address,appState) {
+      var menuOptionsScreenState = appState.menuOptionsScreenState;
+      var presetSettingScreenState = appState.presetSettingScreenState;
+      var monitorSettingScreenState = appState.monitorSettingScreenState;
+      var homeScreenState = appState.homeScreenState;
+      var viewToDisplay = function () {
+         var _p16 = appState.viewState;
+         switch (_p16)
+         {case 1: return A2(homeScreenView,address,homeScreenState);
+            case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
+            case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
+            case 4: return A2(menuOptionsView,address,menuOptionsScreenState);
+            default: return A2($Html.div,_U.list([]),_U.list([$Html.text("nothing to display")]));}
+      }();
+      return viewToDisplay;
+   });
+   var main = A2($Signal.map,appView(actions.address),appState);
+   var SignalMatrixInput = F2(function (a,b) {    return {name: a,type$: b};});
    var Preset = F6(function (a,b,c,d,e,f) {    return {id: a,name: b,tempName: c,monitors: d,isSelected: e,isEditingName: f};});
    var Monitor = function (a) {
       return function (b) {
@@ -11837,25 +11309,44 @@ Elm.GreenGui.Main.make = function (_elm) {
          };
       };
    };
+   var MatrixSetupScreenState = F4(function (a,b,c,d) {
+      return {viewState: a,extronSignalMatrixInputs: b,ntiSignalMatrixInputs: c,atlonaSignalMatrixInputs: d};
+   });
+   var MenuOptionsScreenState = F2(function (a,b) {    return {viewState: a,matrixSetupScreenState: b};});
    var PresetSettingScreenState = function (a) {    return {presets: a};};
    var MonitorSettingScreenState = F7(function (a,b,c,d,e,f,g) {
       return {selectedMonitor: a,isCyclePressed: b,isPipSetPressed: c,isOsdSetPressed: d,isCycleDisabled: e,isPipDisabled: f,isOsdDisabled: g};
    });
    var HomeScreenState = F3(function (a,b,c) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c};});
-   var AppState = F4(function (a,b,c,d) {    return {currentScreenState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d};});
+   var AppState = F5(function (a,b,c,d,e) {
+      return {viewState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d,menuOptionsScreenState: e};
+   });
    return _elm.GreenGui.Main.values = {_op: _op
                                       ,AppState: AppState
                                       ,HomeScreenState: HomeScreenState
                                       ,MonitorSettingScreenState: MonitorSettingScreenState
                                       ,PresetSettingScreenState: PresetSettingScreenState
+                                      ,MenuOptionsScreenState: MenuOptionsScreenState
+                                      ,MatrixSetupScreenState: MatrixSetupScreenState
                                       ,Monitor: Monitor
                                       ,Preset: Preset
+                                      ,SignalMatrixInput: SignalMatrixInput
+                                      ,DVI: DVI
+                                      ,VGA: VGA
+                                      ,CVBS: CVBS
                                       ,defaultAppState: defaultAppState
                                       ,defaultHomeScreenState: defaultHomeScreenState
                                       ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
                                       ,defaulPresetSettingScreenState: defaulPresetSettingScreenState
+                                      ,defaultMenuOptionsScreenState: defaultMenuOptionsScreenState
+                                      ,defaultMatrixSetupScreenState: defaultMatrixSetupScreenState
                                       ,defaultMonitor: defaultMonitor
                                       ,defaultPreset: defaultPreset
+                                      ,defaultSignalMatrixInputs: defaultSignalMatrixInputs
+                                      ,defaultExtronSignalMatrixInputs: defaultExtronSignalMatrixInputs
+                                      ,defaultNtiSignalMatrixInputs: defaultNtiSignalMatrixInputs
+                                      ,defaultAtlonaSignalMatrixInputs: defaultAtlonaSignalMatrixInputs
+                                      ,createSignalMatrixInput: createSignalMatrixInput
                                       ,NoOp: NoOp
                                       ,SelectMonitor: SelectMonitor
                                       ,SelectAllMonitors: SelectAllMonitors
@@ -11867,6 +11358,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,PreviousMonitorPage: PreviousMonitorPage
                                       ,PowerPress: PowerPress
                                       ,PresetPress: PresetPress
+                                      ,MenuOptionPress: MenuOptionPress
                                       ,CloseMonitorConfiguration: CloseMonitorConfiguration
                                       ,CycleButtonPress: CycleButtonPress
                                       ,PipButtonPress: PipButtonPress
@@ -11885,6 +11377,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,PresetCommitThenSelect: PresetCommitThenSelect
                                       ,PresetNameInput: PresetNameInput
                                       ,PresetEditCancel: PresetEditCancel
+                                      ,MatrixSetupPress: MatrixSetupPress
+                                      ,ExtronSetupPress: ExtronSetupPress
+                                      ,NtiSetupPress: NtiSetupPress
+                                      ,AtlonaSetupPress: AtlonaSetupPress
                                       ,update: update
                                       ,setMonitorAsSelected: setMonitorAsSelected
                                       ,toggleMonitorAsSelected: toggleMonitorAsSelected
@@ -11934,6 +11430,12 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,presetSettingBodyView: presetSettingBodyView
                                       ,presetContainerView: presetContainerView
                                       ,presetButtonView: presetButtonView
+                                      ,menuOptionsView: menuOptionsView
+                                      ,menuOptionsTopBarView: menuOptionsTopBarView
+                                      ,menuOptionsBodyView: menuOptionsBodyView
+                                      ,matrixSetupTopBarView: matrixSetupTopBarView
+                                      ,matrixSetupBodyView: matrixSetupBodyView
+                                      ,signalMatrixInputSetup: signalMatrixInputSetup
                                       ,isEsc: isEsc
                                       ,pressedMonitor: pressedMonitor
                                       ,pressReleasedMonitor: pressReleasedMonitor
