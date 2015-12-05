@@ -10423,6 +10423,8 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
+   var backIcon = A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/back_icon.svg")]),_U.list([]));
+   var closeIcon = A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/close_icon.svg")]),_U.list([]));
    var signalMatrixInputSetup = F2(function (signalTypes,signalMatrixInput) {
       var x = 1;
       return A2($Html.div,
@@ -10437,18 +10439,6 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.select,
               _U.list([]),
               A2($List.map,function (t) {    return A2($Html.option,_U.list([$Html$Attributes.value(t)]),_U.list([$Html.text(t)]));},signalTypes))]))]));
-   });
-   var matrixSetupTopBarView = F2(function (address,screenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left")]),_U.list([$Html.text("MENU")]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("float-right button")]),_U.list([$Html.text("CLOSE")]))]));
-   });
-   var menuOptionsTopBarView = F2(function (address,screenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left")]),_U.list([$Html.text("MENU")]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("float-right button")]),_U.list([$Html.text("CLOSE")]))]));
    });
    var setPresetName = F3(function (preset,value,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{tempName: value}) : p;},presets);
@@ -10551,7 +10541,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       return _U.update(monitor,{isVisible: isVisible$});
    });
    var setSelectedMonitorsToPowerPress = function (monitors) {
-      return A2($List.map,function (m) {    return m.isSelected ? _U.update(m,{isOn: $Basics.not(m.isSelected)}) : m;},monitors);
+      return A2($List.map,function (m) {    return m.isSelected ? _U.update(m,{isOn: $Basics.not(m.isOn)}) : m;},monitors);
    };
    var flipMonitorPage = F4(function (flips,maxFlips,monitorsPerPage,homeScreenState) {
       var newPageIndex = A3($Basics.clamp,0,maxFlips - 1,homeScreenState.monitorPageIndex + flips);
@@ -10573,6 +10563,25 @@ Elm.GreenGui.Main.make = function (_elm) {
          return _U.eq(m.number,monitor.number) ? _U.update(monitor,{isSelected: $Basics.not(true)}) : _U.update(m,{isSelected: false});
       },
       monitors);
+   });
+   var CloseSetupPress = {ctor: "CloseSetupPress"};
+   var menuOptionsTopBarView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("MENU")]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
+              _U.list([closeIcon]))]));
+   });
+   var BackToMenuPress = {ctor: "BackToMenuPress"};
+   var matrixSetupTopBarView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("MENU")]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),_U.list([closeIcon]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToMenuPress)]),
+              _U.list([backIcon]))]));
    });
    var AtlonaSetupPress = {ctor: "AtlonaSetupPress"};
    var NtiSetupPress = {ctor: "NtiSetupPress"};
@@ -10641,10 +10650,10 @@ Elm.GreenGui.Main.make = function (_elm) {
    var presetSettingTopBarView = F2(function (address,presetSettingScreenState) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left")]),_U.list([$Html.text("PRESETS")]))
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left  vdiv-1-1 content-centered")]),_U.list([$Html.text("PRESETS")]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("float-right button"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
-              _U.list([$Html.text("CLOSE")]))]));
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
+              _U.list([closeIcon]))]));
    });
    var presetSettingScreenView = F2(function (address,presetSettingScreenState) {
       return A2($Html.div,
@@ -10840,11 +10849,11 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar")]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("float-left")]),
+              _U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),
               _U.list([$Html.text(A2($Basics._op["++"],"MONITOR ",$Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("float-right button"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
-              _U.list([$Html.text("CLOSE")]))]));
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
+              _U.list([closeIcon]))]));
    });
    var monitorSettingScreenView = F2(function (address,monitorSettingScreenState) {
       return A2($Html.div,
@@ -10857,51 +10866,59 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("sub-panel-view")]),
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("LOCK")]))]))
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/lock_icon.svg")]),_U.list([]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,MenuOptionPress)]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("MENU")]))]))
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/menu_icon.svg")]),_U.list([]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("INFORMATION")]))]))]));
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/information_icon.svg")]),_U.list([]))]))]))]));
    };
    var PresetPress = {ctor: "PresetPress"};
    var PowerPress = {ctor: "PowerPress"};
    var homePanelView = F2(function (address,homeScreenState) {
-      var powerButtonState = homeScreenState.isPowerDisabled ? "disabled" : "";
+      var powerButtonState = homeScreenState.isPowerDisabled ? "_disabled" : "";
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("home-panel-view")]),
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"home-panel-button circle button content-centered power ",powerButtonState))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"home-panel-button button content-centered power ",powerButtonState))
                       ,A2($Html$Events.onClick,address,PowerPress)]),
-              _U.list([$Html.text("POWER")]))]))
+              _U.list([A2($Html.img,
+              _U.list([$Html$Attributes.src(A2($Basics._op["++"],"images/power_icon",A2($Basics._op["++"],powerButtonState,".svg")))]),
+              _U.list([]))]))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-division div-1-4")]),
+              _U.list([$Html$Attributes.$class("home-panel-division div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-brightness-panel")]),
+              _U.list([$Html$Attributes.$class("div-4-5")]),
               _U.list([A2($Html.div,
-                      _U.list([]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("home-panel-count-button"),$Html$Attributes.src("images/increment_button.svg")]),
-                      _U.list([]))]))
-                      ,A2($Html.div,_U.list([$Html$Attributes.$class("home-panel-count-label content-centered")]),_U.list([$Html.text("BRIGHTNESS")]))
+                      _U.list([$Html$Attributes.$class("div-2-5")]),
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/decrement_icon.svg")]),_U.list([]))]))
                       ,A2($Html.div,
-                      _U.list([]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("home-panel-count-button"),$Html$Attributes.src("images/decrement_button.svg")]),
-                      _U.list([]))]))]))]))
+                      _U.list([$Html$Attributes.$class("div-1-5")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("brightness-icon-container")]),
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/brightness_icon.svg")]),_U.list([]))]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("div-2-5")]),
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/increment_icon.svg")]),_U.list([]))]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-button circle button content-centered night-mode")]),
-              _U.list([$Html.text("NIGHT MODE")]))]))
+              _U.list([$Html$Attributes.$class("home-panel-button button content-centered night-mode")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/night-mode_icon.svg")]),_U.list([]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-button circle button content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
-              _U.list([$Html.text("PRESET")]))]))]));
+              _U.list([$Html$Attributes.$class("home-panel-button button content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/preset_icon.svg")]),_U.list([]))]))]))]));
    });
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};
@@ -10919,16 +10936,16 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("monitor-selectall-view div-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("monitor-selectall-container")]),
+              _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("monitor-selectall-button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
+              _U.list([$Html$Attributes.$class("monitor-selectall-button button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
               _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("SELECT ALL")]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))]));
    };
    var SelectMonitor = function (a) {    return {ctor: "SelectMonitor",_0: a};};
    var monitorViewButton = F2(function (address,monitor) {
       var isHighlighted = monitor.isSelected ? "selected" : "";
-      var visibility = !_U.eq(monitor.isVisible,true) ? "hidden" : "";
+      var isOn = monitor.isOn ? "" : "_off";
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("div-1-5 monitor-view-container ")]),
       _U.list([A2($Html.div,
@@ -10937,7 +10954,17 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html$Events.onDoubleClick,address,SelectMonitorToConfigure(monitor))
               ,A2($Html$Events.onMouseDown,address,MonitorPressedDown(monitor.number))
               ,A2($Html$Events.onMouseUp,address,MonitorPressReleased(monitor.number))]),
-      _U.list([A2($Html.p,_U.list([$Html$Attributes.$class("monitor-button-label")]),_U.list([$Html.text(monitor.number)]))]))]));
+      _U.list([A2($Html.div,
+      _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5 button")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-1-5 align-center")]),
+              _U.list([A2($Html.label,_U.list([$Html$Attributes.$class("monitor-button-label")]),_U.list([$Html.text(monitor.number)]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-4-5 content-centered")]),
+              _U.list([A2($Html.img,
+              _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5")
+                      ,$Html$Attributes.src(A2($Basics._op["++"],"images/monitor_icon",A2($Basics._op["++"],isOn,".svg")))]),
+              _U.list([]))]))]))]))]));
    });
    var monitorViewButtons = F2(function (address,monitors) {    return A2($List.map,monitorViewButton(address),monitors);});
    var monitorPanelView = F2(function (address,monitors) {
@@ -11110,10 +11137,13 @@ Elm.GreenGui.Main.make = function (_elm) {
            var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
            return _U.update(appState,
            {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
-         default: var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+         case "AtlonaSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
            var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
            return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});}
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
+         case "CloseSetupPress": return _U.update(appState,{viewState: 1});
+         default: var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});}
    });
    var defaulPresetSettingScreenState = {presets: _U.list([defaultPreset(1)
                                                           ,defaultPreset(2)
@@ -11381,6 +11411,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,ExtronSetupPress: ExtronSetupPress
                                       ,NtiSetupPress: NtiSetupPress
                                       ,AtlonaSetupPress: AtlonaSetupPress
+                                      ,BackToMenuPress: BackToMenuPress
+                                      ,CloseSetupPress: CloseSetupPress
                                       ,update: update
                                       ,setMonitorAsSelected: setMonitorAsSelected
                                       ,toggleMonitorAsSelected: toggleMonitorAsSelected
@@ -11436,6 +11468,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,matrixSetupTopBarView: matrixSetupTopBarView
                                       ,matrixSetupBodyView: matrixSetupBodyView
                                       ,signalMatrixInputSetup: signalMatrixInputSetup
+                                      ,closeIcon: closeIcon
+                                      ,backIcon: backIcon
                                       ,isEsc: isEsc
                                       ,pressedMonitor: pressedMonitor
                                       ,pressReleasedMonitor: pressReleasedMonitor

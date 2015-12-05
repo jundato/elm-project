@@ -269,6 +269,8 @@ type Action
   | ExtronSetupPress
   | NtiSetupPress
   | AtlonaSetupPress
+  | BackToMenuPress
+  | CloseSetupPress
 
 -- logic when an update signal is emitted
 update : Action -> AppState -> AppState
@@ -404,6 +406,11 @@ update action appState =
       let menuOptionsScreenState' = appState.menuOptionsScreenState
           matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
       in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1 } } }
+    CloseSetupPress -> 
+      { appState | viewState = 1 }
+    BackToMenuPress ->
+      let menuOptionsScreenState' = appState.menuOptionsScreenState
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | viewState = 1 } }
 ------ CONVERSION FUNCTIONS
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
@@ -436,7 +443,7 @@ flipMonitorPage flips maxFlips monitorsPerPage homeScreenState =
 -- sets a monitor as selected
 setSelectedMonitorsToPowerPress : List Monitor -> List Monitor
 setSelectedMonitorsToPowerPress monitors =
-  List.map (\m -> if m.isSelected then { m | isOn = not m.isSelected }
+  List.map (\m -> if m.isSelected then { m | isOn = not m.isOn }
                   else  m ) monitors
 
 -- finds and returns a monitor if not returns a default
@@ -620,8 +627,8 @@ monitorViewButtons address monitors =
 
 --- view of a monitor button
 monitorViewButton address monitor = 
-  let visibility =  if monitor.isVisible /= True then "hidden"
-                    else ""
+  let isOn =  if monitor.isOn then ""
+                    else "_off"
       isHighlighted = if monitor.isSelected then "selected"
                       else ""
   in
@@ -631,7 +638,11 @@ monitorViewButton address monitor =
           , onDoubleClick address (SelectMonitorToConfigure monitor)
           , onMouseDown address (MonitorPressedDown monitor.number)
           , onMouseUp address (MonitorPressReleased monitor.number) ]  
-          [  p [ class "monitor-button-label" ] [ text monitor.number ] ]
+          [ div [ class "div-4-5 vdiv-4-5 button" ] 
+                [ div [ class "vdiv-1-5 align-center" ] 
+                      [ label [ class "monitor-button-label" ] [ text monitor.number ] ]
+                , div [ class "vdiv-4-5 content-centered" ] 
+                      [ img [ class "div-4-5 vdiv-4-5", src ("images/monitor_icon" ++ isOn ++ ".svg") ] [ ] ] ] ]
     ]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
@@ -639,36 +650,46 @@ monitorViewPager address =
   div [ class "monitor-pager-view" ]
       [ div [ class "div-1-10 vdiv-1-1" ] [ ]
       , div [ class "div-4-5" ] 
-            [ div [ class "monitor-selectall-view div-1-1" ]  [ div [ class "monitor-selectall-container"] [ div [ class "monitor-selectall-button", onClick address SelectAllMonitors] [ div [ class "content-centered" ] [ text "SELECT ALL" ] ] ] ]
+            [ div [ class "monitor-selectall-view div-1-1" ]  
+                  [ div [ class "monitor-selectall-container content-centered"] 
+                        [ div [ class "monitor-selectall-button button", onClick address SelectAllMonitors] 
+                              [ div [ class "content-centered" ] [ text "SELECT ALL" ] 
+                              ] 
+                        ] 
+                  ]
             ]
       , div [ class "div-1-10 vdiv-1-1" ] [ ]
       ]
 
 --- view of the home panel, the home panel is located on the center of the screen
 homePanelView address homeScreenState = 
-  let powerButtonState = if homeScreenState.isPowerDisabled then "disabled" else ""
+  let powerButtonState = if homeScreenState.isPowerDisabled then "_disabled" else ""
   in div  [ class "home-panel-view" ] 
           [ div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
-                [ div [ class ("home-panel-button circle button content-centered power " ++ powerButtonState), onClick address PowerPress ] 
-                      [ text "POWER" ] ] 
-          , div [ class "home-panel-division div-1-4" ] [ div [ class "home-panel-brightness-panel" ]  [ div [ ] [ img [  class "home-panel-count-button", src "images/increment_button.svg" ] [] ]
-                                                          , div [ class "home-panel-count-label content-centered" ] [ text "BRIGHTNESS" ] 
-                                                          , div [ ] [ img [ class "home-panel-count-button", src "images/decrement_button.svg" ] [] ] ] ]
+                [ div [ class ("home-panel-button button content-centered power " ++ powerButtonState), onClick address PowerPress ] 
+                      [ img  [src ("images/power_icon" ++ powerButtonState ++ ".svg") ] [ ] ] ] 
+          , div [ class "home-panel-division div-1-4 content-centered" ] [ div [ class "div-4-5" ]
+                                                              [ div [ class "div-2-5" ] [ img [ class "icon", src "images/decrement_icon.svg" ] [] ]
+                                                              , div [ class "div-1-5" ] [ div [ class "brightness-icon-container" ] 
+                                                                                              [ img [ class "icon", src "images/brightness_icon.svg" ] [] ]
+                                                                                              ]
+                                                              , div [ class "div-2-5" ] [ img [ class "icon", src "images/increment_icon.svg" ] [] ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
-                [ div [ class "home-panel-button circle button content-centered night-mode" ] [ text "NIGHT MODE" ]]
+                [ div [ class "home-panel-button button content-centered night-mode" ] 
+                      [ img [ src "images/night-mode_icon.svg" ] [ ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
-                [ div [ class "home-panel-button circle button content-centered presets", onClick address PresetPress ] [ text "PRESET" ]] ]
+                [ div [ class "home-panel-button button content-centered presets", onClick address PresetPress ] 
+                      [ img [src "images/preset_icon.svg" ] [ ] ] ] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
 homeMenuView address = 
   div [ class "sub-panel-view" ] 
       [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] 
-            [ div [ class "content-centered" ] [ text "LOCK" ] ]
+            [ div [ class "content-centered" ] [ img [class "icon", src "images/lock_icon.svg" ] [ ] ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered", onClick address MenuOptionPress ] 
-            [ div [ class "content-centered" ] [ text "MENU" ] ]
+            [ div [ class "content-centered" ] [ img [class "icon", src "images/menu_icon.svg" ] [ ] ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] 
-            [ div [ class "content-centered" ] [ text "INFORMATION" ] ] ]
-
+            [ div [ class "content-centered" ] [ img [ class "icon", src "images/information_icon.svg" ] [ ]  ] ] ]
 
 ---- Monitor Setting View
 -- monitor view
@@ -679,8 +700,8 @@ monitorSettingScreenView address monitorSettingScreenState =
 
 -- top bar for monitor setting view
 monitorSettingTopBarView address monitorSettingScreenState = 
-  div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
-                              , div [ class "float-right button", onClick address CloseMonitorConfiguration ] [ text "CLOSE" ] ]
+  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
+                              , div [ class "float-right menu-button", onClick address CloseMonitorConfiguration ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView address monitorSettingScreenState = 
@@ -713,13 +734,16 @@ monitorSettingLowerBodyView address monitorSettingScreenState =
           [ div [ class "div-2-3" ]  
                 [ div [ class "div-1-3 content-centered" ] 
                       [ div [ class ("cycle-button circle button monitor-button content-centered " ++ cycleButtonClass)
-                            , onClick address CycleButtonPress ] [ text "CYCLE" ] ]
+                            , onClick address CycleButtonPress ] 
+                            [ text "CYCLE" ] ]
                 , div [ class "div-1-3 content-centered" ] 
                       [ div [ class ("pip-button circle button monitor-button content-centered " ++ pipButtonClass)
-                            , onClick address PipButtonPress ] [ text "PIP" ] ] 
+                            , onClick address PipButtonPress ] 
+                            [ text "PIP" ] ] 
                 , div [ class "div-1-3 content-centered" ] 
                       [ div [ class ("osd-button circle button monitor-button content-centered " ++ osdButtonClass)
-                            , onClick address OsdButtonPress ] [ text "OSD" ] ] ]
+                            , onClick address OsdButtonPress ] 
+                            [ text "OSD" ] ] ]
           , pipButtonSetView address monitorSettingScreenState
           , osdButtonSetView address monitorSettingScreenState  ]
 
@@ -814,8 +838,8 @@ presetSettingScreenView address presetSettingScreenState =
 
 -- top bar for monitor setting view
 presetSettingTopBarView address presetSettingScreenState = 
-  div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text "PRESETS" ]
-                              , div [ class "float-right button", onClick address ClosePresetSettings ] [ text "CLOSE" ] ]
+  div [ class "app-top-bar" ] [ div [ class "float-left  vdiv-1-1 content-centered" ] [ text "PRESETS" ]
+                              , div [ class "float-right menu-button", onClick address ClosePresetSettings ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 presetSettingBodyView address presets = 
@@ -846,8 +870,8 @@ menuOptionsView address screenState =
 
 -- top bar for menu option view
 menuOptionsTopBarView address screenState = 
-  div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text "MENU" ]
-                              , div [ class "float-right button" ] [ text "CLOSE" ] ]
+  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
+                              , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
 
 
 -- main body for monitor setting view
@@ -867,8 +891,9 @@ menuOptionsBodyView address screenState =
                                       , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ] 
 
 matrixSetupTopBarView address screenState = 
-  div [ class "app-top-bar" ] [ div [ class "float-left" ] [ text "MENU" ]
-                              , div [ class "float-right button" ] [ text "CLOSE" ] ]
+  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
+                              , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ]
+                              , div [ class "float-right menu-button", onClick address BackToMenuPress ] [ backIcon ] ]
 
 matrixSetupBodyView address screenState =
   let signalTypes = List.map (\t -> case t of
@@ -896,6 +921,13 @@ signalMatrixInputSetup signalTypes signalMatrixInput =
                         , class "signal-matrix-input"
                         , value signalMatrixInput.name ] [ ] ]
           , div [ class "div-3-10 signal-matrix-side" ] [ select [ ] (List.map (\t -> option [ value t ] [ text t ] ) signalTypes) ] ] 
+
+-- reuseable views
+closeIcon : Html
+closeIcon = img [ class "icon", src "images/close_icon.svg" ][ ]
+
+backIcon : Html
+backIcon = img [ class "icon", src "images/back_icon.svg" ][ ]
 
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()

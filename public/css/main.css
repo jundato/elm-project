@@ -1,4 +1,4 @@
-/* variable colors */
+/*variable colors */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -36,6 +36,10 @@ canvas {
 }
 .hidden {
   display: none;
+}
+.div-1-1 {
+  width: 100%;
+  float: left;
 }
 .div-1-2 {
   width: 50%;
@@ -112,14 +116,22 @@ canvas {
 }
 .button {
   cursor: pointer;
-  background-color: #5577aa;
   border-radius: 8px;
+  background: -webkit-linear-gradient(-90deg, #d3d6dd, #8c8e92);
+  background: -ms-linear-gradient(-90deg, #d3d6dd, #8c8e92);
+  background: -moz-linear-gradient(-90deg, #d3d6dd, #8c8e92);
+  background: -o-linear-gradient(-90deg, #8c8e92, #d3d6dd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8c8e92', endColorstr='#d3d6dd', GradientType=0);
 }
 .button.disabled {
   background-color: #666;
 }
 .button:hover {
-  background-color: #CED;
+  background: -webkit-linear-gradient(-90deg, #8c8e92, #6a6c7a);
+  background: -ms-linear-gradient(-90deg, #8c8e92, #6a6c7a);
+  background: -moz-linear-gradient(-90deg, #8c8e92, #6a6c7a);
+  background: -o-linear-gradient(-90deg, #6a6c7a, #8c8e92);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6a6c7a', endColorstr='#8c8e92', GradientType=0);
 }
 .circle.button {
   border-radius: 50%;
@@ -145,17 +157,25 @@ canvas {
 #elm > div {
   padding: 0px;
   margin: 0px;
-  background-color: #9fa0a2;
+  background: -webkit-linear-gradient(-90deg, #103978, #001d49);
+  background: -ms-linear-gradient(-90deg, #103978, #001d49);
+  background: -moz-linear-gradient(-90deg, #103978, #001d49);
+  background: -o-linear-gradient(-90deg, #001d49, #103978);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001d49', endColorstr='#103978', GradientType=0);
 }
 .app-top-bar {
   height: 5%;
-  background-color: #2480b0;
+  background-color: #001d49;
   padding: 2px;
   color: #ffffff;
 }
 .app-body {
+  background: -webkit-linear-gradient(-90deg, #103978, #001d49);
+  background: -ms-linear-gradient(-90deg, #103978, #001d49);
+  background: -moz-linear-gradient(-90deg, #103978, #001d49);
+  background: -o-linear-gradient(-90deg, #001d49, #103978);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001d49', endColorstr='#103978', GradientType=0);
   height: 95%;
-  background-color: #9fa0a2;
   padding: 2px;
   color: #ffffff;
 }
@@ -174,9 +194,15 @@ canvas {
 .monitor-view-container {
   box-sizing: border-box;
   height: 100%;
-  outline: 2px solid #000;
   display: inline-block;
   float: none;
+}
+.monitor-view-content {
+  background: -webkit-linear-gradient(-90deg, #d3d6dd, #8c8e92);
+  background: -ms-linear-gradient(-90deg, #d3d6dd, #8c8e92);
+  background: -moz-linear-gradient(-90deg, #d3d6dd, #8c8e92);
+  background: -o-linear-gradient(-90deg, #8c8e92, #d3d6dd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8c8e92', endColorstr='#d3d6dd', GradientType=0);
 }
 .monitor-pager-view {
   height: 20%;
@@ -188,7 +214,6 @@ canvas {
   white-space: nowrap;
 }
 .monitor-view {
-  background-color: #2480b0;
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -209,23 +234,25 @@ canvas {
   height: 100%;
   float: right;
 }
-.power.circle.button {
-  background-color: #eb4843;
+.power.button {
   color: #fff;
 }
-.power.circle.button.pressed {
+.power.button.pressed {
   background-color: #D33;
 }
-.power.circle.button.disabled {
+.power.button.disabled {
   background-color: #888;
 }
-.night-mode.circle.button {
+.night-mode.button {
   background-color: #333;
   color: #fbbb40;
 }
-.presets.circle.button {
+.presets.button {
   background-color: #2480b0;
   color: #fff;
+}
+.button > img {
+  width: 50%;
 }
 .monitor-button-label {
   text-align: center;
@@ -262,10 +289,6 @@ canvas {
 }
 .monitor-selectall-button {
   width: 130px;
-  position: relative;
-  left: 43.5%;
-  background-color: #FFF;
-  border: 1px solid #2480b0;
   border-radius: 12px;
   padding: 4px;
   display: table;
@@ -273,7 +296,10 @@ canvas {
 }
 .monitor-selectall-button > div {
   height: 100%;
-  color: #2480b0;
+}
+.brightness-icon-container {
+  width: 200%;
+  margin-left: -50%;
 }
 .home-panel-division {
   text-align: center;
@@ -296,12 +322,12 @@ canvas {
 }
 .home-menu-item {
   text-align: center;
-  background-color: #2480b0;
+  background-color: #001d49;
   color: #ffffff;
 }
 .home-menu-item:hover {
   text-align: center;
-  background-color: #34b3c7;
+  background-color: #103978;
 }
 .home-panel-brightness-panel {
   width: 100%;
@@ -378,6 +404,10 @@ canvas {
 .monitor-setting-lower-body {
   height: 50%;
 }
+.icon {
+  width: 100%;
+  height: 100%;
+}
 /* --- */
 /* preset setting */
 /* --- */
@@ -403,4 +433,7 @@ canvas {
 .button.menu {
   border: 1px solid #000;
   border-radius: 8px;
+}
+.menu-button {
+  width: 30px;
 }

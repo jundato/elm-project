@@ -1,4 +1,21 @@
-/* variable colors */
+.tb-gradient(@start, @stop) {
+
+  background: -webkit-linear-gradient(-90deg,
+                               @start,
+                               @stop);
+  background: -ms-linear-gradient(-90deg,
+                                  @start,
+                                  @stop);
+  background: -moz-linear-gradient(-90deg,
+                                   @start,
+                                   @stop);
+  background: -o-linear-gradient( -90deg,
+                                  @stop,
+                                  @start);
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
+}
+
+/*variable colors */
 
 @primary-color: #2480b0;
 @primary-text-color: #fff;
@@ -6,7 +23,12 @@
 @secondary-text-color: #000;
 
 @panel-color: #2480b0;
-@background-color: #9fa0a2;
+@background-color-a: #103978;
+@background-color-b: #001d49;
+
+@button-background-color-a: #d3d6dd;
+@button-background-color-b: #8c8e92;
+@button-background-color-c: #6a6c7a;
 
 * { 
     -moz-box-sizing: border-box; 
@@ -31,8 +53,8 @@ canvas {
   background-color: #f1fdfd;
 }
 
-
 /*helpers*/
+
 .align-left{
   text-align: left;
 }
@@ -55,6 +77,11 @@ canvas {
 
 .hidden{
   display: none;
+}
+
+.div-1-1{
+  width: 100%;
+  float: left;
 }
 
 .div-1-2 {
@@ -149,16 +176,18 @@ canvas {
 .vdiv-2-3 {
   height: 66.67%;
 }
+
+
 .button{
   cursor: pointer;
-  background-color: #5577aa;
   border-radius: 8px;
+  .tb-gradient(@button-background-color-a, @button-background-color-b);
 }
 .button.disabled{
   background-color: #666;
 }
 .button:hover{
-  background-color: #CED;
+  .tb-gradient(@button-background-color-b, @button-background-color-c);
 }
 
 .circle.button{
@@ -190,19 +219,19 @@ canvas {
 #elm > div {
   padding: 0px;
   margin: 0px;
-  background-color: @background-color;
+  .tb-gradient(@background-color-a, @background-color-b);
 }
 
 .app-top-bar{
   height: 5%;
-  background-color: @panel-color;
+  background-color: @background-color-b;
   padding: 2px;
   color: @primary-text-color
 }
 
 .app-body{
+  .tb-gradient(@background-color-a, @background-color-b);
   height: 95%;
-  background-color: @background-color;
   padding: 2px;
   color: @primary-text-color
 }
@@ -225,9 +254,12 @@ canvas {
 .monitor-view-container {
   box-sizing: border-box;
   height: 100%;
-  outline: 2px solid #000;
   display: inline-block;
   float: none;
+}
+
+.monitor-view-content{
+  .tb-gradient(@button-background-color-a, @button-background-color-b);
 }
 
 .monitor-pager-view {
@@ -242,7 +274,6 @@ canvas {
 }
 
 .monitor-view {
-  background-color: @primary-color;
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -266,27 +297,31 @@ canvas {
   float: right;
 }
 
-.power.circle.button{
-  background-color: #eb4843;
+.power.button{
+  
   color: #fff;
 }
 
-.power.circle.button.pressed{
+.power.button.pressed{
   background-color: #D33;
 }
 
-.power.circle.button.disabled{
+.power.button.disabled{
   background-color: #888; 
 }
 
-.night-mode.circle.button{
+.night-mode.button{
   background-color: #333;
   color: #fbbb40;
 }
 
-.presets.circle.button{
+.presets.button{
   background-color: @primary-color;
   color: #fff;
+}
+
+.button > img{
+  width: 50%;
 }
 
 .monitor-button-label {
@@ -330,10 +365,6 @@ canvas {
 
 .monitor-selectall-button{
   width: 130px;
-  position: relative;
-  left: 43.5%;
-  background-color: #FFF;
-  border: 1px solid @primary-color;
   border-radius: 12px;
   padding: 4px;
   display: table;
@@ -342,9 +373,12 @@ canvas {
 
 .monitor-selectall-button > div{
   height: 100%;
-  color: #2480b0;
 }
 
+.brightness-icon-container{
+  width: 200%;
+  margin-left: -50%;
+}
 
 .home-panel-division{
   text-align:center;
@@ -371,13 +405,13 @@ canvas {
 
 .home-menu-item{
   text-align: center;
-  background-color: @primary-color;
+  background-color: @background-color-b;
   color: @primary-text-color;
 }
 
 .home-menu-item:hover{
   text-align: center;
-  background-color: @secondary-color;
+  background-color: @background-color-a;
 }
 
 .home-panel-brightness-panel{
@@ -474,6 +508,11 @@ canvas {
 .monitor-button {
 }
 
+.icon{
+  width: 100%;
+  height: 100%;
+}
+
 /* --- */
 /* preset setting */
 /* --- */
@@ -503,4 +542,8 @@ canvas {
 .button.menu{
   border: 1px solid #000;
   border-radius: 8px;
+}
+
+.menu-button {
+  width: 30px;
 }
