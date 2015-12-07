@@ -1,6 +1,12 @@
 # green-gui
 Green Marine GUI Private Repository 
 
+functions developed
+------------
+- setting of monitors
+- setting of presets
+- setting of signal input matices
+
 required
 ------------
 elm-core version #0.15.1
