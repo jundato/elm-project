@@ -30,13 +30,21 @@ type alias HomeScreenState =  { monitors : List Monitor
                               }
 
 -- when a monitor is selected this screen state handles it
-type alias MonitorSettingScreenState =  { selectedMonitor : Monitor
+type alias MonitorSettingScreenState =  { selectedMonitor : Monitor  
+                                        , isVgaOneSelectOpen : Bool 
+                                        , isVgaTwoSelectOpen : Bool
+                                        , isDviOneSelectOpen : Bool
+                                        , isDviTwoSelectOpen : Bool
+                                        , isVideoOneSelectOpen : Bool
+                                        , isVideoTwoSelectOpen : Bool
+                                        , isVideoThreeSelectOpen : Bool 
                                         , isCyclePressed : Bool
                                         , isPipSetPressed : Bool
                                         , isOsdSetPressed : Bool
                                         , isCycleDisabled : Bool
                                         , isPipDisabled : Bool
-                                        , isOsdDisabled : Bool }
+                                        , isOsdDisabled : Bool
+                                        , signalMatrixInputs : List SignalMatrixInput }
 
 -- stores presets for monitors etc
 type alias PresetSettingScreenState = { presets : List Preset }
@@ -49,7 +57,8 @@ type alias MenuOptionsScreenState = { viewState : Int
 type alias MatrixSetupScreenState = { viewState : Int
                                     , extronSignalMatrixInputs : List SignalMatrixInput
                                     , ntiSignalMatrixInputs : List SignalMatrixInput
-                                    , atlonaSignalMatrixInputs : List SignalMatrixInput  }
+                                    , atlonaSignalMatrixInputs : List SignalMatrixInput
+                                    }
 -- model for monitor
 type alias Monitor =  { number : String
                       , isSelected : Bool
@@ -63,6 +72,7 @@ type alias Monitor =  { number : String
                       , videoThree : String
                       , isVgaOneCycle : Bool
                       , isVgaTwoCycle : Bool
+                      , isDviOneCycle : Bool
                       , isDviOneCycle : Bool
                       , isDviTwoCycle : Bool
                       , isVideoOneCycle : Bool
@@ -122,12 +132,20 @@ defaultHomeScreenState =  { monitorPageIndex = 0
 -- model for monitor settings screen 
 defaultMonitorSettingScreenState : MonitorSettingScreenState
 defaultMonitorSettingScreenState  = { selectedMonitor = defaultMonitor "1" True
+                                    , isVgaOneSelectOpen = False
+                                    , isVgaTwoSelectOpen = False
+                                    , isDviOneSelectOpen = False
+                                    , isDviTwoSelectOpen = False
+                                    , isVideoOneSelectOpen = False
+                                    , isVideoTwoSelectOpen = False
+                                    , isVideoThreeSelectOpen = False
                                     , isCyclePressed = False
                                     , isPipSetPressed = False
                                     , isOsdSetPressed = False
                                     , isCycleDisabled = False
                                     , isPipDisabled = False
-                                    , isOsdDisabled = False }
+                                    , isOsdDisabled = False
+                                    , signalMatrixInputs = [ ] }
 
 -- model for preset setttings screen
 defaulPresetSettingScreenState : PresetSettingScreenState
@@ -185,7 +203,7 @@ defaultMonitor number' isVisible' =  { number = number'
 -- model for presets
 defaultPreset : Int -> Preset
 defaultPreset id' = { id = id'
-                    , name = "PRE-SET"
+                    , name = "<empty>"
                     , tempName = ""
                     , monitors = []
                     , isSelected = False
@@ -249,6 +267,7 @@ type Action
   | PipButtonPress
   | OsdButtonPress
   | ActivateCycleSignalMatrixPress String
+  | SignalInputOpenSelections String
   | PipUpDownButtonPress
   | PipLeftRightButtonPress
   | PipResizeButtonPress
@@ -257,12 +276,14 @@ type Action
   | OsdSelectButtonPress
 -- * types : VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
   | SignalInputChange String String
+  | SignalInputSelect String String
 -- preset setting actions
   | ClosePresetSettings
   | PresetSelected Preset
   | PresetEdit Preset
-  | PresetCommitThenSelect Preset
+  | PresetCommit Preset
   | PresetNameInput Preset String
+  | PresetNameEditDone Preset
   | PresetEditCancel Preset
 -- menu setting actions
   | MatrixSetupPress
@@ -289,13 +310,18 @@ update action appState =
       in { appState | homeScreenState = { homeScreenState' | monitors = setAllMonitorAsSelected homeScreenState'.monitors
                                                             , isPowerDisabled = False } }
     SelectMonitorToConfigure monitor' ->
-      let monitorSettingScreenState' = appState.monitorSettingScreenState
-          homeScreenState' = appState.homeScreenState
+      let homeScreenState' = appState.homeScreenState
+          monitorSettingScreenState' = appState.monitorSettingScreenState
+          matrixSetupScreenState' = appState.menuOptionsScreenState.matrixSetupScreenState
+          signalMatrixInputs' = matrixSetupScreenState'.extronSignalMatrixInputs ++
+                                matrixSetupScreenState'.ntiSignalMatrixInputs ++
+                                matrixSetupScreenState'.atlonaSignalMatrixInputs
       in { appState | viewState = 2
                     , homeScreenState = { homeScreenState' | monitors = setMonitorAsSelected monitor' homeScreenState'.monitors }
-                    , monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = monitor'
+                    , monitorSettingScreenState = { monitorSettingScreenState'  | selectedMonitor = monitor'
                                                                                 , isPipSetPressed = False
-                                                                                , isOsdSetPressed = False } }
+                                                                                , isOsdSetPressed = False
+                                                                                , signalMatrixInputs = signalMatrixInputs' } }
     MonitorPressedDown number -> appState
     MonitorPressReleased number -> appState
     LongPressedMonitor number -> 
@@ -336,6 +362,17 @@ update action appState =
       let monitorSettingScreenState' = appState.monitorSettingScreenState
           monitor' = monitorSettingScreenState'.selectedMonitor
       in { appState | monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = setSignalInputChange signalType value monitor' } }
+    SignalInputSelect signalType value ->
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+          monitor' = monitorSettingScreenState'.selectedMonitor
+      in { appState | monitorSettingScreenState = { monitorSettingScreenState'  | selectedMonitor = setSignalInputChange signalType value monitor'
+                                                                                , isVgaOneSelectOpen = False
+                                                                                , isVgaTwoSelectOpen = False
+                                                                                , isDviOneSelectOpen = False
+                                                                                , isDviTwoSelectOpen = False
+                                                                                , isVideoOneSelectOpen = False
+                                                                                , isVideoTwoSelectOpen = False
+                                                                                , isVideoThreeSelectOpen = False } }
     CycleButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in  if not monitorSettingScreenState'.isCycleDisabled then { appState | monitorSettingScreenState = setCycleButtonPress monitorSettingScreenState' }
@@ -351,6 +388,10 @@ update action appState =
     ActivateCycleSignalMatrixPress signalType ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in  if monitorSettingScreenState'.isCyclePressed then { appState | monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor = activateCycleSignalMatrix signalType monitorSettingScreenState'.selectedMonitor } }
+          else appState
+    SignalInputOpenSelections signalType -> 
+      let monitorSettingScreenState' =  appState.monitorSettingScreenState
+      in  if not monitorSettingScreenState'.isCyclePressed then { appState | monitorSettingScreenState = setSelectionInputToOpen monitorSettingScreenState' signalType }
           else appState
     PipUpDownButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
@@ -379,13 +420,16 @@ update action appState =
     PresetEdit preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
       in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetToEdit preset presetSettingScreenState'.presets } }
-    PresetCommitThenSelect preset ->
+    PresetCommit preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
           monitors = appState.homeScreenState.monitors
-      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetCommitThenSelect preset monitors presetSettingScreenState'.presets } }
+      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetCommit preset presetSettingScreenState'.presets monitors } }
     PresetNameInput preset value ->
       let presetSettingScreenState' = appState.presetSettingScreenState
       in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetName preset value presetSettingScreenState'.presets } }
+    PresetNameEditDone preset ->
+      let presetSettingScreenState' = appState.presetSettingScreenState
+      in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = setPresetNameCommit preset presetSettingScreenState'.presets } }
     PresetEditCancel preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
       in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = cancelPresetEdit preset presetSettingScreenState'.presets}}
@@ -434,8 +478,7 @@ setAllMonitorAsSelected  monitors =
 flipMonitorPage : Int -> Int -> Int -> HomeScreenState -> HomeScreenState
 flipMonitorPage flips maxFlips monitorsPerPage homeScreenState =
   let monitors' = homeScreenState.monitors
-      newPageIndex = clamp 0 (maxFlips - 1) (homeScreenState.monitorPageIndex + flips)
-      
+      newPageIndex = clamp 0 (maxFlips - 1) (homeScreenState.monitorPageIndex + flips) 
   in 
     { homeScreenState | monitorPageIndex = newPageIndex 
                       , monitors = (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
@@ -445,6 +488,63 @@ setSelectedMonitorsToPowerPress : List Monitor -> List Monitor
 setSelectedMonitorsToPowerPress monitors =
   List.map (\m -> if m.isSelected then { m | isOn = not m.isOn }
                   else  m ) monitors
+
+-- opens selection input for signal
+setSelectionInputToOpen : MonitorSettingScreenState -> String -> MonitorSettingScreenState
+setSelectionInputToOpen monitorSettingScreenState signalType = 
+  let monitorSettingScreenState' = monitorSettingScreenState
+      m = case signalType of 
+            "VGA 1" -> { monitorSettingScreenState  | isVgaOneSelectOpen = not monitorSettingScreenState'.isVgaOneSelectOpen
+                                                    , isVgaTwoSelectOpen = False
+                                                    , isDviOneSelectOpen = False
+                                                    , isDviTwoSelectOpen = False
+                                                    , isVideoOneSelectOpen = False
+                                                    , isVideoTwoSelectOpen = False
+                                                    , isVideoThreeSelectOpen = False } 
+            "VGA 2" -> { monitorSettingScreenState  | isVgaOneSelectOpen = False
+                                                    , isVgaTwoSelectOpen = not monitorSettingScreenState'.isVgaTwoSelectOpen
+                                                    , isDviOneSelectOpen = False
+                                                    , isDviTwoSelectOpen = False
+                                                    , isVideoOneSelectOpen = False
+                                                    , isVideoTwoSelectOpen = False
+                                                    , isVideoThreeSelectOpen = False }  
+            "DVI 1" -> { monitorSettingScreenState  | isVgaOneSelectOpen = False
+                                                    , isVgaTwoSelectOpen = False                                                
+                                                    , isDviOneSelectOpen = not monitorSettingScreenState'.isDviOneSelectOpen
+                                                    , isDviTwoSelectOpen = False
+                                                    , isVideoOneSelectOpen = False
+                                                    , isVideoTwoSelectOpen = False
+                                                    , isVideoThreeSelectOpen = False }  
+            "DVI 2" -> { monitorSettingScreenState  | isVgaOneSelectOpen = False
+                                                    , isVgaTwoSelectOpen = False
+                                                    , isDviOneSelectOpen = False
+                                                    , isDviTwoSelectOpen = not monitorSettingScreenState'.isDviTwoSelectOpen
+                                                    , isVideoOneSelectOpen = False
+                                                    , isVideoTwoSelectOpen = False
+                                                    , isVideoThreeSelectOpen = False } 
+            "VIDEO 1" -> { monitorSettingScreenState  | isVgaOneSelectOpen = False
+                                                      , isVgaTwoSelectOpen = False
+                                                      , isDviOneSelectOpen = False
+                                                      , isDviTwoSelectOpen = False
+                                                      , isVideoOneSelectOpen = not monitorSettingScreenState'.isVideoOneSelectOpen
+                                                      , isVideoTwoSelectOpen = False
+                                                      , isVideoThreeSelectOpen = False } 
+            "VIDEO 2" -> { monitorSettingScreenState  | isVgaOneSelectOpen = False
+                                                      , isVgaTwoSelectOpen = False
+                                                      , isDviOneSelectOpen = False
+                                                      , isDviTwoSelectOpen = False
+                                                      , isVideoOneSelectOpen = False
+                                                      , isVideoTwoSelectOpen = not monitorSettingScreenState'.isVideoTwoSelectOpen
+                                                      , isVideoThreeSelectOpen = False } 
+            "VIDEO 3" -> { monitorSettingScreenState  | isVgaOneSelectOpen = False
+                                                      , isVgaTwoSelectOpen = False
+                                                      , isDviOneSelectOpen = False
+                                                      , isDviTwoSelectOpen = False
+                                                      , isVideoOneSelectOpen = False
+                                                      , isVideoTwoSelectOpen = False
+                                                      , isVideoThreeSelectOpen = not monitorSettingScreenState'.isVideoThreeSelectOpen } 
+            _ -> monitorSettingScreenState
+  in m
 
 -- finds and returns a monitor if not returns a default
 findMonitor : String -> List Monitor -> Monitor
@@ -555,11 +655,9 @@ setPresetToEdit preset presets =
                   else { p  | isEditingName = False
                             , tempName = "" } ) presets
 
-setPresetCommitThenSelect : Preset -> List Monitor -> List Preset -> List Preset
-setPresetCommitThenSelect preset monitors presets =
-  List.map (\p -> if  p.id == preset.id then { p  | name = p.tempName
-                                                  , isEditingName = False
-                                                  , monitors = monitors } 
+setPresetCommit : Preset -> List Preset -> List Monitor -> List Preset
+setPresetCommit preset presets monitors' =
+  List.map (\p -> if  p.id == preset.id then { p  | monitors = monitors' } 
                   else p ) presets
 
 cancelPresetEdit : Preset -> List Preset -> List Preset
@@ -571,6 +669,12 @@ cancelPresetEdit preset presets =
 setPresetName : Preset -> String -> List Preset -> List Preset
 setPresetName preset value presets =
   List.map (\p -> if  p.id == preset.id then { p | tempName = value } 
+                  else p ) presets
+
+setPresetNameCommit : Preset -> List Preset -> List Preset
+setPresetNameCommit preset presets =
+  List.map (\p -> if  p.id == preset.id then { p  | name = p.tempName
+                                                  , isEditingName = False } 
                   else p ) presets
 --- entry point
 main : Signal Html
@@ -711,66 +815,96 @@ monitorSettingBodyView address monitorSettingScreenState =
 -- monitor setting upper body view
 monitorSettingUpperBodyView address monitorSettingScreenState =
   let monitor = monitorSettingScreenState.selectedMonitor
-  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ]  [ signalMatrixView address "VGA 1" monitor.vgaOne monitorSettingScreenState.isCyclePressed monitor
-                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo monitorSettingScreenState.isCyclePressed monitor ]
-                                                , div [ class "div-1-3" ]   [ signalMatrixView address "DVI 1" monitor.dviOne monitorSettingScreenState.isCyclePressed monitor
-                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo monitorSettingScreenState.isCyclePressed monitor ]
-                                                , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne monitorSettingScreenState.isCyclePressed monitor
-                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo monitorSettingScreenState.isCyclePressed monitor
-                                                                            , signalMatrixView address "VIDEO 3" monitor.videoThree monitorSettingScreenState.isCyclePressed monitor]]
+  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ]  [ signalMatrixView address "VGA 1" monitor.vgaOne monitorSettingScreenState monitor
+                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo monitorSettingScreenState monitor ]
+                                                , div [ class "div-1-3" ]   [ signalMatrixView address "DVI 1" monitor.dviOne monitorSettingScreenState monitor
+                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo monitorSettingScreenState monitor ]
+                                                , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne monitorSettingScreenState monitor
+                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo monitorSettingScreenState monitor
+                                                                            , signalMatrixView address "VIDEO 3" monitor.videoThree monitorSettingScreenState monitor]]
 
 -- monitor lower body view
 monitorSettingLowerBodyView address monitorSettingScreenState = 
-  let cycleButtonClass =  if monitorSettingScreenState.isCycleDisabled then "disabled"
-                          else if monitorSettingScreenState.isCyclePressed then "pressed"
+  let cycleState =  if monitorSettingScreenState.isCycleDisabled then "_disabled"
+                          else if monitorSettingScreenState.isCyclePressed then "_active"
                           else ""
-      pipButtonClass =  if monitorSettingScreenState.isPipDisabled then "disabled"
-                        else if monitorSettingScreenState.isPipSetPressed then "pressed"
+      pipState =  if monitorSettingScreenState.isPipDisabled then "_disabled"
+                        else if monitorSettingScreenState.isPipSetPressed then "_active"
                         else ""
-      osdButtonClass =  if monitorSettingScreenState.isOsdDisabled then "disabled"
-                        else if monitorSettingScreenState.isOsdSetPressed then "pressed" 
+      osdState =  if monitorSettingScreenState.isOsdDisabled then "_disabled"
+                        else if monitorSettingScreenState.isOsdSetPressed then "_active" 
                         else ""
   in div  [ class "monitor-setting-lower-body" ]  
           [ div [ class "div-2-3" ]  
                 [ div [ class "div-1-3 content-centered" ] 
-                      [ div [ class ("cycle-button circle button monitor-button content-centered " ++ cycleButtonClass)
+                      [ div [ class "cycle-button circle button monitor-button content-centered"
                             , onClick address CycleButtonPress ] 
-                            [ text "CYCLE" ] ]
+                            [ img [ class "icon", src ("images/cycle_icon" ++ cycleState ++ ".svg") ] [ ] ] ]
                 , div [ class "div-1-3 content-centered" ] 
-                      [ div [ class ("pip-button circle button monitor-button content-centered " ++ pipButtonClass)
+                      [ div [ class "pip-button circle button monitor-button content-centered "
                             , onClick address PipButtonPress ] 
-                            [ text "PIP" ] ] 
+                            [ img [ class "icon", src ("images/pip_icon" ++ pipState ++ ".svg") ] [ ] ] ] 
                 , div [ class "div-1-3 content-centered" ] 
-                      [ div [ class ("osd-button circle button monitor-button content-centered " ++ osdButtonClass)
+                      [ div [ class "osd-button circle button monitor-button content-centered"
                             , onClick address OsdButtonPress ] 
-                            [ text "OSD" ] ] ]
+                            [ img [ class "icon", src ("images/osd_icon" ++ osdState ++ ".svg") ] [ ] ] ] ]
           , pipButtonSetView address monitorSettingScreenState
           , osdButtonSetView address monitorSettingScreenState  ]
 
 -- signal matrix view
-signalMatrixView address signalType signalName isCyclePressed monitor = 
-  let isActivated = if isCyclePressed then case signalType of
-                                              "VGA 1" -> monitor.isVgaOneCycle 
-                                              "VGA 2" -> monitor.isVgaTwoCycle
-                                              "DVI 1" -> monitor.isDviOneCycle
-                                              "DVI 2" -> monitor.isDviTwoCycle
-                                              "VIDEO 1" -> monitor.isVideoOneCycle
-                                              "VIDEO 2" -> monitor.isVideoTwoCycle
-                                              "VIDEO 3" -> monitor.isVideoThreeCycle
-                                              _ -> False
-                    else False
+signalMatrixView address signalType signalName monitorSettingScreenState monitor = 
+  let isOfType signalType' signalMatrixInput = signalMatrixInput.type' == signalType'
+      (isActivated, filteredSignalMatrices, isSelectOpen) =  
+        case signalType of
+          "VGA 1" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isVgaOneCycle else False
+                      , List.filter (isOfType VGA) monitorSettingScreenState.signalMatrixInputs
+                      , monitorSettingScreenState.isVgaOneSelectOpen )
+          "VGA 2" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isVgaTwoCycle else False
+                      , List.filter (isOfType VGA) monitorSettingScreenState.signalMatrixInputs
+                      , monitorSettingScreenState.isVgaTwoSelectOpen )
+          "DVI 1" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isDviOneCycle else False
+                      , List.filter (isOfType DVI) monitorSettingScreenState.signalMatrixInputs
+                      , monitorSettingScreenState.isDviOneSelectOpen )
+          "DVI 2" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isDviTwoCycle else False
+                      , List.filter (isOfType DVI) monitorSettingScreenState.signalMatrixInputs
+                      , monitorSettingScreenState.isDviTwoSelectOpen )
+          "VIDEO 1" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isVideoOneCycle else False
+                        , List.filter (isOfType CVBS) monitorSettingScreenState.signalMatrixInputs
+                        , monitorSettingScreenState.isVideoOneSelectOpen )
+          "VIDEO 2" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isVideoTwoCycle else False
+                        , List.filter (isOfType CVBS) monitorSettingScreenState.signalMatrixInputs
+                        , monitorSettingScreenState.isVideoTwoSelectOpen )
+          "VIDEO 3" ->  ( if monitorSettingScreenState.isCyclePressed then monitor.isVideoThreeCycle else False
+                        , List.filter (isOfType CVBS) monitorSettingScreenState.signalMatrixInputs
+                        , monitorSettingScreenState.isVideoThreeSelectOpen )
+          _ -> ( False, [ ], False )
+      isDisabled =  if not isActivated && not monitorSettingScreenState.isCyclePressed then False
+                    else True
+
   in div  [ class "signal-matrix-view", onClick address (ActivateCycleSignalMatrixPress signalType) ]  
           [ div [ class "signal-matrix-label" ] 
                 [ text signalType ]
-          , div [ class "signal-matrix-container" ] 
-                [ div [ class "div-7-10" ] 
+          , div [ class "signal-matrix-container" ]
+                ( [ div [ class "div-7-10" ] 
                       [ input [ type' "text"
-                              , disabled isCyclePressed
+                              , disabled isDisabled
                               , class ("signal-matrix-input" ++ (if isActivated then " signal-matrix-container-activated" else ""))
                               , value signalName
                               , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ]
-                      , div [ class "div-3-10 content-centered signal-matrix-side" ] [ text "MATRIX" ] ]
+                  , div [ class "div-3-10 content-centered signal-matrix-side"
+                        , onClick address (SignalInputOpenSelections signalType) ] 
+                        [ text "MATRIX" ] ] 
+                  ++
+                  ( if isSelectOpen then [ div  [ class "div-1-3 select-options" ]
+                                              [ div [ class "select-options-container" ] 
+                                                    (List.map (signalMatrixOption address signalType ) filteredSignalMatrices) ] ]
+                    else [ ]) )
           , div [ class "clear-both" ] [ ] ] 
+
+signalMatrixOption address signalType signalMatrix = 
+  div [ class "signal-matrix-option"
+      , value signalMatrix.name
+      , onClick address (SignalInputSelect signalType signalMatrix.name) ] [ text signalMatrix.name ]
 
 -- view for pip buttons set                                            
 pipButtonSetView address monitorSettingScreenState = 
@@ -849,14 +983,18 @@ presetSettingBodyView address presets =
 presetContainerView address preset = div [ class "vdiv-1-3 div-1-2 align-center preset-button-container" ] [ presetButtonView address preset ]
 
 presetButtonView address preset = 
-  div [ class "preset-button button", onClick address (PresetSelected preset), onDoubleClick address (PresetEdit preset) ] 
-      [ if not preset.isEditingName then div [ ] [ text (toString  preset.name ) ] else div [ ] 
-                                                                                            [ input [ class "preset-button-input"
-                                                                                                    , type' "text"
-                                                                                                    , value preset.tempName
-                                                                                                    , on "input" targetValue (Signal.message address << (PresetNameInput preset))
-                                                                                                    , onEnter address (PresetCommitThenSelect preset)
-                                                                                                    , onEsc (Signal.message address (PresetEditCancel preset)) ][ ] ]]
+  let isEditingName = preset.isEditingName
+  in  div [ class "preset-button div-4-5 vdiv-1-2 button content-centered", onDoubleClick address (PresetEdit preset) ] 
+          [ div [ class ("div-4-5 vdiv-1-1 PresetNameEditDone" ++ if isEditingName then " hidden" else "") ] [ div [ class "vdiv-1-1 div-1-1 content-centered" ] [ text preset.name ] ]
+          , div [ class ("div-4-5 vdiv-1-1" ++ if not isEditingName then " hidden" else "")
+                , onEsc (Signal.message address (PresetEditCancel preset)) ] 
+                [ input [ class "preset-button-input vdiv-1-1"
+                        , type' "text"
+                        , value preset.tempName
+                        , on "input" targetValue (Signal.message address << (PresetNameInput preset))
+                        , onEnter address (PresetNameEditDone preset) ][ ] ]
+          , div [ class "div-1-10" ] [ img [ class "icon", src "images/load_icon.svg", onClick address (PresetSelected preset) ] [ ] ]
+          , div [ class "div-1-10" ] [ img [ class "icon", src "images/save_icon.svg", onClick address (PresetCommit preset) ] [ ] ] ]
 ---- Menu Options View
 -- menu option view
 menuOptionsView address screenState =
@@ -979,7 +1117,6 @@ onEnter address value =
     on "keydown"
       (Json.customDecoder keyCode is13)
       (\_ -> Signal.message address value)
-
 -- determine if key code pressed is enter
 is13 : Int -> Result String ()
 is13 code =

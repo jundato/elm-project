@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 180.4 300" style="enable-background:new 0 0 180.4 300;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#A5A5A5;}
+	.st1{fill:none;}
+	.st2{font-family:'Arial-BoldMT';}
+	.st3{font-size:116.5274px;}
+	.st4{font-size:82.2546px;}
+	.st5{fill:#FFFF0B;}
+	.st6{fill:#FCFC08;stroke:#FFFF00;stroke-width:10;stroke-miterlimit:10;}
+	.st7{fill:none;stroke:#FFFF00;stroke-width:10;stroke-miterlimit:10;}
+</style>
+<g id="Decrement">
+	<path class="st0" d="M171.1,11.3v51.8c0,0-71.3,19.2-67,87.6c3.8,60.9,67,85.3,67,85.3v50.6c0,0-26.5,17.5-45.7,0
+		S12.7,184.9,6.6,166.6s-5.7-17.1,0-34.3S112.8,23.5,132.2,10.1C156.6-1.3,171.1,11.3,171.1,11.3z"/>
+	<rect x="34.7" y="96.2" class="st1" width="79.2" height="107.4"/>
+	<text transform="matrix(1 0 0 1 34.7435 179.5962)" class="st2 st3">-</text>
+</g>
+<g id="Increment">
+	<path class="st0" d="M8.1,289.2v-51.8c0,0,71.3-19.2,67-87.6c-3.8-60.9-67-85.3-67-85.3V13.9c0,0,26.5-17.5,45.7,0
+		s112.7,101.7,118.8,120c6.1,18.3,5.7,17.1,0,34.3C166.9,185.3,66.4,277,47,290.4C22.6,301.8,8.1,289.2,8.1,289.2z"/>
+	<rect x="103.6" y="119.8" class="st1" width="79.2" height="70.5"/>
+	<text transform="matrix(1 0 0 1 103.5763 178.668)" class="st2 st4">+</text>
+</g>
+<g id="Brightness">
+	<circle class="st5" cx="89" cy="147.2" r="24.4"/>
+	<line class="st6" x1="89" y1="80.6" x2="89" y2="113.3"/>
+	<line class="st7" x1="116.4" y1="122.9" x2="137.7" y2="101.2"/>
+	<line class="st7" x1="123.3" y1="149.7" x2="152.2" y2="149.7"/>
+	<line class="st7" x1="113.4" y1="174.3" x2="133.2" y2="194.8"/>
+	<line class="st7" x1="89" y1="181.1" x2="89" y2="213.1"/>
+	<line class="st7" x1="64.6" y1="174.3" x2="41" y2="194.8"/>
+	<line class="st7" x1="52.8" y1="149.7" x2="22.7" y2="149.7"/>
+	<line class="st7" x1="62" y1="120.1" x2="41" y2="97.7"/>
+</g>
+</svg>

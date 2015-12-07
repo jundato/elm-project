@@ -1,3 +1,6 @@
+.border-a {
+  border: 2px solid #24609d;
+}
 /*variable colors */
 * {
   -moz-box-sizing: border-box;
@@ -368,6 +371,16 @@ canvas {
 .osd-button.pressed {
   background-color: #b4f5e8;
 }
+.select-options {
+  position: absolute;
+  margin-top: 20px;
+}
+.select-options-container {
+  background-color: #000;
+  margin: 0 8px;
+  padding: 4px;
+  border: 2px solid #24609d;
+}
 .signal-matrix-view {
   clear: both;
   padding: 4px;
@@ -377,20 +390,27 @@ canvas {
 }
 .signal-matrix-input {
   background-color: #000;
-  border: 2px solid #24609d;
   border-radius: 8px 0px 0px 8px;
   color: #fff;
   height: 20px;
+  border: 2px solid #24609d;
 }
 .signal-matrix-side {
   background-color: #24609d;
   height: 20px;
   border-radius: 0px 8px 8px 0px;
+  border: 2px solid #24609d;
 }
 .signal-matrix-side > select {
   width: 100%;
   background-color: #24609d;
   border: 0px solid #24609d;
+}
+.signal-matrix-option {
+  cursor: pointer;
+}
+.signal-matrix-option:hover {
+  background-color: #444;
 }
 .signal-matrix-label {
   text-align: center;
@@ -417,8 +437,7 @@ canvas {
   display: block;
 }
 .preset-button {
-  width: 80%;
-  height: 50%;
+  color: #000;
   position: absolute;
   top: 25%;
   left: 10%;

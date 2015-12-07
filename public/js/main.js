@@ -10440,18 +10440,17 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([]),
               A2($List.map,function (t) {    return A2($Html.option,_U.list([$Html$Attributes.value(t)]),_U.list([$Html.text(t)]));},signalTypes))]))]));
    });
+   var setPresetNameCommit = F2(function (preset,presets) {
+      return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{name: p.tempName,isEditingName: false}) : p;},presets);
+   });
    var setPresetName = F3(function (preset,value,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{tempName: value}) : p;},presets);
    });
    var cancelPresetEdit = F2(function (preset,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{isEditingName: false}) : p;},presets);
    });
-   var setPresetCommitThenSelect = F3(function (preset,monitors,presets) {
-      return A2($List.map,
-      function (p) {
-         return _U.eq(p.id,preset.id) ? _U.update(p,{name: p.tempName,isEditingName: false,monitors: monitors}) : p;
-      },
-      presets);
+   var setPresetCommit = F3(function (preset,presets,monitors$) {
+      return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{monitors: monitors$}) : p;},presets);
    });
    var setPresetToEdit = F2(function (preset,presets) {
       return A2($List.map,
@@ -10540,6 +10539,71 @@ Elm.GreenGui.Main.make = function (_elm) {
       var isVisible$ = _U.eq(index / monitorsPerPage | 0,newPageIndex) ? true : false;
       return _U.update(monitor,{isVisible: isVisible$});
    });
+   var setSelectionInputToOpen = F2(function (monitorSettingScreenState,signalType) {
+      var monitorSettingScreenState$ = monitorSettingScreenState;
+      var m = function () {
+         var _p3 = signalType;
+         switch (_p3)
+         {case "VGA 1": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: $Basics.not(monitorSettingScreenState$.isVgaOneSelectOpen)
+              ,isVgaTwoSelectOpen: false
+              ,isDviOneSelectOpen: false
+              ,isDviTwoSelectOpen: false
+              ,isVideoOneSelectOpen: false
+              ,isVideoTwoSelectOpen: false
+              ,isVideoThreeSelectOpen: false});
+            case "VGA 2": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: false
+              ,isVgaTwoSelectOpen: $Basics.not(monitorSettingScreenState$.isVgaTwoSelectOpen)
+              ,isDviOneSelectOpen: false
+              ,isDviTwoSelectOpen: false
+              ,isVideoOneSelectOpen: false
+              ,isVideoTwoSelectOpen: false
+              ,isVideoThreeSelectOpen: false});
+            case "DVI 1": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: false
+              ,isVgaTwoSelectOpen: false
+              ,isDviOneSelectOpen: $Basics.not(monitorSettingScreenState$.isDviOneSelectOpen)
+              ,isDviTwoSelectOpen: false
+              ,isVideoOneSelectOpen: false
+              ,isVideoTwoSelectOpen: false
+              ,isVideoThreeSelectOpen: false});
+            case "DVI 2": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: false
+              ,isVgaTwoSelectOpen: false
+              ,isDviOneSelectOpen: false
+              ,isDviTwoSelectOpen: $Basics.not(monitorSettingScreenState$.isDviTwoSelectOpen)
+              ,isVideoOneSelectOpen: false
+              ,isVideoTwoSelectOpen: false
+              ,isVideoThreeSelectOpen: false});
+            case "VIDEO 1": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: false
+              ,isVgaTwoSelectOpen: false
+              ,isDviOneSelectOpen: false
+              ,isDviTwoSelectOpen: false
+              ,isVideoOneSelectOpen: $Basics.not(monitorSettingScreenState$.isVideoOneSelectOpen)
+              ,isVideoTwoSelectOpen: false
+              ,isVideoThreeSelectOpen: false});
+            case "VIDEO 2": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: false
+              ,isVgaTwoSelectOpen: false
+              ,isDviOneSelectOpen: false
+              ,isDviTwoSelectOpen: false
+              ,isVideoOneSelectOpen: false
+              ,isVideoTwoSelectOpen: $Basics.not(monitorSettingScreenState$.isVideoTwoSelectOpen)
+              ,isVideoThreeSelectOpen: false});
+            case "VIDEO 3": return _U.update(monitorSettingScreenState,
+              {isVgaOneSelectOpen: false
+              ,isVgaTwoSelectOpen: false
+              ,isDviOneSelectOpen: false
+              ,isDviTwoSelectOpen: false
+              ,isVideoOneSelectOpen: false
+              ,isVideoTwoSelectOpen: false
+              ,isVideoThreeSelectOpen: $Basics.not(monitorSettingScreenState$.isVideoThreeSelectOpen)});
+            default: return monitorSettingScreenState;}
+      }();
+      return m;
+   });
    var setSelectedMonitorsToPowerPress = function (monitors) {
       return A2($List.map,function (m) {    return m.isSelected ? _U.update(m,{isOn: $Basics.not(m.isOn)}) : m;},monitors);
    };
@@ -10615,25 +10679,43 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
    var PresetEditCancel = function (a) {    return {ctor: "PresetEditCancel",_0: a};};
+   var PresetNameEditDone = function (a) {    return {ctor: "PresetNameEditDone",_0: a};};
    var PresetNameInput = F2(function (a,b) {    return {ctor: "PresetNameInput",_0: a,_1: b};});
-   var PresetCommitThenSelect = function (a) {    return {ctor: "PresetCommitThenSelect",_0: a};};
+   var PresetCommit = function (a) {    return {ctor: "PresetCommit",_0: a};};
    var PresetEdit = function (a) {    return {ctor: "PresetEdit",_0: a};};
    var PresetSelected = function (a) {    return {ctor: "PresetSelected",_0: a};};
    var presetButtonView = F2(function (address,preset) {
+      var isEditingName = preset.isEditingName;
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("preset-button button")
-              ,A2($Html$Events.onClick,address,PresetSelected(preset))
-              ,A2($Html$Events.onDoubleClick,address,PresetEdit(preset))]),
-      _U.list([$Basics.not(preset.isEditingName) ? A2($Html.div,_U.list([]),_U.list([$Html.text($Basics.toString(preset.name))])) : A2($Html.div,
-      _U.list([]),
-      _U.list([A2($Html.input,
-      _U.list([$Html$Attributes.$class("preset-button-input")
-              ,$Html$Attributes.type$("text")
-              ,$Html$Attributes.value(preset.tempName)
-              ,A3($Html$Events.on,"input",$Html$Events.targetValue,function (_p3) {    return A2($Signal.message,address,A2(PresetNameInput,preset,_p3));})
-              ,A2(onEnter,address,PresetCommitThenSelect(preset))
-              ,onEsc(A2($Signal.message,address,PresetEditCancel(preset)))]),
-      _U.list([]))]))]));
+      _U.list([$Html$Attributes.$class("preset-button div-4-5 vdiv-1-2 button content-centered"),A2($Html$Events.onDoubleClick,address,PresetEdit(preset))]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-4-5 vdiv-1-1 PresetNameEditDone",isEditingName ? " hidden" : ""))]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-1 div-1-1 content-centered")]),_U.list([$Html.text(preset.name)]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-4-5 vdiv-1-1",$Basics.not(isEditingName) ? " hidden" : ""))
+                      ,onEsc(A2($Signal.message,address,PresetEditCancel(preset)))]),
+              _U.list([A2($Html.input,
+              _U.list([$Html$Attributes.$class("preset-button-input vdiv-1-1")
+                      ,$Html$Attributes.type$("text")
+                      ,$Html$Attributes.value(preset.tempName)
+                      ,A3($Html$Events.on,
+                      "input",
+                      $Html$Events.targetValue,
+                      function (_p4) {
+                         return A2($Signal.message,address,A2(PresetNameInput,preset,_p4));
+                      })
+                      ,A2(onEnter,address,PresetNameEditDone(preset))]),
+              _U.list([]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-10")]),
+              _U.list([A2($Html.img,
+              _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/load_icon.svg"),A2($Html$Events.onClick,address,PresetSelected(preset))]),
+              _U.list([]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-10")]),
+              _U.list([A2($Html.img,
+              _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/save_icon.svg"),A2($Html$Events.onClick,address,PresetCommit(preset))]),
+              _U.list([]))]))]));
    });
    var presetContainerView = F2(function (address,preset) {
       return A2($Html.div,
@@ -10659,6 +10741,14 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _U.list([]),
       _U.list([A2(presetSettingTopBarView,address,presetSettingScreenState),A2(presetSettingBodyView,address,presetSettingScreenState.presets)]));
+   });
+   var SignalInputSelect = F2(function (a,b) {    return {ctor: "SignalInputSelect",_0: a,_1: b};});
+   var signalMatrixOption = F3(function (address,signalType,signalMatrix) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("signal-matrix-option")
+              ,$Html$Attributes.value(signalMatrix.name)
+              ,A2($Html$Events.onClick,address,A2(SignalInputSelect,signalType,signalMatrix.name))]),
+      _U.list([$Html.text(signalMatrix.name)]));
    });
    var SignalInputChange = F2(function (a,b) {    return {ctor: "SignalInputChange",_0: a,_1: b};});
    var OsdSelectButtonPress = {ctor: "OsdSelectButtonPress"};
@@ -10751,69 +10841,15 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _U.list([$Html$Attributes.$class("vdiv-1-1"),$Html$Attributes.src(resizeSrc),A2($Html$Events.onClick,address,PipResizeButtonPress)]),
                       _U.list([]))]))]))]))]));
    });
+   var SignalInputOpenSelections = function (a) {    return {ctor: "SignalInputOpenSelections",_0: a};};
    var ActivateCycleSignalMatrixPress = function (a) {    return {ctor: "ActivateCycleSignalMatrixPress",_0: a};};
-   var signalMatrixView = F5(function (address,signalType,signalName,isCyclePressed,monitor) {
-      var isActivated = function () {
-         if (isCyclePressed) {
-               var _p4 = signalType;
-               switch (_p4)
-               {case "VGA 1": return monitor.isVgaOneCycle;
-                  case "VGA 2": return monitor.isVgaTwoCycle;
-                  case "DVI 1": return monitor.isDviOneCycle;
-                  case "DVI 2": return monitor.isDviTwoCycle;
-                  case "VIDEO 1": return monitor.isVideoOneCycle;
-                  case "VIDEO 2": return monitor.isVideoTwoCycle;
-                  case "VIDEO 3": return monitor.isVideoThreeCycle;
-                  default: return false;}
-            } else return false;
-      }();
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("signal-matrix-view"),A2($Html$Events.onClick,address,ActivateCycleSignalMatrixPress(signalType))]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
-              _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-7-10")]),
-                      _U.list([A2($Html.input,
-                      _U.list([$Html$Attributes.type$("text")
-                              ,$Html$Attributes.disabled(isCyclePressed)
-                              ,$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input",isActivated ? " signal-matrix-container-activated" : ""))
-                              ,$Html$Attributes.value(signalName)
-                              ,A3($Html$Events.on,
-                              "input",
-                              $Html$Events.targetValue,
-                              function (_p5) {
-                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p5));
-                              })]),
-                      _U.list([]))]))
-                      ,A2($Html.div,_U.list([$Html$Attributes.$class("div-3-10 content-centered signal-matrix-side")]),_U.list([$Html.text("MATRIX")]))]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
-   });
-   var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
-      var monitor = monitorSettingScreenState.selectedMonitor;
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
-      _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState.isCyclePressed,monitor)
-                      ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState.isCyclePressed,monitor)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState.isCyclePressed,monitor)
-                      ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState.isCyclePressed,monitor)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState.isCyclePressed,monitor)
-                      ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState.isCyclePressed,monitor)
-                      ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState.isCyclePressed,monitor)]))]));
-   });
    var OsdButtonPress = {ctor: "OsdButtonPress"};
    var PipButtonPress = {ctor: "PipButtonPress"};
    var CycleButtonPress = {ctor: "CycleButtonPress"};
    var monitorSettingLowerBodyView = F2(function (address,monitorSettingScreenState) {
-      var osdButtonClass = monitorSettingScreenState.isOsdDisabled ? "disabled" : monitorSettingScreenState.isOsdSetPressed ? "pressed" : "";
-      var pipButtonClass = monitorSettingScreenState.isPipDisabled ? "disabled" : monitorSettingScreenState.isPipSetPressed ? "pressed" : "";
-      var cycleButtonClass = monitorSettingScreenState.isCycleDisabled ? "disabled" : monitorSettingScreenState.isCyclePressed ? "pressed" : "";
+      var osdState = monitorSettingScreenState.isOsdDisabled ? "_disabled" : monitorSettingScreenState.isOsdSetPressed ? "_active" : "";
+      var pipState = monitorSettingScreenState.isPipDisabled ? "_disabled" : monitorSettingScreenState.isPipSetPressed ? "_active" : "";
+      var cycleState = monitorSettingScreenState.isCycleDisabled ? "_disabled" : monitorSettingScreenState.isCyclePressed ? "_active" : "";
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("monitor-setting-lower-body")]),
       _U.list([A2($Html.div,
@@ -10821,28 +10857,32 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
                       _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"cycle-button circle button monitor-button content-centered ",cycleButtonClass))
+                      _U.list([$Html$Attributes.$class("cycle-button circle button monitor-button content-centered")
                               ,A2($Html$Events.onClick,address,CycleButtonPress)]),
-                      _U.list([$Html.text("CYCLE")]))]))
+                      _U.list([A2($Html.img,
+                      _U.list([$Html$Attributes.$class("icon")
+                              ,$Html$Attributes.src(A2($Basics._op["++"],"images/cycle_icon",A2($Basics._op["++"],cycleState,".svg")))]),
+                      _U.list([]))]))]))
                       ,A2($Html.div,
                       _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button circle button monitor-button content-centered ",pipButtonClass))
+                      _U.list([$Html$Attributes.$class("pip-button circle button monitor-button content-centered ")
                               ,A2($Html$Events.onClick,address,PipButtonPress)]),
-                      _U.list([$Html.text("PIP")]))]))
+                      _U.list([A2($Html.img,
+                      _U.list([$Html$Attributes.$class("icon")
+                              ,$Html$Attributes.src(A2($Basics._op["++"],"images/pip_icon",A2($Basics._op["++"],pipState,".svg")))]),
+                      _U.list([]))]))]))
                       ,A2($Html.div,
                       _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button circle button monitor-button content-centered ",osdButtonClass))
+                      _U.list([$Html$Attributes.$class("osd-button circle button monitor-button content-centered")
                               ,A2($Html$Events.onClick,address,OsdButtonPress)]),
-                      _U.list([$Html.text("OSD")]))]))]))
+                      _U.list([A2($Html.img,
+                      _U.list([$Html$Attributes.$class("icon")
+                              ,$Html$Attributes.src(A2($Basics._op["++"],"images/osd_icon",A2($Basics._op["++"],osdState,".svg")))]),
+                      _U.list([]))]))]))]))
               ,A2(pipButtonSetView,address,monitorSettingScreenState)
               ,A2(osdButtonSetView,address,monitorSettingScreenState)]));
-   });
-   var monitorSettingBodyView = F2(function (address,monitorSettingScreenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body")]),
-      _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
    });
    var CloseMonitorConfiguration = {ctor: "CloseMonitorConfiguration"};
    var monitorSettingTopBarView = F2(function (address,monitorSettingScreenState) {
@@ -10854,11 +10894,6 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
               _U.list([closeIcon]))]));
-   });
-   var monitorSettingScreenView = F2(function (address,monitorSettingScreenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("main")]),
-      _U.list([A2(monitorSettingTopBarView,address,monitorSettingScreenState),A2(monitorSettingBodyView,address,monitorSettingScreenState)]));
    });
    var MenuOptionPress = {ctor: "MenuOptionPress"};
    var homeMenuView = function (address) {
@@ -10981,16 +11016,16 @@ Elm.GreenGui.Main.make = function (_elm) {
    var actions = $Signal.mailbox(NoOp);
    var mergedActions = $Signal.mergeMany(_U.list([actions.signal,A2($Signal.map,LongPressedMonitor,in_longPressedMonitor)]));
    var pressedMonitor = function () {
-      var toSelector = function (action) {    var _p6 = action;if (_p6.ctor === "MonitorPressedDown") {    return _p6._0;} else {    return "";}};
-      var needsMonitorPressedDown = function (action) {    var _p7 = action;if (_p7.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
+      var toSelector = function (action) {    var _p5 = action;if (_p5.ctor === "MonitorPressedDown") {    return _p5._0;} else {    return "";}};
+      var needsMonitorPressedDown = function (action) {    var _p6 = action;if (_p6.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressedDown,MonitorPressedDown(""),actions.signal));
    }();
    var out_onPressedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressedMonitor",function (v) {    return v;},pressedMonitor);
    var pressReleasedMonitor = function () {
-      var toSelector = function (action) {    var _p8 = action;if (_p8.ctor === "MonitorPressReleased") {    return _p8._0;} else {    return "";}};
+      var toSelector = function (action) {    var _p7 = action;if (_p7.ctor === "MonitorPressReleased") {    return _p7._0;} else {    return "";}};
       var needsMonitorPressReleased = function (action) {
-         var _p9 = action;
-         if (_p9.ctor === "MonitorPressReleased") {
+         var _p8 = action;
+         if (_p8.ctor === "MonitorPressReleased") {
                return true;
             } else {
                return false;
@@ -11001,7 +11036,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",function (v) {    return v;},pressReleasedMonitor);
    var createSignalMatrixInput = F2(function (name,type$) {    return {name: name,type$: type$};});
    var defaultSignalMatrixInputs = _U.list([]);
-   var defaultPreset = function (id$) {    return {id: id$,name: "PRE-SET",tempName: "",monitors: _U.list([]),isSelected: false,isEditingName: false};};
+   var defaultPreset = function (id$) {    return {id: id$,name: "<empty>",tempName: "",monitors: _U.list([]),isSelected: false,isEditingName: false};};
    var defaultMonitor = F2(function (number$,isVisible$) {
       return {number: number$
              ,isSelected: false
@@ -11029,35 +11064,40 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isOn: false};
    });
    var findMonitor = F2(function (number,monitors) {
-      var _p10 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
-      if (_p10.ctor === "::" && _p10._1.ctor === "[]") {
-            return _p10._0;
+      var _p9 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
+      if (_p9.ctor === "::" && _p9._1.ctor === "[]") {
+            return _p9._0;
          } else {
             return A2(defaultMonitor,"-1",false);
          }
    });
    var update = F2(function (action,appState) {
-      var _p11 = action;
-      switch (_p11.ctor)
+      var _p10 = action;
+      switch (_p10.ctor)
       {case "NoOp": return appState;
          case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
-           var monitors$ = A2(toggleMonitorAsSelected,_p11._0,homeScreenState$.monitors);
+           var monitors$ = A2(toggleMonitorAsSelected,_p10._0,homeScreenState$.monitors);
            var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
          case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
            {homeScreenState: _U.update(homeScreenState$,{monitors: setAllMonitorAsSelected(homeScreenState$.monitors),isPowerDisabled: false})});
-         case "SelectMonitorToConfigure": var _p12 = _p11._0;
-           var homeScreenState$ = appState.homeScreenState;
+         case "SelectMonitorToConfigure": var _p11 = _p10._0;
+           var matrixSetupScreenState$ = appState.menuOptionsScreenState.matrixSetupScreenState;
+           var signalMatrixInputs$ = A2($Basics._op["++"],
+           matrixSetupScreenState$.extronSignalMatrixInputs,
+           A2($Basics._op["++"],matrixSetupScreenState$.ntiSignalMatrixInputs,matrixSetupScreenState$.atlonaSignalMatrixInputs));
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
            {viewState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p12,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: _p12,isPipSetPressed: false,isOsdSetPressed: false})});
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p11,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,
+           {selectedMonitor: _p11,isPipSetPressed: false,isOsdSetPressed: false,signalMatrixInputs: signalMatrixInputs$})});
          case "MonitorPressedDown": return appState;
          case "MonitorPressReleased": return appState;
          case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
-           var foundMonitor = A2(findMonitor,_p11._0,homeScreenState$.monitors);
+           var foundMonitor = A2(findMonitor,_p10._0,homeScreenState$.monitors);
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,
            {viewState: 2
@@ -11084,7 +11124,19 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            var monitor$ = monitorSettingScreenState$.selectedMonitor;
            return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p11._0,_p11._1,monitor$)})});
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p10._0,_p10._1,monitor$)})});
+         case "SignalInputSelect": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var monitor$ = monitorSettingScreenState$.selectedMonitor;
+           return _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
+           {selectedMonitor: A3(setSignalInputChange,_p10._0,_p10._1,monitor$)
+           ,isVgaOneSelectOpen: false
+           ,isVgaTwoSelectOpen: false
+           ,isDviOneSelectOpen: false
+           ,isDviTwoSelectOpen: false
+           ,isVideoOneSelectOpen: false
+           ,isVideoTwoSelectOpen: false
+           ,isVideoThreeSelectOpen: false})});
          case "CycleButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.update(appState,
            {monitorSettingScreenState: setCycleButtonPress(monitorSettingScreenState$)}) : appState;
@@ -11097,7 +11149,10 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
            {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A2(activateCycleSignalMatrix,_p11._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
+           {selectedMonitor: A2(activateCycleSignalMatrix,_p10._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
+         case "SignalInputOpenSelections": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return $Basics.not(monitorSettingScreenState$.isCyclePressed) ? _U.update(appState,
+           {monitorSettingScreenState: A2(setSelectionInputToOpen,monitorSettingScreenState$,_p10._0)}) : appState;
          case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
          case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
@@ -11112,21 +11167,23 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
          case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
          case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p11._0.monitors})});
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p10._0.monitors})});
          case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p11._0,presetSettingScreenState$.presets)})});
-         case "PresetCommitThenSelect": var monitors = appState.homeScreenState.monitors;
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p10._0,presetSettingScreenState$.presets)})});
+         case "PresetCommit": var monitors = appState.homeScreenState.monitors;
            var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,
-           {presets: A3(setPresetCommitThenSelect,_p11._0,monitors,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p10._0,presetSettingScreenState$.presets,monitors)})});
          case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p11._0,_p11._1,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p10._0,_p10._1,presetSettingScreenState$.presets)})});
+         case "PresetNameEditDone": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p10._0,presetSettingScreenState$.presets)})});
          case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p11._0,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p10._0,presetSettingScreenState$.presets)})});
          case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
            return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
          case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
@@ -11152,12 +11209,20 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                           ,defaultPreset(5)
                                                           ,defaultPreset(6)])};
    var defaultMonitorSettingScreenState = {selectedMonitor: A2(defaultMonitor,"1",true)
+                                          ,isVgaOneSelectOpen: false
+                                          ,isVgaTwoSelectOpen: false
+                                          ,isDviOneSelectOpen: false
+                                          ,isDviTwoSelectOpen: false
+                                          ,isVideoOneSelectOpen: false
+                                          ,isVideoTwoSelectOpen: false
+                                          ,isVideoThreeSelectOpen: false
                                           ,isCyclePressed: false
                                           ,isPipSetPressed: false
                                           ,isOsdSetPressed: false
                                           ,isCycleDisabled: false
                                           ,isPipDisabled: false
-                                          ,isOsdDisabled: false};
+                                          ,isOsdDisabled: false
+                                          ,signalMatrixInputs: _U.list([])};
    var defaultHomeScreenState = {monitorPageIndex: 0
                                 ,isPowerDisabled: true
                                 ,monitors: _U.list([A2(defaultMonitor,"1",true)
@@ -11207,11 +11272,109 @@ Elm.GreenGui.Main.make = function (_elm) {
                          ,presetSettingScreenState: defaulPresetSettingScreenState
                          ,menuOptionsScreenState: defaultMenuOptionsScreenState};
    var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
+   var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
+      var isOfType = F2(function (signalType$,signalMatrixInput) {    return _U.eq(signalMatrixInput.type$,signalType$);});
+      var _p12 = function () {
+         var _p13 = signalType;
+         switch (_p13)
+         {case "VGA 1": return {ctor: "_Tuple3"
+                               ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVgaOneCycle : false
+                               ,_1: A2($List.filter,isOfType(VGA),monitorSettingScreenState.signalMatrixInputs)
+                               ,_2: monitorSettingScreenState.isVgaOneSelectOpen};
+            case "VGA 2": return {ctor: "_Tuple3"
+                                 ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVgaTwoCycle : false
+                                 ,_1: A2($List.filter,isOfType(VGA),monitorSettingScreenState.signalMatrixInputs)
+                                 ,_2: monitorSettingScreenState.isVgaTwoSelectOpen};
+            case "DVI 1": return {ctor: "_Tuple3"
+                                 ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isDviOneCycle : false
+                                 ,_1: A2($List.filter,isOfType(DVI),monitorSettingScreenState.signalMatrixInputs)
+                                 ,_2: monitorSettingScreenState.isDviOneSelectOpen};
+            case "DVI 2": return {ctor: "_Tuple3"
+                                 ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isDviTwoCycle : false
+                                 ,_1: A2($List.filter,isOfType(DVI),monitorSettingScreenState.signalMatrixInputs)
+                                 ,_2: monitorSettingScreenState.isDviTwoSelectOpen};
+            case "VIDEO 1": return {ctor: "_Tuple3"
+                                   ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVideoOneCycle : false
+                                   ,_1: A2($List.filter,isOfType(CVBS),monitorSettingScreenState.signalMatrixInputs)
+                                   ,_2: monitorSettingScreenState.isVideoOneSelectOpen};
+            case "VIDEO 2": return {ctor: "_Tuple3"
+                                   ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVideoTwoCycle : false
+                                   ,_1: A2($List.filter,isOfType(CVBS),monitorSettingScreenState.signalMatrixInputs)
+                                   ,_2: monitorSettingScreenState.isVideoTwoSelectOpen};
+            case "VIDEO 3": return {ctor: "_Tuple3"
+                                   ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVideoThreeCycle : false
+                                   ,_1: A2($List.filter,isOfType(CVBS),monitorSettingScreenState.signalMatrixInputs)
+                                   ,_2: monitorSettingScreenState.isVideoThreeSelectOpen};
+            default: return {ctor: "_Tuple3",_0: false,_1: _U.list([]),_2: false};}
+      }();
+      var isActivated = _p12._0;
+      var filteredSignalMatrices = _p12._1;
+      var isSelectOpen = _p12._2;
+      var isDisabled = $Basics.not(isActivated) && $Basics.not(monitorSettingScreenState.isCyclePressed) ? false : true;
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("signal-matrix-view"),A2($Html$Events.onClick,address,ActivateCycleSignalMatrixPress(signalType))]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
+              A2($Basics._op["++"],
+              _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("div-7-10")]),
+                      _U.list([A2($Html.input,
+                      _U.list([$Html$Attributes.type$("text")
+                              ,$Html$Attributes.disabled(isDisabled)
+                              ,$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input",isActivated ? " signal-matrix-container-activated" : ""))
+                              ,$Html$Attributes.value(signalName)
+                              ,A3($Html$Events.on,
+                              "input",
+                              $Html$Events.targetValue,
+                              function (_p14) {
+                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p14));
+                              })]),
+                      _U.list([]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("div-3-10 content-centered signal-matrix-side")
+                              ,A2($Html$Events.onClick,address,SignalInputOpenSelections(signalType))]),
+                      _U.list([$Html.text("MATRIX")]))]),
+              isSelectOpen ? _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3 select-options")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("select-options-container")]),
+              A2($List.map,A2(signalMatrixOption,address,signalType),filteredSignalMatrices))]))]) : _U.list([])))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
+   });
+   var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
+      var monitor = monitorSettingScreenState.selectedMonitor;
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState,monitor)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState,monitor)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState,monitor)]))]));
+   });
+   var monitorSettingBodyView = F2(function (address,monitorSettingScreenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body")]),
+      _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
+   });
+   var monitorSettingScreenView = F2(function (address,monitorSettingScreenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("main")]),
+      _U.list([A2(monitorSettingTopBarView,address,monitorSettingScreenState),A2(monitorSettingBodyView,address,monitorSettingScreenState)]));
+   });
    var matrixSetupBodyView = F2(function (address,screenState) {
       var matrixSetupScreenState = screenState.matrixSetupScreenState;
       var matrixInputSignals = function () {
-         var _p13 = matrixSetupScreenState.viewState;
-         switch (_p13)
+         var _p15 = matrixSetupScreenState.viewState;
+         switch (_p15)
          {case 1: return matrixSetupScreenState.extronSignalMatrixInputs;
             case 2: return matrixSetupScreenState.ntiSignalMatrixInputs;
             case 3: return matrixSetupScreenState.atlonaSignalMatrixInputs;
@@ -11219,8 +11382,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       var signalTypes = A2($List.map,
       function (t) {
-         var _p14 = t;
-         switch (_p14.ctor)
+         var _p16 = t;
+         switch (_p16.ctor)
          {case "VGA": return "VGA";
             case "DVI": return "DVI";
             default: return "DVBS";}
@@ -11240,8 +11403,8 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var menuOptionsView = F2(function (address,screenState) {
       var view = function () {
-         var _p15 = screenState.viewState;
-         switch (_p15)
+         var _p17 = screenState.viewState;
+         switch (_p17)
          {case 1: return _U.list([A2(menuOptionsTopBarView,address,screenState),A2(menuOptionsBodyView,address,screenState)]);
             case 2: return _U.list([A2(matrixSetupTopBarView,address,screenState),A2(matrixSetupBodyView,address,screenState)]);
             default: return _U.list([]);}
@@ -11254,8 +11417,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       var monitorSettingScreenState = appState.monitorSettingScreenState;
       var homeScreenState = appState.homeScreenState;
       var viewToDisplay = function () {
-         var _p16 = appState.viewState;
-         switch (_p16)
+         var _p18 = appState.viewState;
+         switch (_p18)
          {case 1: return A2(homeScreenView,address,homeScreenState);
             case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
             case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
@@ -11291,30 +11454,33 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                                   return function (v) {
                                                                      return function (w) {
                                                                         return function (x) {
-                                                                           return {number: a
-                                                                                  ,isSelected: b
-                                                                                  ,isVisible: c
-                                                                                  ,vgaOne: d
-                                                                                  ,vgaTwo: e
-                                                                                  ,dviOne: f
-                                                                                  ,dviTwo: g
-                                                                                  ,videoOne: h
-                                                                                  ,videoTwo: i
-                                                                                  ,videoThree: j
-                                                                                  ,isVgaOneCycle: k
-                                                                                  ,isVgaTwoCycle: l
-                                                                                  ,isDviOneCycle: m
-                                                                                  ,isDviTwoCycle: n
-                                                                                  ,isVideoOneCycle: o
-                                                                                  ,isVideoTwoCycle: p
-                                                                                  ,isVideoThreeCycle: q
-                                                                                  ,isPipUpDownPressed: r
-                                                                                  ,isPipLeftRightPressed: s
-                                                                                  ,isPipResizePressed: t
-                                                                                  ,isOsdUpDownPressed: u
-                                                                                  ,isOsdLeftRightPressed: v
-                                                                                  ,isOsdSelectPressed: w
-                                                                                  ,isOn: x};
+                                                                           return function (y) {
+                                                                              return {number: a
+                                                                                     ,isSelected: b
+                                                                                     ,isVisible: c
+                                                                                     ,vgaOne: d
+                                                                                     ,vgaTwo: e
+                                                                                     ,dviOne: f
+                                                                                     ,dviTwo: g
+                                                                                     ,videoOne: h
+                                                                                     ,videoTwo: i
+                                                                                     ,videoThree: j
+                                                                                     ,isVgaOneCycle: k
+                                                                                     ,isVgaTwoCycle: l
+                                                                                     ,isDviOneCycle: m
+                                                                                     ,isDviOneCycle: n
+                                                                                     ,isDviTwoCycle: o
+                                                                                     ,isVideoOneCycle: p
+                                                                                     ,isVideoTwoCycle: q
+                                                                                     ,isVideoThreeCycle: r
+                                                                                     ,isPipUpDownPressed: s
+                                                                                     ,isPipLeftRightPressed: t
+                                                                                     ,isPipResizePressed: u
+                                                                                     ,isOsdUpDownPressed: v
+                                                                                     ,isOsdLeftRightPressed: w
+                                                                                     ,isOsdSelectPressed: x
+                                                                                     ,isOn: y};
+                                                                           };
                                                                         };
                                                                      };
                                                                   };
@@ -11344,9 +11510,51 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var MenuOptionsScreenState = F2(function (a,b) {    return {viewState: a,matrixSetupScreenState: b};});
    var PresetSettingScreenState = function (a) {    return {presets: a};};
-   var MonitorSettingScreenState = F7(function (a,b,c,d,e,f,g) {
-      return {selectedMonitor: a,isCyclePressed: b,isPipSetPressed: c,isOsdSetPressed: d,isCycleDisabled: e,isPipDisabled: f,isOsdDisabled: g};
-   });
+   var MonitorSettingScreenState = function (a) {
+      return function (b) {
+         return function (c) {
+            return function (d) {
+               return function (e) {
+                  return function (f) {
+                     return function (g) {
+                        return function (h) {
+                           return function (i) {
+                              return function (j) {
+                                 return function (k) {
+                                    return function (l) {
+                                       return function (m) {
+                                          return function (n) {
+                                             return function (o) {
+                                                return {selectedMonitor: a
+                                                       ,isVgaOneSelectOpen: b
+                                                       ,isVgaTwoSelectOpen: c
+                                                       ,isDviOneSelectOpen: d
+                                                       ,isDviTwoSelectOpen: e
+                                                       ,isVideoOneSelectOpen: f
+                                                       ,isVideoTwoSelectOpen: g
+                                                       ,isVideoThreeSelectOpen: h
+                                                       ,isCyclePressed: i
+                                                       ,isPipSetPressed: j
+                                                       ,isOsdSetPressed: k
+                                                       ,isCycleDisabled: l
+                                                       ,isPipDisabled: m
+                                                       ,isOsdDisabled: n
+                                                       ,signalMatrixInputs: o};
+                                             };
+                                          };
+                                       };
+                                    };
+                                 };
+                              };
+                           };
+                        };
+                     };
+                  };
+               };
+            };
+         };
+      };
+   };
    var HomeScreenState = F3(function (a,b,c) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c};});
    var AppState = F5(function (a,b,c,d,e) {
       return {viewState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d,menuOptionsScreenState: e};
@@ -11394,6 +11602,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,PipButtonPress: PipButtonPress
                                       ,OsdButtonPress: OsdButtonPress
                                       ,ActivateCycleSignalMatrixPress: ActivateCycleSignalMatrixPress
+                                      ,SignalInputOpenSelections: SignalInputOpenSelections
                                       ,PipUpDownButtonPress: PipUpDownButtonPress
                                       ,PipLeftRightButtonPress: PipLeftRightButtonPress
                                       ,PipResizeButtonPress: PipResizeButtonPress
@@ -11401,11 +11610,13 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
                                       ,OsdSelectButtonPress: OsdSelectButtonPress
                                       ,SignalInputChange: SignalInputChange
+                                      ,SignalInputSelect: SignalInputSelect
                                       ,ClosePresetSettings: ClosePresetSettings
                                       ,PresetSelected: PresetSelected
                                       ,PresetEdit: PresetEdit
-                                      ,PresetCommitThenSelect: PresetCommitThenSelect
+                                      ,PresetCommit: PresetCommit
                                       ,PresetNameInput: PresetNameInput
+                                      ,PresetNameEditDone: PresetNameEditDone
                                       ,PresetEditCancel: PresetEditCancel
                                       ,MatrixSetupPress: MatrixSetupPress
                                       ,ExtronSetupPress: ExtronSetupPress
@@ -11419,6 +11630,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,setAllMonitorAsSelected: setAllMonitorAsSelected
                                       ,flipMonitorPage: flipMonitorPage
                                       ,setSelectedMonitorsToPowerPress: setSelectedMonitorsToPowerPress
+                                      ,setSelectionInputToOpen: setSelectionInputToOpen
                                       ,findMonitor: findMonitor
                                       ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                       ,updateMonitorList: updateMonitorList
@@ -11434,9 +11646,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,setOsdLeftRightButtonPress: setOsdLeftRightButtonPress
                                       ,setOsdSelectButtonPress: setOsdSelectButtonPress
                                       ,setPresetToEdit: setPresetToEdit
-                                      ,setPresetCommitThenSelect: setPresetCommitThenSelect
+                                      ,setPresetCommit: setPresetCommit
                                       ,cancelPresetEdit: cancelPresetEdit
                                       ,setPresetName: setPresetName
+                                      ,setPresetNameCommit: setPresetNameCommit
                                       ,main: main
                                       ,appState: appState
                                       ,actions: actions
@@ -11455,6 +11668,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
                                       ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
                                       ,signalMatrixView: signalMatrixView
+                                      ,signalMatrixOption: signalMatrixOption
                                       ,pipButtonSetView: pipButtonSetView
                                       ,osdButtonSetView: osdButtonSetView
                                       ,presetSettingScreenView: presetSettingScreenView
