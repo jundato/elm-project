@@ -415,6 +415,9 @@ canvas {
 .signal-matrix-label {
   text-align: center;
 }
+.signal-matrix-container {
+  margin: 4px 4px;
+}
 .signal-matrix-container-activated {
   background-color: #4897DF;
 }

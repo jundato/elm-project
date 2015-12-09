@@ -10637,6 +10637,14 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
               _U.list([closeIcon]))]));
    });
+   var matrixSetupOptionsTopBarView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("MENU")]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
+              _U.list([closeIcon]))]));
+   });
    var BackToMenuPress = {ctor: "BackToMenuPress"};
    var matrixSetupTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
@@ -10648,8 +10656,49 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([backIcon]))]));
    });
    var AtlonaSetupPress = {ctor: "AtlonaSetupPress"};
+   var AddSignalInputMatrix = {ctor: "AddSignalInputMatrix"};
+   var addSignalMatrixInputButtonView = function (address) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("vdiv-1-10")]),
+      _U.list([A2($Html.div,
+      _U.list([$Html$Attributes.$class("button div-1-1 vdiv-1-10 content-centered"),A2($Html$Events.onClick,address,AddSignalInputMatrix)]),
+      _U.list([$Html.text("ADD SIGNAL MATRIX")]))]));
+   };
    var NtiSetupPress = {ctor: "NtiSetupPress"};
    var ExtronSetupPress = {ctor: "ExtronSetupPress"};
+   var matrixSetupOptionsBodyView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body")]),
+      _U.list([A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
+              _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1")]),
+                      _U.list([A2($Html.div,
+                              _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
+                              _U.list([A2($Html.div,
+                              _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")
+                                      ,A2($Html$Events.onClick,address,ExtronSetupPress)]),
+                              _U.list([$Html.text("EXTRON")]))]))
+                              ,A2($Html.div,
+                              _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
+                              _U.list([A2($Html.div,
+                              _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")
+                                      ,A2($Html$Events.onClick,address,NtiSetupPress)]),
+                              _U.list([$Html.text("NTI")]))]))
+                              ,A2($Html.div,
+                              _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
+                              _U.list([A2($Html.div,
+                              _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")
+                                      ,A2($Html$Events.onClick,address,AtlonaSetupPress)]),
+                              _U.list([$Html.text("Atlona")]))]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-1-5 div-1-1 content-centered")]),
+                      _U.list([$Html.text("SELECT A MATRIX MODEL FROM ABOVE")]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
+   });
    var MatrixSetupPress = {ctor: "MatrixSetupPress"};
    var menuOptionsBodyView = F2(function (address,screenState) {
       return A2($Html.div,
@@ -11071,137 +11120,6 @@ Elm.GreenGui.Main.make = function (_elm) {
             return A2(defaultMonitor,"-1",false);
          }
    });
-   var update = F2(function (action,appState) {
-      var _p10 = action;
-      switch (_p10.ctor)
-      {case "NoOp": return appState;
-         case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
-           var monitors$ = A2(toggleMonitorAsSelected,_p10._0,homeScreenState$.monitors);
-           var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
-         case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,
-           {homeScreenState: _U.update(homeScreenState$,{monitors: setAllMonitorAsSelected(homeScreenState$.monitors),isPowerDisabled: false})});
-         case "SelectMonitorToConfigure": var _p11 = _p10._0;
-           var matrixSetupScreenState$ = appState.menuOptionsScreenState.matrixSetupScreenState;
-           var signalMatrixInputs$ = A2($Basics._op["++"],
-           matrixSetupScreenState$.extronSignalMatrixInputs,
-           A2($Basics._op["++"],matrixSetupScreenState$.ntiSignalMatrixInputs,matrixSetupScreenState$.atlonaSignalMatrixInputs));
-           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,
-           {viewState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p11,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: _p11,isPipSetPressed: false,isOsdSetPressed: false,signalMatrixInputs: signalMatrixInputs$})});
-         case "MonitorPressedDown": return appState;
-         case "MonitorPressReleased": return appState;
-         case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
-           var foundMonitor = A2(findMonitor,_p10._0,homeScreenState$.monitors);
-           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,
-           {viewState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,foundMonitor,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: foundMonitor,isPipSetPressed: false,isOsdSetPressed: false})});
-         case "PowerPress": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
-         case "PresetPress": return _U.update(appState,{viewState: 3});
-         case "MenuOptionPress": return _U.update(appState,{viewState: 4});
-         case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
-           var monitorsPerPage = 5;
-           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
-           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,-1,maxFlips,monitorsPerPage,homeScreenState$)});
-         case "NextMonitorPage": var homeScreenState$ = appState.homeScreenState;
-           var monitorsPerPage = 5;
-           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
-           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,1,maxFlips,monitorsPerPage,homeScreenState$)});
-         case "CloseMonitorConfiguration": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,
-           {viewState: 1
-           ,homeScreenState: _U.update(homeScreenState$,
-           {monitors: A2(updateMonitorList,monitorSettingScreenState$.selectedMonitor,homeScreenState$.monitors)})});
-         case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var monitor$ = monitorSettingScreenState$.selectedMonitor;
-           return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p10._0,_p10._1,monitor$)})});
-         case "SignalInputSelect": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var monitor$ = monitorSettingScreenState$.selectedMonitor;
-           return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A3(setSignalInputChange,_p10._0,_p10._1,monitor$)
-           ,isVgaOneSelectOpen: false
-           ,isVgaTwoSelectOpen: false
-           ,isDviOneSelectOpen: false
-           ,isDviTwoSelectOpen: false
-           ,isVideoOneSelectOpen: false
-           ,isVideoTwoSelectOpen: false
-           ,isVideoThreeSelectOpen: false})});
-         case "CycleButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.update(appState,
-           {monitorSettingScreenState: setCycleButtonPress(monitorSettingScreenState$)}) : appState;
-         case "PipButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isPipDisabled) ? _U.update(appState,
-           {monitorSettingScreenState: setPipButtonPress(monitorSettingScreenState$)}) : appState;
-         case "OsdButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isOsdDisabled) ? _U.update(appState,
-           {monitorSettingScreenState: setOsdButtonPress(monitorSettingScreenState$)}) : appState;
-         case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A2(activateCycleSignalMatrix,_p10._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
-         case "SignalInputOpenSelections": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isCyclePressed) ? _U.update(appState,
-           {monitorSettingScreenState: A2(setSelectionInputToOpen,monitorSettingScreenState$,_p10._0)}) : appState;
-         case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
-         case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setPipLeftRightButtonPress(monitorSettingScreenState$)});
-         case "PipResizeButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setPipResizeButtonPress(monitorSettingScreenState$)});
-         case "OsdUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setOsdUpDownButtonPress(monitorSettingScreenState$)});
-         case "OsdLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setOsdLeftRightButtonPress(monitorSettingScreenState$)});
-         case "OsdSelectButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
-         case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
-         case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p10._0.monitors})});
-         case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p10._0,presetSettingScreenState$.presets)})});
-         case "PresetCommit": var monitors = appState.homeScreenState.monitors;
-           var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p10._0,presetSettingScreenState$.presets,monitors)})});
-         case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p10._0,_p10._1,presetSettingScreenState$.presets)})});
-         case "PresetNameEditDone": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p10._0,presetSettingScreenState$.presets)})});
-         case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p10._0,presetSettingScreenState$.presets)})});
-         case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
-         case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
-         case "NtiSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
-         case "AtlonaSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: _U.update(matrixSetupScreenState$,{viewState: 1})})});
-         case "CloseSetupPress": return _U.update(appState,{viewState: 1});
-         default: var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});}
-   });
    var defaulPresetSettingScreenState = {presets: _U.list([defaultPreset(1)
                                                           ,defaultPreset(2)
                                                           ,defaultPreset(3)
@@ -11261,7 +11179,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                  ,A2(createSignalMatrixInput,"ENGINE CAM",CVBS)
                                                  ,A2(createSignalMatrixInput,"DECK CAM",CVBS)
                                                  ,A2(createSignalMatrixInput,"X-BAND RADAR",CVBS)]);
-   var defaultMatrixSetupScreenState = {viewState: 1
+   var defaultMatrixSetupScreenState = {setupIndex: 0
                                        ,extronSignalMatrixInputs: defaultExtronSignalMatrixInputs
                                        ,ntiSignalMatrixInputs: defaultNtiSignalMatrixInputs
                                        ,atlonaSignalMatrixInputs: defaultAtlonaSignalMatrixInputs};
@@ -11271,12 +11189,164 @@ Elm.GreenGui.Main.make = function (_elm) {
                          ,monitorSettingScreenState: defaultMonitorSettingScreenState
                          ,presetSettingScreenState: defaulPresetSettingScreenState
                          ,menuOptionsScreenState: defaultMenuOptionsScreenState};
+   var addSignalInputMatrix = function (screenState) {
+      var newScreenState = function () {
+         var _p10 = screenState.setupIndex;
+         switch (_p10)
+         {case 0: return _U.update(screenState,
+              {extronSignalMatrixInputs: A2($Basics._op["++"],screenState.extronSignalMatrixInputs,_U.list([A2(createSignalMatrixInput,"<empty>",DVI)]))});
+            case 1: return _U.update(screenState,
+              {ntiSignalMatrixInputs: A2($Basics._op["++"],screenState.ntiSignalMatrixInputs,_U.list([A2(createSignalMatrixInput,"<empty>",DVI)]))});
+            case 2: return _U.update(screenState,
+              {atlonaSignalMatrixInputs: A2($Basics._op["++"],screenState.atlonaSignalMatrixInputs,_U.list([A2(createSignalMatrixInput,"<empty>",DVI)]))});
+            default: return screenState;}
+      }();
+      return newScreenState;
+   };
+   var update = F2(function (action,appState) {
+      var _p11 = action;
+      switch (_p11.ctor)
+      {case "NoOp": return appState;
+         case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
+           var monitors$ = A2(toggleMonitorAsSelected,_p11._0,homeScreenState$.monitors);
+           var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
+         case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,
+           {homeScreenState: _U.update(homeScreenState$,{monitors: setAllMonitorAsSelected(homeScreenState$.monitors),isPowerDisabled: false})});
+         case "SelectMonitorToConfigure": var _p12 = _p11._0;
+           var matrixSetupScreenState$ = appState.menuOptionsScreenState.matrixSetupScreenState;
+           var signalMatrixInputs$ = A2($Basics._op["++"],
+           matrixSetupScreenState$.extronSignalMatrixInputs,
+           A2($Basics._op["++"],matrixSetupScreenState$.ntiSignalMatrixInputs,matrixSetupScreenState$.atlonaSignalMatrixInputs));
+           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,
+           {viewState: 2
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p12,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,
+           {selectedMonitor: _p12,isPipSetPressed: false,isOsdSetPressed: false,signalMatrixInputs: signalMatrixInputs$})});
+         case "MonitorPressedDown": return appState;
+         case "MonitorPressReleased": return appState;
+         case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
+           var foundMonitor = A2(findMonitor,_p11._0,homeScreenState$.monitors);
+           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,
+           {viewState: 2
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,foundMonitor,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: foundMonitor,isPipSetPressed: false,isOsdSetPressed: false})});
+         case "PowerPress": var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
+         case "PresetPress": return _U.update(appState,{viewState: 3});
+         case "MenuOptionPress": return _U.update(appState,{viewState: 4});
+         case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
+           var monitorsPerPage = 5;
+           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,-1,maxFlips,monitorsPerPage,homeScreenState$)});
+         case "NextMonitorPage": var homeScreenState$ = appState.homeScreenState;
+           var monitorsPerPage = 5;
+           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,1,maxFlips,monitorsPerPage,homeScreenState$)});
+         case "CloseMonitorConfiguration": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,
+           {viewState: 1
+           ,homeScreenState: _U.update(homeScreenState$,
+           {monitors: A2(updateMonitorList,monitorSettingScreenState$.selectedMonitor,homeScreenState$.monitors)})});
+         case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var monitor$ = monitorSettingScreenState$.selectedMonitor;
+           return _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p11._0,_p11._1,monitor$)})});
+         case "SignalInputSelect": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var monitor$ = monitorSettingScreenState$.selectedMonitor;
+           return _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
+           {selectedMonitor: A3(setSignalInputChange,_p11._0,_p11._1,monitor$)
+           ,isVgaOneSelectOpen: false
+           ,isVgaTwoSelectOpen: false
+           ,isDviOneSelectOpen: false
+           ,isDviTwoSelectOpen: false
+           ,isVideoOneSelectOpen: false
+           ,isVideoTwoSelectOpen: false
+           ,isVideoThreeSelectOpen: false})});
+         case "CycleButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.update(appState,
+           {monitorSettingScreenState: setCycleButtonPress(monitorSettingScreenState$)}) : appState;
+         case "PipButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return $Basics.not(monitorSettingScreenState$.isPipDisabled) ? _U.update(appState,
+           {monitorSettingScreenState: setPipButtonPress(monitorSettingScreenState$)}) : appState;
+         case "OsdButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return $Basics.not(monitorSettingScreenState$.isOsdDisabled) ? _U.update(appState,
+           {monitorSettingScreenState: setOsdButtonPress(monitorSettingScreenState$)}) : appState;
+         case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
+           {selectedMonitor: A2(activateCycleSignalMatrix,_p11._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
+         case "SignalInputOpenSelections": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return $Basics.not(monitorSettingScreenState$.isCyclePressed) ? _U.update(appState,
+           {monitorSettingScreenState: A2(setSelectionInputToOpen,monitorSettingScreenState$,_p11._0)}) : appState;
+         case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
+         case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setPipLeftRightButtonPress(monitorSettingScreenState$)});
+         case "PipResizeButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setPipResizeButtonPress(monitorSettingScreenState$)});
+         case "OsdUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setOsdUpDownButtonPress(monitorSettingScreenState$)});
+         case "OsdLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setOsdLeftRightButtonPress(monitorSettingScreenState$)});
+         case "OsdSelectButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
+         case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
+         case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p11._0.monitors})});
+         case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p11._0,presetSettingScreenState$.presets)})});
+         case "PresetCommit": var monitors = appState.homeScreenState.monitors;
+           var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p11._0,presetSettingScreenState$.presets,monitors)})});
+         case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p11._0,_p11._1,presetSettingScreenState$.presets)})});
+         case "PresetNameEditDone": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p11._0,presetSettingScreenState$.presets)})});
+         case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p11._0,presetSettingScreenState$.presets)})});
+         case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
+         case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
+           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 1})})});
+         case "NtiSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
+           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 2})})});
+         case "AtlonaSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
+           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 3})})});
+         case "AddSignalInputMatrix": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: addSignalInputMatrix(matrixSetupScreenState$)})});
+         case "CloseSetupPress": return _U.update(appState,{viewState: 1});
+         default: var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});}
+   });
    var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
    var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
       var isOfType = F2(function (signalType$,signalMatrixInput) {    return _U.eq(signalMatrixInput.type$,signalType$);});
-      var _p12 = function () {
-         var _p13 = signalType;
-         switch (_p13)
+      var _p13 = function () {
+         var _p14 = signalType;
+         switch (_p14)
          {case "VGA 1": return {ctor: "_Tuple3"
                                ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVgaOneCycle : false
                                ,_1: A2($List.filter,isOfType(VGA),monitorSettingScreenState.signalMatrixInputs)
@@ -11307,9 +11377,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    ,_2: monitorSettingScreenState.isVideoThreeSelectOpen};
             default: return {ctor: "_Tuple3",_0: false,_1: _U.list([]),_2: false};}
       }();
-      var isActivated = _p12._0;
-      var filteredSignalMatrices = _p12._1;
-      var isSelectOpen = _p12._2;
+      var isActivated = _p13._0;
+      var filteredSignalMatrices = _p13._1;
+      var isSelectOpen = _p13._2;
       var isDisabled = $Basics.not(isActivated) && $Basics.not(monitorSettingScreenState.isCyclePressed) ? false : true;
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("signal-matrix-view"),A2($Html$Events.onClick,address,ActivateCycleSignalMatrixPress(signalType))]),
@@ -11327,8 +11397,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                               ,A3($Html$Events.on,
                               "input",
                               $Html$Events.targetValue,
-                              function (_p14) {
-                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p14));
+                              function (_p15) {
+                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p15));
                               })]),
                       _U.list([]))]))
                       ,A2($Html.div,
@@ -11373,17 +11443,17 @@ Elm.GreenGui.Main.make = function (_elm) {
    var matrixSetupBodyView = F2(function (address,screenState) {
       var matrixSetupScreenState = screenState.matrixSetupScreenState;
       var matrixInputSignals = function () {
-         var _p15 = matrixSetupScreenState.viewState;
-         switch (_p15)
-         {case 1: return matrixSetupScreenState.extronSignalMatrixInputs;
-            case 2: return matrixSetupScreenState.ntiSignalMatrixInputs;
-            case 3: return matrixSetupScreenState.atlonaSignalMatrixInputs;
+         var _p16 = matrixSetupScreenState.setupIndex;
+         switch (_p16)
+         {case 0: return matrixSetupScreenState.extronSignalMatrixInputs;
+            case 1: return matrixSetupScreenState.ntiSignalMatrixInputs;
+            case 2: return matrixSetupScreenState.atlonaSignalMatrixInputs;
             default: return _U.list([]);}
       }();
       var signalTypes = A2($List.map,
       function (t) {
-         var _p16 = t;
-         switch (_p16.ctor)
+         var _p17 = t;
+         switch (_p17.ctor)
          {case "VGA": return "VGA";
             case "DVI": return "DVI";
             default: return "DVBS";}
@@ -11395,18 +11465,19 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-5 vdiv-1-1",$Basics.toString(matrixSetupScreenState.setupIndex)))]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1")]),
-              A2($List.map,signalMatrixInputSetup(signalTypes),matrixInputSignals))]))
+              A2($Basics._op["++"],A2($List.map,signalMatrixInputSetup(signalTypes),matrixInputSignals),_U.list([addSignalMatrixInputButtonView(address)])))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
    var menuOptionsView = F2(function (address,screenState) {
       var view = function () {
-         var _p17 = screenState.viewState;
-         switch (_p17)
+         var _p18 = screenState.viewState;
+         switch (_p18)
          {case 1: return _U.list([A2(menuOptionsTopBarView,address,screenState),A2(menuOptionsBodyView,address,screenState)]);
-            case 2: return _U.list([A2(matrixSetupTopBarView,address,screenState),A2(matrixSetupBodyView,address,screenState)]);
+            case 2: return _U.list([A2(matrixSetupOptionsTopBarView,address,screenState),A2(matrixSetupOptionsBodyView,address,screenState)]);
+            case 3: return _U.list([A2(matrixSetupTopBarView,address,screenState),A2(matrixSetupBodyView,address,screenState)]);
             default: return _U.list([]);}
       }();
       return A2($Html.div,_U.list([$Html$Attributes.$class("main")]),view);
@@ -11417,8 +11488,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       var monitorSettingScreenState = appState.monitorSettingScreenState;
       var homeScreenState = appState.homeScreenState;
       var viewToDisplay = function () {
-         var _p18 = appState.viewState;
-         switch (_p18)
+         var _p19 = appState.viewState;
+         switch (_p19)
          {case 1: return A2(homeScreenView,address,homeScreenState);
             case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
             case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
@@ -11506,7 +11577,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       };
    };
    var MatrixSetupScreenState = F4(function (a,b,c,d) {
-      return {viewState: a,extronSignalMatrixInputs: b,ntiSignalMatrixInputs: c,atlonaSignalMatrixInputs: d};
+      return {setupIndex: a,extronSignalMatrixInputs: b,ntiSignalMatrixInputs: c,atlonaSignalMatrixInputs: d};
    });
    var MenuOptionsScreenState = F2(function (a,b) {    return {viewState: a,matrixSetupScreenState: b};});
    var PresetSettingScreenState = function (a) {    return {presets: a};};
@@ -11621,6 +11692,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,MatrixSetupPress: MatrixSetupPress
                                       ,ExtronSetupPress: ExtronSetupPress
                                       ,NtiSetupPress: NtiSetupPress
+                                      ,AddSignalInputMatrix: AddSignalInputMatrix
                                       ,AtlonaSetupPress: AtlonaSetupPress
                                       ,BackToMenuPress: BackToMenuPress
                                       ,CloseSetupPress: CloseSetupPress
@@ -11650,6 +11722,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,cancelPresetEdit: cancelPresetEdit
                                       ,setPresetName: setPresetName
                                       ,setPresetNameCommit: setPresetNameCommit
+                                      ,addSignalInputMatrix: addSignalInputMatrix
                                       ,main: main
                                       ,appState: appState
                                       ,actions: actions
@@ -11679,9 +11752,12 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,menuOptionsView: menuOptionsView
                                       ,menuOptionsTopBarView: menuOptionsTopBarView
                                       ,menuOptionsBodyView: menuOptionsBodyView
+                                      ,matrixSetupOptionsTopBarView: matrixSetupOptionsTopBarView
+                                      ,matrixSetupOptionsBodyView: matrixSetupOptionsBodyView
                                       ,matrixSetupTopBarView: matrixSetupTopBarView
                                       ,matrixSetupBodyView: matrixSetupBodyView
                                       ,signalMatrixInputSetup: signalMatrixInputSetup
+                                      ,addSignalMatrixInputButtonView: addSignalMatrixInputButtonView
                                       ,closeIcon: closeIcon
                                       ,backIcon: backIcon
                                       ,isEsc: isEsc

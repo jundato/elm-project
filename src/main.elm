@@ -54,7 +54,11 @@ type alias MenuOptionsScreenState = { viewState : Int
                                     ,  matrixSetupScreenState : MatrixSetupScreenState
                                     }
 
-type alias MatrixSetupScreenState = { viewState : Int
+-- model for menu settup up matrix inputs
+-- 1 - extron
+-- 2 - nti
+-- 3 - atlona
+type alias MatrixSetupScreenState = { setupIndex : Int
                                     , extronSignalMatrixInputs : List SignalMatrixInput
                                     , ntiSignalMatrixInputs : List SignalMatrixInput
                                     , atlonaSignalMatrixInputs : List SignalMatrixInput
@@ -165,8 +169,12 @@ defaultMenuOptionsScreenState : MenuOptionsScreenState
 defaultMenuOptionsScreenState = { viewState = 1
                                 , matrixSetupScreenState = defaultMatrixSetupScreenState }
 
+-- model for menu settup up matrix inputs
+-- 1 - extron
+-- 2 - nti
+-- 3 - atlona
 defaultMatrixSetupScreenState : MatrixSetupScreenState
-defaultMatrixSetupScreenState = { viewState = 1
+defaultMatrixSetupScreenState = { setupIndex = 0
                                 , extronSignalMatrixInputs = defaultExtronSignalMatrixInputs
                                 , ntiSignalMatrixInputs = defaultNtiSignalMatrixInputs
                                 , atlonaSignalMatrixInputs = defaultAtlonaSignalMatrixInputs
@@ -289,6 +297,7 @@ type Action
   | MatrixSetupPress
   | ExtronSetupPress
   | NtiSetupPress
+  | AddSignalInputMatrix
   | AtlonaSetupPress
   | BackToMenuPress
   | CloseSetupPress
@@ -440,16 +449,22 @@ update action appState =
     ExtronSetupPress ->
       let menuOptionsScreenState' = appState.menuOptionsScreenState
           matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1
-                                                                                                                              } } }
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState'  | viewState = 3
+                                                                          , matrixSetupScreenState = { matrixSetupScreenState' | setupIndex = 1 } } }
     NtiSetupPress ->
       let menuOptionsScreenState' = appState.menuOptionsScreenState
           matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1 } } }
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState'  | viewState = 3
+                                                                          , matrixSetupScreenState = { matrixSetupScreenState' | setupIndex = 2 } } }
     AtlonaSetupPress ->
       let menuOptionsScreenState' = appState.menuOptionsScreenState
           matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = { matrixSetupScreenState' | viewState = 1 } } }
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState'  | viewState = 3
+                                                                          , matrixSetupScreenState = { matrixSetupScreenState' | setupIndex = 3 } } }
+    AddSignalInputMatrix -> 
+      let menuOptionsScreenState' = appState.menuOptionsScreenState
+          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
+      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = addSignalInputMatrix matrixSetupScreenState' } }
     CloseSetupPress -> 
       { appState | viewState = 1 }
     BackToMenuPress ->
@@ -676,6 +691,18 @@ setPresetNameCommit preset presets =
   List.map (\p -> if  p.id == preset.id then { p  | name = p.tempName
                                                   , isEditingName = False } 
                   else p ) presets
+
+---- MENU OPTION
+addSignalInputMatrix : MatrixSetupScreenState -> MatrixSetupScreenState
+addSignalInputMatrix screenState = 
+  let newScreenState = 
+    case screenState.setupIndex of
+      0 -> { screenState | extronSignalMatrixInputs = screenState.extronSignalMatrixInputs ++ [ createSignalMatrixInput "<empty>" DVI ] }
+      1 -> { screenState | ntiSignalMatrixInputs = screenState.ntiSignalMatrixInputs ++ [ createSignalMatrixInput "<empty>" DVI ] }
+      2 -> { screenState | atlonaSignalMatrixInputs = screenState.atlonaSignalMatrixInputs ++ [ createSignalMatrixInput "<empty>" DVI ] }
+      _ -> screenState
+  in newScreenState
+
 --- entry point
 main : Signal Html
 main =
@@ -1001,7 +1028,9 @@ menuOptionsView address screenState =
   let view =  case screenState.viewState of
                 1 ->  [ menuOptionsTopBarView address screenState 
                       , menuOptionsBodyView address screenState ]
-                2 ->  [ matrixSetupTopBarView address screenState
+                2 ->  [ matrixSetupOptionsTopBarView address screenState
+                      , matrixSetupOptionsBodyView address screenState]
+                3 ->  [ matrixSetupTopBarView address screenState
                       , matrixSetupBodyView address screenState ]                     
                 _ ->  [ ]
   in div [ class "main" ] view
@@ -1028,6 +1057,34 @@ menuOptionsBodyView address screenState =
                                             ] 
                                       , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ] 
 
+-- top bar for menu option view
+matrixSetupOptionsTopBarView address screenState = 
+  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
+                              , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
+
+
+
+-- main body for monitor setting view
+matrixSetupOptionsBodyView address screenState = 
+
+  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+                                      , div [ class "div-3-5 vdiv-1-1" ] 
+                                            [ div [ class "vdiv-4-5 div-1-1" ] 
+                                                  [ div [ class "div-1-3 vdiv-1-1 content-centered" ] 
+                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                                              , onClick address ExtronSetupPress ] [ text "EXTRON" ] ]
+                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ] 
+                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                                              , onClick address NtiSetupPress ] [ text "NTI" ] ]
+                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ]
+                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                                              , onClick address AtlonaSetupPress ] [ text "Atlona" ] ] ]
+                                            , div [ class "vdiv-1-5 div-1-1 content-centered" ] [ text "SELECT A MATRIX MODEL FROM ABOVE" ]
+                                            ] 
+                                      , div [ class "div-1-5 vdiv-1-1" ] [  ] ] ] 
+
+
+
 matrixSetupTopBarView address screenState = 
   div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
                               , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ]
@@ -1039,17 +1096,20 @@ matrixSetupBodyView address screenState =
                                       DVI -> "DVI"
                                       CVBS -> "DVBS" ) [VGA, DVI, CVBS]
       matrixSetupScreenState = screenState.matrixSetupScreenState
-      matrixInputSignals =  case matrixSetupScreenState.viewState of
-                              1 -> matrixSetupScreenState.extronSignalMatrixInputs
-                              2 -> matrixSetupScreenState.ntiSignalMatrixInputs
-                              3 -> matrixSetupScreenState.atlonaSignalMatrixInputs
+      matrixInputSignals =  case matrixSetupScreenState.setupIndex of
+                              0 -> matrixSetupScreenState.extronSignalMatrixInputs
+                              1 -> matrixSetupScreenState.ntiSignalMatrixInputs
+                              2 -> matrixSetupScreenState.atlonaSignalMatrixInputs
                               _ -> [ ]
   in  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
-                                          , div [ class "div-3-5 vdiv-1-1" ] 
+                                          , div [ class ("div-3-5 vdiv-1-1" ++ (toString matrixSetupScreenState.setupIndex)) ] 
                                                 [ div [ class "vdiv-4-5 div-1-1" ] 
-                                                      (List.map (signalMatrixInputSetup signalTypes) matrixInputSignals)
+                                                      ((List.map (signalMatrixInputSetup signalTypes) matrixInputSignals)
+                                                        ++
+                                                      [ addSignalMatrixInputButtonView address ])
                                                 ] 
                                           , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ] 
+
 
 signalMatrixInputSetup signalTypes signalMatrixInput = 
   let x = 1
@@ -1059,6 +1119,10 @@ signalMatrixInputSetup signalTypes signalMatrixInput =
                         , class "signal-matrix-input"
                         , value signalMatrixInput.name ] [ ] ]
           , div [ class "div-3-10 signal-matrix-side" ] [ select [ ] (List.map (\t -> option [ value t ] [ text t ] ) signalTypes) ] ] 
+
+addSignalMatrixInputButtonView address =
+  div [ class "vdiv-1-10" ] 
+      [ div [ class "button div-1-1 vdiv-1-10 content-centered", onClick address AddSignalInputMatrix ] [ text "ADD SIGNAL MATRIX" ] ]
 
 -- reuseable views
 closeIcon : Html
