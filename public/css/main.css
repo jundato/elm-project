@@ -1,7 +1,7 @@
-.border-a {
-  border: 2px solid #24609d;
-}
 /*variable colors */
+.border-a {
+  border: 2px solid #444444;
+}
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -160,24 +160,24 @@ canvas {
 #elm > div {
   padding: 0px;
   margin: 0px;
-  background: -webkit-linear-gradient(-90deg, #103978, #001d49);
-  background: -ms-linear-gradient(-90deg, #103978, #001d49);
-  background: -moz-linear-gradient(-90deg, #103978, #001d49);
-  background: -o-linear-gradient(-90deg, #001d49, #103978);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001d49', endColorstr='#103978', GradientType=0);
+  background: -webkit-linear-gradient(-90deg, #888888, #333333);
+  background: -ms-linear-gradient(-90deg, #888888, #333333);
+  background: -moz-linear-gradient(-90deg, #888888, #333333);
+  background: -o-linear-gradient(-90deg, #333333, #888888);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#888888', GradientType=0);
 }
 .app-top-bar {
   height: 5%;
-  background-color: #001d49;
+  background-color: #333333;
   padding: 2px;
   color: #ffffff;
 }
 .app-body {
-  background: -webkit-linear-gradient(-90deg, #103978, #001d49);
-  background: -ms-linear-gradient(-90deg, #103978, #001d49);
-  background: -moz-linear-gradient(-90deg, #103978, #001d49);
-  background: -o-linear-gradient(-90deg, #001d49, #103978);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001d49', endColorstr='#103978', GradientType=0);
+  background: -webkit-linear-gradient(-90deg, #888888, #333333);
+  background: -ms-linear-gradient(-90deg, #888888, #333333);
+  background: -moz-linear-gradient(-90deg, #888888, #333333);
+  background: -o-linear-gradient(-90deg, #333333, #888888);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#888888', GradientType=0);
   height: 95%;
   padding: 2px;
   color: #ffffff;
@@ -251,7 +251,7 @@ canvas {
   color: #fbbb40;
 }
 .presets.button {
-  background-color: #2480b0;
+  background-color: #444444;
   color: #fff;
 }
 .button > img {
@@ -276,7 +276,7 @@ canvas {
   position: relative;
 }
 .monitor-selectall-graphic {
-  border-color: #2480b0;
+  border-color: #444444;
   border-width: 2px 2px 0px 2px;
   border-style: solid;
   height: 100%;
@@ -325,12 +325,12 @@ canvas {
 }
 .home-menu-item {
   text-align: center;
-  background-color: #001d49;
+  background-color: #333333;
   color: #ffffff;
 }
 .home-menu-item:hover {
   text-align: center;
-  background-color: #103978;
+  background-color: #888888;
 }
 .home-panel-brightness-panel {
   width: 100%;
@@ -379,7 +379,7 @@ canvas {
   background-color: #000;
   margin: 0 8px;
   padding: 4px;
-  border: 2px solid #24609d;
+  border: 2px solid #444444;
 }
 .signal-matrix-view {
   clear: both;
@@ -393,18 +393,18 @@ canvas {
   border-radius: 8px 0px 0px 8px;
   color: #fff;
   height: 20px;
-  border: 2px solid #24609d;
+  border: 2px solid #444444;
 }
 .signal-matrix-side {
-  background-color: #24609d;
+  background-color: #444444;
   height: 20px;
   border-radius: 0px 8px 8px 0px;
-  border: 2px solid #24609d;
+  border: 2px solid #444444;
 }
 .signal-matrix-side > select {
   width: 100%;
-  background-color: #24609d;
-  border: 0px solid #24609d;
+  background-color: #444444;
+  border: 0px solid #444444;
 }
 .signal-matrix-option {
   cursor: pointer;

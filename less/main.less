@@ -1,3 +1,18 @@
+/*variable colors */
+
+@primary-color: #444;
+@primary-text-color: #fff;
+@secondary-color: #34b3c7;
+@secondary-text-color: #000;
+
+@panel-color: #2480b0;
+@background-color-a: #888;
+@background-color-b: #333;
+
+@button-background-color-a: #d3d6dd;
+@button-background-color-b: #8c8e92;
+@button-background-color-c: #6a6c7a;
+
 .tb-gradient(@start, @stop) {
 
   background: -webkit-linear-gradient(-90deg,
@@ -16,23 +31,8 @@
 }
 
 .border-a{
-  border: 2px solid #24609d;
+  border: 2px solid @primary-color;
 }
-
-/*variable colors */
-
-@primary-color: #2480b0;
-@primary-text-color: #fff;
-@secondary-color: #34b3c7;
-@secondary-text-color: #000;
-
-@panel-color: #2480b0;
-@background-color-a: #103978;
-@background-color-b: #001d49;
-
-@button-background-color-a: #d3d6dd;
-@button-background-color-b: #8c8e92;
-@button-background-color-c: #6a6c7a;
 
 * { 
     -moz-box-sizing: border-box; 
@@ -490,16 +490,16 @@ canvas {
 }
 
 .signal-matrix-side{
-  background-color: #24609d;
+  background-color: @primary-color;
   height: 20px;
   border-radius: 0px 8px 8px 0px;
-  border: 2px solid #24609d;
+  border: 2px solid @primary-color;
 }
 
 .signal-matrix-side > select {
   width: 100%;
-  background-color: #24609d;
-  border: 0px solid #24609d;
+  background-color: @primary-color;
+  border: 0px solid @primary-color;
 }
 
 .signal-matrix-option{
