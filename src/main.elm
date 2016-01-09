@@ -14,6 +14,7 @@ import Basics
 import String
 import Debug
 import Json.Decode as Json
+import GreenGui.Widgets exposing (..)
 
 -- app states model have screeen states that models what state each screen
 type alias AppState = { viewState : Int
@@ -27,6 +28,7 @@ type alias AppState = { viewState : Int
 type alias HomeScreenState =  { monitors : List Monitor
                               , monitorPageIndex : Int 
                               , isPowerDisabled : Bool
+                              , isSelectAllActive : Bool
                               }
 
 -- when a monitor is selected this screen state handles it
@@ -120,6 +122,7 @@ defaultAppState = { viewState = 1
 defaultHomeScreenState : HomeScreenState
 defaultHomeScreenState =  { monitorPageIndex = 0
                           , isPowerDisabled = True
+                          , isSelectAllActive = True
                           , monitors =  [ defaultMonitor "1" True
                                         , defaultMonitor "2" True
                                         , defaultMonitor "3" True
@@ -266,6 +269,7 @@ type Action
   | SelectMonitorToConfigure Monitor
   | NextMonitorPage
   | PreviousMonitorPage
+  | LockScreenPressed String
   | PowerPress
   | PresetPress
   | MenuOptionPress
@@ -316,8 +320,9 @@ update action appState =
                                                             , isPowerDisabled = powerMustBeDisabled } }
     SelectAllMonitors ->
       let homeScreenState' = appState.homeScreenState
-      in { appState | homeScreenState = { homeScreenState' | monitors = setAllMonitorAsSelected homeScreenState'.monitors
-                                                            , isPowerDisabled = False } }
+      in { appState | homeScreenState = { homeScreenState'  | monitors = setAllMonitorAsSelected homeScreenState'.monitors homeScreenState'.isSelectAllActive
+                                                            , isPowerDisabled = False
+                                                            , isSelectAllActive = not homeScreenState'.isSelectAllActive } }
     SelectMonitorToConfigure monitor' ->
       let homeScreenState' = appState.homeScreenState
           monitorSettingScreenState' = appState.monitorSettingScreenState
@@ -350,6 +355,7 @@ update action appState =
       { appState | viewState = 3 }
     MenuOptionPress ->
       { appState | viewState = 4 }
+    LockScreenPressed temporary -> appState
 -- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
@@ -485,9 +491,9 @@ toggleMonitorAsSelected monitor monitors =
                   else m ) monitors
 
 -- sets all monitors to selected
-setAllMonitorAsSelected : List Monitor -> List Monitor
-setAllMonitorAsSelected  monitors = 
-  List.map (\m -> { m | isSelected = True } ) monitors
+setAllMonitorAsSelected : List Monitor -> Bool -> List Monitor
+setAllMonitorAsSelected  monitors isSelected' = 
+  List.map (\m -> { m | isSelected = isSelected' } ) monitors
 
 -- moves monitor pages left and right : negative for left, positive for right
 flipMonitorPage : Int -> Int -> Int -> HomeScreenState -> HomeScreenState
@@ -743,14 +749,14 @@ appView address appState =
 -- home screen view
 homeScreenView address homeScreenState =
   div [ class "main" ]  
-      [ monitorPanelView address homeScreenState.monitors
+      [ monitorPanelView address homeScreenState
       , homePanelView address homeScreenState
       , homeMenuView address
       ] 
 -- monitor panel view contains buttons container and pager
-monitorPanelView address monitors =  
-  div [ class "monitor-panel-view" ]  [ monitorViewPager address
-                                      , div [ class "monitor-views" ] ( monitorViewButtons address monitors ) ]
+monitorPanelView address homeScreenState =  
+  div [ class "monitor-panel-view" ]  [ monitorViewPager address homeScreenState
+                                      , div [ class "monitor-views div-1-1" ] ( monitorViewButtons address homeScreenState.monitors ) ]
 
 -- list of monitor buttons
 monitorViewButtons address monitors = 
@@ -777,14 +783,14 @@ monitorViewButton address monitor =
     ]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
-monitorViewPager address = 
+monitorViewPager address screenState = 
   div [ class "monitor-pager-view" ]
       [ div [ class "div-1-10 vdiv-1-1" ] [ ]
       , div [ class "div-4-5" ] 
             [ div [ class "monitor-selectall-view div-1-1" ]  
                   [ div [ class "monitor-selectall-container content-centered"] 
                         [ div [ class "monitor-selectall-button button", onClick address SelectAllMonitors] 
-                              [ div [ class "content-centered" ] [ text "SELECT ALL" ] 
+                              [ div [ class "content-centered" ] [ text (if screenState.isSelectAllActive then "SELECT ALL" else "DESELECT ALL") ] 
                               ] 
                         ] 
                   ]
@@ -798,7 +804,7 @@ homePanelView address homeScreenState =
   in div  [ class "home-panel-view" ] 
           [ div [ class "home-panel-division div-1-4 vdiv-1-1" ] 
                 [ div [ class ("home-panel-button button content-centered power " ++ powerButtonState), onClick address PowerPress ] 
-                      [ img  [src ("images/power_icon" ++ powerButtonState ++ ".svg") ] [ ] ] ] 
+                      [ powerIcon homeScreenState.isPowerDisabled ] ] 
           , div [ class "home-panel-division div-1-4 content-centered" ] [ div [ class "div-4-5" ]
                                                               [ div [ class "div-2-5" ] [ img [ class "icon", src "images/decrement_icon.svg" ] [] ]
                                                               , div [ class "div-1-5" ] [ div [ class "brightness-icon-container" ] 
@@ -815,7 +821,7 @@ homePanelView address homeScreenState =
 --- view of menus of the home panel, it is located at the bottom of the screen
 homeMenuView address = 
   div [ class "sub-panel-view" ] 
-      [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered" ] 
+      [ div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered", onClick address (LockScreenPressed "") ] 
             [ div [ class "content-centered" ] [ img [class "icon", src "images/lock_icon.svg" ] [ ] ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-3 content-centered", onClick address MenuOptionPress ] 
             [ div [ class "content-centered" ] [ img [class "icon", src "images/menu_icon.svg" ] [ ] ] ]
@@ -1145,6 +1151,10 @@ port out_onPressedMonitor = pressedMonitor
 
 port out_onPressReleasedMonitor : Signal String
 port out_onPressReleasedMonitor = pressReleasedMonitor
+
+port out_onLockScreenPressed : Signal String
+port out_onLockScreenPressed = lockScreenPressed
+
 --port out_onReleasedMonitor : Signal SessionId
 --port out_onReleasedMonitor = releasedMonitor
 
@@ -1173,6 +1183,21 @@ pressReleasedMonitor =
   in  actions.signal
         |> Signal.filter needsMonitorPressReleased (MonitorPressReleased "")
         |> Signal.map toSelector
+
+lockScreenPressed = 
+  let needsLockScreenPressed action =
+        case action of
+          LockScreenPressed temp -> True
+          _ -> False
+      toSelector action =
+        case action of
+          LockScreenPressed temp -> temp
+          _ -> ""
+  in  actions.signal
+        |> Signal.filter needsLockScreenPressed (LockScreenPressed "")
+        |> Signal.map toSelector
+
+
 
 --* WORK AROUNDS *--
 -- when enter is pressed on an element message will be sent to the mailbox

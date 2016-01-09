@@ -10388,6 +10388,758 @@ Elm.Html.Lazy.make = function (_elm) {
    var lazy = $VirtualDom.lazy;
    return _elm.Html.Lazy.values = {_op: _op,lazy: lazy,lazy2: lazy2,lazy3: lazy3};
 };
+Elm.Svg = Elm.Svg || {};
+Elm.Svg.make = function (_elm) {
+   "use strict";
+   _elm.Svg = _elm.Svg || {};
+   if (_elm.Svg.values) return _elm.Svg.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Json$Encode = Elm.Json.Encode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $VirtualDom = Elm.VirtualDom.make(_elm);
+   var _op = {};
+   var text = $VirtualDom.text;
+   var svgNamespace = A2($VirtualDom.property,"namespace",$Json$Encode.string("http://www.w3.org/2000/svg"));
+   var node = F3(function (name,attributes,children) {    return A3($VirtualDom.node,name,A2($List._op["::"],svgNamespace,attributes),children);});
+   var svg = node("svg");
+   var foreignObject = node("foreignObject");
+   var animate = node("animate");
+   var animateColor = node("animateColor");
+   var animateMotion = node("animateMotion");
+   var animateTransform = node("animateTransform");
+   var mpath = node("mpath");
+   var set = node("set");
+   var a = node("a");
+   var defs = node("defs");
+   var g = node("g");
+   var marker = node("marker");
+   var mask = node("mask");
+   var missingGlyph = node("missingGlyph");
+   var pattern = node("pattern");
+   var $switch = node("switch");
+   var symbol = node("symbol");
+   var desc = node("desc");
+   var metadata = node("metadata");
+   var title = node("title");
+   var feBlend = node("feBlend");
+   var feColorMatrix = node("feColorMatrix");
+   var feComponentTransfer = node("feComponentTransfer");
+   var feComposite = node("feComposite");
+   var feConvolveMatrix = node("feConvolveMatrix");
+   var feDiffuseLighting = node("feDiffuseLighting");
+   var feDisplacementMap = node("feDisplacementMap");
+   var feFlood = node("feFlood");
+   var feFuncA = node("feFuncA");
+   var feFuncB = node("feFuncB");
+   var feFuncG = node("feFuncG");
+   var feFuncR = node("feFuncR");
+   var feGaussianBlur = node("feGaussianBlur");
+   var feImage = node("feImage");
+   var feMerge = node("feMerge");
+   var feMergeNode = node("feMergeNode");
+   var feMorphology = node("feMorphology");
+   var feOffset = node("feOffset");
+   var feSpecularLighting = node("feSpecularLighting");
+   var feTile = node("feTile");
+   var feTurbulence = node("feTurbulence");
+   var font = node("font");
+   var fontFace = node("fontFace");
+   var fontFaceFormat = node("fontFaceFormat");
+   var fontFaceName = node("fontFaceName");
+   var fontFaceSrc = node("fontFaceSrc");
+   var fontFaceUri = node("fontFaceUri");
+   var hkern = node("hkern");
+   var vkern = node("vkern");
+   var linearGradient = node("linearGradient");
+   var radialGradient = node("radialGradient");
+   var stop = node("stop");
+   var circle = node("circle");
+   var ellipse = node("ellipse");
+   var image = node("image");
+   var line = node("line");
+   var path = node("path");
+   var polygon = node("polygon");
+   var polyline = node("polyline");
+   var rect = node("rect");
+   var use = node("use");
+   var feDistantLight = node("feDistantLight");
+   var fePointLight = node("fePointLight");
+   var feSpotLight = node("feSpotLight");
+   var altGlyph = node("altGlyph");
+   var altGlyphDef = node("altGlyphDef");
+   var altGlyphItem = node("altGlyphItem");
+   var glyph = node("glyph");
+   var glyphRef = node("glyphRef");
+   var textPath = node("textPath");
+   var text$ = node("text");
+   var tref = node("tref");
+   var tspan = node("tspan");
+   var clipPath = node("clipPath");
+   var colorProfile = node("colorProfile");
+   var cursor = node("cursor");
+   var filter = node("filter");
+   var script = node("script");
+   var style = node("style");
+   var view = node("view");
+   return _elm.Svg.values = {_op: _op
+                            ,text: text
+                            ,node: node
+                            ,svg: svg
+                            ,foreignObject: foreignObject
+                            ,circle: circle
+                            ,ellipse: ellipse
+                            ,image: image
+                            ,line: line
+                            ,path: path
+                            ,polygon: polygon
+                            ,polyline: polyline
+                            ,rect: rect
+                            ,use: use
+                            ,animate: animate
+                            ,animateColor: animateColor
+                            ,animateMotion: animateMotion
+                            ,animateTransform: animateTransform
+                            ,mpath: mpath
+                            ,set: set
+                            ,desc: desc
+                            ,metadata: metadata
+                            ,title: title
+                            ,a: a
+                            ,defs: defs
+                            ,g: g
+                            ,marker: marker
+                            ,mask: mask
+                            ,missingGlyph: missingGlyph
+                            ,pattern: pattern
+                            ,$switch: $switch
+                            ,symbol: symbol
+                            ,altGlyph: altGlyph
+                            ,altGlyphDef: altGlyphDef
+                            ,altGlyphItem: altGlyphItem
+                            ,glyph: glyph
+                            ,glyphRef: glyphRef
+                            ,textPath: textPath
+                            ,text$: text$
+                            ,tref: tref
+                            ,tspan: tspan
+                            ,font: font
+                            ,fontFace: fontFace
+                            ,fontFaceFormat: fontFaceFormat
+                            ,fontFaceName: fontFaceName
+                            ,fontFaceSrc: fontFaceSrc
+                            ,fontFaceUri: fontFaceUri
+                            ,hkern: hkern
+                            ,vkern: vkern
+                            ,linearGradient: linearGradient
+                            ,radialGradient: radialGradient
+                            ,stop: stop
+                            ,feBlend: feBlend
+                            ,feColorMatrix: feColorMatrix
+                            ,feComponentTransfer: feComponentTransfer
+                            ,feComposite: feComposite
+                            ,feConvolveMatrix: feConvolveMatrix
+                            ,feDiffuseLighting: feDiffuseLighting
+                            ,feDisplacementMap: feDisplacementMap
+                            ,feFlood: feFlood
+                            ,feFuncA: feFuncA
+                            ,feFuncB: feFuncB
+                            ,feFuncG: feFuncG
+                            ,feFuncR: feFuncR
+                            ,feGaussianBlur: feGaussianBlur
+                            ,feImage: feImage
+                            ,feMerge: feMerge
+                            ,feMergeNode: feMergeNode
+                            ,feMorphology: feMorphology
+                            ,feOffset: feOffset
+                            ,feSpecularLighting: feSpecularLighting
+                            ,feTile: feTile
+                            ,feTurbulence: feTurbulence
+                            ,feDistantLight: feDistantLight
+                            ,fePointLight: fePointLight
+                            ,feSpotLight: feSpotLight
+                            ,clipPath: clipPath
+                            ,colorProfile: colorProfile
+                            ,cursor: cursor
+                            ,filter: filter
+                            ,script: script
+                            ,style: style
+                            ,view: view};
+};
+Elm.Svg = Elm.Svg || {};
+Elm.Svg.Attributes = Elm.Svg.Attributes || {};
+Elm.Svg.Attributes.make = function (_elm) {
+   "use strict";
+   _elm.Svg = _elm.Svg || {};
+   _elm.Svg.Attributes = _elm.Svg.Attributes || {};
+   if (_elm.Svg.Attributes.values) return _elm.Svg.Attributes.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Svg = Elm.Svg.make(_elm),
+   $VirtualDom = Elm.VirtualDom.make(_elm);
+   var _op = {};
+   var writingMode = $VirtualDom.attribute("writing-mode");
+   var wordSpacing = $VirtualDom.attribute("word-spacing");
+   var visibility = $VirtualDom.attribute("visibility");
+   var unicodeBidi = $VirtualDom.attribute("unicode-bidi");
+   var textRendering = $VirtualDom.attribute("text-rendering");
+   var textDecoration = $VirtualDom.attribute("text-decoration");
+   var textAnchor = $VirtualDom.attribute("text-anchor");
+   var stroke = $VirtualDom.attribute("stroke");
+   var strokeWidth = $VirtualDom.attribute("stroke-width");
+   var strokeOpacity = $VirtualDom.attribute("stroke-opacity");
+   var strokeMiterlimit = $VirtualDom.attribute("stroke-miterlimit");
+   var strokeLinejoin = $VirtualDom.attribute("stroke-linejoin");
+   var strokeLinecap = $VirtualDom.attribute("stroke-linecap");
+   var strokeDashoffset = $VirtualDom.attribute("stroke-dashoffset");
+   var strokeDasharray = $VirtualDom.attribute("stroke-dasharray");
+   var stopOpacity = $VirtualDom.attribute("stop-opacity");
+   var stopColor = $VirtualDom.attribute("stop-color");
+   var shapeRendering = $VirtualDom.attribute("shape-rendering");
+   var pointerEvents = $VirtualDom.attribute("pointer-events");
+   var overflow = $VirtualDom.attribute("overflow");
+   var opacity = $VirtualDom.attribute("opacity");
+   var mask = $VirtualDom.attribute("mask");
+   var markerStart = $VirtualDom.attribute("marker-start");
+   var markerMid = $VirtualDom.attribute("marker-mid");
+   var markerEnd = $VirtualDom.attribute("marker-end");
+   var lightingColor = $VirtualDom.attribute("lighting-color");
+   var letterSpacing = $VirtualDom.attribute("letter-spacing");
+   var kerning = $VirtualDom.attribute("kerning");
+   var imageRendering = $VirtualDom.attribute("image-rendering");
+   var glyphOrientationVertical = $VirtualDom.attribute("glyph-orientation-vertical");
+   var glyphOrientationHorizontal = $VirtualDom.attribute("glyph-orientation-horizontal");
+   var fontWeight = $VirtualDom.attribute("font-weight");
+   var fontVariant = $VirtualDom.attribute("font-variant");
+   var fontStyle = $VirtualDom.attribute("font-style");
+   var fontStretch = $VirtualDom.attribute("font-stretch");
+   var fontSize = $VirtualDom.attribute("font-size");
+   var fontSizeAdjust = $VirtualDom.attribute("font-size-adjust");
+   var fontFamily = $VirtualDom.attribute("font-family");
+   var floodOpacity = $VirtualDom.attribute("flood-opacity");
+   var floodColor = $VirtualDom.attribute("flood-color");
+   var filter = $VirtualDom.attribute("filter");
+   var fill = $VirtualDom.attribute("fill");
+   var fillRule = $VirtualDom.attribute("fill-rule");
+   var fillOpacity = $VirtualDom.attribute("fill-opacity");
+   var enableBackground = $VirtualDom.attribute("enable-background");
+   var dominantBaseline = $VirtualDom.attribute("dominant-baseline");
+   var display = $VirtualDom.attribute("display");
+   var direction = $VirtualDom.attribute("direction");
+   var cursor = $VirtualDom.attribute("cursor");
+   var color = $VirtualDom.attribute("color");
+   var colorRendering = $VirtualDom.attribute("color-rendering");
+   var colorProfile = $VirtualDom.attribute("color-profile");
+   var colorInterpolation = $VirtualDom.attribute("color-interpolation");
+   var colorInterpolationFilters = $VirtualDom.attribute("color-interpolation-filters");
+   var clip = $VirtualDom.attribute("clip");
+   var clipRule = $VirtualDom.attribute("clip-rule");
+   var clipPath = $VirtualDom.attribute("clip-path");
+   var baselineShift = $VirtualDom.attribute("baseline-shift");
+   var alignmentBaseline = $VirtualDom.attribute("alignment-baseline");
+   var zoomAndPan = $VirtualDom.attribute("zoomAndPan");
+   var z = $VirtualDom.attribute("z");
+   var yChannelSelector = $VirtualDom.attribute("yChannelSelector");
+   var y2 = $VirtualDom.attribute("y2");
+   var y1 = $VirtualDom.attribute("y1");
+   var y = $VirtualDom.attribute("y");
+   var xmlSpace = A2($VirtualDom.attributeNS,"http://www.w3.org/XML/1998/namespace","xml:space");
+   var xmlLang = A2($VirtualDom.attributeNS,"http://www.w3.org/XML/1998/namespace","xml:lang");
+   var xmlBase = A2($VirtualDom.attributeNS,"http://www.w3.org/XML/1998/namespace","xml:base");
+   var xlinkType = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:type");
+   var xlinkTitle = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:title");
+   var xlinkShow = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:show");
+   var xlinkRole = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:role");
+   var xlinkHref = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:href");
+   var xlinkArcrole = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:arcrole");
+   var xlinkActuate = A2($VirtualDom.attributeNS,"http://www.w3.org/1999/xlink","xlink:actuate");
+   var xChannelSelector = $VirtualDom.attribute("xChannelSelector");
+   var x2 = $VirtualDom.attribute("x2");
+   var x1 = $VirtualDom.attribute("x1");
+   var xHeight = $VirtualDom.attribute("x-height");
+   var x = $VirtualDom.attribute("x");
+   var widths = $VirtualDom.attribute("widths");
+   var width = $VirtualDom.attribute("width");
+   var viewTarget = $VirtualDom.attribute("viewTarget");
+   var viewBox = $VirtualDom.attribute("viewBox");
+   var vertOriginY = $VirtualDom.attribute("vert-origin-y");
+   var vertOriginX = $VirtualDom.attribute("vert-origin-x");
+   var vertAdvY = $VirtualDom.attribute("vert-adv-y");
+   var version = $VirtualDom.attribute("version");
+   var values = $VirtualDom.attribute("values");
+   var vMathematical = $VirtualDom.attribute("v-mathematical");
+   var vIdeographic = $VirtualDom.attribute("v-ideographic");
+   var vHanging = $VirtualDom.attribute("v-hanging");
+   var vAlphabetic = $VirtualDom.attribute("v-alphabetic");
+   var unitsPerEm = $VirtualDom.attribute("units-per-em");
+   var unicodeRange = $VirtualDom.attribute("unicode-range");
+   var unicode = $VirtualDom.attribute("unicode");
+   var underlineThickness = $VirtualDom.attribute("underline-thickness");
+   var underlinePosition = $VirtualDom.attribute("underline-position");
+   var u2 = $VirtualDom.attribute("u2");
+   var u1 = $VirtualDom.attribute("u1");
+   var type$ = $VirtualDom.attribute("type");
+   var transform = $VirtualDom.attribute("transform");
+   var to = $VirtualDom.attribute("to");
+   var title = $VirtualDom.attribute("title");
+   var textLength = $VirtualDom.attribute("textLength");
+   var targetY = $VirtualDom.attribute("targetY");
+   var targetX = $VirtualDom.attribute("targetX");
+   var target = $VirtualDom.attribute("target");
+   var tableValues = $VirtualDom.attribute("tableValues");
+   var systemLanguage = $VirtualDom.attribute("systemLanguage");
+   var surfaceScale = $VirtualDom.attribute("surfaceScale");
+   var style = $VirtualDom.attribute("style");
+   var string = $VirtualDom.attribute("string");
+   var strikethroughThickness = $VirtualDom.attribute("strikethrough-thickness");
+   var strikethroughPosition = $VirtualDom.attribute("strikethrough-position");
+   var stitchTiles = $VirtualDom.attribute("stitchTiles");
+   var stemv = $VirtualDom.attribute("stemv");
+   var stemh = $VirtualDom.attribute("stemh");
+   var stdDeviation = $VirtualDom.attribute("stdDeviation");
+   var startOffset = $VirtualDom.attribute("startOffset");
+   var spreadMethod = $VirtualDom.attribute("spreadMethod");
+   var speed = $VirtualDom.attribute("speed");
+   var specularExponent = $VirtualDom.attribute("specularExponent");
+   var specularConstant = $VirtualDom.attribute("specularConstant");
+   var spacing = $VirtualDom.attribute("spacing");
+   var slope = $VirtualDom.attribute("slope");
+   var seed = $VirtualDom.attribute("seed");
+   var scale = $VirtualDom.attribute("scale");
+   var ry = $VirtualDom.attribute("ry");
+   var rx = $VirtualDom.attribute("rx");
+   var rotate = $VirtualDom.attribute("rotate");
+   var result = $VirtualDom.attribute("result");
+   var restart = $VirtualDom.attribute("restart");
+   var requiredFeatures = $VirtualDom.attribute("requiredFeatures");
+   var requiredExtensions = $VirtualDom.attribute("requiredExtensions");
+   var repeatDur = $VirtualDom.attribute("repeatDur");
+   var repeatCount = $VirtualDom.attribute("repeatCount");
+   var renderingIntent = $VirtualDom.attribute("rendering-intent");
+   var refY = $VirtualDom.attribute("refY");
+   var refX = $VirtualDom.attribute("refX");
+   var radius = $VirtualDom.attribute("radius");
+   var r = $VirtualDom.attribute("r");
+   var primitiveUnits = $VirtualDom.attribute("primitiveUnits");
+   var preserveAspectRatio = $VirtualDom.attribute("preserveAspectRatio");
+   var preserveAlpha = $VirtualDom.attribute("preserveAlpha");
+   var pointsAtZ = $VirtualDom.attribute("pointsAtZ");
+   var pointsAtY = $VirtualDom.attribute("pointsAtY");
+   var pointsAtX = $VirtualDom.attribute("pointsAtX");
+   var points = $VirtualDom.attribute("points");
+   var pointOrder = $VirtualDom.attribute("point-order");
+   var patternUnits = $VirtualDom.attribute("patternUnits");
+   var patternTransform = $VirtualDom.attribute("patternTransform");
+   var patternContentUnits = $VirtualDom.attribute("patternContentUnits");
+   var pathLength = $VirtualDom.attribute("pathLength");
+   var path = $VirtualDom.attribute("path");
+   var panose1 = $VirtualDom.attribute("panose-1");
+   var overlineThickness = $VirtualDom.attribute("overline-thickness");
+   var overlinePosition = $VirtualDom.attribute("overline-position");
+   var origin = $VirtualDom.attribute("origin");
+   var orientation = $VirtualDom.attribute("orientation");
+   var orient = $VirtualDom.attribute("orient");
+   var order = $VirtualDom.attribute("order");
+   var operator = $VirtualDom.attribute("operator");
+   var offset = $VirtualDom.attribute("offset");
+   var numOctaves = $VirtualDom.attribute("numOctaves");
+   var name = $VirtualDom.attribute("name");
+   var mode = $VirtualDom.attribute("mode");
+   var min = $VirtualDom.attribute("min");
+   var method = $VirtualDom.attribute("method");
+   var media = $VirtualDom.attribute("media");
+   var max = $VirtualDom.attribute("max");
+   var mathematical = $VirtualDom.attribute("mathematical");
+   var maskUnits = $VirtualDom.attribute("maskUnits");
+   var maskContentUnits = $VirtualDom.attribute("maskContentUnits");
+   var markerWidth = $VirtualDom.attribute("markerWidth");
+   var markerUnits = $VirtualDom.attribute("markerUnits");
+   var markerHeight = $VirtualDom.attribute("markerHeight");
+   var local = $VirtualDom.attribute("local");
+   var limitingConeAngle = $VirtualDom.attribute("limitingConeAngle");
+   var lengthAdjust = $VirtualDom.attribute("lengthAdjust");
+   var lang = $VirtualDom.attribute("lang");
+   var keyTimes = $VirtualDom.attribute("keyTimes");
+   var keySplines = $VirtualDom.attribute("keySplines");
+   var keyPoints = $VirtualDom.attribute("keyPoints");
+   var kernelUnitLength = $VirtualDom.attribute("kernelUnitLength");
+   var kernelMatrix = $VirtualDom.attribute("kernelMatrix");
+   var k4 = $VirtualDom.attribute("k4");
+   var k3 = $VirtualDom.attribute("k3");
+   var k2 = $VirtualDom.attribute("k2");
+   var k1 = $VirtualDom.attribute("k1");
+   var k = $VirtualDom.attribute("k");
+   var intercept = $VirtualDom.attribute("intercept");
+   var in2 = $VirtualDom.attribute("in2");
+   var in$ = $VirtualDom.attribute("in");
+   var ideographic = $VirtualDom.attribute("ideographic");
+   var id = $VirtualDom.attribute("id");
+   var horizOriginY = $VirtualDom.attribute("horiz-origin-y");
+   var horizOriginX = $VirtualDom.attribute("horiz-origin-x");
+   var horizAdvX = $VirtualDom.attribute("horiz-adv-x");
+   var height = $VirtualDom.attribute("height");
+   var hanging = $VirtualDom.attribute("hanging");
+   var gradientUnits = $VirtualDom.attribute("gradientUnits");
+   var gradientTransform = $VirtualDom.attribute("gradientTransform");
+   var glyphRef = $VirtualDom.attribute("glyphRef");
+   var glyphName = $VirtualDom.attribute("glyph-name");
+   var g2 = $VirtualDom.attribute("g2");
+   var g1 = $VirtualDom.attribute("g1");
+   var fy = $VirtualDom.attribute("fy");
+   var fx = $VirtualDom.attribute("fx");
+   var from = $VirtualDom.attribute("from");
+   var format = $VirtualDom.attribute("format");
+   var filterUnits = $VirtualDom.attribute("filterUnits");
+   var filterRes = $VirtualDom.attribute("filterRes");
+   var externalResourcesRequired = $VirtualDom.attribute("externalResourcesRequired");
+   var exponent = $VirtualDom.attribute("exponent");
+   var end = $VirtualDom.attribute("end");
+   var elevation = $VirtualDom.attribute("elevation");
+   var edgeMode = $VirtualDom.attribute("edgeMode");
+   var dy = $VirtualDom.attribute("dy");
+   var dx = $VirtualDom.attribute("dx");
+   var dur = $VirtualDom.attribute("dur");
+   var divisor = $VirtualDom.attribute("divisor");
+   var diffuseConstant = $VirtualDom.attribute("diffuseConstant");
+   var descent = $VirtualDom.attribute("descent");
+   var decelerate = $VirtualDom.attribute("decelerate");
+   var d = $VirtualDom.attribute("d");
+   var cy = $VirtualDom.attribute("cy");
+   var cx = $VirtualDom.attribute("cx");
+   var contentStyleType = $VirtualDom.attribute("contentStyleType");
+   var contentScriptType = $VirtualDom.attribute("contentScriptType");
+   var clipPathUnits = $VirtualDom.attribute("clipPathUnits");
+   var $class = $VirtualDom.attribute("class");
+   var capHeight = $VirtualDom.attribute("cap-height");
+   var calcMode = $VirtualDom.attribute("calcMode");
+   var by = $VirtualDom.attribute("by");
+   var bias = $VirtualDom.attribute("bias");
+   var begin = $VirtualDom.attribute("begin");
+   var bbox = $VirtualDom.attribute("bbox");
+   var baseProfile = $VirtualDom.attribute("baseProfile");
+   var baseFrequency = $VirtualDom.attribute("baseFrequency");
+   var azimuth = $VirtualDom.attribute("azimuth");
+   var autoReverse = $VirtualDom.attribute("autoReverse");
+   var attributeType = $VirtualDom.attribute("attributeType");
+   var attributeName = $VirtualDom.attribute("attributeName");
+   var ascent = $VirtualDom.attribute("ascent");
+   var arabicForm = $VirtualDom.attribute("arabic-form");
+   var amplitude = $VirtualDom.attribute("amplitude");
+   var allowReorder = $VirtualDom.attribute("allowReorder");
+   var alphabetic = $VirtualDom.attribute("alphabetic");
+   var additive = $VirtualDom.attribute("additive");
+   var accumulate = $VirtualDom.attribute("accumulate");
+   var accelerate = $VirtualDom.attribute("accelerate");
+   var accentHeight = $VirtualDom.attribute("accent-height");
+   return _elm.Svg.Attributes.values = {_op: _op
+                                       ,accentHeight: accentHeight
+                                       ,accelerate: accelerate
+                                       ,accumulate: accumulate
+                                       ,additive: additive
+                                       ,alphabetic: alphabetic
+                                       ,allowReorder: allowReorder
+                                       ,amplitude: amplitude
+                                       ,arabicForm: arabicForm
+                                       ,ascent: ascent
+                                       ,attributeName: attributeName
+                                       ,attributeType: attributeType
+                                       ,autoReverse: autoReverse
+                                       ,azimuth: azimuth
+                                       ,baseFrequency: baseFrequency
+                                       ,baseProfile: baseProfile
+                                       ,bbox: bbox
+                                       ,begin: begin
+                                       ,bias: bias
+                                       ,by: by
+                                       ,calcMode: calcMode
+                                       ,capHeight: capHeight
+                                       ,$class: $class
+                                       ,clipPathUnits: clipPathUnits
+                                       ,contentScriptType: contentScriptType
+                                       ,contentStyleType: contentStyleType
+                                       ,cx: cx
+                                       ,cy: cy
+                                       ,d: d
+                                       ,decelerate: decelerate
+                                       ,descent: descent
+                                       ,diffuseConstant: diffuseConstant
+                                       ,divisor: divisor
+                                       ,dur: dur
+                                       ,dx: dx
+                                       ,dy: dy
+                                       ,edgeMode: edgeMode
+                                       ,elevation: elevation
+                                       ,end: end
+                                       ,exponent: exponent
+                                       ,externalResourcesRequired: externalResourcesRequired
+                                       ,filterRes: filterRes
+                                       ,filterUnits: filterUnits
+                                       ,format: format
+                                       ,from: from
+                                       ,fx: fx
+                                       ,fy: fy
+                                       ,g1: g1
+                                       ,g2: g2
+                                       ,glyphName: glyphName
+                                       ,glyphRef: glyphRef
+                                       ,gradientTransform: gradientTransform
+                                       ,gradientUnits: gradientUnits
+                                       ,hanging: hanging
+                                       ,height: height
+                                       ,horizAdvX: horizAdvX
+                                       ,horizOriginX: horizOriginX
+                                       ,horizOriginY: horizOriginY
+                                       ,id: id
+                                       ,ideographic: ideographic
+                                       ,in$: in$
+                                       ,in2: in2
+                                       ,intercept: intercept
+                                       ,k: k
+                                       ,k1: k1
+                                       ,k2: k2
+                                       ,k3: k3
+                                       ,k4: k4
+                                       ,kernelMatrix: kernelMatrix
+                                       ,kernelUnitLength: kernelUnitLength
+                                       ,keyPoints: keyPoints
+                                       ,keySplines: keySplines
+                                       ,keyTimes: keyTimes
+                                       ,lang: lang
+                                       ,lengthAdjust: lengthAdjust
+                                       ,limitingConeAngle: limitingConeAngle
+                                       ,local: local
+                                       ,markerHeight: markerHeight
+                                       ,markerUnits: markerUnits
+                                       ,markerWidth: markerWidth
+                                       ,maskContentUnits: maskContentUnits
+                                       ,maskUnits: maskUnits
+                                       ,mathematical: mathematical
+                                       ,max: max
+                                       ,media: media
+                                       ,method: method
+                                       ,min: min
+                                       ,mode: mode
+                                       ,name: name
+                                       ,numOctaves: numOctaves
+                                       ,offset: offset
+                                       ,operator: operator
+                                       ,order: order
+                                       ,orient: orient
+                                       ,orientation: orientation
+                                       ,origin: origin
+                                       ,overlinePosition: overlinePosition
+                                       ,overlineThickness: overlineThickness
+                                       ,panose1: panose1
+                                       ,path: path
+                                       ,pathLength: pathLength
+                                       ,patternContentUnits: patternContentUnits
+                                       ,patternTransform: patternTransform
+                                       ,patternUnits: patternUnits
+                                       ,pointOrder: pointOrder
+                                       ,points: points
+                                       ,pointsAtX: pointsAtX
+                                       ,pointsAtY: pointsAtY
+                                       ,pointsAtZ: pointsAtZ
+                                       ,preserveAlpha: preserveAlpha
+                                       ,preserveAspectRatio: preserveAspectRatio
+                                       ,primitiveUnits: primitiveUnits
+                                       ,r: r
+                                       ,radius: radius
+                                       ,refX: refX
+                                       ,refY: refY
+                                       ,renderingIntent: renderingIntent
+                                       ,repeatCount: repeatCount
+                                       ,repeatDur: repeatDur
+                                       ,requiredExtensions: requiredExtensions
+                                       ,requiredFeatures: requiredFeatures
+                                       ,restart: restart
+                                       ,result: result
+                                       ,rotate: rotate
+                                       ,rx: rx
+                                       ,ry: ry
+                                       ,scale: scale
+                                       ,seed: seed
+                                       ,slope: slope
+                                       ,spacing: spacing
+                                       ,specularConstant: specularConstant
+                                       ,specularExponent: specularExponent
+                                       ,speed: speed
+                                       ,spreadMethod: spreadMethod
+                                       ,startOffset: startOffset
+                                       ,stdDeviation: stdDeviation
+                                       ,stemh: stemh
+                                       ,stemv: stemv
+                                       ,stitchTiles: stitchTiles
+                                       ,strikethroughPosition: strikethroughPosition
+                                       ,strikethroughThickness: strikethroughThickness
+                                       ,string: string
+                                       ,style: style
+                                       ,surfaceScale: surfaceScale
+                                       ,systemLanguage: systemLanguage
+                                       ,tableValues: tableValues
+                                       ,target: target
+                                       ,targetX: targetX
+                                       ,targetY: targetY
+                                       ,textLength: textLength
+                                       ,title: title
+                                       ,to: to
+                                       ,transform: transform
+                                       ,type$: type$
+                                       ,u1: u1
+                                       ,u2: u2
+                                       ,underlinePosition: underlinePosition
+                                       ,underlineThickness: underlineThickness
+                                       ,unicode: unicode
+                                       ,unicodeRange: unicodeRange
+                                       ,unitsPerEm: unitsPerEm
+                                       ,vAlphabetic: vAlphabetic
+                                       ,vHanging: vHanging
+                                       ,vIdeographic: vIdeographic
+                                       ,vMathematical: vMathematical
+                                       ,values: values
+                                       ,version: version
+                                       ,vertAdvY: vertAdvY
+                                       ,vertOriginX: vertOriginX
+                                       ,vertOriginY: vertOriginY
+                                       ,viewBox: viewBox
+                                       ,viewTarget: viewTarget
+                                       ,width: width
+                                       ,widths: widths
+                                       ,x: x
+                                       ,xHeight: xHeight
+                                       ,x1: x1
+                                       ,x2: x2
+                                       ,xChannelSelector: xChannelSelector
+                                       ,xlinkActuate: xlinkActuate
+                                       ,xlinkArcrole: xlinkArcrole
+                                       ,xlinkHref: xlinkHref
+                                       ,xlinkRole: xlinkRole
+                                       ,xlinkShow: xlinkShow
+                                       ,xlinkTitle: xlinkTitle
+                                       ,xlinkType: xlinkType
+                                       ,xmlBase: xmlBase
+                                       ,xmlLang: xmlLang
+                                       ,xmlSpace: xmlSpace
+                                       ,y: y
+                                       ,y1: y1
+                                       ,y2: y2
+                                       ,yChannelSelector: yChannelSelector
+                                       ,z: z
+                                       ,zoomAndPan: zoomAndPan
+                                       ,alignmentBaseline: alignmentBaseline
+                                       ,baselineShift: baselineShift
+                                       ,clipPath: clipPath
+                                       ,clipRule: clipRule
+                                       ,clip: clip
+                                       ,colorInterpolationFilters: colorInterpolationFilters
+                                       ,colorInterpolation: colorInterpolation
+                                       ,colorProfile: colorProfile
+                                       ,colorRendering: colorRendering
+                                       ,color: color
+                                       ,cursor: cursor
+                                       ,direction: direction
+                                       ,display: display
+                                       ,dominantBaseline: dominantBaseline
+                                       ,enableBackground: enableBackground
+                                       ,fillOpacity: fillOpacity
+                                       ,fillRule: fillRule
+                                       ,fill: fill
+                                       ,filter: filter
+                                       ,floodColor: floodColor
+                                       ,floodOpacity: floodOpacity
+                                       ,fontFamily: fontFamily
+                                       ,fontSizeAdjust: fontSizeAdjust
+                                       ,fontSize: fontSize
+                                       ,fontStretch: fontStretch
+                                       ,fontStyle: fontStyle
+                                       ,fontVariant: fontVariant
+                                       ,fontWeight: fontWeight
+                                       ,glyphOrientationHorizontal: glyphOrientationHorizontal
+                                       ,glyphOrientationVertical: glyphOrientationVertical
+                                       ,imageRendering: imageRendering
+                                       ,kerning: kerning
+                                       ,letterSpacing: letterSpacing
+                                       ,lightingColor: lightingColor
+                                       ,markerEnd: markerEnd
+                                       ,markerMid: markerMid
+                                       ,markerStart: markerStart
+                                       ,mask: mask
+                                       ,opacity: opacity
+                                       ,overflow: overflow
+                                       ,pointerEvents: pointerEvents
+                                       ,shapeRendering: shapeRendering
+                                       ,stopColor: stopColor
+                                       ,stopOpacity: stopOpacity
+                                       ,strokeDasharray: strokeDasharray
+                                       ,strokeDashoffset: strokeDashoffset
+                                       ,strokeLinecap: strokeLinecap
+                                       ,strokeLinejoin: strokeLinejoin
+                                       ,strokeMiterlimit: strokeMiterlimit
+                                       ,strokeOpacity: strokeOpacity
+                                       ,strokeWidth: strokeWidth
+                                       ,stroke: stroke
+                                       ,textAnchor: textAnchor
+                                       ,textDecoration: textDecoration
+                                       ,textRendering: textRendering
+                                       ,unicodeBidi: unicodeBidi
+                                       ,visibility: visibility
+                                       ,wordSpacing: wordSpacing
+                                       ,writingMode: writingMode};
+};
+Elm.GreenGui = Elm.GreenGui || {};
+Elm.GreenGui.Widgets = Elm.GreenGui.Widgets || {};
+Elm.GreenGui.Widgets.make = function (_elm) {
+   "use strict";
+   _elm.GreenGui = _elm.GreenGui || {};
+   _elm.GreenGui.Widgets = _elm.GreenGui.Widgets || {};
+   if (_elm.GreenGui.Widgets.values) return _elm.GreenGui.Widgets.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Svg = Elm.Svg.make(_elm),
+   $Svg$Attributes = Elm.Svg.Attributes.make(_elm);
+   var _op = {};
+   var powerIcon = function (isDisabled) {
+      var color = isDisabled ? "#333" : "#DD3A3A";
+      var containerHeight = 300;
+      var containerWidth = 300;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M181,17.3V70c33.8,11.9,58,44.2,58,82c0,48-39,87-87,87s-87-39-87-87c0-37.5,23.7-69.5,57-81.7V17.1 C60.3,30.4,14,85.3,14,151c0,75.7,61.3,137,137,137s137-61.3,137-137C288,85.6,242.2,31,181,17.3z")
+                      ,$Svg$Attributes.fill(color)]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("136")
+                      ,$Svg$Attributes.y("2")
+                      ,$Svg$Attributes.width("30.3")
+                      ,$Svg$Attributes.height("125")
+                      ,$Svg$Attributes.fill(color)]),
+              _U.list([]))]));
+   };
+   return _elm.GreenGui.Widgets.values = {_op: _op,powerIcon: powerIcon};
+};
 Elm.GreenGui = Elm.GreenGui || {};
 Elm.GreenGui.Main = Elm.GreenGui.Main || {};
 Elm.GreenGui.Main.make = function (_elm) {
@@ -10398,6 +11150,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var _U = Elm.Native.Utils.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
+   $GreenGui$Widgets = Elm.GreenGui.Widgets.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
@@ -10613,7 +11366,9 @@ Elm.GreenGui.Main.make = function (_elm) {
       return _U.update(homeScreenState,
       {monitorPageIndex: newPageIndex,monitors: A2($List.indexedMap,A2(setVisibilityByPageIndex,newPageIndex,monitorsPerPage),monitors$)});
    });
-   var setAllMonitorAsSelected = function (monitors) {    return A2($List.map,function (m) {    return _U.update(m,{isSelected: true});},monitors);};
+   var setAllMonitorAsSelected = F2(function (monitors,isSelected$) {
+      return A2($List.map,function (m) {    return _U.update(m,{isSelected: isSelected$});},monitors);
+   });
    var toggleMonitorAsSelected = F2(function (monitor,monitors) {
       return A2($List.map,
       function (m) {
@@ -10945,25 +11700,6 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([closeIcon]))]));
    });
    var MenuOptionPress = {ctor: "MenuOptionPress"};
-   var homeMenuView = function (address) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("sub-panel-view")]),
-      _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/lock_icon.svg")]),_U.list([]))]))]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,MenuOptionPress)]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/menu_icon.svg")]),_U.list([]))]))]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/information_icon.svg")]),_U.list([]))]))]))]));
-   };
    var PresetPress = {ctor: "PresetPress"};
    var PowerPress = {ctor: "PowerPress"};
    var homePanelView = F2(function (address,homeScreenState) {
@@ -10975,9 +11711,7 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"home-panel-button button content-centered power ",powerButtonState))
                       ,A2($Html$Events.onClick,address,PowerPress)]),
-              _U.list([A2($Html.img,
-              _U.list([$Html$Attributes.src(A2($Basics._op["++"],"images/power_icon",A2($Basics._op["++"],powerButtonState,".svg")))]),
-              _U.list([]))]))]))
+              _U.list([$GreenGui$Widgets.powerIcon(homeScreenState.isPowerDisabled)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 content-centered")]),
               _U.list([A2($Html.div,
@@ -11004,6 +11738,26 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$Html$Attributes.$class("home-panel-button button content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
               _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/preset_icon.svg")]),_U.list([]))]))]))]));
    });
+   var LockScreenPressed = function (a) {    return {ctor: "LockScreenPressed",_0: a};};
+   var homeMenuView = function (address) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("sub-panel-view")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,LockScreenPressed(""))]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/lock_icon.svg")]),_U.list([]))]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,MenuOptionPress)]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/menu_icon.svg")]),_U.list([]))]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/information_icon.svg")]),_U.list([]))]))]))]));
+   };
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};
    var SelectMonitorToConfigure = function (a) {    return {ctor: "SelectMonitorToConfigure",_0: a};};
@@ -11011,7 +11765,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var MonitorPressReleased = function (a) {    return {ctor: "MonitorPressReleased",_0: a};};
    var MonitorPressedDown = function (a) {    return {ctor: "MonitorPressedDown",_0: a};};
    var SelectAllMonitors = {ctor: "SelectAllMonitors"};
-   var monitorViewPager = function (address) {
+   var monitorViewPager = F2(function (address,screenState) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("monitor-pager-view")]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))
@@ -11023,9 +11777,11 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("monitor-selectall-button button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$Html.text("SELECT ALL")]))]))]))]))]))
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("content-centered")]),
+              _U.list([$Html.text(screenState.isSelectAllActive ? "SELECT ALL" : "DESELECT ALL")]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))]));
-   };
+   });
    var SelectMonitor = function (a) {    return {ctor: "SelectMonitor",_0: a};};
    var monitorViewButton = F2(function (address,monitor) {
       var isHighlighted = monitor.isSelected ? "selected" : "";
@@ -11051,15 +11807,16 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([]))]))]))]))]));
    });
    var monitorViewButtons = F2(function (address,monitors) {    return A2($List.map,monitorViewButton(address),monitors);});
-   var monitorPanelView = F2(function (address,monitors) {
+   var monitorPanelView = F2(function (address,homeScreenState) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("monitor-panel-view")]),
-      _U.list([monitorViewPager(address),A2($Html.div,_U.list([$Html$Attributes.$class("monitor-views")]),A2(monitorViewButtons,address,monitors))]));
+      _U.list([A2(monitorViewPager,address,homeScreenState)
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("monitor-views div-1-1")]),A2(monitorViewButtons,address,homeScreenState.monitors))]));
    });
    var homeScreenView = F2(function (address,homeScreenState) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("main")]),
-      _U.list([A2(monitorPanelView,address,homeScreenState.monitors),A2(homePanelView,address,homeScreenState),homeMenuView(address)]));
+      _U.list([A2(monitorPanelView,address,homeScreenState),A2(homePanelView,address,homeScreenState),homeMenuView(address)]));
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
@@ -11083,6 +11840,12 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressReleased,MonitorPressReleased(""),actions.signal));
    }();
    var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",function (v) {    return v;},pressReleasedMonitor);
+   var lockScreenPressed = function () {
+      var toSelector = function (action) {    var _p9 = action;if (_p9.ctor === "LockScreenPressed") {    return _p9._0;} else {    return "";}};
+      var needsLockScreenPressed = function (action) {    var _p10 = action;if (_p10.ctor === "LockScreenPressed") {    return true;} else {    return false;}};
+      return A2($Signal.map,toSelector,A3($Signal.filter,needsLockScreenPressed,LockScreenPressed(""),actions.signal));
+   }();
+   var out_onLockScreenPressed = Elm.Native.Port.make(_elm).outboundSignal("out_onLockScreenPressed",function (v) {    return v;},lockScreenPressed);
    var createSignalMatrixInput = F2(function (name,type$) {    return {name: name,type$: type$};});
    var defaultSignalMatrixInputs = _U.list([]);
    var defaultPreset = function (id$) {    return {id: id$,name: "<empty>",tempName: "",monitors: _U.list([]),isSelected: false,isEditingName: false};};
@@ -11113,9 +11876,9 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isOn: false};
    });
    var findMonitor = F2(function (number,monitors) {
-      var _p9 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
-      if (_p9.ctor === "::" && _p9._1.ctor === "[]") {
-            return _p9._0;
+      var _p11 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
+      if (_p11.ctor === "::" && _p11._1.ctor === "[]") {
+            return _p11._0;
          } else {
             return A2(defaultMonitor,"-1",false);
          }
@@ -11143,6 +11906,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                           ,signalMatrixInputs: _U.list([])};
    var defaultHomeScreenState = {monitorPageIndex: 0
                                 ,isPowerDisabled: true
+                                ,isSelectAllActive: true
                                 ,monitors: _U.list([A2(defaultMonitor,"1",true)
                                                    ,A2(defaultMonitor,"2",true)
                                                    ,A2(defaultMonitor,"3",true)
@@ -11191,8 +11955,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                          ,menuOptionsScreenState: defaultMenuOptionsScreenState};
    var addSignalInputMatrix = function (screenState) {
       var newScreenState = function () {
-         var _p10 = screenState.setupIndex;
-         switch (_p10)
+         var _p12 = screenState.setupIndex;
+         switch (_p12)
          {case 0: return _U.update(screenState,
               {extronSignalMatrixInputs: A2($Basics._op["++"],screenState.extronSignalMatrixInputs,_U.list([A2(createSignalMatrixInput,"<empty>",DVI)]))});
             case 1: return _U.update(screenState,
@@ -11204,17 +11968,20 @@ Elm.GreenGui.Main.make = function (_elm) {
       return newScreenState;
    };
    var update = F2(function (action,appState) {
-      var _p11 = action;
-      switch (_p11.ctor)
+      var _p13 = action;
+      switch (_p13.ctor)
       {case "NoOp": return appState;
          case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
-           var monitors$ = A2(toggleMonitorAsSelected,_p11._0,homeScreenState$.monitors);
+           var monitors$ = A2(toggleMonitorAsSelected,_p13._0,homeScreenState$.monitors);
            var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
          case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
-           {homeScreenState: _U.update(homeScreenState$,{monitors: setAllMonitorAsSelected(homeScreenState$.monitors),isPowerDisabled: false})});
-         case "SelectMonitorToConfigure": var _p12 = _p11._0;
+           {homeScreenState: _U.update(homeScreenState$,
+           {monitors: A2(setAllMonitorAsSelected,homeScreenState$.monitors,homeScreenState$.isSelectAllActive)
+           ,isPowerDisabled: false
+           ,isSelectAllActive: $Basics.not(homeScreenState$.isSelectAllActive)})});
+         case "SelectMonitorToConfigure": var _p14 = _p13._0;
            var matrixSetupScreenState$ = appState.menuOptionsScreenState.matrixSetupScreenState;
            var signalMatrixInputs$ = A2($Basics._op["++"],
            matrixSetupScreenState$.extronSignalMatrixInputs,
@@ -11223,13 +11990,13 @@ Elm.GreenGui.Main.make = function (_elm) {
            var homeScreenState$ = appState.homeScreenState;
            return _U.update(appState,
            {viewState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p12,homeScreenState$.monitors)})
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p14,homeScreenState$.monitors)})
            ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: _p12,isPipSetPressed: false,isOsdSetPressed: false,signalMatrixInputs: signalMatrixInputs$})});
+           {selectedMonitor: _p14,isPipSetPressed: false,isOsdSetPressed: false,signalMatrixInputs: signalMatrixInputs$})});
          case "MonitorPressedDown": return appState;
          case "MonitorPressReleased": return appState;
          case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
-           var foundMonitor = A2(findMonitor,_p11._0,homeScreenState$.monitors);
+           var foundMonitor = A2(findMonitor,_p13._0,homeScreenState$.monitors);
            var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,
            {viewState: 2
@@ -11239,6 +12006,7 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
          case "PresetPress": return _U.update(appState,{viewState: 3});
          case "MenuOptionPress": return _U.update(appState,{viewState: 4});
+         case "LockScreenPressed": return appState;
          case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
            var monitorsPerPage = 5;
            var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
@@ -11256,12 +12024,12 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            var monitor$ = monitorSettingScreenState$.selectedMonitor;
            return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p11._0,_p11._1,monitor$)})});
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p13._0,_p13._1,monitor$)})});
          case "SignalInputSelect": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            var monitor$ = monitorSettingScreenState$.selectedMonitor;
            return _U.update(appState,
            {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A3(setSignalInputChange,_p11._0,_p11._1,monitor$)
+           {selectedMonitor: A3(setSignalInputChange,_p13._0,_p13._1,monitor$)
            ,isVgaOneSelectOpen: false
            ,isVgaTwoSelectOpen: false
            ,isDviOneSelectOpen: false
@@ -11281,10 +12049,10 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
            {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A2(activateCycleSignalMatrix,_p11._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
+           {selectedMonitor: A2(activateCycleSignalMatrix,_p13._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
          case "SignalInputOpenSelections": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return $Basics.not(monitorSettingScreenState$.isCyclePressed) ? _U.update(appState,
-           {monitorSettingScreenState: A2(setSelectionInputToOpen,monitorSettingScreenState$,_p11._0)}) : appState;
+           {monitorSettingScreenState: A2(setSelectionInputToOpen,monitorSettingScreenState$,_p13._0)}) : appState;
          case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
          case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
@@ -11299,23 +12067,23 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
          case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
          case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p11._0.monitors})});
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p13._0.monitors})});
          case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p11._0,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p13._0,presetSettingScreenState$.presets)})});
          case "PresetCommit": var monitors = appState.homeScreenState.monitors;
            var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p11._0,presetSettingScreenState$.presets,monitors)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p13._0,presetSettingScreenState$.presets,monitors)})});
          case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p11._0,_p11._1,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p13._0,_p13._1,presetSettingScreenState$.presets)})});
          case "PresetNameEditDone": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p11._0,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p13._0,presetSettingScreenState$.presets)})});
          case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p11._0,presetSettingScreenState$.presets)})});
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p13._0,presetSettingScreenState$.presets)})});
          case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
            return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
          case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
@@ -11344,9 +12112,9 @@ Elm.GreenGui.Main.make = function (_elm) {
    var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
    var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
       var isOfType = F2(function (signalType$,signalMatrixInput) {    return _U.eq(signalMatrixInput.type$,signalType$);});
-      var _p13 = function () {
-         var _p14 = signalType;
-         switch (_p14)
+      var _p15 = function () {
+         var _p16 = signalType;
+         switch (_p16)
          {case "VGA 1": return {ctor: "_Tuple3"
                                ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVgaOneCycle : false
                                ,_1: A2($List.filter,isOfType(VGA),monitorSettingScreenState.signalMatrixInputs)
@@ -11377,9 +12145,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                    ,_2: monitorSettingScreenState.isVideoThreeSelectOpen};
             default: return {ctor: "_Tuple3",_0: false,_1: _U.list([]),_2: false};}
       }();
-      var isActivated = _p13._0;
-      var filteredSignalMatrices = _p13._1;
-      var isSelectOpen = _p13._2;
+      var isActivated = _p15._0;
+      var filteredSignalMatrices = _p15._1;
+      var isSelectOpen = _p15._2;
       var isDisabled = $Basics.not(isActivated) && $Basics.not(monitorSettingScreenState.isCyclePressed) ? false : true;
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("signal-matrix-view"),A2($Html$Events.onClick,address,ActivateCycleSignalMatrixPress(signalType))]),
@@ -11397,8 +12165,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                               ,A3($Html$Events.on,
                               "input",
                               $Html$Events.targetValue,
-                              function (_p15) {
-                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p15));
+                              function (_p17) {
+                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p17));
                               })]),
                       _U.list([]))]))
                       ,A2($Html.div,
@@ -11443,8 +12211,8 @@ Elm.GreenGui.Main.make = function (_elm) {
    var matrixSetupBodyView = F2(function (address,screenState) {
       var matrixSetupScreenState = screenState.matrixSetupScreenState;
       var matrixInputSignals = function () {
-         var _p16 = matrixSetupScreenState.setupIndex;
-         switch (_p16)
+         var _p18 = matrixSetupScreenState.setupIndex;
+         switch (_p18)
          {case 0: return matrixSetupScreenState.extronSignalMatrixInputs;
             case 1: return matrixSetupScreenState.ntiSignalMatrixInputs;
             case 2: return matrixSetupScreenState.atlonaSignalMatrixInputs;
@@ -11452,8 +12220,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       var signalTypes = A2($List.map,
       function (t) {
-         var _p17 = t;
-         switch (_p17.ctor)
+         var _p19 = t;
+         switch (_p19.ctor)
          {case "VGA": return "VGA";
             case "DVI": return "DVI";
             default: return "DVBS";}
@@ -11473,8 +12241,8 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var menuOptionsView = F2(function (address,screenState) {
       var view = function () {
-         var _p18 = screenState.viewState;
-         switch (_p18)
+         var _p20 = screenState.viewState;
+         switch (_p20)
          {case 1: return _U.list([A2(menuOptionsTopBarView,address,screenState),A2(menuOptionsBodyView,address,screenState)]);
             case 2: return _U.list([A2(matrixSetupOptionsTopBarView,address,screenState),A2(matrixSetupOptionsBodyView,address,screenState)]);
             case 3: return _U.list([A2(matrixSetupTopBarView,address,screenState),A2(matrixSetupBodyView,address,screenState)]);
@@ -11488,8 +12256,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       var monitorSettingScreenState = appState.monitorSettingScreenState;
       var homeScreenState = appState.homeScreenState;
       var viewToDisplay = function () {
-         var _p19 = appState.viewState;
-         switch (_p19)
+         var _p21 = appState.viewState;
+         switch (_p21)
          {case 1: return A2(homeScreenView,address,homeScreenState);
             case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
             case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
@@ -11626,7 +12394,7 @@ Elm.GreenGui.Main.make = function (_elm) {
          };
       };
    };
-   var HomeScreenState = F3(function (a,b,c) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c};});
+   var HomeScreenState = F4(function (a,b,c,d) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c,isSelectAllActive: d};});
    var AppState = F5(function (a,b,c,d,e) {
       return {viewState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d,menuOptionsScreenState: e};
    });
@@ -11665,6 +12433,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,SelectMonitorToConfigure: SelectMonitorToConfigure
                                       ,NextMonitorPage: NextMonitorPage
                                       ,PreviousMonitorPage: PreviousMonitorPage
+                                      ,LockScreenPressed: LockScreenPressed
                                       ,PowerPress: PowerPress
                                       ,PresetPress: PresetPress
                                       ,MenuOptionPress: MenuOptionPress
@@ -11763,6 +12532,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,isEsc: isEsc
                                       ,pressedMonitor: pressedMonitor
                                       ,pressReleasedMonitor: pressReleasedMonitor
+                                      ,lockScreenPressed: lockScreenPressed
                                       ,onEnter: onEnter
                                       ,is13: is13
                                       ,onEsc: onEsc};
