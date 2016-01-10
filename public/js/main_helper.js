@@ -4,10 +4,15 @@ function main() {
   var monitorPressTimer = 0;
   var monitorNumberPressed = '';
 
-  var cleanPressTimer = 0;
+  var lockCountdownTimer = 0;
+
+  var lockCountdownUpdateDuration = 200;
+  var lockCountdownStart = '';
 
   var elm = Elm.embed(Elm.GreenGui.Main, elmDiv,  {
-    in_longPressedMonitor: ""
+    in_longPressedMonitor: "",
+    in_unlockLockCountdown: "",
+    in_updateLockCountdownSecondsLeft: 0
   });
 
   //functions coming from elm
@@ -28,9 +33,32 @@ function main() {
   });
 
   elm.ports.out_onLockScreenPressed.subscribe(function() {
-    console.log('lock pressed')
+    console.log('lock pressed');
+    startLockCountdown();
+
     // cleanPressTimer = window.setTimeout(function() { 
     //   elm.ports.inCleanPressTimerEnded.send();
     // },30000);
   });
+
+  var startLockCountdown = function(){
+    lockCountdownStart = new Date();
+    lockCountdownTick();
+  }
+
+  var lockCountdownTick = function(){
+    lockCountDownUpdateDuration = 200;
+    countDownDuration = 30;
+    window.setTimeout(function() { 
+      var currentLockdownTime = new Date();
+      var elapsed = Math.floor((currentLockdownTime - lockCountdownStart) / 1000);
+      if(elapsed >= countDownDuration){
+        elm.ports.in_unlockLockCountdown.send("");
+      }
+      else{
+        elm.ports.in_updateLockCountdownSecondsLeft.send(countDownDuration - elapsed);
+        lockCountdownTick();
+      }
+    },lockCountDownUpdateDuration);
+  }
 }

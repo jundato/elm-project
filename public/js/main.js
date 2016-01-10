@@ -11169,6 +11169,16 @@ Elm.GreenGui.Main.make = function (_elm) {
          return A2($Signal.message,address,value);
       });
    });
+   var in_updateLockCountdownSecondsLeft = Elm.Native.Port.make(_elm).inboundSignal("in_updateLockCountdownSecondsLeft",
+   "Int",
+   function (v) {
+      return typeof v === "number" && isFinite(v) && Math.floor(v) === v ? v : _U.badPort("an integer",v);
+   });
+   var in_unlockLockCountdown = Elm.Native.Port.make(_elm).inboundSignal("in_unlockLockCountdown",
+   "String",
+   function (v) {
+      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",v);
+   });
    var in_longPressedMonitor = Elm.Native.Port.make(_elm).inboundSignal("in_longPressedMonitor",
    "String",
    function (v) {
@@ -11178,6 +11188,17 @@ Elm.GreenGui.Main.make = function (_elm) {
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
    var backIcon = A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/back_icon.svg")]),_U.list([]));
    var closeIcon = A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/close_icon.svg")]),_U.list([]));
+   var lockCountdownScreenView = function (lockCountdownScreenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("vdiv-1-1 div-1-1")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-3 div-1-1")]),_U.list([]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-1-3 div-1-1 content-centered lock-countdown-timer")]),
+              _U.list([$Html.text(A2($Basics._op["++"],
+              "unlocking in ",
+              A2($Basics._op["++"],$Basics.toString(lockCountdownScreenState.secondsLeft)," seconds")))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-3 div-1-1")]),_U.list([]))]));
+   };
    var signalMatrixInputSetup = F2(function (signalTypes,signalMatrixInput) {
       var x = 1;
       return A2($Html.div,
@@ -11383,6 +11404,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       },
       monitors);
    });
+   var UpdateLockCountdownSecondsLeft = function (a) {    return {ctor: "UpdateLockCountdownSecondsLeft",_0: a};};
+   var UnlockLockCountdown = function (a) {    return {ctor: "UnlockLockCountdown",_0: a};};
    var CloseSetupPress = {ctor: "CloseSetupPress"};
    var menuOptionsTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
@@ -11820,7 +11843,10 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
-   var mergedActions = $Signal.mergeMany(_U.list([actions.signal,A2($Signal.map,LongPressedMonitor,in_longPressedMonitor)]));
+   var mergedActions = $Signal.mergeMany(_U.list([actions.signal
+                                                 ,A2($Signal.map,LongPressedMonitor,in_longPressedMonitor)
+                                                 ,A2($Signal.map,UnlockLockCountdown,in_unlockLockCountdown)
+                                                 ,A2($Signal.map,UpdateLockCountdownSecondsLeft,in_updateLockCountdownSecondsLeft)]));
    var pressedMonitor = function () {
       var toSelector = function (action) {    var _p5 = action;if (_p5.ctor === "MonitorPressedDown") {    return _p5._0;} else {    return "";}};
       var needsMonitorPressedDown = function (action) {    var _p6 = action;if (_p6.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
@@ -11883,6 +11909,7 @@ Elm.GreenGui.Main.make = function (_elm) {
             return A2(defaultMonitor,"-1",false);
          }
    });
+   var defaultLockdownScreenState = {secondsLeft: 30};
    var defaulPresetSettingScreenState = {presets: _U.list([defaultPreset(1)
                                                           ,defaultPreset(2)
                                                           ,defaultPreset(3)
@@ -11952,7 +11979,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                          ,homeScreenState: defaultHomeScreenState
                          ,monitorSettingScreenState: defaultMonitorSettingScreenState
                          ,presetSettingScreenState: defaulPresetSettingScreenState
-                         ,menuOptionsScreenState: defaultMenuOptionsScreenState};
+                         ,menuOptionsScreenState: defaultMenuOptionsScreenState
+                         ,lockCountdownScreenState: defaultLockdownScreenState};
    var addSignalInputMatrix = function (screenState) {
       var newScreenState = function () {
          var _p12 = screenState.setupIndex;
@@ -12006,7 +12034,7 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
          case "PresetPress": return _U.update(appState,{viewState: 3});
          case "MenuOptionPress": return _U.update(appState,{viewState: 4});
-         case "LockScreenPressed": return appState;
+         case "LockScreenPressed": return _U.update(appState,{viewState: 5});
          case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
            var monitorsPerPage = 5;
            var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
@@ -12106,8 +12134,11 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,
            {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: addSignalInputMatrix(matrixSetupScreenState$)})});
          case "CloseSetupPress": return _U.update(appState,{viewState: 1});
-         default: var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});}
+         case "BackToMenuPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});
+         case "UnlockLockCountdown": return _U.update(appState,{viewState: 1});
+         default: var lockCountdownScreenState$ = appState.lockCountdownScreenState;
+           return _U.update(appState,{lockCountdownScreenState: _U.update(lockCountdownScreenState$,{secondsLeft: _p13._0})});}
    });
    var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
    var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
@@ -12251,6 +12282,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,_U.list([$Html$Attributes.$class("main")]),view);
    });
    var appView = F2(function (address,appState) {
+      var lockCountdownScreenState = appState.lockCountdownScreenState;
       var menuOptionsScreenState = appState.menuOptionsScreenState;
       var presetSettingScreenState = appState.presetSettingScreenState;
       var monitorSettingScreenState = appState.monitorSettingScreenState;
@@ -12262,6 +12294,7 @@ Elm.GreenGui.Main.make = function (_elm) {
             case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
             case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
             case 4: return A2(menuOptionsView,address,menuOptionsScreenState);
+            case 5: return lockCountdownScreenView(lockCountdownScreenState);
             default: return A2($Html.div,_U.list([]),_U.list([$Html.text("nothing to display")]));}
       }();
       return viewToDisplay;
@@ -12347,6 +12380,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var MatrixSetupScreenState = F4(function (a,b,c,d) {
       return {setupIndex: a,extronSignalMatrixInputs: b,ntiSignalMatrixInputs: c,atlonaSignalMatrixInputs: d};
    });
+   var LockCountdownScreenState = function (a) {    return {secondsLeft: a};};
    var MenuOptionsScreenState = F2(function (a,b) {    return {viewState: a,matrixSetupScreenState: b};});
    var PresetSettingScreenState = function (a) {    return {presets: a};};
    var MonitorSettingScreenState = function (a) {
@@ -12395,8 +12429,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       };
    };
    var HomeScreenState = F4(function (a,b,c,d) {    return {monitors: a,monitorPageIndex: b,isPowerDisabled: c,isSelectAllActive: d};});
-   var AppState = F5(function (a,b,c,d,e) {
-      return {viewState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d,menuOptionsScreenState: e};
+   var AppState = F6(function (a,b,c,d,e,f) {
+      return {viewState: a,homeScreenState: b,monitorSettingScreenState: c,presetSettingScreenState: d,menuOptionsScreenState: e,lockCountdownScreenState: f};
    });
    return _elm.GreenGui.Main.values = {_op: _op
                                       ,AppState: AppState
@@ -12404,6 +12438,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,MonitorSettingScreenState: MonitorSettingScreenState
                                       ,PresetSettingScreenState: PresetSettingScreenState
                                       ,MenuOptionsScreenState: MenuOptionsScreenState
+                                      ,LockCountdownScreenState: LockCountdownScreenState
                                       ,MatrixSetupScreenState: MatrixSetupScreenState
                                       ,Monitor: Monitor
                                       ,Preset: Preset
@@ -12416,6 +12451,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
                                       ,defaulPresetSettingScreenState: defaulPresetSettingScreenState
                                       ,defaultMenuOptionsScreenState: defaultMenuOptionsScreenState
+                                      ,defaultLockdownScreenState: defaultLockdownScreenState
                                       ,defaultMatrixSetupScreenState: defaultMatrixSetupScreenState
                                       ,defaultMonitor: defaultMonitor
                                       ,defaultPreset: defaultPreset
@@ -12465,6 +12501,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,AtlonaSetupPress: AtlonaSetupPress
                                       ,BackToMenuPress: BackToMenuPress
                                       ,CloseSetupPress: CloseSetupPress
+                                      ,UnlockLockCountdown: UnlockLockCountdown
+                                      ,UpdateLockCountdownSecondsLeft: UpdateLockCountdownSecondsLeft
                                       ,update: update
                                       ,setMonitorAsSelected: setMonitorAsSelected
                                       ,toggleMonitorAsSelected: toggleMonitorAsSelected
@@ -12527,6 +12565,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,matrixSetupBodyView: matrixSetupBodyView
                                       ,signalMatrixInputSetup: signalMatrixInputSetup
                                       ,addSignalMatrixInputButtonView: addSignalMatrixInputButtonView
+                                      ,lockCountdownScreenView: lockCountdownScreenView
                                       ,closeIcon: closeIcon
                                       ,backIcon: backIcon
                                       ,isEsc: isEsc

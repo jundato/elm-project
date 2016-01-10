@@ -22,6 +22,7 @@ type alias AppState = { viewState : Int
                       , monitorSettingScreenState : MonitorSettingScreenState
                       , presetSettingScreenState : PresetSettingScreenState
                       , menuOptionsScreenState : MenuOptionsScreenState
+                      , lockCountdownScreenState : LockCountdownScreenState
                       }
 
 -- initial page that should be displayed, it contains the list of monitors, power down, etc.
@@ -55,6 +56,9 @@ type alias PresetSettingScreenState = { presets : List Preset }
 type alias MenuOptionsScreenState = { viewState : Int
                                     ,  matrixSetupScreenState : MatrixSetupScreenState
                                     }
+
+-- lockCountdownScreenState
+type alias LockCountdownScreenState = { secondsLeft : Int }
 
 -- model for menu settup up matrix inputs
 -- 1 - extron
@@ -116,7 +120,8 @@ defaultAppState = { viewState = 1
                   , homeScreenState = defaultHomeScreenState
                   , monitorSettingScreenState = defaultMonitorSettingScreenState
                   , presetSettingScreenState = defaulPresetSettingScreenState
-                  , menuOptionsScreenState = defaultMenuOptionsScreenState } 
+                  , menuOptionsScreenState = defaultMenuOptionsScreenState
+                  , lockCountdownScreenState = defaultLockdownScreenState } 
 
 -- model for home screen
 defaultHomeScreenState : HomeScreenState
@@ -168,9 +173,13 @@ defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
 -- 2 - matrix setup
 -- 3 - wifi
 -- 4 - version
+-- 5 - lock screen
 defaultMenuOptionsScreenState : MenuOptionsScreenState
 defaultMenuOptionsScreenState = { viewState = 1
                                 , matrixSetupScreenState = defaultMatrixSetupScreenState }
+
+defaultLockdownScreenState : LockCountdownScreenState
+defaultLockdownScreenState = { secondsLeft = 30 }
 
 -- model for menu settup up matrix inputs
 -- 1 - extron
@@ -305,6 +314,9 @@ type Action
   | AtlonaSetupPress
   | BackToMenuPress
   | CloseSetupPress
+-- lock countdown actions
+  | UnlockLockCountdown String
+  | UpdateLockCountdownSecondsLeft Int
 
 -- logic when an update signal is emitted
 update : Action -> AppState -> AppState
@@ -355,7 +367,7 @@ update action appState =
       { appState | viewState = 3 }
     MenuOptionPress ->
       { appState | viewState = 4 }
-    LockScreenPressed temporary -> appState
+    LockScreenPressed temporary -> { appState | viewState = 5 }
 -- Moves monitor page to the next page
     PreviousMonitorPage ->
       let monitorsPerPage = 5
@@ -476,6 +488,13 @@ update action appState =
     BackToMenuPress ->
       let menuOptionsScreenState' = appState.menuOptionsScreenState
       in { appState | menuOptionsScreenState = { menuOptionsScreenState' | viewState = 1 } }
+  ---- Lock Countdown
+    UnlockLockCountdown temporary ->
+      { appState | viewState = 1 }
+    UpdateLockCountdownSecondsLeft seconds ->
+      let lockCountdownScreenState' = appState.lockCountdownScreenState
+      in { appState | lockCountdownScreenState = { lockCountdownScreenState' | secondsLeft = seconds } }
+
 ------ CONVERSION FUNCTIONS
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
@@ -727,6 +746,8 @@ actions =
 mergedActions : Signal Action
 mergedActions = Signal.mergeMany [ actions.signal
                 , in_longPressedMonitor |> Signal.map LongPressedMonitor
+                , in_unlockLockCountdown |> Signal.map UnlockLockCountdown
+                , in_updateLockCountdownSecondsLeft |> Signal.map UpdateLockCountdownSecondsLeft
                 ]
 
 ------ VIEWS
@@ -738,11 +759,13 @@ appView address appState =
       monitorSettingScreenState = appState.monitorSettingScreenState
       presetSettingScreenState = appState.presetSettingScreenState
       menuOptionsScreenState = appState.menuOptionsScreenState
+      lockCountdownScreenState = appState.lockCountdownScreenState
       viewToDisplay = case appState.viewState of
                         1 -> homeScreenView address homeScreenState
                         2 -> monitorSettingScreenView address monitorSettingScreenState
                         3 -> presetSettingScreenView address presetSettingScreenState
                         4 -> menuOptionsView address menuOptionsScreenState 
+                        5 -> lockCountdownScreenView lockCountdownScreenState
                         _ -> div [] [ text "nothing to display" ]
   in viewToDisplay
 ---- Main View
@@ -1130,6 +1153,12 @@ addSignalMatrixInputButtonView address =
   div [ class "vdiv-1-10" ] 
       [ div [ class "button div-1-1 vdiv-1-10 content-centered", onClick address AddSignalInputMatrix ] [ text "ADD SIGNAL MATRIX" ] ]
 
+lockCountdownScreenView lockCountdownScreenState =
+  div [ class "vdiv-1-1 div-1-1" ] 
+      [ div [ class "vdiv-1-3 div-1-1" ] [ ]
+      , div [ class "vdiv-1-3 div-1-1 content-centered lock-countdown-timer" ] [ text ("unlocking in " ++ (toString lockCountdownScreenState.secondsLeft) ++ " seconds") ]
+      , div [ class "vdiv-1-3 div-1-1" ] [ ] ]
+
 -- reuseable views
 closeIcon : Html
 closeIcon = img [ class "icon", src "images/close_icon.svg" ][ ]
@@ -1143,6 +1172,8 @@ isEsc code = if code == 27 then Ok () else Err ""
 
 --* PORTS IN *---
 port in_longPressedMonitor : Signal String
+port in_unlockLockCountdown : Signal String
+port in_updateLockCountdownSecondsLeft : Signal Int
 
 --* PORTS OUT *--
 port out_onPressedMonitor : Signal String
