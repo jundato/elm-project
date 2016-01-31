@@ -11113,6 +11113,385 @@ Elm.GreenGui.Widgets.make = function (_elm) {
    $Svg = Elm.Svg.make(_elm),
    $Svg$Attributes = Elm.Svg.Attributes.make(_elm);
    var _op = {};
+   var closeIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+      _U.list([$Svg$Attributes.d("M22.5,18h24.2l18.6,28.7L84.5,18h22.8L76.9,61l33.1,47H85.2L64.5,76.9L43.4,108H20l33.1-47.1L22.5,18z")
+              ,$Svg$Attributes.fill("#fff")]),
+      _U.list([]))]));
+   }();
+   var exitOsdIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M106.8,28.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C81.1,28.2,93.8,28.2,106.8,28.2zM101.2,52.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C83.1,52.4,91.9,52.4,101.2,52.4z")
+                      ,$Svg$Attributes.fill("#0290AB")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M31.4,84.8c17.5,0,43.3,0,62.8,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7c-24.4,0-48.7,0-73.6,0c0-17.5,0-52.3,0-52.3H62l0,5H31.5v37.6")
+                      ,$Svg$Attributes.fill("#0290AB")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("4.9")
+                      ,$Svg$Attributes.y("61")
+                      ,$Svg$Attributes.transform("matrix(0.7071 -0.7071 0.7071 0.7071 -26.598 64.3651)")
+                      ,$Svg$Attributes.width("119")
+                      ,$Svg$Attributes.height("5.5")
+                      ,$Svg$Attributes.fill("#0290AB")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("4.9")
+                      ,$Svg$Attributes.y("61")
+                      ,$Svg$Attributes.transform("matrix(-0.7071 -0.7071 0.7071 -0.7071 64.4724 155.2838)")
+                      ,$Svg$Attributes.width("119")
+                      ,$Svg$Attributes.height("5.5")
+                      ,$Svg$Attributes.fill("#0290AB")]),
+              _U.list([]))]));
+   }();
+   var selectIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.polygon,
+      _U.list([$Svg$Attributes.points("52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"),$Svg$Attributes.fill("#129848")]),
+      _U.list([]))]));
+   }();
+   var exitPipIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M106.8,28.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C81.1,28.2,93.8,28.2,106.8,28.2zM101.2,52.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C83.1,52.4,91.9,52.4,101.2,52.4z")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M31.4,84.8c17.5,0,43.3,0,62.8,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7c-24.4,0-48.7,0-73.6,0c0-17.5,0-52.3,0-52.3H62l0,5H31.5v37.6")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("4.9")
+                      ,$Svg$Attributes.y("61")
+                      ,$Svg$Attributes.transform("matrix(0.7071 -0.7071 0.7071 0.7071 -26.598 64.3651)")
+                      ,$Svg$Attributes.width("119")
+                      ,$Svg$Attributes.height("5.5")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("4.9")
+                      ,$Svg$Attributes.y("61")
+                      ,$Svg$Attributes.transform("matrix(-0.7071 -0.7071 0.7071 -0.7071 64.4724 155.2838)")
+                      ,$Svg$Attributes.width("119")
+                      ,$Svg$Attributes.height("5.5")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))]));
+   }();
+   var resizeIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M24.4,95.1c0-17.5,0-34.7,0-52.3c11.9,0,23.7,0,35.9,0c0.1,1.5,0.2,3,0.3,5c-10.2,0-30.5,0-30.5,0v37.6l17.7-17.1H35l-0.3-5.3c0,0,14.4,0,21.9,0c0,6.9,0,14,0,21.6c-1.4,0.1-2.9,0.2-5,0.3c0-3.8,0-12.9,0-12.9S38.6,85,34.2,89.8c17.5,0,39.1,0,58.5,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7C73.6,95.1,49.2,95.1,24.4,95.1z")
+                      ,$Svg$Attributes.fill("#21409A")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M103.3,33.1c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C77.6,33.1,90.4,33.1,103.3,33.1zM97.8,57.3c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C79.7,57.3,88.5,57.3,97.8,57.3z")
+                      ,$Svg$Attributes.fill("#21409A")]),
+              _U.list([]))]));
+   }();
+   var upDownIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("40.6")
+                      ,$Svg$Attributes.y("30.3")
+                      ,$Svg$Attributes.width("8.4")
+                      ,$Svg$Attributes.height("52.4")
+                      ,$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("44.8,21.2 23.2,42.9 28.4,47.8 44.6,31.6 61.1,48.2 66.3,43"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("78.6")
+                      ,$Svg$Attributes.y("45.2")
+                      ,$Svg$Attributes.width("8.4")
+                      ,$Svg$Attributes.height("52.2")
+                      ,$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))]));
+   }();
+   var leftRightIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("30.5")
+                      ,$Svg$Attributes.y("40.7")
+                      ,$Svg$Attributes.width("52.2")
+                      ,$Svg$Attributes.height("8.4")
+                      ,$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("21.5,44.9 43.1,23.3 48.1,28.5 31.9,44.7 48.4,61.2 43.2,66.4"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.x("45.5")
+                      ,$Svg$Attributes.y("78.7")
+                      ,$Svg$Attributes.width("52.2")
+                      ,$Svg$Attributes.height("8.4")
+                      ,$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([]))]));
+   }();
+   var osdIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M104.3,33.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C78.6,33.2,91.3,33.2,104.3,33.2zM98.7,57.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C80.6,57.4,89.4,57.4,98.7,57.4z")
+                      ,$Svg$Attributes.fill("#3C2F90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M28.9,89.8c17.5,0,43.3,0,62.8,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7c-24.4,0-48.7,0-73.6,0c0-17.5,0-52.3,0-52.3h36.2l0,5H29v37.6")
+                      ,$Svg$Attributes.fill("#3C2F90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M32.2,72.5l1.1,3.8c0,0.1,0.1,0.2,0.2,0.3c0.1,0.1,0.2,0.1,0.4,0.1l3.5-0.7c0.7,1.2,1.5,2.3,2.5,3.2l-1.4,3.3c0,0.1-0.1,0.3,0,0.4c0,0.1,0.1,0.2,0.2,0.3l3.5,1.9c0.1,0.1,0.2,0.1,0.4,0.1c0.1,0,0.2-0.1,0.3-0.2l2-2.9c1.3,0.4,2.7,0.5,4,0.5l1.3,3.3c0,0.1,0.1,0.2,0.3,0.3c0.1,0.1,0.3,0.1,0.4,0l3.8-1.1c0.1,0,0.2-0.1,0.3-0.2c0.1-0.1,0.1-0.2,0.1-0.4l-0.7-3.5c1.2-0.7,2.3-1.5,3.2-2.5l3.3,1.4c0.1,0,0.3,0.1,0.4,0c0.1,0,0.2-0.1,0.3-0.2l1.9-3.5c0.1-0.1,0.1-0.2,0.1-0.4c0-0.1-0.1-0.2-0.2-0.3l-2.9-2c0.4-1.3,0.5-2.7,0.5-4l3.3-1.3c0.1-0.1,0.2-0.1,0.3-0.3c0.1-0.1,0.1-0.3,0-0.4l-1.1-3.8c0-0.1-0.1-0.2-0.2-0.3c-0.1-0.1-0.2-0.1-0.4-0.1l-3.5,0.7c-0.7-1.2-1.5-2.3-2.5-3.2l1.4-3.3c0-0.1,0.1-0.3,0-0.4c0-0.1-0.1-0.2-0.2-0.3l-3.5-1.9c-0.1-0.1-0.2-0.1-0.4-0.1c-0.1,0-0.2,0.1-0.3,0.2l-2,2.9c-1.3-0.4-2.7-0.5-4-0.5l-1.3-3.3c0-0.1-0.1-0.2-0.3-0.3c-0.1-0.1-0.3-0.1-0.4,0L42,54.9c-0.1,0-0.2,0.1-0.3,0.2c-0.1,0.1-0.1,0.2-0.1,0.4l0.7,3.5c-1.2,0.7-2.3,1.5-3.2,2.5l-3.3-1.4c-0.1,0-0.3-0.1-0.4,0c-0.1,0-0.2,0.1-0.3,0.2l-1.9,3.5c-0.1,0.1-0.1,0.2-0.1,0.4c0,0.1,0.1,0.2,0.2,0.3l2.9,2c-0.4,1.3-0.5,2.7-0.5,4l-3.3,1.3c-0.1,0-0.2,0.1-0.3,0.3C32.2,72.3,32.2,72.4,32.2,72.5z M41.5,71.9c-1.1-3.8,1.1-7.7,4.9-8.8c3.8-1.1,7.7,1.1,8.8,4.9c1.1,3.8-1.1,7.7-4.9,8.8C46.5,77.9,42.6,75.7,41.5,71.9z")
+                      ,$Svg$Attributes.fill("#3C2F90")]),
+              _U.list([]))]));
+   }();
+   var pipIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M104.3,33.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C78.6,33.2,91.3,33.2,104.3,33.2zM98.7,57.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C80.6,57.4,89.4,57.4,98.7,57.4z")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M28.9,89.8c17.5,0,43.3,0,62.8,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7c-24.4,0-48.7,0-73.6,0c0-17.5,0-52.3,0-52.3h36.2l0,5H29v37.6")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))]));
+   }();
+   var informationIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M66.7,103.1c-21.3,0-38.7-17.3-38.7-38.7s17.3-38.7,38.7-38.7s38.7,17.3,38.7,38.7S88,103.1,66.7,103.1zM66.7,34.4c-16.6,0-30.1,13.5-30.1,30.1s13.5,30.1,30.1,30.1S96.8,81,96.8,64.5S83.3,34.4,66.7,34.4")
+                      ,$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M71.2,85c0,2.5-2,4.4-4.4,4.4l0,0c-2.5,0-4.4-2-4.4-4.4V59.5c0-2.5,2-4.4,4.4-4.4l0,0c2.5,0,4.4,2,4.4,4.4V85z")
+                      ,$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.circle,
+              _U.list([$Svg$Attributes.cx("66.7"),$Svg$Attributes.cy("46.5"),$Svg$Attributes.r("5.8"),$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))]));
+   }();
+   var menuIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+      _U.list([$Svg$Attributes.d("M114.3,90.1c0,1.6-1.2,2.9-2.8,2.9H23.9c-1.5,0-2.8-1.3-2.8-2.9V44.9c0,0,0,0,0,0v-6c0-1.6,1.2-2.9,2.8-2.9h18.4c1.5,0,2.8,1.3,2.8,2.9V42h66.5c1.5,0,2.8,1.3,2.8,2.9V90.1z")
+              ,$Svg$Attributes.fill("#BCBEC0")]),
+      _U.list([]))]));
+   }();
+   var presetIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M99.2,45.8c0,2.8-2.3,5.1-5.1,5.1H48.1c-2.8,0-5.1-2.3-5.1-5.1l0,0c0-2.8,2.3-5.1,5.1-5.1h46.1C97,40.6,99.2,42.9,99.2,45.8L99.2,45.8z")
+                      ,$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.circle,
+              _U.list([$Svg$Attributes.cx("33.5"),$Svg$Attributes.cy("45.7"),$Svg$Attributes.r("4.9"),$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M99.2,64.5c0,2.8-2.3,5.1-5.1,5.1H48.1c-2.8,0-5.1-2.3-5.1-5.1l0,0c0-2.8,2.3-5.1,5.1-5.1h46.1C97,59.3,99.2,61.6,99.2,64.5L99.2,64.5z")
+                      ,$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.circle,
+              _U.list([$Svg$Attributes.cx("33.5"),$Svg$Attributes.cy("64.4"),$Svg$Attributes.r("4.9"),$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M99.2,83.2c0,2.8-2.3,5.1-5.1,5.1H48.1c-2.8,0-5.1-2.3-5.1-5.1l0,0c0-2.8,2.3-5.1,5.1-5.1h46.1C97,78.1,99.2,80.3,99.2,83.2L99.2,83.2z")
+                      ,$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))
+              ,A2($Svg.circle,
+              _U.list([$Svg$Attributes.cx("33.5"),$Svg$Attributes.cy("83.1"),$Svg$Attributes.r("4.9"),$Svg$Attributes.fill("#BCBEC0")]),
+              _U.list([]))]));
+   }();
+   var lockIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+      _U.list([$Svg$Attributes.d("M36.6,66.4c0,0,3.5-1.7,6.8,1.2l5.3,7.7c1.1,0.3,2.1-0.2,2.8-1.1V37.4c0-1.4,1.3-3.4,2.8-3.4h1.4c1.6,0,2.8,2,2.8,3.4v22.5c2,1.8,3,0.4,3.3-0.8V32c0-1.4,1.3-3.4,2.8-3.4h1.4c1.6,0,2.8,2,2.8,3.4v26.2c1.4,1.8,2.8,0.8,3.3,0.3V34.9c0-1.4,1.3-3.4,2.8-3.4h1.4c1.6,0,2.8,2,2.8,3.4v25.8c0.1,0.1,0.2,0.3,0.2,0.4c0.9,2,2.5,0.7,3.1,0.1V43.9c0-1.4,1.3-3.4,2.8-3.4h1.4c1.6,0,2.8,2,2.8,3.4v21.6c2.3,14.5,2.1,33.2-18.3,33.2c-21.8,0-24.6-7-26-11.5c-0.8-2.6-2-5.1-2.9-6.7l-6.1-10.3C35.1,69.2,35.3,67.4,36.6,66.4z")
+              ,$Svg$Attributes.fill("#BCBEC0")]),
+      _U.list([]))]));
+   }();
+   var monitorIcon = function (label) {
+      var containerHeight = 140;
+      var containerWidth = 160;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M161,131.4c0,3-1.8,5.5-4.1,5.5H4.1c-2.2,0-4.1-2.5-4.1-5.5V5.5C0,2.5,1.8,0,4.1,0h152.9c2.2,0,4.1,2.5,4.1,5.5V131.4z")
+                      ,$Svg$Attributes.fill("#000")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M153.3,115.8c0,1-0.6,1.8-1.4,1.8H9c-0.7,0-1.4-0.8-1.4-1.8V10.7c0-1,0.6-1.8,1.4-1.8H152c0.7,0,1.4,0.8,1.4,1.8V115.8z")
+                      ,$Svg$Attributes.fill("#CBCCCE")]),
+              _U.list([]))
+              ,A2($Svg.ellipse,
+              _U.list([$Svg$Attributes.fill("#848689")
+                      ,$Svg$Attributes.cx("123.6")
+                      ,$Svg$Attributes.cy("126.4")
+                      ,$Svg$Attributes.rx("3.6")
+                      ,$Svg$Attributes.ry("3.5")]),
+              _U.list([]))
+              ,A2($Svg.ellipse,
+              _U.list([$Svg$Attributes.fill("#848689")
+                      ,$Svg$Attributes.cx("135.9")
+                      ,$Svg$Attributes.cy("126.4")
+                      ,$Svg$Attributes.rx("3.6")
+                      ,$Svg$Attributes.ry("3.5")]),
+              _U.list([]))
+              ,A2($Svg.ellipse,
+              _U.list([$Svg$Attributes.fill("#848689")
+                      ,$Svg$Attributes.cx("148.2")
+                      ,$Svg$Attributes.cy("126.4")
+                      ,$Svg$Attributes.rx("3.6")
+                      ,$Svg$Attributes.ry("3.5")]),
+              _U.list([]))
+              ,A2($Svg.text$,
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 70.4414 47.5479)")
+                      ,$Svg$Attributes.fontFamily("Arial-Black")
+                      ,$Svg$Attributes.fontSize("36px")]),
+              _U.list([$Svg.text(label)]))]));
+   };
    var powerIcon = function (isDisabled) {
       var color = isDisabled ? "#333" : "#DD3A3A";
       var containerHeight = 300;
@@ -11138,7 +11517,22 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill(color)]),
               _U.list([]))]));
    };
-   return _elm.GreenGui.Widgets.values = {_op: _op,powerIcon: powerIcon};
+   return _elm.GreenGui.Widgets.values = {_op: _op
+                                         ,powerIcon: powerIcon
+                                         ,monitorIcon: monitorIcon
+                                         ,lockIcon: lockIcon
+                                         ,presetIcon: presetIcon
+                                         ,menuIcon: menuIcon
+                                         ,informationIcon: informationIcon
+                                         ,pipIcon: pipIcon
+                                         ,osdIcon: osdIcon
+                                         ,leftRightIcon: leftRightIcon
+                                         ,upDownIcon: upDownIcon
+                                         ,resizeIcon: resizeIcon
+                                         ,exitPipIcon: exitPipIcon
+                                         ,selectIcon: selectIcon
+                                         ,exitOsdIcon: exitOsdIcon
+                                         ,closeIcon: closeIcon};
 };
 Elm.GreenGui = Elm.GreenGui || {};
 Elm.GreenGui.Main = Elm.GreenGui.Main || {};
@@ -11187,7 +11581,6 @@ Elm.GreenGui.Main.make = function (_elm) {
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
    var backIcon = A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/back_icon.svg")]),_U.list([]));
-   var closeIcon = A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/close_icon.svg")]),_U.list([]));
    var lockCountdownScreenView = function (lockCountdownScreenState) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("vdiv-1-1 div-1-1")]),
@@ -11273,24 +11666,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       return newMonitor;
    });
-   var setOsdButtonPress = function (monitorSettingScreenState) {
-      return _U.update(monitorSettingScreenState,
-      {isPipSetPressed: false
-      ,isOsdSetPressed: $Basics.not(monitorSettingScreenState.isOsdSetPressed)
-      ,isCycleDisabled: $Basics.not(monitorSettingScreenState.isOsdSetPressed) ? true : false});
-   };
-   var setPipButtonPress = function (monitorSettingScreenState) {
-      return _U.update(monitorSettingScreenState,
-      {isPipSetPressed: $Basics.not(monitorSettingScreenState.isPipSetPressed)
-      ,isOsdSetPressed: false
-      ,isCycleDisabled: $Basics.not(monitorSettingScreenState.isPipSetPressed) ? true : false});
-   };
-   var setCycleButtonPress = function (monitorSettingScreenState) {
-      return _U.update(monitorSettingScreenState,
-      {isCyclePressed: $Basics.not(monitorSettingScreenState.isCyclePressed)
-      ,isPipDisabled: $Basics.not(monitorSettingScreenState.isCyclePressed) ? true : false
-      ,isOsdDisabled: $Basics.not(monitorSettingScreenState.isCyclePressed) ? true : false});
-   };
+   var setOsdButtonPress = function (monitorSettingScreenState) {    return monitorSettingScreenState;};
+   var setPipButtonPress = function (monitorSettingScreenState) {    return monitorSettingScreenState;};
    var setSignalInputChange = F3(function (signalType,value,monitor) {
       var newMonitor = function () {
          var _p2 = signalType;
@@ -11413,7 +11790,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("MENU")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
-              _U.list([closeIcon]))]));
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
    });
    var matrixSetupOptionsTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
@@ -11421,14 +11798,16 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("MENU")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
-              _U.list([closeIcon]))]));
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
    });
    var BackToMenuPress = {ctor: "BackToMenuPress"};
    var matrixSetupTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar")]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("MENU")]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),_U.list([closeIcon]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
+              _U.list([$GreenGui$Widgets.closeIcon]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToMenuPress)]),
               _U.list([backIcon]))]));
@@ -11562,7 +11941,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left  vdiv-1-1 content-centered")]),_U.list([$Html.text("PRESETS")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
-              _U.list([closeIcon]))]));
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
    });
    var presetSettingScreenView = F2(function (address,presetSettingScreenState) {
       return A2($Html.div,
@@ -11578,9 +11957,81 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html.text(signalMatrix.name)]));
    });
    var SignalInputChange = F2(function (a,b) {    return {ctor: "SignalInputChange",_0: a,_1: b};});
+   var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("signal-matrix-view")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-1")]),
+              _U.list([A2($Html.input,
+              _U.list([$Html$Attributes.type$("text")
+                      ,$Html$Attributes.$class("signal-matrix-input")
+                      ,$Html$Attributes.value(signalName)
+                      ,A3($Html$Events.on,
+                      "input",
+                      $Html$Events.targetValue,
+                      function (_p5) {
+                         return A2($Signal.message,address,A2(SignalInputChange,signalType,_p5));
+                      })]),
+              _U.list([]))]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
+   });
+   var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
+      var monitor = monitorSettingScreenState.selectedMonitor;
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState,monitor)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState,monitor)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState,monitor)]))]));
+   });
+   var ExitMonitorSettingSegmentPress = {ctor: "ExitMonitorSettingSegmentPress"};
    var OsdSelectButtonPress = {ctor: "OsdSelectButtonPress"};
    var OsdLeftRightButtonPress = {ctor: "OsdLeftRightButtonPress"};
    var OsdUpDownButtonPress = {ctor: "OsdUpDownButtonPress"};
+   var monitorSettingSegmentStateViewOsd = F2(function (address,monitorSettingState) {
+      var monitor = monitorSettingState.selectedMonitor;
+      var isLeftRightOn = monitor.isOsdLeftRightPressed ? "disabled" : "";
+      var isUpDownOn = monitor.isOsdUpDownPressed ? "disabled" : "";
+      var isSelectedOn = monitor.isOsdSelectPressed ? "disabled" : "";
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("div-1-1")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button button monitor-button content-centered ",isLeftRightOn))
+                      ,A2($Html$Events.onClick,address,OsdLeftRightButtonPress)]),
+              _U.list([$GreenGui$Widgets.leftRightIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button button monitor-button content-centered ",isUpDownOn))
+                      ,A2($Html$Events.onClick,address,OsdUpDownButtonPress)]),
+              _U.list([$GreenGui$Widgets.upDownIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button button monitor-button content-centered ",isSelectedOn))
+                      ,A2($Html$Events.onClick,address,OsdSelectButtonPress)]),
+              _U.list([$GreenGui$Widgets.selectIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered ")
+                      ,A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
+              _U.list([$GreenGui$Widgets.exitOsdIcon]))]))]));
+   });
    var osdButtonSetView = F2(function (address,monitorSettingScreenState) {
       var getIsPressedSrc = function (value) {    return value ? "images/osd_type_button_pressed.svg" : "images/osd_type_button.svg";};
       var monitor = monitorSettingScreenState.selectedMonitor;
@@ -11626,6 +12077,38 @@ Elm.GreenGui.Main.make = function (_elm) {
    var PipResizeButtonPress = {ctor: "PipResizeButtonPress"};
    var PipLeftRightButtonPress = {ctor: "PipLeftRightButtonPress"};
    var PipUpDownButtonPress = {ctor: "PipUpDownButtonPress"};
+   var monitorSettingSegmentStateViewPip = F2(function (address,monitorSettingState) {
+      var monitor = monitorSettingState.selectedMonitor;
+      var isLeftRightOn = monitor.isPipLeftRightPressed ? "disabled" : "";
+      var isUpDownOn = monitor.isPipUpDownPressed ? "disabled" : "";
+      var isResizeOn = monitor.isPipResizePressed ? "disabled" : "";
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("div-1-1")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button button monitor-button content-centered ",isLeftRightOn))
+                      ,A2($Html$Events.onClick,address,PipLeftRightButtonPress)]),
+              _U.list([$GreenGui$Widgets.leftRightIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button button monitor-button content-centered ",isUpDownOn))
+                      ,A2($Html$Events.onClick,address,PipUpDownButtonPress)]),
+              _U.list([$GreenGui$Widgets.upDownIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button button monitor-button content-centered ",isResizeOn))
+                      ,A2($Html$Events.onClick,address,PipResizeButtonPress)]),
+              _U.list([$GreenGui$Widgets.resizeIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered ")
+                      ,A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
+              _U.list([$GreenGui$Widgets.exitPipIcon]))]))]));
+   });
    var pipButtonSetView = F2(function (address,monitorSettingScreenState) {
       var getIsPressedSrc = function (value) {    return value ? "images/pip_type_button_pressed.svg" : "images/pip_type_button.svg";};
       var monitor = monitorSettingScreenState.selectedMonitor;
@@ -11668,48 +12151,36 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _U.list([$Html$Attributes.$class("vdiv-1-1"),$Html$Attributes.src(resizeSrc),A2($Html$Events.onClick,address,PipResizeButtonPress)]),
                       _U.list([]))]))]))]))]));
    });
-   var SignalInputOpenSelections = function (a) {    return {ctor: "SignalInputOpenSelections",_0: a};};
-   var ActivateCycleSignalMatrixPress = function (a) {    return {ctor: "ActivateCycleSignalMatrixPress",_0: a};};
    var OsdButtonPress = {ctor: "OsdButtonPress"};
    var PipButtonPress = {ctor: "PipButtonPress"};
-   var CycleButtonPress = {ctor: "CycleButtonPress"};
-   var monitorSettingLowerBodyView = F2(function (address,monitorSettingScreenState) {
-      var osdState = monitorSettingScreenState.isOsdDisabled ? "_disabled" : monitorSettingScreenState.isOsdSetPressed ? "_active" : "";
-      var pipState = monitorSettingScreenState.isPipDisabled ? "_disabled" : monitorSettingScreenState.isPipSetPressed ? "_active" : "";
-      var cycleState = monitorSettingScreenState.isCycleDisabled ? "_disabled" : monitorSettingScreenState.isCyclePressed ? "_active" : "";
+   var monitorSettingSegmentStateViewNone = F2(function (address,monitorSettingScreenState) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("monitor-setting-lower-body")]),
+      _U.list([$Html$Attributes.$class("div-1-1")]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-2-3")]),
+              _U.list([$Html$Attributes.$class("div-1-2 content-centered")]),
               _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("cycle-button circle button monitor-button content-centered")
-                              ,A2($Html$Events.onClick,address,CycleButtonPress)]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("icon")
-                              ,$Html$Attributes.src(A2($Basics._op["++"],"images/cycle_icon",A2($Basics._op["++"],cycleState,".svg")))]),
-                      _U.list([]))]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("pip-button circle button monitor-button content-centered ")
-                              ,A2($Html$Events.onClick,address,PipButtonPress)]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("icon")
-                              ,$Html$Attributes.src(A2($Basics._op["++"],"images/pip_icon",A2($Basics._op["++"],pipState,".svg")))]),
-                      _U.list([]))]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 content-centered")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("osd-button circle button monitor-button content-centered")
-                              ,A2($Html$Events.onClick,address,OsdButtonPress)]),
-                      _U.list([A2($Html.img,
-                      _U.list([$Html$Attributes.$class("icon")
-                              ,$Html$Attributes.src(A2($Basics._op["++"],"images/osd_icon",A2($Basics._op["++"],osdState,".svg")))]),
-                      _U.list([]))]))]))]))
-              ,A2(pipButtonSetView,address,monitorSettingScreenState)
-              ,A2(osdButtonSetView,address,monitorSettingScreenState)]));
+              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered "),A2($Html$Events.onClick,address,PipButtonPress)]),
+              _U.list([$GreenGui$Widgets.pipIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-2 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered "),A2($Html$Events.onClick,address,OsdButtonPress)]),
+              _U.list([$GreenGui$Widgets.osdIcon]))]))]));
+   });
+   var monitorSettingLowerBodyView = F2(function (address,monitorSettingScreenState) {
+      var view = function () {
+         var _p6 = monitorSettingScreenState.segmentState;
+         switch (_p6.ctor)
+         {case "None": return A2(monitorSettingSegmentStateViewNone,address,monitorSettingScreenState);
+            case "Pip": return A2(monitorSettingSegmentStateViewPip,address,monitorSettingScreenState);
+            default: return A2(monitorSettingSegmentStateViewOsd,address,monitorSettingScreenState);}
+      }();
+      return A2($Html.div,_U.list([$Html$Attributes.$class("monitor-setting-lower-body")]),_U.list([view]));
+   });
+   var monitorSettingBodyView = F2(function (address,monitorSettingScreenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body")]),
+      _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
    });
    var CloseMonitorConfiguration = {ctor: "CloseMonitorConfiguration"};
    var monitorSettingTopBarView = F2(function (address,monitorSettingScreenState) {
@@ -11720,7 +12191,12 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$Html.text(A2($Basics._op["++"],"MONITOR ",$Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
-              _U.list([closeIcon]))]));
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
+   });
+   var monitorSettingScreenView = F2(function (address,monitorSettingScreenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("main")]),
+      _U.list([A2(monitorSettingTopBarView,address,monitorSettingScreenState),A2(monitorSettingBodyView,address,monitorSettingScreenState)]));
    });
    var MenuOptionPress = {ctor: "MenuOptionPress"};
    var PresetPress = {ctor: "PresetPress"};
@@ -11766,20 +12242,17 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("sub-panel-view")]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,LockScreenPressed(""))]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/lock_icon.svg")]),_U.list([]))]))]))
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered"),A2($Html$Events.onClick,address,LockScreenPressed(""))]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.lockIcon]))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered"),A2($Html$Events.onClick,address,MenuOptionPress)]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/menu_icon.svg")]),_U.list([]))]))]))
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered"),A2($Html$Events.onClick,address,PresetPress)]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.presetIcon]))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-3 content-centered")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/information_icon.svg")]),_U.list([]))]))]))]));
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered"),A2($Html$Events.onClick,address,MenuOptionPress)]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.menuIcon]))]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered")]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.informationIcon]))]))]));
    };
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};
@@ -11818,16 +12291,8 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html$Events.onMouseDown,address,MonitorPressedDown(monitor.number))
               ,A2($Html$Events.onMouseUp,address,MonitorPressReleased(monitor.number))]),
       _U.list([A2($Html.div,
-      _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5 button")]),
-      _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("vdiv-1-5 align-center")]),
-              _U.list([A2($Html.label,_U.list([$Html$Attributes.$class("monitor-button-label")]),_U.list([$Html.text(monitor.number)]))]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("vdiv-4-5 content-centered")]),
-              _U.list([A2($Html.img,
-              _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5")
-                      ,$Html$Attributes.src(A2($Basics._op["++"],"images/monitor_icon",A2($Basics._op["++"],isOn,".svg")))]),
-              _U.list([]))]))]))]))]));
+      _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1")]),_U.list([$GreenGui$Widgets.monitorIcon(monitor.number)]))]))]))]));
    });
    var monitorViewButtons = F2(function (address,monitors) {    return A2($List.map,monitorViewButton(address),monitors);});
    var monitorPanelView = F2(function (address,homeScreenState) {
@@ -11848,16 +12313,16 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                  ,A2($Signal.map,UnlockLockCountdown,in_unlockLockCountdown)
                                                  ,A2($Signal.map,UpdateLockCountdownSecondsLeft,in_updateLockCountdownSecondsLeft)]));
    var pressedMonitor = function () {
-      var toSelector = function (action) {    var _p5 = action;if (_p5.ctor === "MonitorPressedDown") {    return _p5._0;} else {    return "";}};
-      var needsMonitorPressedDown = function (action) {    var _p6 = action;if (_p6.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
+      var toSelector = function (action) {    var _p7 = action;if (_p7.ctor === "MonitorPressedDown") {    return _p7._0;} else {    return "";}};
+      var needsMonitorPressedDown = function (action) {    var _p8 = action;if (_p8.ctor === "MonitorPressedDown") {    return true;} else {    return false;}};
       return A2($Signal.map,toSelector,A3($Signal.filter,needsMonitorPressedDown,MonitorPressedDown(""),actions.signal));
    }();
    var out_onPressedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressedMonitor",function (v) {    return v;},pressedMonitor);
    var pressReleasedMonitor = function () {
-      var toSelector = function (action) {    var _p7 = action;if (_p7.ctor === "MonitorPressReleased") {    return _p7._0;} else {    return "";}};
+      var toSelector = function (action) {    var _p9 = action;if (_p9.ctor === "MonitorPressReleased") {    return _p9._0;} else {    return "";}};
       var needsMonitorPressReleased = function (action) {
-         var _p8 = action;
-         if (_p8.ctor === "MonitorPressReleased") {
+         var _p10 = action;
+         if (_p10.ctor === "MonitorPressReleased") {
                return true;
             } else {
                return false;
@@ -11867,8 +12332,8 @@ Elm.GreenGui.Main.make = function (_elm) {
    }();
    var out_onPressReleasedMonitor = Elm.Native.Port.make(_elm).outboundSignal("out_onPressReleasedMonitor",function (v) {    return v;},pressReleasedMonitor);
    var lockScreenPressed = function () {
-      var toSelector = function (action) {    var _p9 = action;if (_p9.ctor === "LockScreenPressed") {    return _p9._0;} else {    return "";}};
-      var needsLockScreenPressed = function (action) {    var _p10 = action;if (_p10.ctor === "LockScreenPressed") {    return true;} else {    return false;}};
+      var toSelector = function (action) {    var _p11 = action;if (_p11.ctor === "LockScreenPressed") {    return _p11._0;} else {    return "";}};
+      var needsLockScreenPressed = function (action) {    var _p12 = action;if (_p12.ctor === "LockScreenPressed") {    return true;} else {    return false;}};
       return A2($Signal.map,toSelector,A3($Signal.filter,needsLockScreenPressed,LockScreenPressed(""),actions.signal));
    }();
    var out_onLockScreenPressed = Elm.Native.Port.make(_elm).outboundSignal("out_onLockScreenPressed",function (v) {    return v;},lockScreenPressed);
@@ -11879,13 +12344,13 @@ Elm.GreenGui.Main.make = function (_elm) {
       return {number: number$
              ,isSelected: false
              ,isVisible: isVisible$
-             ,vgaOne: ""
-             ,vgaTwo: ""
-             ,dviOne: ""
-             ,dviTwo: ""
-             ,videoOne: ""
-             ,videoTwo: ""
-             ,videoThree: ""
+             ,vgaOne: "XBAND RADAR"
+             ,vgaTwo: "XBAND RADAR"
+             ,dviOne: "XBAND RADAR"
+             ,dviTwo: "XBAND RADAR"
+             ,videoOne: "XBAND RADAR"
+             ,videoTwo: "XBAND RADAR"
+             ,videoThree: "XBAND RADAR"
              ,isVgaOneCycle: false
              ,isVgaTwoCycle: false
              ,isDviOneCycle: false
@@ -11902,9 +12367,9 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,isOn: false};
    });
    var findMonitor = F2(function (number,monitors) {
-      var _p11 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
-      if (_p11.ctor === "::" && _p11._1.ctor === "[]") {
-            return _p11._0;
+      var _p13 = A2($List.take,1,A2($List.filter,function (m) {    return _U.eq(m.number,number);},monitors));
+      if (_p13.ctor === "::" && _p13._1.ctor === "[]") {
+            return _p13._0;
          } else {
             return A2(defaultMonitor,"-1",false);
          }
@@ -11916,21 +12381,6 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                           ,defaultPreset(4)
                                                           ,defaultPreset(5)
                                                           ,defaultPreset(6)])};
-   var defaultMonitorSettingScreenState = {selectedMonitor: A2(defaultMonitor,"1",true)
-                                          ,isVgaOneSelectOpen: false
-                                          ,isVgaTwoSelectOpen: false
-                                          ,isDviOneSelectOpen: false
-                                          ,isDviTwoSelectOpen: false
-                                          ,isVideoOneSelectOpen: false
-                                          ,isVideoTwoSelectOpen: false
-                                          ,isVideoThreeSelectOpen: false
-                                          ,isCyclePressed: false
-                                          ,isPipSetPressed: false
-                                          ,isOsdSetPressed: false
-                                          ,isCycleDisabled: false
-                                          ,isPipDisabled: false
-                                          ,isOsdDisabled: false
-                                          ,signalMatrixInputs: _U.list([])};
    var defaultHomeScreenState = {monitorPageIndex: 0
                                 ,isPowerDisabled: true
                                 ,isSelectAllActive: true
@@ -11975,16 +12425,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                        ,ntiSignalMatrixInputs: defaultNtiSignalMatrixInputs
                                        ,atlonaSignalMatrixInputs: defaultAtlonaSignalMatrixInputs};
    var defaultMenuOptionsScreenState = {viewState: 1,matrixSetupScreenState: defaultMatrixSetupScreenState};
-   var defaultAppState = {viewState: 1
-                         ,homeScreenState: defaultHomeScreenState
-                         ,monitorSettingScreenState: defaultMonitorSettingScreenState
-                         ,presetSettingScreenState: defaulPresetSettingScreenState
-                         ,menuOptionsScreenState: defaultMenuOptionsScreenState
-                         ,lockCountdownScreenState: defaultLockdownScreenState};
    var addSignalInputMatrix = function (screenState) {
       var newScreenState = function () {
-         var _p12 = screenState.setupIndex;
-         switch (_p12)
+         var _p14 = screenState.setupIndex;
+         switch (_p14)
          {case 0: return _U.update(screenState,
               {extronSignalMatrixInputs: A2($Basics._op["++"],screenState.extronSignalMatrixInputs,_U.list([A2(createSignalMatrixInput,"<empty>",DVI)]))});
             case 1: return _U.update(screenState,
@@ -11995,255 +12439,11 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       return newScreenState;
    };
-   var update = F2(function (action,appState) {
-      var _p13 = action;
-      switch (_p13.ctor)
-      {case "NoOp": return appState;
-         case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
-           var monitors$ = A2(toggleMonitorAsSelected,_p13._0,homeScreenState$.monitors);
-           var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
-         case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,
-           {homeScreenState: _U.update(homeScreenState$,
-           {monitors: A2(setAllMonitorAsSelected,homeScreenState$.monitors,homeScreenState$.isSelectAllActive)
-           ,isPowerDisabled: false
-           ,isSelectAllActive: $Basics.not(homeScreenState$.isSelectAllActive)})});
-         case "SelectMonitorToConfigure": var _p14 = _p13._0;
-           var matrixSetupScreenState$ = appState.menuOptionsScreenState.matrixSetupScreenState;
-           var signalMatrixInputs$ = A2($Basics._op["++"],
-           matrixSetupScreenState$.extronSignalMatrixInputs,
-           A2($Basics._op["++"],matrixSetupScreenState$.ntiSignalMatrixInputs,matrixSetupScreenState$.atlonaSignalMatrixInputs));
-           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,
-           {viewState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p14,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: _p14,isPipSetPressed: false,isOsdSetPressed: false,signalMatrixInputs: signalMatrixInputs$})});
-         case "MonitorPressedDown": return appState;
-         case "MonitorPressReleased": return appState;
-         case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
-           var foundMonitor = A2(findMonitor,_p13._0,homeScreenState$.monitors);
-           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,
-           {viewState: 2
-           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,foundMonitor,homeScreenState$.monitors)})
-           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: foundMonitor,isPipSetPressed: false,isOsdSetPressed: false})});
-         case "PowerPress": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
-         case "PresetPress": return _U.update(appState,{viewState: 3});
-         case "MenuOptionPress": return _U.update(appState,{viewState: 4});
-         case "LockScreenPressed": return _U.update(appState,{viewState: 5});
-         case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
-           var monitorsPerPage = 5;
-           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
-           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,-1,maxFlips,monitorsPerPage,homeScreenState$)});
-         case "NextMonitorPage": var homeScreenState$ = appState.homeScreenState;
-           var monitorsPerPage = 5;
-           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
-           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,1,maxFlips,monitorsPerPage,homeScreenState$)});
-         case "CloseMonitorConfiguration": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,
-           {viewState: 1
-           ,homeScreenState: _U.update(homeScreenState$,
-           {monitors: A2(updateMonitorList,monitorSettingScreenState$.selectedMonitor,homeScreenState$.monitors)})});
-         case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var monitor$ = monitorSettingScreenState$.selectedMonitor;
-           return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p13._0,_p13._1,monitor$)})});
-         case "SignalInputSelect": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           var monitor$ = monitorSettingScreenState$.selectedMonitor;
-           return _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A3(setSignalInputChange,_p13._0,_p13._1,monitor$)
-           ,isVgaOneSelectOpen: false
-           ,isVgaTwoSelectOpen: false
-           ,isDviOneSelectOpen: false
-           ,isDviTwoSelectOpen: false
-           ,isVideoOneSelectOpen: false
-           ,isVideoTwoSelectOpen: false
-           ,isVideoThreeSelectOpen: false})});
-         case "CycleButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isCycleDisabled) ? _U.update(appState,
-           {monitorSettingScreenState: setCycleButtonPress(monitorSettingScreenState$)}) : appState;
-         case "PipButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isPipDisabled) ? _U.update(appState,
-           {monitorSettingScreenState: setPipButtonPress(monitorSettingScreenState$)}) : appState;
-         case "OsdButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isOsdDisabled) ? _U.update(appState,
-           {monitorSettingScreenState: setOsdButtonPress(monitorSettingScreenState$)}) : appState;
-         case "ActivateCycleSignalMatrixPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return monitorSettingScreenState$.isCyclePressed ? _U.update(appState,
-           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
-           {selectedMonitor: A2(activateCycleSignalMatrix,_p13._0,monitorSettingScreenState$.selectedMonitor)})}) : appState;
-         case "SignalInputOpenSelections": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return $Basics.not(monitorSettingScreenState$.isCyclePressed) ? _U.update(appState,
-           {monitorSettingScreenState: A2(setSelectionInputToOpen,monitorSettingScreenState$,_p13._0)}) : appState;
-         case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
-         case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setPipLeftRightButtonPress(monitorSettingScreenState$)});
-         case "PipResizeButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setPipResizeButtonPress(monitorSettingScreenState$)});
-         case "OsdUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setOsdUpDownButtonPress(monitorSettingScreenState$)});
-         case "OsdLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setOsdLeftRightButtonPress(monitorSettingScreenState$)});
-         case "OsdSelectButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
-           return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
-         case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
-         case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
-           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p13._0.monitors})});
-         case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p13._0,presetSettingScreenState$.presets)})});
-         case "PresetCommit": var monitors = appState.homeScreenState.monitors;
-           var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p13._0,presetSettingScreenState$.presets,monitors)})});
-         case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p13._0,_p13._1,presetSettingScreenState$.presets)})});
-         case "PresetNameEditDone": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p13._0,presetSettingScreenState$.presets)})});
-         case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
-           return _U.update(appState,
-           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p13._0,presetSettingScreenState$.presets)})});
-         case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
-         case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
-           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 1})})});
-         case "NtiSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
-           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 2})})});
-         case "AtlonaSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
-           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 3})})});
-         case "AddSignalInputMatrix": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
-           return _U.update(appState,
-           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: addSignalInputMatrix(matrixSetupScreenState$)})});
-         case "CloseSetupPress": return _U.update(appState,{viewState: 1});
-         case "BackToMenuPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
-           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});
-         case "UnlockLockCountdown": return _U.update(appState,{viewState: 1});
-         default: var lockCountdownScreenState$ = appState.lockCountdownScreenState;
-           return _U.update(appState,{lockCountdownScreenState: _U.update(lockCountdownScreenState$,{secondsLeft: _p13._0})});}
-   });
-   var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
-   var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
-      var isOfType = F2(function (signalType$,signalMatrixInput) {    return _U.eq(signalMatrixInput.type$,signalType$);});
-      var _p15 = function () {
-         var _p16 = signalType;
-         switch (_p16)
-         {case "VGA 1": return {ctor: "_Tuple3"
-                               ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVgaOneCycle : false
-                               ,_1: A2($List.filter,isOfType(VGA),monitorSettingScreenState.signalMatrixInputs)
-                               ,_2: monitorSettingScreenState.isVgaOneSelectOpen};
-            case "VGA 2": return {ctor: "_Tuple3"
-                                 ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVgaTwoCycle : false
-                                 ,_1: A2($List.filter,isOfType(VGA),monitorSettingScreenState.signalMatrixInputs)
-                                 ,_2: monitorSettingScreenState.isVgaTwoSelectOpen};
-            case "DVI 1": return {ctor: "_Tuple3"
-                                 ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isDviOneCycle : false
-                                 ,_1: A2($List.filter,isOfType(DVI),monitorSettingScreenState.signalMatrixInputs)
-                                 ,_2: monitorSettingScreenState.isDviOneSelectOpen};
-            case "DVI 2": return {ctor: "_Tuple3"
-                                 ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isDviTwoCycle : false
-                                 ,_1: A2($List.filter,isOfType(DVI),monitorSettingScreenState.signalMatrixInputs)
-                                 ,_2: monitorSettingScreenState.isDviTwoSelectOpen};
-            case "VIDEO 1": return {ctor: "_Tuple3"
-                                   ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVideoOneCycle : false
-                                   ,_1: A2($List.filter,isOfType(CVBS),monitorSettingScreenState.signalMatrixInputs)
-                                   ,_2: monitorSettingScreenState.isVideoOneSelectOpen};
-            case "VIDEO 2": return {ctor: "_Tuple3"
-                                   ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVideoTwoCycle : false
-                                   ,_1: A2($List.filter,isOfType(CVBS),monitorSettingScreenState.signalMatrixInputs)
-                                   ,_2: monitorSettingScreenState.isVideoTwoSelectOpen};
-            case "VIDEO 3": return {ctor: "_Tuple3"
-                                   ,_0: monitorSettingScreenState.isCyclePressed ? monitor.isVideoThreeCycle : false
-                                   ,_1: A2($List.filter,isOfType(CVBS),monitorSettingScreenState.signalMatrixInputs)
-                                   ,_2: monitorSettingScreenState.isVideoThreeSelectOpen};
-            default: return {ctor: "_Tuple3",_0: false,_1: _U.list([]),_2: false};}
-      }();
-      var isActivated = _p15._0;
-      var filteredSignalMatrices = _p15._1;
-      var isSelectOpen = _p15._2;
-      var isDisabled = $Basics.not(isActivated) && $Basics.not(monitorSettingScreenState.isCyclePressed) ? false : true;
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("signal-matrix-view"),A2($Html$Events.onClick,address,ActivateCycleSignalMatrixPress(signalType))]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
-              A2($Basics._op["++"],
-              _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-7-10")]),
-                      _U.list([A2($Html.input,
-                      _U.list([$Html$Attributes.type$("text")
-                              ,$Html$Attributes.disabled(isDisabled)
-                              ,$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input",isActivated ? " signal-matrix-container-activated" : ""))
-                              ,$Html$Attributes.value(signalName)
-                              ,A3($Html$Events.on,
-                              "input",
-                              $Html$Events.targetValue,
-                              function (_p17) {
-                                 return A2($Signal.message,address,A2(SignalInputChange,signalType,_p17));
-                              })]),
-                      _U.list([]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-3-10 content-centered signal-matrix-side")
-                              ,A2($Html$Events.onClick,address,SignalInputOpenSelections(signalType))]),
-                      _U.list([$Html.text("MATRIX")]))]),
-              isSelectOpen ? _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3 select-options")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("select-options-container")]),
-              A2($List.map,A2(signalMatrixOption,address,signalType),filteredSignalMatrices))]))]) : _U.list([])))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
-   });
-   var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
-      var monitor = monitorSettingScreenState.selectedMonitor;
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
-      _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState,monitor)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState,monitor)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState,monitor)]))]));
-   });
-   var monitorSettingBodyView = F2(function (address,monitorSettingScreenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body")]),
-      _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
-   });
-   var monitorSettingScreenView = F2(function (address,monitorSettingScreenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("main")]),
-      _U.list([A2(monitorSettingTopBarView,address,monitorSettingScreenState),A2(monitorSettingBodyView,address,monitorSettingScreenState)]));
-   });
    var matrixSetupBodyView = F2(function (address,screenState) {
       var matrixSetupScreenState = screenState.matrixSetupScreenState;
       var matrixInputSignals = function () {
-         var _p18 = matrixSetupScreenState.setupIndex;
-         switch (_p18)
+         var _p15 = matrixSetupScreenState.setupIndex;
+         switch (_p15)
          {case 0: return matrixSetupScreenState.extronSignalMatrixInputs;
             case 1: return matrixSetupScreenState.ntiSignalMatrixInputs;
             case 2: return matrixSetupScreenState.atlonaSignalMatrixInputs;
@@ -12251,8 +12451,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       var signalTypes = A2($List.map,
       function (t) {
-         var _p19 = t;
-         switch (_p19.ctor)
+         var _p16 = t;
+         switch (_p16.ctor)
          {case "VGA": return "VGA";
             case "DVI": return "DVI";
             default: return "DVBS";}
@@ -12272,8 +12472,8 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var menuOptionsView = F2(function (address,screenState) {
       var view = function () {
-         var _p20 = screenState.viewState;
-         switch (_p20)
+         var _p17 = screenState.viewState;
+         switch (_p17)
          {case 1: return _U.list([A2(menuOptionsTopBarView,address,screenState),A2(menuOptionsBodyView,address,screenState)]);
             case 2: return _U.list([A2(matrixSetupOptionsTopBarView,address,screenState),A2(matrixSetupOptionsBodyView,address,screenState)]);
             case 3: return _U.list([A2(matrixSetupTopBarView,address,screenState),A2(matrixSetupBodyView,address,screenState)]);
@@ -12288,8 +12488,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       var monitorSettingScreenState = appState.monitorSettingScreenState;
       var homeScreenState = appState.homeScreenState;
       var viewToDisplay = function () {
-         var _p21 = appState.viewState;
-         switch (_p21)
+         var _p18 = appState.viewState;
+         switch (_p18)
          {case 1: return A2(homeScreenView,address,homeScreenState);
             case 2: return A2(monitorSettingScreenView,address,monitorSettingScreenState);
             case 3: return A2(presetSettingScreenView,address,presetSettingScreenState);
@@ -12299,7 +12499,6 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       return viewToDisplay;
    });
-   var main = A2($Signal.map,appView(actions.address),appState);
    var SignalMatrixInput = F2(function (a,b) {    return {name: a,type$: b};});
    var Preset = F6(function (a,b,c,d,e,f) {    return {id: a,name: b,tempName: c,monitors: d,isSelected: e,isEditingName: f};});
    var Monitor = function (a) {
@@ -12383,6 +12582,161 @@ Elm.GreenGui.Main.make = function (_elm) {
    var LockCountdownScreenState = function (a) {    return {secondsLeft: a};};
    var MenuOptionsScreenState = F2(function (a,b) {    return {viewState: a,matrixSetupScreenState: b};});
    var PresetSettingScreenState = function (a) {    return {presets: a};};
+   var Osd = {ctor: "Osd"};
+   var Pip = {ctor: "Pip"};
+   var None = {ctor: "None"};
+   var defaultMonitorSettingScreenState = {selectedMonitor: A2(defaultMonitor,"1",true)
+                                          ,isVgaOneSelectOpen: false
+                                          ,isVgaTwoSelectOpen: false
+                                          ,isDviOneSelectOpen: false
+                                          ,isDviTwoSelectOpen: false
+                                          ,isVideoOneSelectOpen: false
+                                          ,isVideoTwoSelectOpen: false
+                                          ,isVideoThreeSelectOpen: false
+                                          ,signalMatrixInputs: _U.list([])
+                                          ,segmentState: None};
+   var defaultAppState = {viewState: 1
+                         ,homeScreenState: defaultHomeScreenState
+                         ,monitorSettingScreenState: defaultMonitorSettingScreenState
+                         ,presetSettingScreenState: defaulPresetSettingScreenState
+                         ,menuOptionsScreenState: defaultMenuOptionsScreenState
+                         ,lockCountdownScreenState: defaultLockdownScreenState};
+   var update = F2(function (action,appState) {
+      var _p19 = action;
+      switch (_p19.ctor)
+      {case "NoOp": return appState;
+         case "SelectMonitor": var homeScreenState$ = appState.homeScreenState;
+           var monitors$ = A2(toggleMonitorAsSelected,_p19._0,homeScreenState$.monitors);
+           var powerMustBeDisabled = _U.cmp($List.length(A2($List.filter,function (m) {    return m.isSelected;},monitors$)),0) > 0 ? false : true;
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: monitors$,isPowerDisabled: powerMustBeDisabled})});
+         case "SelectAllMonitors": var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,
+           {homeScreenState: _U.update(homeScreenState$,
+           {monitors: A2(setAllMonitorAsSelected,homeScreenState$.monitors,homeScreenState$.isSelectAllActive)
+           ,isPowerDisabled: false
+           ,isSelectAllActive: $Basics.not(homeScreenState$.isSelectAllActive)})});
+         case "SelectMonitorToConfigure": var _p20 = _p19._0;
+           var matrixSetupScreenState$ = appState.menuOptionsScreenState.matrixSetupScreenState;
+           var signalMatrixInputs$ = A2($Basics._op["++"],
+           matrixSetupScreenState$.extronSignalMatrixInputs,
+           A2($Basics._op["++"],matrixSetupScreenState$.ntiSignalMatrixInputs,matrixSetupScreenState$.atlonaSignalMatrixInputs));
+           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,
+           {viewState: 2
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,_p20,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: _p20,signalMatrixInputs: signalMatrixInputs$})});
+         case "MonitorPressedDown": return appState;
+         case "MonitorPressReleased": return appState;
+         case "LongPressedMonitor": var homeScreenState$ = appState.homeScreenState;
+           var foundMonitor = A2(findMonitor,_p19._0,homeScreenState$.monitors);
+           var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,
+           {viewState: 2
+           ,homeScreenState: _U.update(homeScreenState$,{monitors: A2(setMonitorAsSelected,foundMonitor,homeScreenState$.monitors)})
+           ,monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: foundMonitor})});
+         case "PowerPress": var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: setSelectedMonitorsToPowerPress(homeScreenState$.monitors)})});
+         case "PresetPress": return _U.update(appState,{viewState: 3});
+         case "MenuOptionPress": return _U.update(appState,{viewState: 4});
+         case "LockScreenPressed": return _U.update(appState,{viewState: 5});
+         case "PreviousMonitorPage": var homeScreenState$ = appState.homeScreenState;
+           var monitorsPerPage = 5;
+           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,-1,maxFlips,monitorsPerPage,homeScreenState$)});
+         case "NextMonitorPage": var homeScreenState$ = appState.homeScreenState;
+           var monitorsPerPage = 5;
+           var maxFlips = $Basics.ceiling($Basics.toFloat($List.length(homeScreenState$.monitors)) / monitorsPerPage);
+           return _U.update(appState,{homeScreenState: A4(flipMonitorPage,1,maxFlips,monitorsPerPage,homeScreenState$)});
+         case "CloseMonitorConfiguration": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,
+           {viewState: 1
+           ,homeScreenState: _U.update(homeScreenState$,
+           {monitors: A2(updateMonitorList,monitorSettingScreenState$.selectedMonitor,homeScreenState$.monitors)})});
+         case "SignalInputChange": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var monitor$ = monitorSettingScreenState$.selectedMonitor;
+           return _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A3(setSignalInputChange,_p19._0,_p19._1,monitor$)})});
+         case "SignalInputSelect": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var monitor$ = monitorSettingScreenState$.selectedMonitor;
+           return _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,
+           {selectedMonitor: A3(setSignalInputChange,_p19._0,_p19._1,monitor$)
+           ,isVgaOneSelectOpen: false
+           ,isVgaTwoSelectOpen: false
+           ,isDviOneSelectOpen: false
+           ,isDviTwoSelectOpen: false
+           ,isVideoOneSelectOpen: false
+           ,isVideoTwoSelectOpen: false
+           ,isVideoThreeSelectOpen: false})});
+         case "PipButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: _U.update(monitorSettingScreenState$,{segmentState: Pip})});
+         case "OsdButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: _U.update(monitorSettingScreenState$,{segmentState: Osd})});
+         case "PipUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setPipUpDownButtonPress(monitorSettingScreenState$)});
+         case "PipLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setPipLeftRightButtonPress(monitorSettingScreenState$)});
+         case "PipResizeButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setPipResizeButtonPress(monitorSettingScreenState$)});
+         case "OsdUpDownButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setOsdUpDownButtonPress(monitorSettingScreenState$)});
+         case "OsdLeftRightButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setOsdLeftRightButtonPress(monitorSettingScreenState$)});
+         case "OsdSelectButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: setOsdSelectButtonPress(monitorSettingScreenState$)});
+         case "ExitMonitorSettingSegmentPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           return _U.update(appState,{monitorSettingScreenState: _U.update(monitorSettingScreenState$,{segmentState: None})});
+         case "ClosePresetSettings": return _U.update(appState,{viewState: 1});
+         case "PresetSelected": var homeScreenState$ = appState.homeScreenState;
+           return _U.update(appState,{homeScreenState: _U.update(homeScreenState$,{monitors: _p19._0.monitors})});
+         case "PresetEdit": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetToEdit,_p19._0,presetSettingScreenState$.presets)})});
+         case "PresetCommit": var monitors = appState.homeScreenState.monitors;
+           var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetCommit,_p19._0,presetSettingScreenState$.presets,monitors)})});
+         case "PresetNameInput": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A3(setPresetName,_p19._0,_p19._1,presetSettingScreenState$.presets)})});
+         case "PresetNameEditDone": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(setPresetNameCommit,_p19._0,presetSettingScreenState$.presets)})});
+         case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
+           return _U.update(appState,
+           {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p19._0,presetSettingScreenState$.presets)})});
+         case "MatrixSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 2})});
+         case "ExtronSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
+           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 1})})});
+         case "NtiSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
+           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 2})})});
+         case "AtlonaSetupPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,
+           {viewState: 3,matrixSetupScreenState: _U.update(matrixSetupScreenState$,{setupIndex: 3})})});
+         case "AddSignalInputMatrix": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           var matrixSetupScreenState$ = menuOptionsScreenState$.matrixSetupScreenState;
+           return _U.update(appState,
+           {menuOptionsScreenState: _U.update(menuOptionsScreenState$,{matrixSetupScreenState: addSignalInputMatrix(matrixSetupScreenState$)})});
+         case "CloseSetupPress": return _U.update(appState,{viewState: 1});
+         case "BackToMenuPress": var menuOptionsScreenState$ = appState.menuOptionsScreenState;
+           return _U.update(appState,{menuOptionsScreenState: _U.update(menuOptionsScreenState$,{viewState: 1})});
+         case "UnlockLockCountdown": return _U.update(appState,{viewState: 1});
+         default: var lockCountdownScreenState$ = appState.lockCountdownScreenState;
+           return _U.update(appState,{lockCountdownScreenState: _U.update(lockCountdownScreenState$,{secondsLeft: _p19._0})});}
+   });
+   var appState = A3($Signal.foldp,update,defaultAppState,mergedActions);
+   var main = A2($Signal.map,appView(actions.address),appState);
    var MonitorSettingScreenState = function (a) {
       return function (b) {
          return function (c) {
@@ -12393,31 +12747,16 @@ Elm.GreenGui.Main.make = function (_elm) {
                         return function (h) {
                            return function (i) {
                               return function (j) {
-                                 return function (k) {
-                                    return function (l) {
-                                       return function (m) {
-                                          return function (n) {
-                                             return function (o) {
-                                                return {selectedMonitor: a
-                                                       ,isVgaOneSelectOpen: b
-                                                       ,isVgaTwoSelectOpen: c
-                                                       ,isDviOneSelectOpen: d
-                                                       ,isDviTwoSelectOpen: e
-                                                       ,isVideoOneSelectOpen: f
-                                                       ,isVideoTwoSelectOpen: g
-                                                       ,isVideoThreeSelectOpen: h
-                                                       ,isCyclePressed: i
-                                                       ,isPipSetPressed: j
-                                                       ,isOsdSetPressed: k
-                                                       ,isCycleDisabled: l
-                                                       ,isPipDisabled: m
-                                                       ,isOsdDisabled: n
-                                                       ,signalMatrixInputs: o};
-                                             };
-                                          };
-                                       };
-                                    };
-                                 };
+                                 return {selectedMonitor: a
+                                        ,isVgaOneSelectOpen: b
+                                        ,isVgaTwoSelectOpen: c
+                                        ,isDviOneSelectOpen: d
+                                        ,isDviTwoSelectOpen: e
+                                        ,isVideoOneSelectOpen: f
+                                        ,isVideoTwoSelectOpen: g
+                                        ,isVideoThreeSelectOpen: h
+                                        ,signalMatrixInputs: i
+                                        ,segmentState: j};
                               };
                            };
                         };
@@ -12436,6 +12775,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,AppState: AppState
                                       ,HomeScreenState: HomeScreenState
                                       ,MonitorSettingScreenState: MonitorSettingScreenState
+                                      ,None: None
+                                      ,Pip: Pip
+                                      ,Osd: Osd
                                       ,PresetSettingScreenState: PresetSettingScreenState
                                       ,MenuOptionsScreenState: MenuOptionsScreenState
                                       ,LockCountdownScreenState: LockCountdownScreenState
@@ -12474,17 +12816,15 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,PresetPress: PresetPress
                                       ,MenuOptionPress: MenuOptionPress
                                       ,CloseMonitorConfiguration: CloseMonitorConfiguration
-                                      ,CycleButtonPress: CycleButtonPress
                                       ,PipButtonPress: PipButtonPress
                                       ,OsdButtonPress: OsdButtonPress
-                                      ,ActivateCycleSignalMatrixPress: ActivateCycleSignalMatrixPress
-                                      ,SignalInputOpenSelections: SignalInputOpenSelections
                                       ,PipUpDownButtonPress: PipUpDownButtonPress
                                       ,PipLeftRightButtonPress: PipLeftRightButtonPress
                                       ,PipResizeButtonPress: PipResizeButtonPress
                                       ,OsdUpDownButtonPress: OsdUpDownButtonPress
                                       ,OsdLeftRightButtonPress: OsdLeftRightButtonPress
                                       ,OsdSelectButtonPress: OsdSelectButtonPress
+                                      ,ExitMonitorSettingSegmentPress: ExitMonitorSettingSegmentPress
                                       ,SignalInputChange: SignalInputChange
                                       ,SignalInputSelect: SignalInputSelect
                                       ,ClosePresetSettings: ClosePresetSettings
@@ -12514,7 +12854,6 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,setVisibilityByPageIndex: setVisibilityByPageIndex
                                       ,updateMonitorList: updateMonitorList
                                       ,setSignalInputChange: setSignalInputChange
-                                      ,setCycleButtonPress: setCycleButtonPress
                                       ,setPipButtonPress: setPipButtonPress
                                       ,setOsdButtonPress: setOsdButtonPress
                                       ,activateCycleSignalMatrix: activateCycleSignalMatrix
@@ -12547,6 +12886,9 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,monitorSettingBodyView: monitorSettingBodyView
                                       ,monitorSettingUpperBodyView: monitorSettingUpperBodyView
                                       ,monitorSettingLowerBodyView: monitorSettingLowerBodyView
+                                      ,monitorSettingSegmentStateViewNone: monitorSettingSegmentStateViewNone
+                                      ,monitorSettingSegmentStateViewPip: monitorSettingSegmentStateViewPip
+                                      ,monitorSettingSegmentStateViewOsd: monitorSettingSegmentStateViewOsd
                                       ,signalMatrixView: signalMatrixView
                                       ,signalMatrixOption: signalMatrixOption
                                       ,pipButtonSetView: pipButtonSetView
@@ -12566,7 +12908,6 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,signalMatrixInputSetup: signalMatrixInputSetup
                                       ,addSignalMatrixInputButtonView: addSignalMatrixInputButtonView
                                       ,lockCountdownScreenView: lockCountdownScreenView
-                                      ,closeIcon: closeIcon
                                       ,backIcon: backIcon
                                       ,isEsc: isEsc
                                       ,pressedMonitor: pressedMonitor

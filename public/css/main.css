@@ -127,7 +127,7 @@ canvas {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8c8e92', endColorstr='#d3d6dd', GradientType=0);
 }
 .button.disabled {
-  background-color: #666;
+  background: #666;
 }
 .button:hover {
   background: -webkit-linear-gradient(-90deg, #8c8e92, #6a6c7a);
@@ -160,24 +160,20 @@ canvas {
 #elm > div {
   padding: 0px;
   margin: 0px;
-  background: -webkit-linear-gradient(-90deg, #888888, #333333);
-  background: -ms-linear-gradient(-90deg, #888888, #333333);
-  background: -moz-linear-gradient(-90deg, #888888, #333333);
-  background: -o-linear-gradient(-90deg, #333333, #888888);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#888888', GradientType=0);
+  background-color: #005fa9;
 }
 .app-top-bar {
   height: 5%;
-  background-color: #333333;
+  background-color: #00417a;
   padding: 2px;
   color: #ffffff;
 }
 .app-body {
-  background: -webkit-linear-gradient(-90deg, #888888, #333333);
-  background: -ms-linear-gradient(-90deg, #888888, #333333);
-  background: -moz-linear-gradient(-90deg, #888888, #333333);
-  background: -o-linear-gradient(-90deg, #333333, #888888);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#888888', GradientType=0);
+  background: -webkit-linear-gradient(-90deg, #005fa9, #00417a);
+  background: -ms-linear-gradient(-90deg, #005fa9, #00417a);
+  background: -moz-linear-gradient(-90deg, #005fa9, #00417a);
+  background: -o-linear-gradient(-90deg, #00417a, #005fa9);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00417a', endColorstr='#005fa9', GradientType=0);
   height: 95%;
   padding: 2px;
   color: #ffffff;
@@ -326,12 +322,13 @@ canvas {
 }
 .home-menu-item {
   text-align: center;
-  background-color: #333333;
+  background-color: #00417a;
   color: #ffffff;
+  cursor: pointer;
 }
 .home-menu-item:hover {
   text-align: center;
-  background-color: #888888;
+  background-color: #012f51;
 }
 .home-panel-brightness-panel {
   width: 100%;
@@ -390,10 +387,11 @@ canvas {
   clear: both;
 }
 .signal-matrix-input {
-  background-color: #000;
-  border-radius: 8px 0px 0px 8px;
-  color: #fff;
+  background-color: #fff;
+  border-radius: 8px 8px 8px 8px;
+  color: #000;
   height: 20px;
+  text-align: center;
   border: 2px solid #444444;
 }
 .signal-matrix-side {

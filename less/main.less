@@ -6,8 +6,9 @@
 @secondary-text-color: #000;
 
 @panel-color: #2480b0;
-@background-color-a: #888;
-@background-color-b: #333;
+@background-color-a: #005fa9;
+@background-color-b: #00417a;
+@background-color-b-hover: #012f51;
 
 @button-background-color-a: #d3d6dd;
 @button-background-color-b: #8c8e92;
@@ -34,10 +35,10 @@
   border: 2px solid @primary-color;
 }
 
-* { 
-    -moz-box-sizing: border-box; 
-    -webkit-box-sizing: border-box; 
-     box-sizing: border-box; 
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 body{
@@ -58,7 +59,6 @@ canvas {
 }
 
 /*helpers*/
-
 .align-left{
   text-align: left;
 }
@@ -115,22 +115,22 @@ canvas {
 
 .div-1-5{
   width: 20%;
-  float: left; 
+  float: left;
 }
 
 .div-2-5{
   width: 40%;
-  float: left; 
+  float: left;
 }
 
 .div-3-5{
   width: 60%;
-  float: left; 
+  float: left;
 }
 
 .div-4-5{
   width: 80%;
-  float: left; 
+  float: left;
 }
 
 .div-1-10{
@@ -188,7 +188,7 @@ canvas {
   .tb-gradient(@button-background-color-a, @button-background-color-b);
 }
 .button.disabled{
-  background-color: #666;
+  background: #666;
 }
 .button:hover{
   .tb-gradient(@button-background-color-b, @button-background-color-c);
@@ -223,7 +223,7 @@ canvas {
 #elm > div {
   padding: 0px;
   margin: 0px;
-  .tb-gradient(@background-color-a, @background-color-b);
+  background-color: @background-color-a;
 }
 
 .app-top-bar{
@@ -302,7 +302,7 @@ canvas {
 }
 
 .power.button{
-  
+
   color: #fff;
 }
 
@@ -311,7 +311,7 @@ canvas {
 }
 
 .power.button.disabled{
-  background-color: #888; 
+  background-color: #888;
 }
 
 .night-mode.button{
@@ -412,11 +412,12 @@ canvas {
   text-align: center;
   background-color: @background-color-b;
   color: @primary-text-color;
+  cursor: pointer;
 }
 
 .home-menu-item:hover{
   text-align: center;
-  background-color: @background-color-a;
+  background-color: @background-color-b-hover;
 }
 
 .home-panel-brightness-panel{
@@ -479,14 +480,15 @@ canvas {
 }
 
 .clear-both{
- clear: both; 
+ clear: both;
 }
 
 .signal-matrix-input{
-  background-color: #000;
-  border-radius: 8px 0px 0px 8px;
-  color: #fff;
+  background-color: #fff;
+  border-radius: 8px 8px 8px 8px;
+  color: #000;
   height: 20px;
+  text-align: center;
   .border-a;
 }
 
