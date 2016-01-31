@@ -11607,6 +11607,23 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([]),
               A2($List.map,function (t) {    return A2($Html.option,_U.list([$Html$Attributes.value(t)]),_U.list([$Html.text(t)]));},signalTypes))]))]));
    });
+   var menuOptionsBodyView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body")]),
+      _U.list([A2($Html.div,
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")]),
+              _U.list([$Html.text("UPDATES")]))]))]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
+   });
    var setPresetNameCommit = F2(function (preset,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{name: p.tempName,isEditingName: false}) : p;},presets);
    });
@@ -11857,33 +11874,6 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
    var MatrixSetupPress = {ctor: "MatrixSetupPress"};
-   var menuOptionsBodyView = F2(function (address,screenState) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body")]),
-      _U.list([A2($Html.div,
-      _U.list([]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1")]),
-              _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,MatrixSetupPress)]),
-                      _U.list([$Html.text("MATRIX SETUP")]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")]),
-                      _U.list([$Html.text("WIFI SETUP")]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1 content-centered")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered")]),
-                      _U.list([$Html.text("UPDATES")]))]))]))]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
-   });
    var PresetEditCancel = function (a) {    return {ctor: "PresetEditCancel",_0: a};};
    var PresetNameEditDone = function (a) {    return {ctor: "PresetNameEditDone",_0: a};};
    var PresetNameInput = F2(function (a,b) {    return {ctor: "PresetNameInput",_0: a,_1: b};});

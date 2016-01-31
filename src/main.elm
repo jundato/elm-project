@@ -1035,13 +1035,8 @@ menuOptionsBodyView address screenState =
 
   div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                                       , div [ class "div-3-5 vdiv-1-1" ]
-                                            [ div [ class "vdiv-4-5 div-1-1" ]
-                                                  [ div [ class "div-1-3 vdiv-1-1 content-centered" ]
-                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
-                                                              , onClick address MatrixSetupPress ] [ text "MATRIX SETUP" ] ]
-                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ]
-                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered" ] [ text "WIFI SETUP" ] ]
-                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ]
+                                            [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
+                                                  [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
                                                         [ div [ class "vdiv-1-3 div-2-3 button menu content-centered" ] [ text "UPDATES" ] ] ]
                                             ]
                                       , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
