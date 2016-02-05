@@ -21,7 +21,7 @@ type alias AppState = { viewState : Int
                       , homeScreenState : HomeScreenState
                       , monitorSettingScreenState : MonitorSettingScreenState
                       , presetSettingScreenState : PresetSettingScreenState
-                      , menuOptionsScreenState : MenuOptionsScreenState
+                      , systemPreferencesScreenState : SystemPreferencesScreenState
                       , lockCountdownScreenState : LockCountdownScreenState
                       }
 
@@ -48,11 +48,16 @@ type MonitorSettingSegmentState = None | Pip | Osd
 -- stores presets for monitors etc
 type alias PresetSettingScreenState = { presets : List Preset }
 
--- menu options
-type alias MenuOptionsScreenState = { viewState : Int
-                                    ,  matrixSetupScreenState : MatrixSetupScreenState
-                                    }
+-- System Preferences Options
+type alias SystemPreferencesScreenState = { viewState : Int
+                                          , matrixSetupScreenState : MatrixSetupScreenState
+                                          , themeSelectScreenState : ThemeSelectScreenState
+                                          }
 
+type alias ThemeSelectScreenState = { selectedTheme : Theme }
+
+
+type Theme = Default | DefaultFlat | Dark | DarkFlat
 -- lockCountdownScreenState
 type alias LockCountdownScreenState = { secondsLeft : Int }
 
@@ -116,7 +121,7 @@ defaultAppState = { viewState = 1
                   , homeScreenState = defaultHomeScreenState
                   , monitorSettingScreenState = defaultMonitorSettingScreenState
                   , presetSettingScreenState = defaulPresetSettingScreenState
-                  , menuOptionsScreenState = defaultMenuOptionsScreenState
+                  , systemPreferencesScreenState = defaultSystemPreferencesScreenState
                   , lockCountdownScreenState = defaultLockdownScreenState }
 
 -- model for home screen
@@ -165,9 +170,13 @@ defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
 -- 3 - wifi
 -- 4 - version
 -- 5 - lock screen
-defaultMenuOptionsScreenState : MenuOptionsScreenState
-defaultMenuOptionsScreenState = { viewState = 1
-                                , matrixSetupScreenState = defaultMatrixSetupScreenState }
+defaultSystemPreferencesScreenState : SystemPreferencesScreenState
+defaultSystemPreferencesScreenState = { viewState = 1
+                                      , matrixSetupScreenState = defaultMatrixSetupScreenState
+                                      , themeSelectScreenState = defaultThemeSelectScreenState }
+
+defaultThemeSelectScreenState : ThemeSelectScreenState
+defaultThemeSelectScreenState = { selectedTheme = Default }
 
 defaultLockdownScreenState : LockCountdownScreenState
 defaultLockdownScreenState = { secondsLeft = 30 }
@@ -234,7 +243,7 @@ defaultExtronSignalMatrixInputs = [ createSignalMatrixInput "X-BAND RADAR" VGA
                                   , createSignalMatrixInput "X-BAND RADAR" CVBS ]
 
 defaultNtiSignalMatrixInputs : List SignalMatrixInput
-defaultNtiSignalMatrixInputs = [ createSignalMatrixInput "X-BAND RADAR" VGA
+defaultNtiSignalMatrixInputs =    [ createSignalMatrixInput "X-BAND RADAR" VGA
                                   , createSignalMatrixInput "S-BAND RADAR" VGA
                                   , createSignalMatrixInput "WEATHER" DVI
                                   , createSignalMatrixInput "S-BAND RADAR" DVI
@@ -257,6 +266,20 @@ createSignalMatrixInput name type' =
   , type' = type'
   }
 
+  -- let style' =  case theme of
+  --                 Default -> [("background", "-webkit-linear-gradient(-90deg, #005fa9, #00417a)")]
+  --                 DefaultFlat -> [("background", "#005fa9")]
+  --                 Dark -> [("background", "#000")]
+  --                 DarkFlat -> [("background", "#000")]
+
+themeLibrary =  { defaultBackgroundStyle = ("background", "-webkit-linear-gradient(-90deg, #005fa9, #00417a)")
+                , defaultBackgroundFlatStyle = ("background", "#005fa9")
+                , defaultBackgroundNavStyle = ("background", "#003169")
+                , darkBackgroundStyle = ("background", "-webkit-linear-gradient(-90deg, #a1a2a6, #4c4c4e)")
+                , darkBackgroundFlatStyle = ("background", "#a1a2a6")
+                , darkBackgroundNavStyle = ("background", "#4c4c4e")
+                }
+
 -- actions
 type Action
   = NoOp
@@ -272,7 +295,7 @@ type Action
   | LockScreenPressed String
   | PowerPress
   | PresetPress
-  | MenuOptionPress
+  | SystemPreferencesPress
 -- monitor setting actions
   | CloseMonitorConfiguration
   | PipButtonPress
@@ -295,13 +318,11 @@ type Action
   | PresetNameInput Preset String
   | PresetNameEditDone Preset
   | PresetEditCancel Preset
--- menu setting actions
-  | MatrixSetupPress
-  | ExtronSetupPress
-  | NtiSetupPress
-  | AddSignalInputMatrix
-  | AtlonaSetupPress
-  | BackToMenuPress
+
+-- System Preferences actions
+  | ThemePress
+  | ThemeSelected String
+  | BackToSystemPreferencesMain
   | CloseSetupPress
 -- lock countdown actions
   | UnlockLockCountdown String
@@ -327,7 +348,7 @@ update action appState =
     SelectMonitorToConfigure monitor' ->
       let homeScreenState' = appState.homeScreenState
           monitorSettingScreenState' = appState.monitorSettingScreenState
-          matrixSetupScreenState' = appState.menuOptionsScreenState.matrixSetupScreenState
+          matrixSetupScreenState' = appState.systemPreferencesScreenState.matrixSetupScreenState
           signalMatrixInputs' = matrixSetupScreenState'.extronSignalMatrixInputs ++
                                 matrixSetupScreenState'.ntiSignalMatrixInputs ++
                                 matrixSetupScreenState'.atlonaSignalMatrixInputs
@@ -350,7 +371,7 @@ update action appState =
       in { appState | homeScreenState = { homeScreenState' | monitors = setSelectedMonitorsToPowerPress homeScreenState'.monitors } }
     PresetPress ->
       { appState | viewState = 3 }
-    MenuOptionPress ->
+    SystemPreferencesPress ->
       { appState | viewState = 4 }
     LockScreenPressed temporary -> { appState | viewState = 5 }
 -- Moves monitor page to the next page
@@ -434,34 +455,29 @@ update action appState =
     PresetEditCancel preset ->
       let presetSettingScreenState' = appState.presetSettingScreenState
       in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = cancelPresetEdit preset presetSettingScreenState'.presets}}
----- Menu Option action
-    MatrixSetupPress ->
-      let menuOptionsScreenState' = appState.menuOptionsScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | viewState = 2 } }
-    ExtronSetupPress ->
-      let menuOptionsScreenState' = appState.menuOptionsScreenState
-          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState'  | viewState = 3
-                                                                          , matrixSetupScreenState = { matrixSetupScreenState' | setupIndex = 1 } } }
-    NtiSetupPress ->
-      let menuOptionsScreenState' = appState.menuOptionsScreenState
-          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState'  | viewState = 3
-                                                                          , matrixSetupScreenState = { matrixSetupScreenState' | setupIndex = 2 } } }
-    AtlonaSetupPress ->
-      let menuOptionsScreenState' = appState.menuOptionsScreenState
-          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState'  | viewState = 3
-                                                                          , matrixSetupScreenState = { matrixSetupScreenState' | setupIndex = 3 } } }
-    AddSignalInputMatrix ->
-      let menuOptionsScreenState' = appState.menuOptionsScreenState
-          matrixSetupScreenState' = menuOptionsScreenState'.matrixSetupScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | matrixSetupScreenState = addSignalInputMatrix matrixSetupScreenState' } }
+  ---- System Preferences
+    ThemePress ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = 2 } }
+  ---- type Theme = Default | DefaultFlat | Dark | DarkFlat
+    ThemeSelected themename ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+          themeSelectScreenState' = systemPreferencesScreenState'.themeSelectScreenState
+          selectedTheme' =
+            case themename of
+              "Default" -> Default
+              "Default Flat" -> DefaultFlat
+              "Dark" -> Dark
+              "Dark Flat" -> DarkFlat
+              _ -> Default
+      in { appState | systemPreferencesScreenState =
+                    { systemPreferencesScreenState' | themeSelectScreenState =
+                                                    { themeSelectScreenState' | selectedTheme = selectedTheme' } } }
+    BackToSystemPreferencesMain ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = 1 } }
     CloseSetupPress ->
       { appState | viewState = 1 }
-    BackToMenuPress ->
-      let menuOptionsScreenState' = appState.menuOptionsScreenState
-      in { appState | menuOptionsScreenState = { menuOptionsScreenState' | viewState = 1 } }
   ---- Lock Countdown
     UnlockLockCountdown temporary ->
       { appState | viewState = 1 }
@@ -717,24 +733,32 @@ appView address appState =
   let homeScreenState = appState.homeScreenState
       monitorSettingScreenState = appState.monitorSettingScreenState
       presetSettingScreenState = appState.presetSettingScreenState
-      menuOptionsScreenState = appState.menuOptionsScreenState
+      systemPreferencesScreenState = appState.systemPreferencesScreenState
       lockCountdownScreenState = appState.lockCountdownScreenState
+      theme = systemPreferencesScreenState.themeSelectScreenState.selectedTheme
+      (styleA, styleB ) =
+        case theme of
+          Default -> (themeLibrary.defaultBackgroundStyle, themeLibrary.defaultBackgroundNavStyle)
+          DefaultFlat -> (themeLibrary.defaultBackgroundFlatStyle, themeLibrary.defaultBackgroundNavStyle)
+          Dark -> (themeLibrary.darkBackgroundStyle, themeLibrary.darkBackgroundNavStyle)
+          DarkFlat -> (themeLibrary.darkBackgroundFlatStyle, themeLibrary.darkBackgroundNavStyle)
       viewToDisplay = case appState.viewState of
-                        1 -> homeScreenView address homeScreenState
-                        2 -> monitorSettingScreenView address monitorSettingScreenState
-                        3 -> presetSettingScreenView address presetSettingScreenState
-                        4 -> menuOptionsView address menuOptionsScreenState
+                        1 -> homeScreenView address homeScreenState (styleA, styleB)
+                        2 -> monitorSettingScreenView address monitorSettingScreenState (styleA, styleB)
+                        3 -> presetSettingScreenView address presetSettingScreenState (styleA, styleB)
+                        4 -> systemPreferencesView address systemPreferencesScreenState (styleA, styleB)
                         5 -> lockCountdownScreenView lockCountdownScreenState
                         _ -> div [] [ text "nothing to display" ]
   in viewToDisplay
 ---- Main View
 -- home screen view
-homeScreenView address homeScreenState =
-  div [ class "main" ]
-      [ monitorPanelView address homeScreenState
-      , homePanelView address homeScreenState
-      , homeMenuView address
-      ]
+homeScreenView address homeScreenState (bodyStyle, lowerBodyStyle) =
+  div   [ class "main", style [bodyStyle] ]
+        [ monitorPanelView address homeScreenState
+        , homePanelView address homeScreenState
+        , homeMenuView address [lowerBodyStyle]
+        ]
+
 -- monitor panel view contains buttons container and pager
 monitorPanelView address homeScreenState =
   div [ class "monitor-panel-view" ]  [ monitorViewPager address homeScreenState
@@ -746,20 +770,15 @@ monitorViewButtons address monitors =
 
 --- view of a monitor button
 monitorViewButton address monitor =
-  let isOn =  if monitor.isOn then ""
-                    else "_off"
-      isHighlighted = if monitor.isSelected then "selected"
-                      else ""
-  in
-    div [ class "div-1-5 monitor-view-container " ]
-    [ div [ class (isHighlighted ++ " " ++ "monitor-view content-centered" )
-          , onClick address (SelectMonitor monitor)
-          , onDoubleClick address (SelectMonitorToConfigure monitor)
-          , onMouseDown address (MonitorPressedDown monitor.number)
-          , onMouseUp address (MonitorPressReleased monitor.number) ]
-          [ div [ class "div-4-5 vdiv-4-5" ]
-                [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number ] ] ]
-    ]
+  div [ class "div-1-5 monitor-view-container " ]
+  [ div [ class "monitor-view content-centered"
+        , onClick address (SelectMonitor monitor)
+        , onDoubleClick address (SelectMonitorToConfigure monitor)
+        , onMouseDown address (MonitorPressedDown monitor.number)
+        , onMouseUp address (MonitorPressReleased monitor.number) ]
+        [ div [ class "div-4-5 vdiv-4-5" ]
+              [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number monitor.isSelected ] ] ]
+  ]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
 monitorViewPager address screenState =
@@ -792,39 +811,42 @@ homePanelView address homeScreenState =
                                                               , div [ class "div-2-5" ] [ img [ class "icon", src "images/increment_icon.svg" ] [] ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class "home-panel-button button content-centered night-mode" ]
-                      [ img [ src "images/night-mode_icon.svg" ] [ ] ] ]
+                      [ nightModeIcon ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class "home-panel-button button content-centered presets", onClick address PresetPress ]
-                      [ img [src "images/preset_icon.svg" ] [ ] ] ] ]
+                      [ pipIcon ] ] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
-homeMenuView address =
-  div [ class "sub-panel-view" ]
+homeMenuView address style' =
+  div [ class "sub-panel-view", style style' ]
       [ div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address (LockScreenPressed "") ]
             [ div [ class "content-centered" ] [ lockIcon ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address PresetPress ]
             [ div [ class "content-centered" ] [ presetIcon ] ]
-      , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address MenuOptionPress ]
+      , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address SystemPreferencesPress ]
             [ div [ class "content-centered" ] [ menuIcon ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered" ]
             [ div [ class "content-centered" ] [ informationIcon ] ] ]
 
 ---- Monitor Setting View
 -- monitor view
-monitorSettingScreenView address monitorSettingScreenState =
+monitorSettingScreenView address monitorSettingScreenState (lowerBodyStyle, upperBodyStyle) =
   div [ class "main" ]
-      [ monitorSettingTopBarView address monitorSettingScreenState
-      , monitorSettingBodyView address monitorSettingScreenState ]
+      [ monitorSettingTopBarView address monitorSettingScreenState upperBodyStyle
+      , monitorSettingBodyView address monitorSettingScreenState lowerBodyStyle ]
 
 -- top bar for monitor setting view
-monitorSettingTopBarView address monitorSettingScreenState =
-  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
-                              , div [ class "float-right menu-button", onClick address CloseMonitorConfiguration ] [ closeIcon ] ]
+monitorSettingTopBarView address monitorSettingScreenState style' =
+  div [ class "app-top-bar", style [ style' ] ]
+      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ]
+            [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
+            , div [ class "float-right menu-button", onClick address CloseMonitorConfiguration ] [ closeIcon ] ]
 
 -- main body for monitor setting view
-monitorSettingBodyView address monitorSettingScreenState =
-  div [ class "app-body" ]  [ monitorSettingUpperBodyView address monitorSettingScreenState
-                            , monitorSettingLowerBodyView address monitorSettingScreenState ]
+monitorSettingBodyView address monitorSettingScreenState style' =
+  div [ class "app-body", style [ style' ] ]
+      [ monitorSettingUpperBodyView address monitorSettingScreenState
+      , monitorSettingLowerBodyView address monitorSettingScreenState ]
 
 -- monitor setting upper body view
 monitorSettingUpperBodyView address monitorSettingScreenState =
@@ -917,11 +939,6 @@ signalMatrixView address signalType signalName monitorSettingScreenState monitor
                               , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ] ]
           , div [ class "clear-both" ] [ ] ]
 
-signalMatrixOption address signalType signalMatrix =
-  div [ class "signal-matrix-option"
-      , value signalMatrix.name
-      , onClick address (SignalInputSelect signalType signalMatrix.name) ] [ text signalMatrix.name ]
-
 -- view for pip buttons set
 pipButtonSetView address monitorSettingScreenState =
   let isVisible = if not monitorSettingScreenState.isPipSetPressed then "hidden" else ""
@@ -982,19 +999,23 @@ osdButtonSetView address monitorSettingScreenState =
 
 ---- Preset Setting View
 -- preset view
-presetSettingScreenView address presetSettingScreenState =
-  div [ ] [ presetSettingTopBarView address presetSettingScreenState
-          , presetSettingBodyView address presetSettingScreenState.presets ]
+presetSettingScreenView address presetSettingScreenState (lowerBodyStyle, upperBodyStyle) =
+  div [ ] [ presetSettingTopBarView address presetSettingScreenState upperBodyStyle
+          , presetSettingBodyView address presetSettingScreenState.presets lowerBodyStyle ]
 
 -- top bar for monitor setting view
-presetSettingTopBarView address presetSettingScreenState =
-  div [ class "app-top-bar" ] [ div [ class "float-left  vdiv-1-1 content-centered" ] [ text "PRESETS" ]
-                              , div [ class "float-right menu-button", onClick address ClosePresetSettings ] [ closeIcon ] ]
+presetSettingTopBarView address presetSettingScreenState style' =
+  div [ class "app-top-bar", style [ style' ] ]
+      [ div [ class "float-left  vdiv-1-1 content-centered nav-header" ]
+            [ text "PRESETS" ]
+      , div [ class "float-right menu-button", onClick address ClosePresetSettings ] [ closeIcon ] ]
 
 -- main body for monitor setting view
-presetSettingBodyView address presets =
-  div [ class "app-body" ]  [ div [ class "vdiv-1-2 div-1-1" ] (List.map (presetContainerView address) presets)
-                            , div [ class "vdiv-1-2 div-1-1" ] [ ] ]
+presetSettingBodyView address presets style' =
+  div [ class "app-body", style [ style' ] ]
+      [ div [ class "vdiv-1-2 div-1-1" ]
+            (List.map (presetContainerView address) presets)
+      , div [ class "vdiv-1-2 div-1-1" ] [ ] ]
 -- container for the preset button
 presetContainerView address preset = div [ class "vdiv-1-3 div-1-2 align-center preset-button-container" ] [ presetButtonView address preset ]
 
@@ -1013,106 +1034,69 @@ presetButtonView address preset =
           , div [ class "div-1-10" ] [ img [ class "icon", src "images/save_icon.svg", onClick address (PresetCommit preset) ] [ ] ] ]
 ---- Menu Options View
 -- menu option view
-menuOptionsView address screenState =
+systemPreferencesView address screenState (lowerBodyStyle, upperBodyStyle) =
   let view =  case screenState.viewState of
-                1 ->  [ menuOptionsTopBarView address screenState
-                      , menuOptionsBodyView address screenState ]
-                2 ->  [ matrixSetupOptionsTopBarView address screenState
-                      , matrixSetupOptionsBodyView address screenState]
-                3 ->  [ matrixSetupTopBarView address screenState
-                      , matrixSetupBodyView address screenState ]
+                1 ->  [ systemPreferencesTopBarView address screenState upperBodyStyle
+                      , systemPreferencesBodyView address screenState lowerBodyStyle ]
+                2 ->  [ themeSelectorTopBarView address screenState upperBodyStyle
+                      , themeSelectorBodyView address screenState lowerBodyStyle ]
                 _ ->  [ ]
   in div [ class "main" ] view
 
 -- top bar for menu option view
-menuOptionsTopBarView address screenState =
-  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
-                              , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
-
+systemPreferencesTopBarView address screenState style' =
+  div [ class "app-top-bar", style [style'] ]
+      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "MENU" ]
+            , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
 
 -- main body for monitor setting view
-menuOptionsBodyView address screenState =
+systemPreferencesBodyView address screenState style' =
+  div [ class "app-body", style [style'] ]
+      [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+                , div [ class "div-3-5 vdiv-1-1" ]
+                      [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
+                            [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
+                                  [ div [ class "vdiv-1-3 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
+                                              [ text "UPDATES" ] ]
+                                  , div [ class "vdiv-1-3 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered"
+                                              , onClick address ThemePress ]
+                                              [ text "THEME" ] ] ] ]
+                      ]
+                , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
-  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
-                                      , div [ class "div-3-5 vdiv-1-1" ]
-                                            [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
-                                                  [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
-                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered" ] [ text "UPDATES" ] ] ]
-                                            ]
-                                      , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
+themeSelectorTopBarView address screenState style' =
+  div [ class "app-top-bar", style [style'] ]
+      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "THEMES" ]
+            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+
+themeSelectorBodyView address screenState style' =
+  div [ class "app-body", style [style'] ]
+      [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+                , div [ class "div-3-5 vdiv-1-1" ]
+                      [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
+                            [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
+                                  [ span [ class "field-label" ] [ text "Select a Theme : " ]
+                                  , select  [ on "input" targetValue (Signal.message address << (ThemeSelected)) ]
+                                            [ option [ value "Default" ] [ text "Default" ]
+                                            , option [ value "Default Flat" ] [ text "Default Flat" ]
+                                            , option [ value "Dark" ] [ text "Dark" ]
+                                            , option [ value "Dark Flat" ] [ text "Dark Flat" ] ] ] ]
+                      ]
+                , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 -- top bar for menu option view
 matrixSetupOptionsTopBarView address screenState =
-  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
+  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "SYSTEM PREFERENCES" ]
                               , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
-
-
-
--- main body for monitor setting view
-matrixSetupOptionsBodyView address screenState =
-
-  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
-                                      , div [ class "div-3-5 vdiv-1-1" ]
-                                            [ div [ class "vdiv-4-5 div-1-1" ]
-                                                  [ div [ class "div-1-3 vdiv-1-1 content-centered" ]
-                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
-                                                              , onClick address ExtronSetupPress ] [ text "EXTRON" ] ]
-                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ]
-                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
-                                                              , onClick address NtiSetupPress ] [ text "NTI" ] ]
-                                                  , div [ class "div-1-3 vdiv-1-1 content-centered" ]
-                                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
-                                                              , onClick address AtlonaSetupPress ] [ text "Atlona" ] ] ]
-                                            , div [ class "vdiv-1-5 div-1-1 content-centered" ] [ text "SELECT A MATRIX MODEL FROM ABOVE" ]
-                                            ]
-                                      , div [ class "div-1-5 vdiv-1-1" ] [  ] ] ]
-
-
-
-matrixSetupTopBarView address screenState =
-  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "MENU" ]
-                              , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ]
-                              , div [ class "float-right menu-button", onClick address BackToMenuPress ] [ backIcon ] ]
-
-matrixSetupBodyView address screenState =
-  let signalTypes = List.map (\t -> case t of
-                                      VGA -> "VGA"
-                                      DVI -> "DVI"
-                                      CVBS -> "DVBS" ) [VGA, DVI, CVBS]
-      matrixSetupScreenState = screenState.matrixSetupScreenState
-      matrixInputSignals =  case matrixSetupScreenState.setupIndex of
-                              0 -> matrixSetupScreenState.extronSignalMatrixInputs
-                              1 -> matrixSetupScreenState.ntiSignalMatrixInputs
-                              2 -> matrixSetupScreenState.atlonaSignalMatrixInputs
-                              _ -> [ ]
-  in  div [ class "app-body" ]  [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
-                                          , div [ class ("div-3-5 vdiv-1-1" ++ (toString matrixSetupScreenState.setupIndex)) ]
-                                                [ div [ class "vdiv-4-5 div-1-1" ]
-                                                      ((List.map (signalMatrixInputSetup signalTypes) matrixInputSignals)
-                                                        ++
-                                                      [ addSignalMatrixInputButtonView address ])
-                                                ]
-                                          , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
-
-
-signalMatrixInputSetup signalTypes signalMatrixInput =
-  let x = 1
-  in  div [ class "signal-matrix-container vdiv-1-10" ]
-          [ div [ class "div-7-10" ]
-                [ input [ type' "text"
-                        , class "signal-matrix-input"
-                        , value signalMatrixInput.name ] [ ] ]
-          , div [ class "div-3-10 signal-matrix-side" ] [ select [ ] (List.map (\t -> option [ value t ] [ text t ] ) signalTypes) ] ]
-
-addSignalMatrixInputButtonView address =
-  div [ class "vdiv-1-10" ]
-      [ div [ class "button div-1-1 vdiv-1-10 content-centered", onClick address AddSignalInputMatrix ] [ text "ADD SIGNAL MATRIX" ] ]
 
 lockCountdownScreenView lockCountdownScreenState =
   div [ class "vdiv-1-1 div-1-1" ]
       [ div [ class "vdiv-1-3 div-1-1" ] [ ]
       , div [ class "vdiv-1-3 div-1-1 content-centered lock-countdown-timer" ] [ text ("unlocking in " ++ (toString lockCountdownScreenState.secondsLeft) ++ " seconds") ]
       , div [ class "vdiv-1-3 div-1-1" ] [ ] ]
+
 
 backIcon : Html
 backIcon = img [ class "icon", src "images/back_icon.svg" ][ ]

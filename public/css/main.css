@@ -120,21 +120,14 @@ canvas {
 .button {
   cursor: pointer;
   border-radius: 8px;
-  background: -webkit-linear-gradient(-90deg, #d3d6dd, #8c8e92);
-  background: -ms-linear-gradient(-90deg, #d3d6dd, #8c8e92);
-  background: -moz-linear-gradient(-90deg, #d3d6dd, #8c8e92);
-  background: -o-linear-gradient(-90deg, #8c8e92, #d3d6dd);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8c8e92', endColorstr='#d3d6dd', GradientType=0);
+  background-color: #d3d6dd;
+  color: #000;
 }
 .button.disabled {
   background: #666;
 }
 .button:hover {
-  background: -webkit-linear-gradient(-90deg, #8c8e92, #6a6c7a);
-  background: -ms-linear-gradient(-90deg, #8c8e92, #6a6c7a);
-  background: -moz-linear-gradient(-90deg, #8c8e92, #6a6c7a);
-  background: -o-linear-gradient(-90deg, #6a6c7a, #8c8e92);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6a6c7a', endColorstr='#8c8e92', GradientType=0);
+  background-color: #6a6c7a;
 }
 .circle.button {
   border-radius: 50%;
@@ -164,19 +157,16 @@ canvas {
 }
 .app-top-bar {
   height: 5%;
-  background-color: #00417a;
   padding: 2px;
   color: #ffffff;
 }
 .app-body {
-  background: -webkit-linear-gradient(-90deg, #005fa9, #00417a);
-  background: -ms-linear-gradient(-90deg, #005fa9, #00417a);
-  background: -moz-linear-gradient(-90deg, #005fa9, #00417a);
-  background: -o-linear-gradient(-90deg, #00417a, #005fa9);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00417a', endColorstr='#005fa9', GradientType=0);
   height: 95%;
   padding: 2px;
   color: #ffffff;
+}
+.nav-header {
+  margin-left: 4px;
 }
 /* --- */
 /* home screen */
@@ -243,11 +233,9 @@ canvas {
   background-color: #888;
 }
 .night-mode.button {
-  background-color: #333;
   color: #fbbb40;
 }
 .presets.button {
-  background-color: #444444;
   color: #fff;
 }
 .button > img {
@@ -322,7 +310,6 @@ canvas {
 }
 .home-menu-item {
   text-align: center;
-  background-color: #00417a;
   color: #ffffff;
   cursor: pointer;
 }
@@ -336,38 +323,10 @@ canvas {
 /* --- */
 /* monitor setting */
 /* --- */
-.cycle-button,
 .pip-button,
 .osd-button {
   width: 150px;
   height: 150px;
-}
-.cycle-button {
-  background-color: #abc3e6;
-}
-.cycle-button:hover {
-  background-color: #9fcfef;
-}
-.cycle-button.pressed {
-  background-color: #9fcfef;
-}
-.pip-button {
-  background-color: #8878d8;
-}
-.pip-button:hover {
-  background-color: #9d8fde;
-}
-.pip-button.pressed {
-  background-color: #9d8fde;
-}
-.osd-button {
-  background-color: #8bbacc;
-}
-.osd-button:hover {
-  background-color: #b4f5e8;
-}
-.osd-button.pressed {
-  background-color: #b4f5e8;
 }
 .select-options {
   position: absolute;
@@ -429,6 +388,12 @@ canvas {
 .icon {
   width: 100%;
   height: 100%;
+}
+/* --- */
+/* System Preferences */
+/* --- */
+.field-label {
+  margin: 0px 10px 0px 10px;
 }
 /* --- */
 /* preset setting */

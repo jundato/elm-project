@@ -22,9 +22,9 @@ function main() {
   //sends the pressed monitor inside elm
   elm.ports.out_onPressedMonitor.subscribe(function (data) {
     monitorNumberPressed = data[0];
-    monitorPressTimer = window.setTimeout(function() { 
+    monitorPressTimer = window.setTimeout(function() {
       elm.ports.in_longPressedMonitor.send(monitorNumberPressed);
-    },500);
+    },1000);
   });
 
   //clears the press monitor timer to prevent it from firing
@@ -36,7 +36,7 @@ function main() {
     console.log('lock pressed');
     startLockCountdown();
 
-    // cleanPressTimer = window.setTimeout(function() { 
+    // cleanPressTimer = window.setTimeout(function() {
     //   elm.ports.inCleanPressTimerEnded.send();
     // },30000);
   });
@@ -49,7 +49,7 @@ function main() {
   var lockCountdownTick = function(){
     lockCountDownUpdateDuration = 200;
     countDownDuration = 30;
-    window.setTimeout(function() { 
+    window.setTimeout(function() {
       var currentLockdownTime = new Date();
       var elapsed = Math.floor((currentLockdownTime - lockCountdownStart) / 1000);
       if(elapsed >= countDownDuration){

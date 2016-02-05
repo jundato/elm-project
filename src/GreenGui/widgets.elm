@@ -1,6 +1,7 @@
-module GreenGui.Widgets (powerIcon, monitorIcon, lockIcon, presetIcon, menuIcon
-                        , informationIcon, pipIcon, osdIcon, leftRightIcon
-                        , upDownIcon, resizeIcon, exitPipIcon, selectIcon
+module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, lockIcon
+                        , presetIcon, menuIcon, informationIcon, pipIcon
+                        , osdIcon, leftRightIcon, upDownIcon, resizeIcon
+                        , exitPipIcon, selectIcon
                         , exitOsdIcon,closeIcon) where
 
 import Svg exposing (..)
@@ -11,19 +12,37 @@ powerIcon : Bool -> Svg
 powerIcon isDisabled =
   let containerWidth = 300
       containerHeight = 300
-      color = if isDisabled then "#333" else "#DD3A3A"
+      color = if isDisabled then "#333" else "#B62025"
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.path  [ d "M181,17.3V70c33.8,11.9,58,44.2,58,82c0,48-39,87-87,87s-87-39-87-87c0-37.5,23.7-69.5,57-81.7V17.1 C60.3,30.4,14,85.3,14,151c0,75.7,61.3,137,137,137s137-61.3,137-137C288,85.6,242.2,31,181,17.3z"
+          [ Svg.path  [ d "M163.3,158.1c0,7.4-6,13.5-13.5,13.5l0,0c-7.4,0-13.5-6-13.5-13.5V35.9c0-7.4,6-13.5,13.5-13.5l0,0c7.4,0,13.5,6,13.5,13.5V158.1z"
                       , fill color ] [ ]
-          , rect [ x "136", y "2", width "30.3", height "125", fill color ] [ ] ]
+          , Svg.path  [ d "M186.5,56.7c39.4,14.8,67.3,52.8,67.3,97.3c0,57.4-46.5,103.9-103.9,103.9S45.9,211.5,45.9,154.1c0-44.6,28-82.6,67.4-97.3"
+                      , stroke color
+                      , strokeWidth "28"
+                      , strokeLinecap "round"
+                      , strokeMiterlimit "10"
+                      , fill "none" ] [ ] ]
 
-monitorIcon : String -> Svg
-monitorIcon label =
+nightModeIcon : Svg
+nightModeIcon =
+  let containerWidth = 300
+      containerHeight = 300
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M141.6,4.1c-4.1,0-8.1,0.2-12.1,0.5C179.2,21.3,215,68.2,215,123.5c0,69.3-56.1,125.4-125.4,125.4c-29.3,0-56.3-10.1-77.7-26.9c25,45.9,73.6,77,129.6,77C223,299,289,233,289,151.6S223,4.1,141.6,4.1z"
+                      , fill "#000" ] [ ] ]
+
+monitorIcon : String -> Bool -> Svg
+monitorIcon label isSelected =
   let containerWidth = 160
       containerHeight = 140
   in  svg [ version "1.1"
@@ -35,7 +54,7 @@ monitorIcon label =
           [ Svg.path  [ d "M161,131.4c0,3-1.8,5.5-4.1,5.5H4.1c-2.2,0-4.1-2.5-4.1-5.5V5.5C0,2.5,1.8,0,4.1,0h152.9c2.2,0,4.1,2.5,4.1,5.5V131.4z"
                       , fill "#000" ] [ ]
           , Svg.path  [ d "M153.3,115.8c0,1-0.6,1.8-1.4,1.8H9c-0.7,0-1.4-0.8-1.4-1.8V10.7c0-1,0.6-1.8,1.4-1.8H152c0.7,0,1.4,0.8,1.4,1.8V115.8z"
-                      , fill "#CBCCCE" ] [ ]
+                      , fill (if isSelected then "#34b3c7" else "#cbccce") ] [ ]
           , Svg.ellipse [ fill "#848689"
                         , cx "123.6"
                         , cy "126.4"
@@ -51,7 +70,7 @@ monitorIcon label =
                         , cy "126.4"
                         , rx "3.6"
                         , ry "3.5" ] [ ]
-          , Svg.text'   [ transform "matrix(1 0 0 1 70.4414 47.5479)", fontFamily "Arial-Black", fontSize "36px" ] [ text label ] ]
+          , Svg.text'   [ transform "matrix(1 0 0 1 70.4414 70.5479)", fontFamily "Arial-Black", fontSize "36px" ] [ text label ] ]
 
 lockIcon : Svg
 lockIcon =

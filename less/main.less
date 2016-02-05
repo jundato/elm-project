@@ -185,13 +185,14 @@ canvas {
 .button{
   cursor: pointer;
   border-radius: 8px;
-  .tb-gradient(@button-background-color-a, @button-background-color-b);
+  background-color: @button-background-color-a;
+  color: #000;
 }
 .button.disabled{
   background: #666;
 }
 .button:hover{
-  .tb-gradient(@button-background-color-b, @button-background-color-c);
+  background-color: @button-background-color-c;
 }
 
 .circle.button{
@@ -228,18 +229,19 @@ canvas {
 
 .app-top-bar{
   height: 5%;
-  background-color: @background-color-b;
   padding: 2px;
   color: @primary-text-color
 }
 
 .app-body{
-  .tb-gradient(@background-color-a, @background-color-b);
   height: 95%;
   padding: 2px;
   color: @primary-text-color
 }
 
+.nav-header{
+  margin-left: 4px;
+}
 /* --- */
 /* home screen */
 /* --- */
@@ -315,12 +317,10 @@ canvas {
 }
 
 .night-mode.button{
-  background-color: #333;
   color: #fbbb40;
 }
 
 .presets.button{
-  background-color: @primary-color;
   color: #fff;
 }
 
@@ -410,7 +410,6 @@ canvas {
 
 .home-menu-item{
   text-align: center;
-  background-color: @background-color-b;
   color: @primary-text-color;
   cursor: pointer;
 }
@@ -427,39 +426,9 @@ canvas {
 /* --- */
 /* monitor setting */
 /* --- */
-
-.cycle-button,.pip-button, .osd-button{
+.pip-button, .osd-button{
   width: 150px;
   height: 150px;
-}
-
-.cycle-button{
-  background-color: #abc3e6;
-}
-.cycle-button:hover{
-  background-color: #9fcfef;
-}
-.cycle-button.pressed{
-  background-color: #9fcfef;
-}
-.pip-button{
-  background-color: #8878d8;
-}
-.pip-button:hover{
-  background-color: #9d8fde;
-}
-.pip-button.pressed{
-  background-color: #9d8fde;
-}
-
-.osd-button{
-  background-color: #8bbacc;
-}
-.osd-button:hover{
-  background-color: #b4f5e8;
-}
-.osd-button.pressed{
-  background-color: #b4f5e8;
 }
 
 .select-options{
@@ -539,6 +508,14 @@ canvas {
 .icon{
   width: 100%;
   height: 100%;
+}
+
+/* --- */
+/* System Preferences */
+/* --- */
+
+.field-label{
+  margin: 0px 10px 0px 10px;
 }
 
 /* --- */
