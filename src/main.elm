@@ -49,7 +49,7 @@ type MonitorSettingSegmentState = None | Pip | Osd
 type alias PresetSettingScreenState = { presets : List Preset }
 
 -- System Preferences Options
-type alias SystemPreferencesScreenState = { viewState : Int
+type alias SystemPreferencesScreenState = { viewState : SettingsMenuState
                                           , matrixSetupScreenState : MatrixSetupScreenState
                                           , themeSelectScreenState : ThemeSelectScreenState
                                           }
@@ -109,6 +109,8 @@ type alias SignalMatrixInput =  { name : String
                                 , type' : SignalMatrixInputType}
 
 type SignalMatrixInputType = DVI | VGA  | CVBS
+
+type SettingsMenuState = SETTINGS_HOME | MONITOR_SHARP | NETWORK | THEME_SELECTOR | SOFTWARE_UPDATE
 
 ------ DEFAULT MODELS
 -- model for the whole app
@@ -171,7 +173,7 @@ defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
 -- 4 - version
 -- 5 - lock screen
 defaultSystemPreferencesScreenState : SystemPreferencesScreenState
-defaultSystemPreferencesScreenState = { viewState = 1
+defaultSystemPreferencesScreenState = { viewState = SETTINGS_HOME
                                       , matrixSetupScreenState = defaultMatrixSetupScreenState
                                       , themeSelectScreenState = defaultThemeSelectScreenState }
 
@@ -458,7 +460,7 @@ update action appState =
   ---- System Preferences
     ThemePress ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
-      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = 2 } }
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = THEME_SELECTOR } }
   ---- type Theme = Default | DefaultFlat | Dark | DarkFlat
     ThemeSelected themename ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
@@ -475,7 +477,7 @@ update action appState =
                                                     { themeSelectScreenState' | selectedTheme = selectedTheme' } } }
     BackToSystemPreferencesMain ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
-      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = 1 } }
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = SETTINGS_HOME } }
     CloseSetupPress ->
       { appState | viewState = 1 }
   ---- Lock Countdown
@@ -788,7 +790,7 @@ monitorViewPager address screenState =
             [ div [ class "monitor-selectall-view div-1-1" ]
                   [ div [ class "monitor-selectall-container content-centered"]
                         [ div [ class "monitor-selectall-button button", onClick address SelectAllMonitors]
-                              [ div [ class "content-centered" ] [ text (if screenState.isSelectAllActive then "SELECT ALL" else "DESELECT ALL") ]
+                              [ div [ class "content-centered" ] [ selectAllIcon ]
                               ]
                         ]
                   ]
@@ -1036,11 +1038,14 @@ presetButtonView address preset =
 -- menu option view
 systemPreferencesView address screenState (lowerBodyStyle, upperBodyStyle) =
   let view =  case screenState.viewState of
-                1 ->  [ systemPreferencesTopBarView address screenState upperBodyStyle
+                SETTINGS_HOME ->  [ systemPreferencesTopBarView address screenState upperBodyStyle
                       , systemPreferencesBodyView address screenState lowerBodyStyle ]
-                2 ->  [ themeSelectorTopBarView address screenState upperBodyStyle
+                THEME_SELECTOR ->  [ themeSelectorTopBarView address screenState upperBodyStyle
                       , themeSelectorBodyView address screenState lowerBodyStyle ]
-                _ ->  [ ]
+                MONITOR_SHARP ->  [ monitorSharpTopBarView address screenState
+                                  , monitorSharpBodyView address screenState ]
+                NETWORK -> [ ]
+                SOFTWARE_UPDATE -> [ ]
   in div [ class "main" ] view
 
 -- top bar for menu option view
@@ -1056,15 +1061,30 @@ systemPreferencesBodyView address screenState style' =
                 , div [ class "div-3-5 vdiv-1-1" ]
                       [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
                             [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
-                                  [ div [ class "vdiv-1-3 div-2-3 content-centered" ]
+                                  [ div [ class "vdiv-1-4 div-2-3 content-centered" ]
                                         [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
-                                              [ text "UPDATES" ] ]
-                                  , div [ class "vdiv-1-3 div-2-3 content-centered" ]
+                                              [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ] ]
+                                  , div [ class "vdiv-1-4 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
+                                              [ img [ src "images/network_icon.svg" ] [ ] ] ]
+                                  , div [ class "vdiv-1-4 div-2-3 content-centered" ]
                                         [ div [ class "vdiv-2-3 div-2-3 button menu content-centered"
                                               , onClick address ThemePress ]
-                                              [ text "THEME" ] ] ] ]
+                                              [ img [ src "images/theme_icon.svg" ] [ ] ] ]
+                                  , div [ class "vdiv-1-4 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
+                                              [ img [ src "images/update_icon.svg" ] [ ] ] ] ] ]
                       ]
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
+
+monitorSharpTopBarView address screenState =
+  div [ class "app-top-bar" ]
+      [ div [ class "div-1-4 vdiv-1" ] [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ]
+      , div [ class "div-1-4 vdiv-1" ] [  ]
+      , div [ class "div-1-4 vdiv-1" ] [ ]
+      , div [ class "div-1-4 vdiv-1" ] [ ] ]
+monitorSharpBodyView address screenState =
+  div [ class "app-body" ] [ ]
 
 themeSelectorTopBarView address screenState style' =
   div [ class "app-top-bar", style [style'] ]

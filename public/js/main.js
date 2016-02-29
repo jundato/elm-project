@@ -11167,6 +11167,38 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill("#0290AB")]),
               _U.list([]))]));
    }();
+   var themeIcon = function () {
+      var containerHeight = 150;
+      var containerWidth = 150;
+      return A2($Svg.svg,
+      _U.list([]),
+      _U.list([A2($Svg.ellipse,
+              _U.list([$Svg$Attributes.cx("65.48")
+                      ,$Svg$Attributes.cy("36.85")
+                      ,$Svg$Attributes.rx("6.27")
+                      ,$Svg$Attributes.ry("23.52")
+                      ,$Svg$Attributes.transform("translate(-15.44 39.59) rotate(-39.59)")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M40.81,88.45C38,90.79,29,84.57,20.71,74.56S8,54.54,10.83,52.2l32.6-27S44.93,34.13,54.78,46,73.53,61.57,73.53,61.57Z")
+                      ,$Svg$Attributes.transform("translate(-6.98 -10.58)")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M70.64,48.33s5.77,4.84,9.24,8.34,4.84,16.17,2.66,20.83-0.08,9,2.85,9.39,4.68-1.3,5.4-6.18S91.64,61.4,76.84,50.24")
+                      ,$Svg$Attributes.transform("translate(-6.98 -10.58)")
+                      ,$Svg$Attributes.fill("#3c2f90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M37.11,53.22c0-.07-4.49-6.71-8.62-14.5C22.79,28,20.37,20.21,21.3,15.62A6.26,6.26,0,0,1,24,11.43c3.87-2.55,9.08.45,19.94,11.45l-2.63,2.6c-10.39-10.53-14-11.77-15.27-11a2.58,2.58,0,0,0-1.07,1.83C23.39,24,35.42,44.06,40.18,51.16c0,0,.44,1.63-0.45,2.3S37.11,53.22,37.11,53.22Z")
+                      ,$Svg$Attributes.transform("translate(-6.98 -10.58)")
+                      ,$Svg$Attributes.fill("#3c2f90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M61.39,40.19L77,43.35s4.47,7.07,4.28,8.56-1.68,5.58-5,3.72-9.12-6.33-9.87-8-5.77-6.79-5.77-6.79")
+                      ,$Svg$Attributes.transform("translate(-6.98 -10.58)")
+                      ,$Svg$Attributes.fill("#3c2f90")]),
+              _U.list([]))]));
+   }();
    var selectIcon = function () {
       var containerHeight = 128;
       var containerWidth = 128;
@@ -11390,7 +11422,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
-      _U.list([$Svg$Attributes.d("M114.3,90.1c0,1.6-1.2,2.9-2.8,2.9H23.9c-1.5,0-2.8-1.3-2.8-2.9V44.9c0,0,0,0,0,0v-6c0-1.6,1.2-2.9,2.8-2.9h18.4c1.5,0,2.8,1.3,2.8,2.9V42h66.5c1.5,0,2.8,1.3,2.8,2.9V90.1z")
+      _U.list([$Svg$Attributes.d("M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z")
+              ,$Svg$Attributes.transform("translate(-14.36 14) scale(0.8)")
               ,$Svg$Attributes.fill("#BCBEC0")]),
       _U.list([]))]));
    }();
@@ -11487,7 +11520,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.ry("3.5")]),
               _U.list([]))
               ,A2($Svg.text$,
-              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 70.4414 70.5479)")
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 70.4414 74.5479)")
                       ,$Svg$Attributes.fontFamily("Arial-Black")
                       ,$Svg$Attributes.fontSize("36px")]),
               _U.list([$Svg.text(label)]))]));
@@ -11535,6 +11568,41 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill("none")]),
               _U.list([]))]));
    };
+   var selectAllIcon = function () {
+      var color = "#231f20";
+      var containerHeight = 48;
+      var containerWidth = 204;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("20px")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.rect,
+              _U.list([$Svg$Attributes.height("9.2")
+                      ,$Svg$Attributes.width("81.3")
+                      ,$Svg$Attributes.fill(color)
+                      ,$Svg$Attributes.x("9.95")
+                      ,$Svg$Attributes.y("19.1")]),
+              _U.list([]))
+              ,A2($Svg.rect,
+              _U.list([$Svg$Attributes.height("9.2")
+                      ,$Svg$Attributes.width("81.3")
+                      ,$Svg$Attributes.fill(color)
+                      ,$Svg$Attributes.x("110.85")
+                      ,$Svg$Attributes.y("19.1")]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("0 23.74 23.74 0 29.18 5.7 11.41 23.47 29.57 41.64 23.87 47.35 0 23.74"),$Svg$Attributes.fill(color)]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("202.09 23.74 178.35 0 172.91 5.7 190.69 23.47 172.51 41.64 178.22 47.35 202.09 23.74")
+                      ,$Svg$Attributes.fill(color)]),
+              _U.list([]))]));
+   }();
    return _elm.GreenGui.Widgets.values = {_op: _op
                                          ,powerIcon: powerIcon
                                          ,nightModeIcon: nightModeIcon
@@ -11550,6 +11618,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                                          ,resizeIcon: resizeIcon
                                          ,exitPipIcon: exitPipIcon
                                          ,selectIcon: selectIcon
+                                         ,selectAllIcon: selectAllIcon
+                                         ,themeIcon: themeIcon
                                          ,exitOsdIcon: exitOsdIcon
                                          ,closeIcon: closeIcon};
 };
@@ -11611,6 +11681,17 @@ Elm.GreenGui.Main.make = function (_elm) {
               A2($Basics._op["++"],$Basics.toString(lockCountdownScreenState.secondsLeft)," seconds")))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-3 div-1-1")]),_U.list([]))]));
    };
+   var monitorSharpBodyView = F2(function (address,screenState) {    return A2($Html.div,_U.list([$Html$Attributes.$class("app-body")]),_U.list([]));});
+   var monitorSharpTopBarView = F2(function (address,screenState) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/monitor_sharp_icon.svg")]),_U.list([]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),_U.list([]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),_U.list([]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),_U.list([]))]));
+   });
    var setPresetNameCommit = F2(function (preset,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{name: p.tempName,isEditingName: false}) : p;},presets);
    });
@@ -11854,15 +11935,25 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1 content-centered")]),
               _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 content-centered")]),
+                      _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
                       _U.list([A2($Html.div,
                       _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered")]),
-                      _U.list([$Html.text("UPDATES")]))]))
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/monitor_sharp_icon.svg")]),_U.list([]))]))]))
                       ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 content-centered")]),
+                      _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered")]),
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/network_icon.svg")]),_U.list([]))]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
                       _U.list([A2($Html.div,
                       _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,ThemePress)]),
-                      _U.list([$Html.text("THEME")]))]))]))]))]))
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/theme_icon.svg")]),_U.list([]))]))]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered")]),
+                      _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/update_icon.svg")]),_U.list([]))]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
    var systemPreferencesView = F3(function (address,screenState,_p5) {
@@ -11871,9 +11962,11 @@ Elm.GreenGui.Main.make = function (_elm) {
       var _p8 = _p6._0;
       var view = function () {
          var _p7 = screenState.viewState;
-         switch (_p7)
-         {case 1: return _U.list([A3(systemPreferencesTopBarView,address,screenState,_p9),A3(systemPreferencesBodyView,address,screenState,_p8)]);
-            case 2: return _U.list([A3(themeSelectorTopBarView,address,screenState,_p9),A3(themeSelectorBodyView,address,screenState,_p8)]);
+         switch (_p7.ctor)
+         {case "SETTINGS_HOME": return _U.list([A3(systemPreferencesTopBarView,address,screenState,_p9),A3(systemPreferencesBodyView,address,screenState,_p8)]);
+            case "THEME_SELECTOR": return _U.list([A3(themeSelectorTopBarView,address,screenState,_p9),A3(themeSelectorBodyView,address,screenState,_p8)]);
+            case "MONITOR_SHARP": return _U.list([A2(monitorSharpTopBarView,address,screenState),A2(monitorSharpBodyView,address,screenState)]);
+            case "NETWORK": return _U.list([]);
             default: return _U.list([]);}
       }();
       return A2($Html.div,_U.list([$Html$Attributes.$class("main")]),view);
@@ -12263,9 +12356,7 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("monitor-selectall-button button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("content-centered")]),
-              _U.list([$Html.text(screenState.isSelectAllActive ? "SELECT ALL" : "DESELECT ALL")]))]))]))]))]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.selectAllIcon]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))]));
    });
    var SelectMonitor = function (a) {    return {ctor: "SelectMonitor",_0: a};};
@@ -12429,6 +12520,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                                                    ,A2(defaultMonitor,"10",false)
                                                    ,A2(defaultMonitor,"11",false)
                                                    ,A2(defaultMonitor,"12",false)])};
+   var SOFTWARE_UPDATE = {ctor: "SOFTWARE_UPDATE"};
+   var THEME_SELECTOR = {ctor: "THEME_SELECTOR"};
+   var NETWORK = {ctor: "NETWORK"};
+   var MONITOR_SHARP = {ctor: "MONITOR_SHARP"};
+   var SETTINGS_HOME = {ctor: "SETTINGS_HOME"};
    var CVBS = {ctor: "CVBS"};
    var VGA = {ctor: "VGA"};
    var DVI = {ctor: "DVI"};
@@ -12557,7 +12653,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var DefaultFlat = {ctor: "DefaultFlat"};
    var Default = {ctor: "Default"};
    var defaultThemeSelectScreenState = {selectedTheme: Default};
-   var defaultSystemPreferencesScreenState = {viewState: 1
+   var defaultSystemPreferencesScreenState = {viewState: SETTINGS_HOME
                                              ,matrixSetupScreenState: defaultMatrixSetupScreenState
                                              ,themeSelectScreenState: defaultThemeSelectScreenState};
    var ThemeSelectScreenState = function (a) {    return {selectedTheme: a};};
@@ -12689,7 +12785,7 @@ Elm.GreenGui.Main.make = function (_elm) {
            return _U.update(appState,
            {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p30._0,presetSettingScreenState$.presets)})});
          case "ThemePress": var systemPreferencesScreenState$ = appState.systemPreferencesScreenState;
-           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: 2})});
+           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: THEME_SELECTOR})});
          case "ThemeSelected": var selectedTheme$ = function () {
               var _p32 = _p30._0;
               switch (_p32)
@@ -12705,7 +12801,7 @@ Elm.GreenGui.Main.make = function (_elm) {
            {systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,
            {themeSelectScreenState: _U.update(themeSelectScreenState$,{selectedTheme: selectedTheme$})})});
          case "BackToSystemPreferencesMain": var systemPreferencesScreenState$ = appState.systemPreferencesScreenState;
-           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: 1})});
+           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: SETTINGS_HOME})});
          case "CloseSetupPress": return _U.update(appState,{viewState: 1});
          case "UnlockLockCountdown": return _U.update(appState,{viewState: 1});
          default: var lockCountdownScreenState$ = appState.lockCountdownScreenState;
@@ -12774,6 +12870,11 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,DVI: DVI
                                       ,VGA: VGA
                                       ,CVBS: CVBS
+                                      ,SETTINGS_HOME: SETTINGS_HOME
+                                      ,MONITOR_SHARP: MONITOR_SHARP
+                                      ,NETWORK: NETWORK
+                                      ,THEME_SELECTOR: THEME_SELECTOR
+                                      ,SOFTWARE_UPDATE: SOFTWARE_UPDATE
                                       ,defaultAppState: defaultAppState
                                       ,defaultHomeScreenState: defaultHomeScreenState
                                       ,defaultMonitorSettingScreenState: defaultMonitorSettingScreenState
@@ -12885,6 +12986,8 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,systemPreferencesView: systemPreferencesView
                                       ,systemPreferencesTopBarView: systemPreferencesTopBarView
                                       ,systemPreferencesBodyView: systemPreferencesBodyView
+                                      ,monitorSharpTopBarView: monitorSharpTopBarView
+                                      ,monitorSharpBodyView: monitorSharpBodyView
                                       ,themeSelectorTopBarView: themeSelectorTopBarView
                                       ,themeSelectorBodyView: themeSelectorBodyView
                                       ,matrixSetupOptionsTopBarView: matrixSetupOptionsTopBarView
