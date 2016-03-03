@@ -11520,9 +11520,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.ry("3.5")]),
               _U.list([]))
               ,A2($Svg.text$,
-              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 70.4414 74.5479)")
-                      ,$Svg$Attributes.fontFamily("Arial-Black")
-                      ,$Svg$Attributes.fontSize("36px")]),
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 54 90)"),$Svg$Attributes.fontFamily("Arial-Black"),$Svg$Attributes.fontSize("80px")]),
               _U.list([$Svg.text(label)]))]));
    });
    var nightModeIcon = function () {
@@ -11681,16 +11679,26 @@ Elm.GreenGui.Main.make = function (_elm) {
               A2($Basics._op["++"],$Basics.toString(lockCountdownScreenState.secondsLeft)," seconds")))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-3 div-1-1")]),_U.list([]))]));
    };
-   var monitorSharpBodyView = F2(function (address,screenState) {    return A2($Html.div,_U.list([$Html$Attributes.$class("app-body")]),_U.list([]));});
-   var monitorSharpTopBarView = F2(function (address,screenState) {
+   var softwareUpdateBodyView = F3(function (address,screenState,style$) {
+      return A2($Html.div,_U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),_U.list([]));
+   });
+   var networkBodyView = F3(function (address,screenState,style$) {
+      return A2($Html.div,_U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),_U.list([]));
+   });
+   var monitorSharpBodyView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),
-              _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/monitor_sharp_icon.svg")]),_U.list([]))]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),_U.list([]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),_U.list([]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-4 vdiv-1")]),_U.list([]))]));
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-3-5 vdiv-1-1")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("vdiv-4-5 div-1-1 content-centered")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1 content-centered")]),
+              _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/monitor_sharp_icon.svg")]),_U.list([]))]))]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
    var setPresetNameCommit = F2(function (preset,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{name: p.tempName,isEditingName: false}) : p;},presets);
@@ -11886,10 +11894,34 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$GreenGui$Widgets.closeIcon]))]));
    });
    var BackToSystemPreferencesMain = {ctor: "BackToSystemPreferencesMain"};
+   var monitorSharpTopBarView = F3(function (address,screenState,style$) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("MONITORS")]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
+   });
    var themeSelectorTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("THEMES")]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
+   });
+   var networkTopBarView = F3(function (address,screenState,style$) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("NETWORK")]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
+   });
+   var softwareUpdateTopBarView = F3(function (address,screenState,style$) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("NETWORK")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([$GreenGui$Widgets.closeIcon]))]));
@@ -11921,7 +11953,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                               ,A2($Html.option,_U.list([$Html$Attributes.value("Dark Flat")]),_U.list([$Html.text("Dark Flat")]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
+   var SoftwareUpdatePress = {ctor: "SoftwareUpdatePress"};
+   var NetworkPress = {ctor: "NetworkPress"};
    var ThemePress = {ctor: "ThemePress"};
+   var MonitorSharpPress = {ctor: "MonitorSharpPress"};
    var systemPreferencesBodyView = F3(function (address,screenState,style$) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
@@ -11937,22 +11972,22 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
                       _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered")]),
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,MonitorSharpPress)]),
                       _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/monitor_sharp_icon.svg")]),_U.list([]))]))]))
                       ,A2($Html.div,
                       _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered")]),
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,NetworkPress)]),
                       _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/network_icon.svg")]),_U.list([]))]))]))
                       ,A2($Html.div,
                       _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,ThemePress)]),
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,ThemePress)]),
                       _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/theme_icon.svg")]),_U.list([]))]))]))
                       ,A2($Html.div,
                       _U.list([$Html$Attributes.$class("vdiv-1-4 div-2-3 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("vdiv-2-3 div-2-3 button menu content-centered")]),
+                      _U.list([$Html$Attributes.$class("vdiv-1-3 div-2-3 button menu content-centered"),A2($Html$Events.onClick,address,SoftwareUpdatePress)]),
                       _U.list([A2($Html.img,_U.list([$Html$Attributes.src("images/update_icon.svg")]),_U.list([]))]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))]))]));
    });
@@ -11964,10 +11999,10 @@ Elm.GreenGui.Main.make = function (_elm) {
          var _p7 = screenState.viewState;
          switch (_p7.ctor)
          {case "SETTINGS_HOME": return _U.list([A3(systemPreferencesTopBarView,address,screenState,_p9),A3(systemPreferencesBodyView,address,screenState,_p8)]);
+            case "MONITOR_SHARP": return _U.list([A3(monitorSharpTopBarView,address,screenState,_p9),A3(monitorSharpBodyView,address,screenState,_p8)]);
             case "THEME_SELECTOR": return _U.list([A3(themeSelectorTopBarView,address,screenState,_p9),A3(themeSelectorBodyView,address,screenState,_p8)]);
-            case "MONITOR_SHARP": return _U.list([A2(monitorSharpTopBarView,address,screenState),A2(monitorSharpBodyView,address,screenState)]);
-            case "NETWORK": return _U.list([]);
-            default: return _U.list([]);}
+            case "NETWORK": return _U.list([A3(networkTopBarView,address,screenState,_p9),A3(networkBodyView,address,screenState,_p8)]);
+            default: return _U.list([A3(softwareUpdateTopBarView,address,screenState,_p8),A3(softwareUpdateBodyView,address,screenState,_p9)]);}
       }();
       return A2($Html.div,_U.list([$Html$Attributes.$class("main")]),view);
    });
@@ -12784,8 +12819,14 @@ Elm.GreenGui.Main.make = function (_elm) {
          case "PresetEditCancel": var presetSettingScreenState$ = appState.presetSettingScreenState;
            return _U.update(appState,
            {presetSettingScreenState: _U.update(presetSettingScreenState$,{presets: A2(cancelPresetEdit,_p30._0,presetSettingScreenState$.presets)})});
+         case "MonitorSharpPress": var systemPreferencesScreenState$ = appState.systemPreferencesScreenState;
+           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: MONITOR_SHARP})});
          case "ThemePress": var systemPreferencesScreenState$ = appState.systemPreferencesScreenState;
            return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: THEME_SELECTOR})});
+         case "NetworkPress": var systemPreferencesScreenState$ = appState.systemPreferencesScreenState;
+           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: NETWORK})});
+         case "SoftwareUpdatePress": var systemPreferencesScreenState$ = appState.systemPreferencesScreenState;
+           return _U.update(appState,{systemPreferencesScreenState: _U.update(systemPreferencesScreenState$,{viewState: SOFTWARE_UPDATE})});
          case "ThemeSelected": var selectedTheme$ = function () {
               var _p32 = _p30._0;
               switch (_p32)
@@ -12923,7 +12964,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,PresetNameInput: PresetNameInput
                                       ,PresetNameEditDone: PresetNameEditDone
                                       ,PresetEditCancel: PresetEditCancel
+                                      ,MonitorSharpPress: MonitorSharpPress
                                       ,ThemePress: ThemePress
+                                      ,NetworkPress: NetworkPress
+                                      ,SoftwareUpdatePress: SoftwareUpdatePress
                                       ,ThemeSelected: ThemeSelected
                                       ,BackToSystemPreferencesMain: BackToSystemPreferencesMain
                                       ,CloseSetupPress: CloseSetupPress
@@ -12990,6 +13034,10 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,monitorSharpBodyView: monitorSharpBodyView
                                       ,themeSelectorTopBarView: themeSelectorTopBarView
                                       ,themeSelectorBodyView: themeSelectorBodyView
+                                      ,networkTopBarView: networkTopBarView
+                                      ,networkBodyView: networkBodyView
+                                      ,softwareUpdateTopBarView: softwareUpdateTopBarView
+                                      ,softwareUpdateBodyView: softwareUpdateBodyView
                                       ,matrixSetupOptionsTopBarView: matrixSetupOptionsTopBarView
                                       ,lockCountdownScreenView: lockCountdownScreenView
                                       ,backIcon: backIcon

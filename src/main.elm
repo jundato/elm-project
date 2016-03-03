@@ -268,12 +268,6 @@ createSignalMatrixInput name type' =
   , type' = type'
   }
 
-  -- let style' =  case theme of
-  --                 Default -> [("background", "-webkit-linear-gradient(-90deg, #005fa9, #00417a)")]
-  --                 DefaultFlat -> [("background", "#005fa9")]
-  --                 Dark -> [("background", "#000")]
-  --                 DarkFlat -> [("background", "#000")]
-
 themeLibrary =  { defaultBackgroundStyle = ("background", "-webkit-linear-gradient(-90deg, #005fa9, #00417a)")
                 , defaultBackgroundFlatStyle = ("background", "#005fa9")
                 , defaultBackgroundNavStyle = ("background", "#003169")
@@ -322,7 +316,10 @@ type Action
   | PresetEditCancel Preset
 
 -- System Preferences actions
+  | MonitorSharpPress
   | ThemePress
+  | NetworkPress
+  | SoftwareUpdatePress
   | ThemeSelected String
   | BackToSystemPreferencesMain
   | CloseSetupPress
@@ -458,9 +455,18 @@ update action appState =
       let presetSettingScreenState' = appState.presetSettingScreenState
       in { appState | presetSettingScreenState = { presetSettingScreenState' | presets = cancelPresetEdit preset presetSettingScreenState'.presets}}
   ---- System Preferences
+    MonitorSharpPress ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = MONITOR_SHARP } }
     ThemePress ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
       in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = THEME_SELECTOR } }
+    NetworkPress ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = NETWORK } }
+    SoftwareUpdatePress ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = SOFTWARE_UPDATE } }
   ---- type Theme = Default | DefaultFlat | Dark | DarkFlat
     ThemeSelected themename ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
@@ -1039,13 +1045,15 @@ presetButtonView address preset =
 systemPreferencesView address screenState (lowerBodyStyle, upperBodyStyle) =
   let view =  case screenState.viewState of
                 SETTINGS_HOME ->  [ systemPreferencesTopBarView address screenState upperBodyStyle
-                      , systemPreferencesBodyView address screenState lowerBodyStyle ]
+                                  , systemPreferencesBodyView address screenState lowerBodyStyle ]
+                MONITOR_SHARP ->  [ monitorSharpTopBarView address screenState upperBodyStyle
+                                  , monitorSharpBodyView address screenState lowerBodyStyle ]
                 THEME_SELECTOR ->  [ themeSelectorTopBarView address screenState upperBodyStyle
-                      , themeSelectorBodyView address screenState lowerBodyStyle ]
-                MONITOR_SHARP ->  [ monitorSharpTopBarView address screenState
-                                  , monitorSharpBodyView address screenState ]
-                NETWORK -> [ ]
-                SOFTWARE_UPDATE -> [ ]
+                                    , themeSelectorBodyView address screenState lowerBodyStyle ]
+                NETWORK ->  [ networkTopBarView address screenState upperBodyStyle
+                            , networkBodyView address screenState lowerBodyStyle ]
+                SOFTWARE_UPDATE ->  [ softwareUpdateTopBarView address screenState lowerBodyStyle
+                                    , softwareUpdateBodyView address screenState upperBodyStyle ]
   in div [ class "main" ] view
 
 -- top bar for menu option view
@@ -1062,29 +1070,36 @@ systemPreferencesBodyView address screenState style' =
                       [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
                             [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
                                   [ div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
+                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                              , onClick address MonitorSharpPress ]
                                               [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ] ]
                                   , div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
+                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                              , onClick address NetworkPress ]
                                               [ img [ src "images/network_icon.svg" ] [ ] ] ]
                                   , div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered"
+                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
                                               , onClick address ThemePress ]
                                               [ img [ src "images/theme_icon.svg" ] [ ] ] ]
                                   , div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-2-3 div-2-3 button menu content-centered" ]
-                                              [ img [ src "images/update_icon.svg" ] [ ] ] ] ] ]
-                      ]
+                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                              , onClick address SoftwareUpdatePress ]
+                                              [ img [ src "images/update_icon.svg" ] [ ] ] ] ] ] ]
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
-monitorSharpTopBarView address screenState =
-  div [ class "app-top-bar" ]
-      [ div [ class "div-1-4 vdiv-1" ] [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ]
-      , div [ class "div-1-4 vdiv-1" ] [  ]
-      , div [ class "div-1-4 vdiv-1" ] [ ]
-      , div [ class "div-1-4 vdiv-1" ] [ ] ]
-monitorSharpBodyView address screenState =
-  div [ class "app-body" ] [ ]
+monitorSharpTopBarView address screenState style' =
+  div [ class "app-top-bar", style [style'] ]
+      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "MONITORS" ]
+            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+
+monitorSharpBodyView address screenState style' =
+  div [ class "app-body", style [style'] ]
+      [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+                , div [ class "div-3-5 vdiv-1-1" ]
+                      [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
+                            [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
+                                  [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ] ] ]
+                , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 themeSelectorTopBarView address screenState style' =
   div [ class "app-top-bar", style [style'] ]
@@ -1106,6 +1121,22 @@ themeSelectorBodyView address screenState style' =
                       ]
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
+networkTopBarView address screenState style' =
+  div [ class "app-top-bar", style [style'] ]
+      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "NETWORK" ]
+            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+networkBodyView address screenState style' =
+  div [ class "app-body", style [style'] ]
+      [ ]
+
+softwareUpdateTopBarView address screenState style' =
+  div [ class "app-top-bar", style [style'] ]
+      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "NETWORK" ]
+            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+
+softwareUpdateBodyView address screenState style' =
+  div [ class "app-body", style [style'] ]
+      [ ]
 -- top bar for menu option view
 matrixSetupOptionsTopBarView address screenState =
   div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "SYSTEM PREFERENCES" ]

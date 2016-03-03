@@ -103,7 +103,9 @@ monitorIcon label isSelected =
                         , cy "126.4"
                         , rx "3.6"
                         , ry "3.5" ] [ ]
-          , Svg.text'   [ transform "matrix(1 0 0 1 70.4414 74.5479)", fontFamily "Arial-Black", fontSize "36px" ] [ text label ] ]
+          , Svg.text'   [ transform "matrix(1 0 0 1 54 90)"
+                        , fontFamily "Arial-Black"
+                        , fontSize "80px" ] [ text label ] ]
 
 lockIcon : Svg
 lockIcon =
