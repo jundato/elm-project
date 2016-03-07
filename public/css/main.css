@@ -80,6 +80,22 @@ canvas {
   width: 80%;
   float: left;
 }
+.div-1-6 {
+  width: 33.33%;
+  float: left;
+}
+.div-1-7 {
+  width: 14.28%;
+  float: left;
+}
+.div-1-8 {
+  width: 12.5%;
+  float: left;
+}
+.div-1-9 {
+  width: 11.11%;
+  float: left;
+}
 .div-1-10 {
   width: 10%;
   float: left;
@@ -96,6 +112,14 @@ canvas {
   width: 90%;
   float: left;
 }
+.div-1-11 {
+  width: 9.09%;
+  float: left;
+}
+.div-1-12 {
+  width: 8.33%;
+  float: left;
+}
 .vdiv-1-1 {
   height: 100%;
 }
@@ -107,6 +131,12 @@ canvas {
 }
 .vdiv-1-5 {
   height: 20%;
+}
+.vdiv-2-5 {
+  height: 40%;
+}
+.vdiv-3-5 {
+  height: 60%;
 }
 .vdiv-4-5 {
   height: 80%;
@@ -425,4 +455,7 @@ canvas {
 }
 .lock-countdown-timer {
   color: #ffffff;
+}
+.padded {
+  margin: 8px;
 }

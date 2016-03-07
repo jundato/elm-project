@@ -50,8 +50,8 @@ type alias PresetSettingScreenState = { presets : List Preset }
 
 -- System Preferences Options
 type alias SystemPreferencesScreenState = { viewState : SettingsMenuState
-                                          , matrixSetupScreenState : MatrixSetupScreenState
                                           , themeSelectScreenState : ThemeSelectScreenState
+                                          , maxMonitorDisplays : Int
                                           }
 
 type alias ThemeSelectScreenState = { selectedTheme : Theme }
@@ -174,8 +174,8 @@ defaulPresetSettingScreenState = { presets =  [ defaultPreset 1
 -- 5 - lock screen
 defaultSystemPreferencesScreenState : SystemPreferencesScreenState
 defaultSystemPreferencesScreenState = { viewState = SETTINGS_HOME
-                                      , matrixSetupScreenState = defaultMatrixSetupScreenState
-                                      , themeSelectScreenState = defaultThemeSelectScreenState }
+                                      , themeSelectScreenState = defaultThemeSelectScreenState
+                                      , maxMonitorDisplays = 4 }
 
 defaultThemeSelectScreenState : ThemeSelectScreenState
 defaultThemeSelectScreenState = { selectedTheme = Default }
@@ -323,6 +323,8 @@ type Action
   | ThemeSelected String
   | BackToSystemPreferencesMain
   | CloseSetupPress
+  | IncreaseMonitorDisplayPress
+  | DecreaseMonitorDisplayPress
 -- lock countdown actions
   | UnlockLockCountdown String
   | UpdateLockCountdownSecondsLeft Int
@@ -347,14 +349,10 @@ update action appState =
     SelectMonitorToConfigure monitor' ->
       let homeScreenState' = appState.homeScreenState
           monitorSettingScreenState' = appState.monitorSettingScreenState
-          matrixSetupScreenState' = appState.systemPreferencesScreenState.matrixSetupScreenState
-          signalMatrixInputs' = matrixSetupScreenState'.extronSignalMatrixInputs ++
-                                matrixSetupScreenState'.ntiSignalMatrixInputs ++
-                                matrixSetupScreenState'.atlonaSignalMatrixInputs
       in { appState | viewState = 2
                     , homeScreenState = { homeScreenState' | monitors = setMonitorAsSelected monitor' homeScreenState'.monitors }
                     , monitorSettingScreenState = { monitorSettingScreenState'  | selectedMonitor = monitor'
-                                                                                , signalMatrixInputs = signalMatrixInputs' } }
+                                                                                , signalMatrixInputs = [] } }
     MonitorPressedDown number -> appState
     MonitorPressReleased number -> appState
     LongPressedMonitor number ->
@@ -467,6 +465,12 @@ update action appState =
     SoftwareUpdatePress ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
       in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | viewState = SOFTWARE_UPDATE } }
+    IncreaseMonitorDisplayPress ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | maxMonitorDisplays = clamp 2 12 (systemPreferencesScreenState'.maxMonitorDisplays + 1) } }
+    DecreaseMonitorDisplayPress ->
+      let systemPreferencesScreenState' = appState.systemPreferencesScreenState
+      in { appState | systemPreferencesScreenState = { systemPreferencesScreenState' | maxMonitorDisplays = clamp 2 12 (systemPreferencesScreenState'.maxMonitorDisplays - 1) } }
   ---- type Theme = Default | DefaultFlat | Dark | DarkFlat
     ThemeSelected themename ->
       let systemPreferencesScreenState' = appState.systemPreferencesScreenState
@@ -751,7 +755,7 @@ appView address appState =
           Dark -> (themeLibrary.darkBackgroundStyle, themeLibrary.darkBackgroundNavStyle)
           DarkFlat -> (themeLibrary.darkBackgroundFlatStyle, themeLibrary.darkBackgroundNavStyle)
       viewToDisplay = case appState.viewState of
-                        1 -> homeScreenView address homeScreenState (styleA, styleB)
+                        1 -> homeScreenView address homeScreenState systemPreferencesScreenState (styleA, styleB)
                         2 -> monitorSettingScreenView address monitorSettingScreenState (styleA, styleB)
                         3 -> presetSettingScreenView address presetSettingScreenState (styleA, styleB)
                         4 -> systemPreferencesView address systemPreferencesScreenState (styleA, styleB)
@@ -760,33 +764,35 @@ appView address appState =
   in viewToDisplay
 ---- Main View
 -- home screen view
-homeScreenView address homeScreenState (bodyStyle, lowerBodyStyle) =
+homeScreenView address homeScreenState systemPreferencesScreenState (bodyStyle, lowerBodyStyle) =
   div   [ class "main", style [bodyStyle] ]
-        [ monitorPanelView address homeScreenState
+        [ monitorPanelView address homeScreenState systemPreferencesScreenState
         , homePanelView address homeScreenState
         , homeMenuView address [lowerBodyStyle]
         ]
 
 -- monitor panel view contains buttons container and pager
-monitorPanelView address homeScreenState =
+monitorPanelView address homeScreenState systemPreferencesScreenState =
   div [ class "monitor-panel-view" ]  [ monitorViewPager address homeScreenState
-                                      , div [ class "monitor-views div-1-1" ] ( monitorViewButtons address homeScreenState.monitors ) ]
+                                      , div [ class "monitor-views div-1-1" ] ( monitorViewButtons address homeScreenState.monitors systemPreferencesScreenState ) ]
 
 -- list of monitor buttons
-monitorViewButtons address monitors =
-  (List.map (monitorViewButton address) monitors)
+monitorViewButtons address monitors systemPreferencesScreenState =
+  (List.map (monitorViewButton address systemPreferencesScreenState) monitors)
 
 --- view of a monitor button
-monitorViewButton address monitor =
-  div [ class "div-1-5 monitor-view-container " ]
-  [ div [ class "monitor-view content-centered"
-        , onClick address (SelectMonitor monitor)
-        , onDoubleClick address (SelectMonitorToConfigure monitor)
-        , onMouseDown address (MonitorPressedDown monitor.number)
-        , onMouseUp address (MonitorPressReleased monitor.number) ]
-        [ div [ class "div-4-5 vdiv-4-5" ]
-              [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number monitor.isSelected ] ] ]
-  ]
+monitorViewButton address systemPreferencesScreenState monitor =
+  let maxMonitorDisplays = toString systemPreferencesScreenState.maxMonitorDisplays
+  in
+    div [ class ("div-1-" ++ maxMonitorDisplays ++ " monitor-view-container ") ]
+    [ div [ class "monitor-view content-centered"
+          , onClick address (SelectMonitor monitor)
+          , onDoubleClick address (SelectMonitorToConfigure monitor)
+          , onMouseDown address (MonitorPressedDown monitor.number)
+          , onMouseUp address (MonitorPressReleased monitor.number) ]
+          [ div [ class "div-4-5 vdiv-4-5" ]
+                [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number monitor.isSelected ] ] ]
+    ]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
 monitorViewPager address screenState =
@@ -1096,9 +1102,18 @@ monitorSharpBodyView address screenState style' =
   div [ class "app-body", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
-                      [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
-                            [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
-                                  [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ] ] ]
+                      [ div [ class "vdiv-2-5 div-1-1 content-centered" ]
+                            [ div [ class "div-4-5 vdiv-4-5 button content-centered" ]
+                                  [ monitorCountIcon ] ]
+                      , div [ class "vdiv-1-5 div-1-1 content-centered" ]
+                            [ labelIcon (toString screenState.maxMonitorDisplays) ]
+                      , div [ class "vdiv-2-5 div-1-1 content-centered" ]
+                            [ div [ class "div-3-5 vdiv-3-5 button padded content-centered"
+                                  , onClick address DecreaseMonitorDisplayPress ]
+                                  [ leftIcon ]
+                            , div [ class "div-3-5 vdiv-3-5 button padded content-centered"
+                                  , onClick address IncreaseMonitorDisplayPress ]
+                                  [ rightIcon ] ] ]
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 themeSelectorTopBarView address screenState style' =
@@ -1110,16 +1125,35 @@ themeSelectorBodyView address screenState style' =
   div [ class "app-body", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
-                      [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
-                            [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
-                                  [ span [ class "field-label" ] [ text "Select a Theme : " ]
-                                  , select  [ on "input" targetValue (Signal.message address << (ThemeSelected)) ]
-                                            [ option [ value "Default" ] [ text "Default" ]
-                                            , option [ value "Default Flat" ] [ text "Default Flat" ]
-                                            , option [ value "Dark" ] [ text "Dark" ]
-                                            , option [ value "Dark Flat" ] [ text "Dark Flat" ] ] ] ]
-                      ]
+                      [ div [ class "vdiv-2-5 div-1-1 content-centered" ]
+                            [ div [ class "div-4-5 vdiv-4-5 button content-centered" ]
+                                  [ themeIcon ] ]
+                      , div [ class "vdiv-3-5 div-1-1 content-centered" ]
+                            [ div [ class "div-1-4 vdiv-3-5 button padded content-centered"
+                                  , onClick address (ThemeSelected "Default") ]
+                                  [ defaultThemeIcon ]
+                            , div [ class "div-1-4 vdiv-3-5 button padded content-centered"
+                                  , onClick address (ThemeSelected "Default Flat") ]
+                                  [ defaultFlatThemeIcon ]
+                            , div [ class "div-1-4 vdiv-3-5 button padded content-centered"
+                                  , onClick address (ThemeSelected "Dark") ]
+                                  [ darkThemeIcon ]
+                            , div [ class "div-1-4 vdiv-3-5 button padded content-centered"
+                                  , onClick address (ThemeSelected "Dark Flat") ]
+                                  [ darkFlatThemeIcon ] ] ]
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
+      -- [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
+      --           , div [ class "div-3-5 vdiv-1-1" ]
+      --                 [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
+      --                       [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
+      --                             [ span [ class "field-label" ] [ text "Select a Theme : " ]
+      --                             , select  [ on "input" targetValue (Signal.message address << (ThemeSelected)) ]
+      --                                       [ option [ value "Default" ] [ text "Default" ]
+      --                                       , option [ value "Default Flat" ] [ text "Default Flat" ]
+      --                                       , option [ value "Dark" ] [ text "Dark" ]
+      --                                       , option [ value "Dark Flat" ] [ text "Dark Flat" ] ] ] ]
+      --                 ]
+      --           , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 networkTopBarView address screenState style' =
   div [ class "app-top-bar", style [style'] ]

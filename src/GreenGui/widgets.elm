@@ -2,19 +2,14 @@ module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, lockIcon
                         , presetIcon, menuIcon, informationIcon, pipIcon
                         , osdIcon, leftRightIcon, upDownIcon, resizeIcon
                         , exitPipIcon, selectIcon, selectAllIcon, themeIcon
-                        , exitOsdIcon,closeIcon) where
+                        , monitorCountIcon, rightIcon, leftIcon
+                        , defaultThemeIcon, darkThemeIcon, defaultFlatThemeIcon
+                        , darkFlatThemeIcon
+                        , exitOsdIcon,closeIcon, labelIcon) where
 
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 
--- <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202.09 47.35">
---   <defs><style>.cls-1{fill:#231f20;}</style></defs>
---   <title>select_all</title>
---   <rect class="cls-1" x="9.95" y="19.1" width="81.3" height="9.2"/>
---   <polygon class="cls-1" points="0 23.74 23.74 0 29.18 5.7 11.41 23.47 29.57 41.64 23.87 47.35 0 23.74"/>
---   <rect class="cls-1" x="110.85" y="19.1" width="81.3" height="9.2"/>
---   <polygon class="cls-1" points="202.09 23.74 178.35 0 172.91 5.7 190.69 23.47 172.51 41.64 178.22 47.35 202.09 23.74"/>
--- </svg>
 selectAllIcon : Svg
 selectAllIcon =
   let containerWidth = 204
@@ -103,8 +98,9 @@ monitorIcon label isSelected =
                         , cy "126.4"
                         , rx "3.6"
                         , ry "3.5" ] [ ]
-          , Svg.text'   [ transform "matrix(1 0 0 1 54 90)"
+          , Svg.text'   [ transform "matrix(1 0 0 1 80 90)"
                         , fontFamily "Arial-Black"
+                        , textAnchor "middle"
                         , fontSize "80px" ] [ text label ] ]
 
 lockIcon : Svg
@@ -322,23 +318,151 @@ selectIcon =
           [ Svg.polygon   [ points "52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"
                           , fill "#129848" ] [ ] ]
 
+monitorCountIcon : Svg
+monitorCountIcon =
+  let containerWidth = 256
+      containerHeight = 256
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M217.3,58.5H40.6c-2.6,0-4.7,2.9-4.7,6.4v145.5c0,3.5,2.2,6.4,4.7,6.4h176.7c2.6,0,4.7-2.9,4.7-6.4V64.8 C222,61.3,219.9,58.5,217.3,58.5z M178.7,208.6c-2.2-0.1-3.9-2-3.8-4.2c0.1-2.2,2-3.9,4.2-3.8c2.1,0.1,3.8,1.9,3.8,4 C182.9,206.8,181.1,208.6,178.7,208.6C178.8,208.6,178.8,208.6,178.7,208.6z M192.9,208.6c-2.2-0.1-4-1.9-3.9-4.1
+                          c0.1-2.2,1.9-4,4.1-3.9c2.2,0.1,3.9,1.8,3.9,4C197,206.8,195.2,208.6,192.9,208.6z M207.1,208.6c-2.2-0.1-4-1.9-3.9-4.1
+                          c0.1-2.2,1.9-4,4.1-3.9c2.2,0.1,3.9,1.8,3.9,4C211.2,206.8,209.4,208.6,207.1,208.6C207.1,208.6,207.1,208.6,207.1,208.6
+                          L207.1,208.6z M213.1,192.3c0.2,1-0.5,2-1.5,2.2c0,0,0,0,0,0H46.3c-1-0.2-1.7-1.1-1.6-2.2c0,0,0,0,0,0V70.8c-0.2-1,0.5-2,1.5-2.2
+                          c0,0,0,0,0,0h165.2c1,0.2,1.7,1.1,1.6,2.2c0,0,0,0,0,0L213.1,192.3L213.1,192.3z",
+                        fill "#065A6B" ] [ ]
+          , Svg.text'  [ transform "matrix(1.2 0 0 1 95.7905 163.7627)"
+                      , fill "#065A6B"
+                      , fontFamily "HelveticaNeue-Bold"
+                      , fontSize "95px" ] [ text "#" ] ]
+
 themeIcon : Svg
 themeIcon =
-  let containerWidth = 150
-      containerHeight = 150
-      -- <ellipse class="cls-1" cx="65.48" cy="36.85" rx="6.27" ry="23.52" transform="translate(-15.44 39.59) rotate(-39.59)"/>
-  in svg [ ]  [ Svg.ellipse [ cx "65.48", cy "36.85", rx "6.27", ry "23.52", transform "translate(-15.44 39.59) rotate(-39.59)" ] [ ]
-              , Svg.path  [ d "M40.81,88.45C38,90.79,29,84.57,20.71,74.56S8,54.54,10.83,52.2l32.6-27S44.93,34.13,54.78,46,73.53,61.57,73.53,61.57Z"
-                          , transform "translate(-6.98 -10.58)" ] [ ]
-              , Svg.path  [ d "M70.64,48.33s5.77,4.84,9.24,8.34,4.84,16.17,2.66,20.83-0.08,9,2.85,9.39,4.68-1.3,5.4-6.18S91.64,61.4,76.84,50.24"
-                          , transform "translate(-6.98 -10.58)"
-                          , fill "#3c2f90" ] [ ]
-              , Svg.path  [ d "M37.11,53.22c0-.07-4.49-6.71-8.62-14.5C22.79,28,20.37,20.21,21.3,15.62A6.26,6.26,0,0,1,24,11.43c3.87-2.55,9.08.45,19.94,11.45l-2.63,2.6c-10.39-10.53-14-11.77-15.27-11a2.58,2.58,0,0,0-1.07,1.83C23.39,24,35.42,44.06,40.18,51.16c0,0,.44,1.63-0.45,2.3S37.11,53.22,37.11,53.22Z"
-                          , transform "translate(-6.98 -10.58)"
-                          , fill "#3c2f90" ] [ ]
-              , Svg.path  [ d "M61.39,40.19L77,43.35s4.47,7.07,4.28,8.56-1.68,5.58-5,3.72-9.12-6.33-9.87-8-5.77-6.79-5.77-6.79"
-                          , transform "translate(-6.98 -10.58)"
-                          , fill "#3c2f90"] [ ] ]
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.ellipse [ transform "matrix(0.7707 -0.6372 0.6372 0.7707 -13.9444 62.9444)"
+                        , cx "80.5"
+                        , cy "50.8"
+                        , rx "6.3"
+                        , ry "23.5"
+                        , fill "none"
+                        , stroke "#3C2F90"
+                        , strokeWidth "4"
+                        , strokeMiterlimit "10" ] []
+          , Svg.path  [ d "M55.8,102.5C53,104.8,44,98.6,35.7,88.6s-12.7-20-9.9-22.4l32.6-27c0,0,1.5,8.9,11.4,20.8s18.7,15.5,18.7,15.5L55.8,102.5z"
+                      , fill "none"
+                      , stroke "#3C2F90"
+                      , strokeWidth "4"
+                      , strokeMiterlimit "10" ] []
+          , Svg.path  [ d "M85.6,62.3c0,0,5.8,4.8,9.2,8.3s4.8,16.2,2.7,20.8c-2.2,4.7-0.1,9,2.9,9.4c2.9,0.4,4.7-1.3,5.4-6.2c0.7-4.9,0.9-19.3-13.9-30.5"
+                      , fill "#3C2F90"] [ ]
+          , Svg.path  [ d "M52.1,67.2c0-0.1-4.5-6.7-8.6-14.5c-5.7-10.7-8.1-18.5-7.2-23.1c0.4-1.9,1.3-3.3,2.7-4.2c3.9-2.5,9.1,0.4,19.9,11.5l-2.6,2.6c-10.4-10.5-14-11.8-15.3-11c-0.3,0.2-0.8,0.7-1.1,1.8C38.4,38,50.4,58.1,55.2,65.2c0,0,0.4,1.6-0.4,2.3S52.1,67.2,52.1,67.2z"
+                      , fill "#3C2F90"] [ ]
+          , Svg.path  [ d "M76.4,54.2L92,57.4c0,0,4.5,7.1,4.3,8.6c-0.2,1.5-1.7,5.6-5,3.7c-3.4-1.9-9.1-6.3-9.9-8c-0.7-1.7-5.8-6.8-5.8-6.8"
+                      , fill "#3C2F90"] [ ] ]
+
+-- themeLibrary =  { defaultBackgroundStyle = ("background", "-webkit-linear-gradient(-90deg, #005fa9, #00417a)")
+--                 , defaultBackgroundFlatStyle = ("background", "#005fa9")
+--                 , defaultBackgroundNavStyle = ("background", "#003169")
+--                 , darkBackgroundStyle = ("background", "-webkit-linear-gradient(-90deg, #a1a2a6, #4c4c4e)")
+--                 , darkBackgroundFlatStyle = ("background", "#a1a2a6")
+--                 , darkBackgroundNavStyle = ("background", "#4c4c4e")
+--                 }
+
+defaultThemeIcon : Svg
+defaultThemeIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ linearGradient  [ id "SVGID_1_"
+                            , gradientUnits "userSpaceOnUse"]
+                            [ stop  [ offset "0"
+                                    , stopColor "#005fa9" ] [ ]
+                            , stop  [ offset "1"
+                                    , stopColor "#00417a" ] [ ] ]
+          , Svg.rect  [ x "10"
+                      , y "10"
+                      , width "108.8"
+                      , height "108.8"
+                      , fill "url(#SVGID_1_)" ] [ ] ]
+
+darkThemeIcon : Svg
+darkThemeIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ linearGradient  [ id "SVGID_1_"
+                            , gradientUnits "userSpaceOnUse"]
+                            [ stop  [ offset "0"
+                                    , stopColor "#a1a2a6" ] [ ]
+                            , stop  [ offset "1"
+                                    , stopColor "#4c4c4e" ] [ ] ]
+          , Svg.rect  [ x "10"
+                      , y "10"
+                      , width "108.8"
+                      , height "108.8"
+                      , fill "url(#SVGID_1_)" ] [ ] ]
+
+-- <?xml version="1.0" encoding="utf-8"?>
+-- <!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+-- 	 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+-- <style type="text/css">
+-- 	.st0{fill:#ED1C24;}
+-- </style>
+-- <rect x="10" y="10.5" class="st0" width="108.8" height="108.8"/>
+-- </svg>
+
+defaultFlatThemeIcon : Svg
+defaultFlatThemeIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.rect  [ x "10"
+                      , y "10"
+                      , width "108.8"
+                      , height "108.8"
+                      , fill "#005fa9" ] [ ] ]
+
+darkFlatThemeIcon : Svg
+darkFlatThemeIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.rect  [ x "10"
+                      , y "10"
+                      , width "108.8"
+                      , height "108.8"
+                      , fill "#a1a2a6" ] [ ] ]
 
 exitOsdIcon : Svg
 exitOsdIcon =
@@ -367,6 +491,42 @@ exitOsdIcon =
                       , height "5.5"
                       , fill "#0290AB" ] [ ] ]
 
+leftIcon : Svg
+leftIcon =
+  let containerWidth = 256
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.rect  [ x "58.78"
+                      , y "55.41"
+                      , width "156.97"
+                      , height "17.75"
+                      , fill "#231f20" ] [ ]
+          , Svg.polygon [ points "39.58 64.38 85.41 18.54 95.91 29.55 61.6 63.87 96.68 98.95 85.67 109.96 39.58 64.38"
+                        , fill "#231f20" ] [ ] ]
+
+rightIcon : Svg
+rightIcon =
+  let containerWidth = 256
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.rect  [ x "39.6"
+                      , y "55.41"
+                      , width "156.97"
+                      , height "17.75"
+                      , fill "#231f20" ] [ ]
+          , Svg.polygon [ points "215.8,64.4 169.9,18.5 159.4,29.6 193.7,63.9 158.6,98.9 169.7,110"
+                        , fill "#231f20" ] [ ] ]
+
 closeIcon : Svg
 closeIcon =
   let containerWidth = 128
@@ -379,3 +539,19 @@ closeIcon =
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
           [ Svg.path  [ d "M22.5,18h24.2l18.6,28.7L84.5,18h22.8L76.9,61l33.1,47H85.2L64.5,76.9L43.4,108H20l33.1-47.1L22.5,18z"
                       , fill "#fff" ] [ ] ]
+
+labelIcon : String -> Svg
+labelIcon value =
+  let containerWidth = 256
+      containerHeight = 256
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.text' [ transform "matrix(1.2 0 0 1 90.3178 173.8369)"
+                      , fill "#fff"
+                      , textAnchor "middle"
+                      , fontFamily "Arial-Black"
+                      , fontSize "122px" ] [ text value ] ]
