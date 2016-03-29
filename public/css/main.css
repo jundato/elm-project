@@ -330,21 +330,21 @@ canvas {
   font-size: 40px;
 }
 
-@media screen and (max-width: 710px) {
+@media (max-width: 710px)  and (min-width: 400px) {
   .home-panel-button {
     width: 100px;
     height: 100px;
   }
 }
 
-@media screen and (max-width: 1366px) {
+@media (max-width: 1366px) and (min-width: 711px) {
   .home-panel-button {
     width: 180px;
     height: 180px;
   }
 }
 
-@media screen and (min-width: 1920px) {
+@media (min-width: 1367px) {
   .home-panel-button {
     width: 240px;
     height: 240px;
