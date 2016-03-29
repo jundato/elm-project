@@ -337,10 +337,17 @@ canvas {
   }
 }
 
-@media screen and (min-width: 711px) {
+@media screen and (max-width: 1366px) {
   .home-panel-button {
     width: 180px;
     height: 180px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .home-panel-button {
+    width: 240px;
+    height: 240px;
   }
 }
 
