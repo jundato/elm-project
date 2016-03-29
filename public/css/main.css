@@ -327,10 +327,23 @@ canvas {
 .home-panel-button {
   margin: 0px auto 0px auto;
   padding: 20px;
-  width: 180px;
-  height: 180px;
   font-size: 40px;
 }
+
+@media screen and (max-width: 710px) {
+  .home-panel-button {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (min-width: 711px) {
+  .home-panel-button {
+    width: 180px;
+    height: 180px;
+  }
+}
+
 .home-panel-count-button {
   height: 40%;
 }
