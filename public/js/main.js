@@ -11707,9 +11707,9 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fontSize("80px")]),
               _U.list([$Svg.text(label)]))]));
    });
-   var nightModeIcon = function () {
-      var containerHeight = 300;
-      var containerWidth = 300;
+   var pipMenuIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
       return A2($Svg.svg,
       _U.list([$Svg$Attributes.version("1.1")
               ,$Svg$Attributes.height("100%")
@@ -11720,34 +11720,67 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
-      _U.list([$Svg$Attributes.d("M141.6,4.1c-4.1,0-8.1,0.2-12.1,0.5C179.2,21.3,215,68.2,215,123.5c0,69.3-56.1,125.4-125.4,125.4c-29.3,0-56.3-10.1-77.7-26.9c25,45.9,73.6,77,129.6,77C223,299,289,233,289,151.6S223,4.1,141.6,4.1z")
-              ,$Svg$Attributes.fill("#000")]),
-      _U.list([]))]));
-   }();
-   var powerIcon = function (isDisabled) {
-      var color = isDisabled ? "#333" : "#B62025";
-      var containerHeight = 300;
-      var containerWidth = 300;
-      return A2($Svg.svg,
-      _U.list([$Svg$Attributes.version("1.1")
-              ,$Svg$Attributes.height("100%")
-              ,$Svg$Attributes.width("100%")
-              ,$Svg$Attributes.x("0")
-              ,$Svg$Attributes.y("0")
-              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
-              "0 0 ",
-              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
-      _U.list([A2($Svg.path,
-              _U.list([$Svg$Attributes.d("M163.3,158.1c0,7.4-6,13.5-13.5,13.5l0,0c-7.4,0-13.5-6-13.5-13.5V35.9c0-7.4,6-13.5,13.5-13.5l0,0c7.4,0,13.5,6,13.5,13.5V158.1z")
-                      ,$Svg$Attributes.fill(color)]),
+              _U.list([$Svg$Attributes.d("M125,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
               _U.list([]))
               ,A2($Svg.path,
-              _U.list([$Svg$Attributes.d("M186.5,56.7c39.4,14.8,67.3,52.8,67.3,97.3c0,57.4-46.5,103.9-103.9,103.9S45.9,211.5,45.9,154.1c0-44.6,28-82.6,67.4-97.3")
+              _U.list([$Svg$Attributes.d("M103.6,30.7c0,9.5,0,18.9,0,28.5c-12.4,0-24.5,0-37,0c0-9.4,0-18.8,0-28.5C78.8,30.7,91,30.7,103.6,30.7z M98.2,53.9c0-6.3,0-12.1,0-17.9c-9,0-17.7,0-26.3,0c0,6.2,0,12,0,17.9C80.7,53.9,89.3,53.9,98.2,53.9z")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M30.9,85.3c16.9,0,41.8,0,60.5,0c0-7.2,0-14.2,0-21.5c1.8,0,3.3,0,5.1,0c0,8.8,0,17.6,0,26.7 c-23.5,0-47,0-71,0c0-16.9,0-50.4,0-50.4h34.9l0,4.9H30.9v36.3")
+                      ,$Svg$Attributes.fill("#6D2B90")]),
+              _U.list([]))]));
+   }();
+   var nightModeIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M125.3,106.6c0,9.7-7.9,17.6-17.6,17.6H21.4c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M65.3,30.7c-1.3-0.6-2.6-1-3.9-1.4c7.4,11.3,9.4,25,4,37c-4.9,11-14.9,18.4-26.8,21.2c0.4,0.2,0.8,0.4,1.2,0.6 c15.8,7,34.4-0.1,41.4-15.9C88.2,56.3,81.1,37.7,65.3,30.7z")
+                      ,$Svg$Attributes.fill("#414042")]),
+              _U.list([]))]));
+   }();
+   var powerIcon = function (isDisabled) {
+      var color = isDisabled ? "#333" : "#B71318";
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M70.9,40.8c9.4,3.5,16,12.6,16,23.2c0,13.7-11.1,24.8-24.8,24.8S37.5,77.7,37.5,64c0-10.6,6.7-19.7,16.1-23.2")
                       ,$Svg$Attributes.stroke(color)
-                      ,$Svg$Attributes.strokeWidth("28")
+                      ,$Svg$Attributes.strokeWidth("10")
                       ,$Svg$Attributes.strokeLinecap("round")
                       ,$Svg$Attributes.strokeMiterlimit("10")
                       ,$Svg$Attributes.fill("none")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M65.4,65.2c0,1.8-1.4,3.2-3.2,3.2l0,0c-1.8,0-3.2-1.4-3.2-3.2V36.1c0-1.8,1.4-3.2,3.2-3.2l0,0 c1.8,0,3.2,1.4,3.2,3.2V65.2z")
+                      ,$Svg$Attributes.fill(color)]),
               _U.list([]))]));
    };
    var selectAllIcon = function () {
@@ -11789,6 +11822,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                                          ,powerIcon: powerIcon
                                          ,nightModeIcon: nightModeIcon
                                          ,monitorIcon: monitorIcon
+                                         ,pipMenuIcon: pipMenuIcon
                                          ,lockIcon: lockIcon
                                          ,presetIcon: presetIcon
                                          ,menuIcon: menuIcon
@@ -12540,9 +12574,10 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"home-panel-button button content-centered power ",powerButtonState))
-                      ,A2($Html$Events.onClick,address,PowerPress)]),
-              _U.list([$GreenGui$Widgets.powerIcon(homeScreenState.isPowerDisabled)]))]))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"content-centered power ",powerButtonState)),A2($Html$Events.onClick,address,PowerPress)]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-9-10 vdiv-9-10")]),
+              _U.list([$GreenGui$Widgets.powerIcon(homeScreenState.isPowerDisabled)]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 content-centered")]),
               _U.list([A2($Html.div,
@@ -12561,13 +12596,13 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-button button content-centered night-mode")]),
-              _U.list([$GreenGui$Widgets.nightModeIcon]))]))
+              _U.list([$Html$Attributes.$class("content-centered night-mode")]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-9-10 vdiv-9-10")]),_U.list([$GreenGui$Widgets.nightModeIcon]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-button button content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
-              _U.list([$GreenGui$Widgets.pipIcon]))]))]));
+              _U.list([$Html$Attributes.$class(" content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-9-10 vdiv-9-10")]),_U.list([$GreenGui$Widgets.pipMenuIcon]))]))]))]));
    });
    var LockScreenPressed = function (a) {    return {ctor: "LockScreenPressed",_0: a};};
    var homeMenuView = F2(function (address,style$) {

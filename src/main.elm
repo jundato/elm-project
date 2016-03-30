@@ -815,8 +815,9 @@ homePanelView address homeScreenState =
   let powerButtonState = if homeScreenState.isPowerDisabled then "_disabled" else ""
   in div  [ class "home-panel-view" ]
           [ div [ class "home-panel-division div-1-4 vdiv-1-1" ]
-                [ div [ class ("home-panel-button button content-centered power " ++ powerButtonState), onClick address PowerPress ]
-                      [ powerIcon homeScreenState.isPowerDisabled ] ]
+                [ div [ class ("content-centered power " ++ powerButtonState), onClick address PowerPress ]
+                      [ div [ class "div-9-10 vdiv-9-10" ]
+                            [ powerIcon homeScreenState.isPowerDisabled ] ] ]
           , div [ class "home-panel-division div-1-4 content-centered" ] [ div [ class "div-4-5" ]
                                                               [ div [ class "div-2-5" ] [ img [ class "icon", src "images/decrement_icon.svg" ] [] ]
                                                               , div [ class "div-1-5" ] [ div [ class "brightness-icon-container" ]
@@ -824,11 +825,13 @@ homePanelView address homeScreenState =
                                                                                               ]
                                                               , div [ class "div-2-5" ] [ img [ class "icon", src "images/increment_icon.svg" ] [] ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
-                [ div [ class "home-panel-button button content-centered night-mode" ]
-                      [ nightModeIcon ] ]
+                [ div [ class "content-centered night-mode" ]
+                      [ div [ class "div-9-10 vdiv-9-10" ]
+                            [ nightModeIcon ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
-                [ div [ class "home-panel-button button content-centered presets", onClick address PresetPress ]
-                      [ pipIcon ] ] ]
+                [ div [ class " content-centered presets", onClick address PresetPress ]
+                      [ div [ class "div-9-10 vdiv-9-10" ]
+                            [ pipMenuIcon ] ] ] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
 homeMenuView address style' =

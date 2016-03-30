@@ -147,6 +147,11 @@ canvas {
 .vdiv-2-3 {
   height: 66.67%;
 }
+
+.vdiv-9-10 {
+  height: 90%;
+  float: left;
+}
 .button {
   cursor: pointer;
   border-radius: 8px;
@@ -330,7 +335,7 @@ canvas {
   font-size: 40px;
 }
 
-@media (max-width: 710px)  and (min-width: 400px) {
+/*@media (max-width: 710px)  and (min-width: 400px) {
   .home-panel-button {
     width: 100px;
     height: 100px;
@@ -349,7 +354,7 @@ canvas {
     width: 240px;
     height: 240px;
   }
-}
+}*/
 
 .home-panel-count-button {
   height: 40%;
