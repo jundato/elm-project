@@ -11613,8 +11613,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
       var containerWidth = 128;
       return A2($Svg.svg,
       _U.list([$Svg$Attributes.version("1.1")
-              ,$Svg$Attributes.height("100%")
-              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.height("130%")
+              ,$Svg$Attributes.width("130%")
               ,$Svg$Attributes.x("0")
               ,$Svg$Attributes.y("0")
               ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
@@ -11647,8 +11647,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
       var containerWidth = 128;
       return A2($Svg.svg,
       _U.list([$Svg$Attributes.version("1.1")
-              ,$Svg$Attributes.height("100%")
-              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.height("110%")
+              ,$Svg$Attributes.width("110%")
               ,$Svg$Attributes.x("0")
               ,$Svg$Attributes.y("0")
               ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
@@ -11789,7 +11789,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
       var containerWidth = 204;
       return A2($Svg.svg,
       _U.list([$Svg$Attributes.version("1.1")
-              ,$Svg$Attributes.height("20px")
+              ,$Svg$Attributes.height("40px")
               ,$Svg$Attributes.width("100%")
               ,$Svg$Attributes.x("0")
               ,$Svg$Attributes.y("0")
@@ -12576,33 +12576,39 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"content-centered power ",powerButtonState)),A2($Html$Events.onClick,address,PowerPress)]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-9-10 vdiv-9-10")]),
+              _U.list([$Html$Attributes.$class("div-7-10 vdiv-7-10")]),
               _U.list([$GreenGui$Widgets.powerIcon(homeScreenState.isPowerDisabled)]))]))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-division div-1-4 content-centered")]),
+              _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-4-5")]),
-              _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-2-5")]),
-                      _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/decrement_icon.svg")]),_U.list([]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-1-5")]),
-                      _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("brightness-icon-container")]),
-                      _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/brightness_icon.svg")]),_U.list([]))]))]))
-                      ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-2-5")]),
-                      _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/increment_icon.svg")]),_U.list([]))]))]))]))
+                      _U.list([$Html$Attributes.$class("content-centered")]),
+                      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))
+                              ,A2($Html.div,
+                              _U.list([$Html$Attributes.$class("div-3-10 vdiv-7-10")]),
+                              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/decrement_icon.svg")]),_U.list([]))]))
+                              ,A2($Html.div,
+                              _U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),
+                              _U.list([A2($Html.div,
+                              _U.list([$Html$Attributes.$class("brightness-icon-container")]),
+                              _U.list([A2($Html.img,
+                              _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/brightness_icon.svg")]),
+                              _U.list([]))]))]))
+                              ,A2($Html.div,
+                              _U.list([$Html$Attributes.$class("div-3-10 vdiv-7-10")]),
+                              _U.list([A2($Html.img,
+                              _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/increment_icon.svg")]),
+                              _U.list([]))]))]))
+                      ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("content-centered night-mode")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-9-10 vdiv-9-10")]),_U.list([$GreenGui$Widgets.nightModeIcon]))]))]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-7-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.nightModeIcon]))]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class(" content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-9-10 vdiv-9-10")]),_U.list([$GreenGui$Widgets.pipMenuIcon]))]))]))]));
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-7-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.pipMenuIcon]))]))]))]));
    });
    var LockScreenPressed = function (a) {    return {ctor: "LockScreenPressed",_0: a};};
    var homeMenuView = F2(function (address,style$) {
@@ -12633,9 +12639,9 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("monitor-pager-view")]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-4-5")]),
+              _U.list([$Html$Attributes.$class("div-4-5 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("monitor-selectall-view div-1-1")]),
+              _U.list([$Html$Attributes.$class("monitor-selectall-view div-1-1 vdiv-1-1")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
               _U.list([A2($Html.div,
@@ -12668,8 +12674,10 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("monitor-panel-view")]),
       _U.list([A2(monitorViewPager,address,homeScreenState)
               ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-1 vdiv-4-5 monitor-views-parent")]),
+              _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("monitor-views div-1-1")]),
-              A3(monitorViewButtons,address,homeScreenState.monitors,systemPreferencesScreenState))]));
+              A3(monitorViewButtons,address,homeScreenState.monitors,systemPreferencesScreenState))]))]));
    });
    var homeScreenView = F4(function (address,homeScreenState,systemPreferencesScreenState,_p16) {
       var _p17 = _p16;

@@ -16,7 +16,7 @@ selectAllIcon =
       containerHeight = 48
       color = "#231f20"
   in  svg [ version "1.1"
-          , height "20px"
+          , height "40px"
           , width "100%"
           , x "0"
           , y "0"
@@ -129,8 +129,8 @@ lockIcon =
   let containerWidth = 128
       containerHeight = 128
   in  svg [ version "1.1"
-          , height "100%"
-          , width "100%"
+          , height "110%"
+          , width "110%"
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
@@ -144,8 +144,8 @@ presetIcon =
   let containerWidth = 128
       containerHeight = 128
   in  svg [ version "1.1"
-          , height "100%"
-          , width "100%"
+          , height "130%"
+          , width "130%"
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]

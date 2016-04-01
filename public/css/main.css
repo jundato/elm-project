@@ -126,8 +126,11 @@ canvas {
 .vdiv-1-2 {
   height: 50%;
 }
-.vdiv-2-10 {
-  height: 20%;
+.vdiv-1-3 {
+  height: 33%;
+}
+.vdiv-2-3 {
+  height: 66.67%;
 }
 .vdiv-1-5 {
   height: 20%;
@@ -141,16 +144,11 @@ canvas {
 .vdiv-4-5 {
   height: 80%;
 }
-.vdiv-1-3 {
-  height: 33%;
+.vdiv-2-10 {
+  height: 20%;
 }
-.vdiv-2-3 {
-  height: 66.67%;
-}
-
-.vdiv-9-10 {
-  height: 90%;
-  float: left;
+.vdiv-7-10 {
+  height: 70%;
 }
 .button {
   cursor: pointer;
@@ -231,8 +229,11 @@ canvas {
 .monitor-pager-view {
   height: 20%;
 }
+.monitor-views-parent {
+  overflow-y: hidden;
+}
 .monitor-views {
-  height: 80%;
+  height: 120%;
   width: auto;
   overflow-x: scroll;
   white-space: nowrap;
@@ -310,9 +311,9 @@ canvas {
   text-align: center;
 }
 .monitor-selectall-button {
-  width: 130px;
+  width: 180px;
   border-radius: 8px;
-  padding: 4px;
+  padding: 4px 14px;
   display: table;
   margin: 8px 0px;
 }
@@ -332,30 +333,10 @@ canvas {
 .home-panel-button {
   margin: 0px auto 0px auto;
   padding: 20px;
+  width: 180px;
+  height: 180px;
   font-size: 40px;
 }
-
-/*@media (max-width: 710px)  and (min-width: 400px) {
-  .home-panel-button {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-@media (max-width: 1366px) and (min-width: 711px) {
-  .home-panel-button {
-    width: 180px;
-    height: 180px;
-  }
-}
-
-@media (min-width: 1367px) {
-  .home-panel-button {
-    width: 240px;
-    height: 240px;
-  }
-}*/
-
 .home-panel-count-button {
   height: 40%;
 }

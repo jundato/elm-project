@@ -773,8 +773,9 @@ homeScreenView address homeScreenState systemPreferencesScreenState (bodyStyle, 
 
 -- monitor panel view contains buttons container and pager
 monitorPanelView address homeScreenState systemPreferencesScreenState =
-  div [ class "monitor-panel-view" ]  [ monitorViewPager address homeScreenState
-                                      , div [ class "monitor-views div-1-1" ] ( monitorViewButtons address homeScreenState.monitors systemPreferencesScreenState ) ]
+  div [ class "monitor-panel-view" ]
+      [ monitorViewPager address homeScreenState
+      , div [ class "div-1-1 vdiv-4-5 monitor-views-parent" ] [ div [ class "monitor-views div-1-1" ] ( monitorViewButtons address homeScreenState.monitors systemPreferencesScreenState ) ] ]
 
 -- list of monitor buttons
 monitorViewButtons address monitors systemPreferencesScreenState =
@@ -798,8 +799,8 @@ monitorViewButton address systemPreferencesScreenState monitor =
 monitorViewPager address screenState =
   div [ class "monitor-pager-view" ]
       [ div [ class "div-1-10 vdiv-1-1" ] [ ]
-      , div [ class "div-4-5" ]
-            [ div [ class "monitor-selectall-view div-1-1" ]
+      , div [ class "div-4-5 vdiv-1-1" ]
+            [ div [ class "monitor-selectall-view div-1-1 vdiv-1-1" ]
                   [ div [ class "monitor-selectall-container content-centered"]
                         [ div [ class "monitor-selectall-button button", onClick address SelectAllMonitors]
                               [ div [ class "content-centered" ] [ selectAllIcon ]
@@ -816,21 +817,24 @@ homePanelView address homeScreenState =
   in div  [ class "home-panel-view" ]
           [ div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class ("content-centered power " ++ powerButtonState), onClick address PowerPress ]
-                      [ div [ class "div-9-10 vdiv-9-10" ]
+                      [ div [ class "div-7-10 vdiv-7-10" ]
                             [ powerIcon homeScreenState.isPowerDisabled ] ] ]
-          , div [ class "home-panel-division div-1-4 content-centered" ] [ div [ class "div-4-5" ]
-                                                              [ div [ class "div-2-5" ] [ img [ class "icon", src "images/decrement_icon.svg" ] [] ]
-                                                              , div [ class "div-1-5" ] [ div [ class "brightness-icon-container" ]
-                                                                                              [ img [ class "icon", src "images/brightness_icon.svg" ] [] ]
-                                                                                              ]
-                                                              , div [ class "div-2-5" ] [ img [ class "icon", src "images/increment_icon.svg" ] [] ] ] ]
+          , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
+                [ div [ class "content-centered" ]
+                      [ div [ class "div-1-10 vdiv-7-10"] [ ]
+                      , div [ class "div-3-10 vdiv-7-10" ] [ img [ class "icon", src "images/decrement_icon.svg" ] [] ]
+                      , div [ class "div-1-10 vdiv-7-10" ] [ div [ class "brightness-icon-container" ]
+                                                      [ img [ class "icon", src "images/brightness_icon.svg" ] [] ]
+                                                      ]
+                      , div [ class "div-3-10 vdiv-7-10" ] [ img [ class "icon", src "images/increment_icon.svg" ] [] ] ]
+                      , div [ class "div-1-10 vdiv-7-10"] [ ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class "content-centered night-mode" ]
-                      [ div [ class "div-9-10 vdiv-9-10" ]
+                      [ div [ class "div-7-10 vdiv-7-10" ]
                             [ nightModeIcon ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class " content-centered presets", onClick address PresetPress ]
-                      [ div [ class "div-9-10 vdiv-9-10" ]
+                      [ div [ class "div-7-10 vdiv-7-10" ]
                             [ pipMenuIcon ] ] ] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
