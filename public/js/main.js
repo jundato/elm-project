@@ -12642,11 +12642,12 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([$Html$Attributes.$class("div-4-5 vdiv-1-1")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("monitor-selectall-view div-1-1 vdiv-1-1")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("monitor-selectall-button button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.selectAllIcon]))]))]))]))]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-2-5")]),_U.list([]))
+                      ,A2($Html.div,
+                      _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
+                      _U.list([A2($Html.div,
+                      _U.list([$Html$Attributes.$class("monitor-selectall-button button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
+                      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.selectAllIcon]))]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))]));
    });
    var SelectMonitor = function (a) {    return {ctor: "SelectMonitor",_0: a};};
