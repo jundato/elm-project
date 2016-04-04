@@ -40,7 +40,7 @@ powerIcon : Bool -> Svg
 powerIcon isDisabled =
   let containerWidth = 128
       containerHeight = 128
-      color = if isDisabled then "#333" else "#B71318"
+      color = if isDisabled then "#414042" else "#B71318"
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
