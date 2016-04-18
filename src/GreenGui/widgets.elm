@@ -16,7 +16,7 @@ selectAllIcon =
       containerHeight = 48
       color = "#231f20"
   in  svg [ version "1.1"
-          , height "40px"
+          , height "100%"
           , width "100%"
           , x "0"
           , y "0"
@@ -52,9 +52,9 @@ powerIcon isDisabled =
                       [ ]
           , Svg.path  [ d "M70.9,40.8c9.4,3.5,16,12.6,16,23.2c0,13.7-11.1,24.8-24.8,24.8S37.5,77.7,37.5,64c0-10.6,6.7-19.7,16.1-23.2"
                       , stroke color
-                      , strokeWidth "10"
+                      , strokeWidth "6"
                       , strokeLinecap "round"
-                      , strokeMiterlimit "10"
+                      , strokeMiterlimit "6"
                       , fill "none" ] [ ]
           , Svg.path  [ d "M65.4,65.2c0,1.8-1.4,3.2-3.2,3.2l0,0c-1.8,0-3.2-1.4-3.2-3.2V36.1c0-1.8,1.4-3.2,3.2-3.2l0,0 c1.8,0,3.2,1.4,3.2,3.2V65.2z"
                       , fill color ] [ ] ]

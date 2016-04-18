@@ -144,11 +144,20 @@ canvas {
 .vdiv-4-5 {
   height: 80%;
 }
+.vdiv-1-10 {
+  height: 10%;
+}
 .vdiv-2-10 {
   height: 20%;
 }
 .vdiv-7-10 {
   height: 70%;
+}
+.vdiv-9-10 {
+  height: 90%;
+}
+.vdiv-1-20 {
+  height: 5%;
 }
 .button {
   cursor: pointer;
@@ -291,13 +300,12 @@ canvas {
 }
 .monitor-selectall-view {
   height: 100%;
-  padding: 8px;
   box-sizing: border-box;
   position: relative;
 }
 .monitor-selectall-graphic {
   border-color: #444444;
-  border-width: 2px 2px 0px 2px;
+
   border-style: solid;
   height: 100%;
   margin-top: 4px;
@@ -310,14 +318,10 @@ canvas {
   text-align: center;
 }
 .monitor-selectall-button {
-  width: 180px;
+  border-color: #444444;
   border-radius: 8px;
-  padding: 4px 14px;
-  display: table;
-  margin: 8px 0px;
-}
-.monitor-selectall-button > div {
-  height: 100%;
+  border-width: 2px 2px 0px 2px;
+  background-color: #D1D3D4;
 }
 .brightness-icon-container {
   width: 200%;

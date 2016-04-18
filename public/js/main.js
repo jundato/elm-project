@@ -11754,7 +11754,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               _U.list([]))]));
    }();
    var powerIcon = function (isDisabled) {
-      var color = isDisabled ? "#333" : "#B71318";
+      var color = isDisabled ? "#414042" : "#B71318";
       var containerHeight = 128;
       var containerWidth = 128;
       return A2($Svg.svg,
@@ -11773,9 +11773,9 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M70.9,40.8c9.4,3.5,16,12.6,16,23.2c0,13.7-11.1,24.8-24.8,24.8S37.5,77.7,37.5,64c0-10.6,6.7-19.7,16.1-23.2")
                       ,$Svg$Attributes.stroke(color)
-                      ,$Svg$Attributes.strokeWidth("10")
+                      ,$Svg$Attributes.strokeWidth("6")
                       ,$Svg$Attributes.strokeLinecap("round")
-                      ,$Svg$Attributes.strokeMiterlimit("10")
+                      ,$Svg$Attributes.strokeMiterlimit("6")
                       ,$Svg$Attributes.fill("none")]),
               _U.list([]))
               ,A2($Svg.path,
@@ -11789,7 +11789,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
       var containerWidth = 204;
       return A2($Svg.svg,
       _U.list([$Svg$Attributes.version("1.1")
-              ,$Svg$Attributes.height("40px")
+              ,$Svg$Attributes.height("100%")
               ,$Svg$Attributes.width("100%")
               ,$Svg$Attributes.x("0")
               ,$Svg$Attributes.y("0")
@@ -12607,7 +12607,7 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(" content-centered presets"),A2($Html$Events.onClick,address,PresetPress)]),
+              _U.list([$Html$Attributes.$class(" content-centered presets")]),
               _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-7-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.pipMenuIcon]))]))]))]));
    });
    var LockScreenPressed = function (a) {    return {ctor: "LockScreenPressed",_0: a};};
@@ -12640,14 +12640,14 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-4-5 vdiv-1-1")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("monitor-selectall-view div-1-1 vdiv-1-1")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-2-5")]),_U.list([]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
                       ,A2($Html.div,
-                      _U.list([$Html$Attributes.$class("monitor-selectall-container content-centered")]),
+                      _U.list([$Html$Attributes.$class("div-1-1 vdiv-4-5 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("monitor-selectall-button button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
-                      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.selectAllIcon]))]))]))]))]))
+                      _U.list([$Html$Attributes.$class("div-2-5 vdiv-1-1 monitor-selectall-button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
+                      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-10")]),_U.list([]))
+                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-4-5 content-centered")]),_U.list([$GreenGui$Widgets.selectAllIcon]))
+                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-10")]),_U.list([]))]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1")]),_U.list([]))]));
    });
    var SelectMonitor = function (a) {    return {ctor: "SelectMonitor",_0: a};};
