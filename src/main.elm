@@ -802,7 +802,7 @@ monitorViewPager address screenState =
       , div [ class "div-4-5 vdiv-1-1" ]
             [ div [ class "div-1-1 vdiv-1-5" ] [ ]
             , div [ class "div-1-1 vdiv-4-5 content-centered" ]
-                  [ div [ class "div-2-5 vdiv-1-1 monitor-selectall-button", onClick address SelectAllMonitors]
+                  [ div [ class "div-3-10 vdiv-1-1 monitor-selectall-button", onClick address SelectAllMonitors]
                         [ div [ class "div-1-1 vdiv-1-10" ] [ ]
                         , div [ class "div-1-1 vdiv-4-5 content-centered" ] [ selectAllIcon ]
                         , div [ class "div-1-1 vdiv-1-10" ] [ ] ]
@@ -858,14 +858,14 @@ monitorSettingScreenView address monitorSettingScreenState (lowerBodyStyle, uppe
 
 -- top bar for monitor setting view
 monitorSettingTopBarView address monitorSettingScreenState style' =
-  div [ class "app-top-bar", style [ style' ] ]
+  div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "float-left vdiv-1-1 content-centered nav-header" ]
-            [ text ("MONITOR " ++ (toString monitorSettingScreenState.selectedMonitor.number)) ]
+            [ text ("#" ++ monitorSettingScreenState.selectedMonitor.number) ]
             , div [ class "float-right menu-button", onClick address CloseMonitorConfiguration ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView address monitorSettingScreenState style' =
-  div [ class "app-body", style [ style' ] ]
+  div [ class "app-body vdiv-9-10", style [ style' ] ]
       [ monitorSettingUpperBodyView address monitorSettingScreenState
       , monitorSettingLowerBodyView address monitorSettingScreenState ]
 
@@ -891,61 +891,64 @@ monitorSettingLowerBodyView address monitorSettingScreenState =
 
 -- monitor lower body view
 monitorSettingSegmentStateViewNone address monitorSettingScreenState =
-  div [ class "div-1-1" ]
-      [ div [ class "div-1-2 content-centered" ]
-            [ div [ class "pip-button button monitor-button content-centered "
-                  , onClick address PipButtonPress ]
-                  [ pipIcon ] ]
-      , div [ class "div-1-2 content-centered" ]
-            [ div [ class "pip-button button monitor-button content-centered "
-                  , onClick address OsdButtonPress ]
-                  [ osdIcon ] ] ]
+  div [ class "div-1-1 vdiv-1-1 content-centered" ]
+      [ div [ class "div-4-5 vdiv-4-5" ]
+            [ div [ class "div-1-4 content-centered" ]
+                  [ div [ class "pip-button monitor-button content-centered "
+                        , onClick address PipButtonPress ]
+                        [ pipIcon ] ]
+            , div [ class "div-1-4 content-centered" ]
+                  [ div [ class "pip-button monitor-button content-centered "
+                        , onClick address OsdButtonPress ]
+                        [ osdIcon ] ] ] ]
 
 monitorSettingSegmentStateViewPip address monitorSettingState =
   let monitor = monitorSettingState.selectedMonitor
       isLeftRightOn = if monitor.isPipLeftRightPressed then "disabled" else ""
       isUpDownOn = if monitor.isPipUpDownPressed then "disabled" else ""
       isResizeOn = if monitor.isPipResizePressed then "disabled" else ""
-  in    div [ class "div-1-1" ]
-            [ div [ class "div-1-4 content-centered" ]
-                  [ div [ class ("pip-button button monitor-button content-centered " ++ isLeftRightOn)
-                        , onClick address PipLeftRightButtonPress ]
-                        [ leftRightIcon ] ]
-            , div [ class "div-1-4 content-centered" ]
-                  [ div [ class ("pip-button button monitor-button content-centered " ++ isUpDownOn)
-                        , onClick address PipUpDownButtonPress ]
-                        [ upDownIcon ] ]
-            , div [ class "div-1-4 content-centered" ]
-                  [ div [ class ("pip-button button monitor-button content-centered " ++ isResizeOn)
-                        , onClick address PipResizeButtonPress ]
-                        [ resizeIcon ] ]
-            , div [ class "div-1-4 content-centered" ]
-                  [ div [ class "pip-button button monitor-button content-centered "
-                        , onClick address ExitMonitorSettingSegmentPress ]
-                        [ exitPipIcon ] ] ]
+  in  div [ class "div-1-1 vdiv-1-1 content-centered" ]
+          [ div [ class "div-4-5 vdiv-4-5" ]
+                [ div [ class "div-1-4 content-centered" ]
+                      [ div [ class ("pip-button monitor-button content-centered " ++ isLeftRightOn)
+                            , onClick address PipLeftRightButtonPress ]
+                            [ leftRightIcon ] ]
+                , div [ class "div-1-4 content-centered" ]
+                      [ div [ class ("pip-button monitor-button content-centered " ++ isUpDownOn)
+                            , onClick address PipUpDownButtonPress ]
+                            [ upDownIcon ] ]
+                , div [ class "div-1-4 content-centered" ]
+                      [ div [ class ("pip-button monitor-button content-centered " ++ isResizeOn)
+                            , onClick address PipResizeButtonPress ]
+                            [ resizeIcon ] ]
+                , div [ class "div-1-4 content-centered" ]
+                      [ div [ class "pip-button monitor-button content-centered "
+                            , onClick address ExitMonitorSettingSegmentPress ]
+                            [ exitPipIcon ] ] ] ]
 
 monitorSettingSegmentStateViewOsd address monitorSettingState =
   let monitor = monitorSettingState.selectedMonitor
       isLeftRightOn = if monitor.isOsdLeftRightPressed then "disabled" else ""
       isUpDownOn = if monitor.isOsdUpDownPressed then "disabled" else ""
       isSelectedOn = if monitor.isOsdSelectPressed then "disabled" else ""
-  in    div [ class "div-1-1" ]
-            [ div [ class "div-1-4 content-centered" ]
-                  [ div [ class ("osd-button button monitor-button content-centered " ++ isLeftRightOn)
-                        , onClick address OsdLeftRightButtonPress ]
-                        [ leftRightIcon ] ]
-            , div [ class "div-1-4 content-centered" ]
-                  [ div [ class ("osd-button button monitor-button content-centered " ++ isUpDownOn)
-                        , onClick address OsdUpDownButtonPress ]
-                        [ upDownIcon ] ]
-            , div [ class "div-1-4 content-centered" ]
-                  [ div [ class ("osd-button button monitor-button content-centered " ++ isSelectedOn)
-                        , onClick address OsdSelectButtonPress ]
-                        [ selectIcon ] ]
-            , div [ class "div-1-4 content-centered" ]
-                  [ div [ class "pip-button button monitor-button content-centered "
-                        , onClick address ExitMonitorSettingSegmentPress ]
-                        [ exitOsdIcon ] ] ]
+  in  div [ class "div-1-1 vdiv-1-1 content-centered" ]
+          [ div [ class "div-4-5 vdiv-4-5" ]
+                [ div [ class "div-1-4 content-centered" ]
+                      [ div [ class ("osd-button monitor-button content-centered " ++ isLeftRightOn)
+                            , onClick address OsdLeftRightButtonPress ]
+                            [ leftRightIcon ] ]
+                , div [ class "div-1-4 content-centered" ]
+                      [ div [ class ("osd-button monitor-button content-centered " ++ isUpDownOn)
+                            , onClick address OsdUpDownButtonPress ]
+                            [ upDownIcon ] ]
+                , div [ class "div-1-4 content-centered" ]
+                      [ div [ class ("osd-button monitor-button content-centered " ++ isSelectedOn)
+                            , onClick address OsdSelectButtonPress ]
+                            [ selectIcon ] ]
+                , div [ class "div-1-4 content-centered" ]
+                      [ div [ class "pip-button monitor-button content-centered "
+                            , onClick address ExitMonitorSettingSegmentPress ]
+                            [ exitOsdIcon ] ] ] ]
 
 -- signal matrix view
 signalMatrixView address signalType signalName monitorSettingScreenState monitor =
@@ -1026,14 +1029,14 @@ presetSettingScreenView address presetSettingScreenState (lowerBodyStyle, upperB
 
 -- top bar for monitor setting view
 presetSettingTopBarView address presetSettingScreenState style' =
-  div [ class "app-top-bar", style [ style' ] ]
+  div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "float-left  vdiv-1-1 content-centered nav-header" ]
             [ text "PRESETS" ]
       , div [ class "float-right menu-button", onClick address ClosePresetSettings ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 presetSettingBodyView address presets style' =
-  div [ class "app-body", style [ style' ] ]
+  div [ class "app-body vdiv-9-10", style [ style' ] ]
       [ div [ class "vdiv-1-2 div-1-1" ]
             (List.map (presetContainerView address) presets)
       , div [ class "vdiv-1-2 div-1-1" ] [ ] ]
@@ -1071,13 +1074,13 @@ systemPreferencesView address screenState (lowerBodyStyle, upperBodyStyle) =
 
 -- top bar for menu option view
 systemPreferencesTopBarView address screenState style' =
-  div [ class "app-top-bar", style [style'] ]
+  div [ class "app-top-bar vdiv-1-10", style [style'] ]
       [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "MENU" ]
             , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 systemPreferencesBodyView address screenState style' =
-  div [ class "app-body", style [style'] ]
+  div [ class "app-body vdiv-9-10", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
                       [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
@@ -1101,12 +1104,12 @@ systemPreferencesBodyView address screenState style' =
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 monitorSharpTopBarView address screenState style' =
-  div [ class "app-top-bar", style [style'] ]
+  div [ class "app-top-bar vdiv-1-10", style [style'] ]
       [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "MONITORS" ]
             , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
 
 monitorSharpBodyView address screenState style' =
-  div [ class "app-body", style [style'] ]
+  div [ class "app-body vdiv-9-10", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
                       [ div [ class "vdiv-2-5 div-1-1 content-centered" ]
@@ -1124,12 +1127,12 @@ monitorSharpBodyView address screenState style' =
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 themeSelectorTopBarView address screenState style' =
-  div [ class "app-top-bar", style [style'] ]
+  div [ class "app-top-bar vdiv-1-10", style [style'] ]
       [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "THEMES" ]
             , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
 
 themeSelectorBodyView address screenState style' =
-  div [ class "app-body", style [style'] ]
+  div [ class "app-body vdiv-9-10", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
                       [ div [ class "vdiv-2-5 div-1-1 content-centered" ]
@@ -1163,24 +1166,24 @@ themeSelectorBodyView address screenState style' =
       --           , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 networkTopBarView address screenState style' =
-  div [ class "app-top-bar", style [style'] ]
+  div [ class "app-top-bar vdiv-1-10", style [style'] ]
       [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "NETWORK" ]
             , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
 networkBodyView address screenState style' =
-  div [ class "app-body", style [style'] ]
+  div [ class "app-body vdiv-9-10", style [style'] ]
       [ ]
 
 softwareUpdateTopBarView address screenState style' =
-  div [ class "app-top-bar", style [style'] ]
+  div [ class "app-top-bar vdiv-1-10", style [style'] ]
       [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "NETWORK" ]
             , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
 
 softwareUpdateBodyView address screenState style' =
-  div [ class "app-body", style [style'] ]
+  div [ class "app-body vdiv-9-10", style [style'] ]
       [ ]
 -- top bar for menu option view
 matrixSetupOptionsTopBarView address screenState =
-  div [ class "app-top-bar" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "SYSTEM PREFERENCES" ]
+  div [ class "app-top-bar vdiv-1-10" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "SYSTEM PREFERENCES" ]
                               , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
 
 lockCountdownScreenView lockCountdownScreenState =

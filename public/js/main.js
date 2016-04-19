@@ -11210,6 +11210,10 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M106.8,28.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C81.1,28.2,93.8,28.2,106.8,28.2zM101.2,52.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C83.1,52.4,91.9,52.4,101.2,52.4z")
                       ,$Svg$Attributes.fill("#0290AB")]),
               _U.list([]))
@@ -11392,9 +11396,13 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
-      _U.list([A2($Svg.polygon,
-      _U.list([$Svg$Attributes.points("52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"),$Svg$Attributes.fill("#129848")]),
-      _U.list([]))]));
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.polygon,
+              _U.list([$Svg$Attributes.points("52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"),$Svg$Attributes.fill("#129848")]),
+              _U.list([]))]));
    }();
    var exitPipIcon = function () {
       var containerHeight = 128;
@@ -11409,6 +11417,10 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M106.8,28.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C81.1,28.2,93.8,28.2,106.8,28.2zM101.2,52.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C83.1,52.4,91.9,52.4,101.2,52.4z")
                       ,$Svg$Attributes.fill("#6D2B90")]),
               _U.list([]))
@@ -11446,6 +11458,10 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M24.4,95.1c0-17.5,0-34.7,0-52.3c11.9,0,23.7,0,35.9,0c0.1,1.5,0.2,3,0.3,5c-10.2,0-30.5,0-30.5,0v37.6l17.7-17.1H35l-0.3-5.3c0,0,14.4,0,21.9,0c0,6.9,0,14,0,21.6c-1.4,0.1-2.9,0.2-5,0.3c0-3.8,0-12.9,0-12.9S38.6,85,34.2,89.8c17.5,0,39.1,0,58.5,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7C73.6,95.1,49.2,95.1,24.4,95.1z")
                       ,$Svg$Attributes.fill("#21409A")]),
               _U.list([]))
@@ -11466,25 +11482,29 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
-      _U.list([A2($Svg.rect,
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.rect,
               _U.list([$Svg$Attributes.x("40.6")
                       ,$Svg$Attributes.y("30.3")
                       ,$Svg$Attributes.width("8.4")
                       ,$Svg$Attributes.height("52.4")
-                      ,$Svg$Attributes.fill("#58595B")]),
+                      ,$Svg$Attributes.fill("#0069af")]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("44.8,21.2 23.2,42.9 28.4,47.8 44.6,31.6 61.1,48.2 66.3,43"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([$Svg$Attributes.points("44.8,21.2 23.2,42.9 28.4,47.8 44.6,31.6 61.1,48.2 66.3,43"),$Svg$Attributes.fill("#0069af")]),
               _U.list([]))
               ,A2($Svg.rect,
               _U.list([$Svg$Attributes.x("78.6")
                       ,$Svg$Attributes.y("45.2")
                       ,$Svg$Attributes.width("8.4")
                       ,$Svg$Attributes.height("52.2")
-                      ,$Svg$Attributes.fill("#58595B")]),
+                      ,$Svg$Attributes.fill("#0069af")]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([$Svg$Attributes.points("82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"),$Svg$Attributes.fill("#0069af")]),
               _U.list([]))]));
    }();
    var leftRightIcon = function () {
@@ -11499,25 +11519,29 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
-      _U.list([A2($Svg.rect,
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.rect,
               _U.list([$Svg$Attributes.x("30.5")
                       ,$Svg$Attributes.y("40.7")
                       ,$Svg$Attributes.width("52.2")
                       ,$Svg$Attributes.height("8.4")
-                      ,$Svg$Attributes.fill("#58595B")]),
+                      ,$Svg$Attributes.fill("#00747d")]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("21.5,44.9 43.1,23.3 48.1,28.5 31.9,44.7 48.4,61.2 43.2,66.4"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([$Svg$Attributes.points("21.5,44.9 43.1,23.3 48.1,28.5 31.9,44.7 48.4,61.2 43.2,66.4"),$Svg$Attributes.fill("#00747d")]),
               _U.list([]))
               ,A2($Svg.rect,
               _U.list([$Svg$Attributes.x("45.5")
                       ,$Svg$Attributes.y("78.7")
                       ,$Svg$Attributes.width("52.2")
                       ,$Svg$Attributes.height("8.4")
-                      ,$Svg$Attributes.fill("#58595B")]),
+                      ,$Svg$Attributes.fill("#00747d")]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"),$Svg$Attributes.fill("#58595B")]),
+              _U.list([$Svg$Attributes.points("106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"),$Svg$Attributes.fill("#00747d")]),
               _U.list([]))]));
    }();
    var osdIcon = function () {
@@ -11533,6 +11557,34 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M49.8,67.3l1.1,3.7c0,0.1,0.1,0.2,0.2,0.3c0.1,0.1,0.2,0.1,0.4,0.1l3.4-0.6c0.6,1.2,1.5,2.2,2.4,3.1l-1.4,3.1 c0,0.1-0.1,0.2,0,0.4c0,0.1,0.1,0.2,0.2,0.3l3.3,1.8c0.1,0.1,0.2,0.1,0.4,0.1c0.1,0,0.2-0.1,0.3-0.2l1.9-2.8 c1.2,0.4,2.5,0.5,3.9,0.4l1.2,3.2c0,0.1,0.1,0.2,0.3,0.3c0.1,0.1,0.2,0.1,0.4,0l3.7-1.1c0.1,0,0.2-0.1,0.3-0.2 c0.1-0.1,0.1-0.2,0.1-0.4l-0.6-3.4c1.2-0.6,2.2-1.5,3.1-2.4l3.1,1.4c0.1,0,0.2,0.1,0.4,0c0.1,0,0.2-0.1,0.3-0.2l1.8-3.3 c0.1-0.1,0.1-0.2,0.1-0.4c0-0.1-0.1-0.2-0.2-0.3l-2.8-1.9c0.4-1.2,0.5-2.5,0.4-3.9l3.2-1.2c0.1,0,0.2-0.1,0.3-0.3 c0.1-0.1,0.1-0.2,0-0.4l-1.1-3.7c0-0.1-0.1-0.2-0.2-0.3c-0.1-0.1-0.2-0.1-0.4-0.1l-3.4,0.6c-0.6-1.2-1.5-2.2-2.4-3.1l1.4-3.1 c0-0.1,0.1-0.2,0-0.4c0-0.1-0.1-0.2-0.2-0.3l-3.3-1.8c-0.1-0.1-0.2-0.1-0.4-0.1c-0.1,0-0.2,0.1-0.3,0.2l-1.9,2.8 c-1.2-0.4-2.5-0.5-3.9-0.4l-1.3-3.2c0-0.1-0.1-0.2-0.3-0.3c-0.1-0.1-0.2-0.1-0.4,0l-3.7,1c-0.1,0-0.2,0.1-0.3,0.2 c-0.1,0.1-0.1,0.2-0.1,0.4l0.6,3.4c-1.2,0.6-2.2,1.5-3.1,2.4l-3.1-1.4c-0.1,0-0.2-0.1-0.4,0c-0.1,0-0.2,0.1-0.3,0.2l-1.8,3.3 c-0.1,0.1-0.1,0.2-0.1,0.4c0,0.1,0.1,0.2,0.2,0.3l2.8,1.9c-0.4,1.2-0.5,2.5-0.4,3.9l-3.2,1.3c-0.1,0-0.2,0.1-0.3,0.3 C49.8,67,49.8,67.1,49.8,67.3z M58.7,66.7c-1-3.6,1.1-7.4,4.7-8.5c3.6-1,7.4,1.1,8.5,4.7c1,3.6-1.1,7.4-4.7,8.5 C63.5,72.4,59.8,70.3,58.7,66.7z")
+                      ,$Svg$Attributes.fill("#0290AB")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M102.2,92H27.6V36.6h74.7V92z M33.6,86h62.7V42.6H33.6V86z"),$Svg$Attributes.fill("#0290AB")]),
+              _U.list([]))]));
+   }();
+   var pipIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 128;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M104.3,33.2c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C78.6,33.2,91.3,33.2,104.3,33.2zM98.7,57.4c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C80.6,57.4,89.4,57.4,98.7,57.4z")
                       ,$Svg$Attributes.fill("#3C2F90")]),
               _U.list([]))
@@ -11545,7 +11597,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill("#3C2F90")]),
               _U.list([]))]));
    }();
-   var pipIcon = function () {
+   var pipButtonIcon = function () {
       var containerHeight = 128;
       var containerWidth = 128;
       return A2($Svg.svg,
@@ -11906,10 +11958,10 @@ Elm.GreenGui.Main.make = function (_elm) {
               ,A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-3 div-1-1")]),_U.list([]))]));
    };
    var softwareUpdateBodyView = F3(function (address,screenState,style$) {
-      return A2($Html.div,_U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),_U.list([]));
+      return A2($Html.div,_U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),_U.list([]));
    });
    var networkBodyView = F3(function (address,screenState,style$) {
-      return A2($Html.div,_U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),_U.list([]));
+      return A2($Html.div,_U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),_U.list([]));
    });
    var setPresetNameCommit = F2(function (preset,presets) {
       return A2($List.map,function (p) {    return _U.eq(p.id,preset.id) ? _U.update(p,{name: p.tempName,isEditingName: false}) : p;},presets);
@@ -12091,7 +12143,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var IncreaseMonitorDisplayPress = {ctor: "IncreaseMonitorDisplayPress"};
    var monitorSharpBodyView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,
       _U.list([]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
@@ -12120,7 +12172,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var CloseSetupPress = {ctor: "CloseSetupPress"};
    var systemPreferencesTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("MENU")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
@@ -12128,7 +12180,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var matrixSetupOptionsTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar")]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10")]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered")]),_U.list([$Html.text("SYSTEM PREFERENCES")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseSetupPress)]),
@@ -12137,7 +12189,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var BackToSystemPreferencesMain = {ctor: "BackToSystemPreferencesMain"};
    var monitorSharpTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("MONITORS")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
@@ -12145,7 +12197,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var themeSelectorTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("THEMES")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
@@ -12153,7 +12205,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var networkTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("NETWORK")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
@@ -12161,7 +12213,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var softwareUpdateTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("NETWORK")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
@@ -12170,7 +12222,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var ThemeSelected = function (a) {    return {ctor: "ThemeSelected",_0: a};};
    var themeSelectorBodyView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,
       _U.list([]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
@@ -12207,7 +12259,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var MonitorSharpPress = {ctor: "MonitorSharpPress"};
    var systemPreferencesBodyView = F3(function (address,screenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,
       _U.list([]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-5 vdiv-1-1")]),_U.list([]))
@@ -12300,14 +12352,14 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var presetSettingBodyView = F3(function (address,presets,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-2 div-1-1")]),A2($List.map,presetContainerView(address),presets))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("vdiv-1-2 div-1-1")]),_U.list([]))]));
    });
    var ClosePresetSettings = {ctor: "ClosePresetSettings"};
    var presetSettingTopBarView = F3(function (address,presetSettingScreenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("float-left  vdiv-1-1 content-centered nav-header")]),_U.list([$Html.text("PRESETS")]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
@@ -12371,31 +12423,32 @@ Elm.GreenGui.Main.make = function (_elm) {
       var isUpDownOn = monitor.isOsdUpDownPressed ? "disabled" : "";
       var isSelectedOn = monitor.isOsdSelectPressed ? "disabled" : "";
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("div-1-1")]),
+      _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1 content-centered")]),
+      _U.list([A2($Html.div,
+      _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5")]),
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button button monitor-button content-centered ",isLeftRightOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button monitor-button content-centered ",isLeftRightOn))
                       ,A2($Html$Events.onClick,address,OsdLeftRightButtonPress)]),
               _U.list([$GreenGui$Widgets.leftRightIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button button monitor-button content-centered ",isUpDownOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button monitor-button content-centered ",isUpDownOn))
                       ,A2($Html$Events.onClick,address,OsdUpDownButtonPress)]),
               _U.list([$GreenGui$Widgets.upDownIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button button monitor-button content-centered ",isSelectedOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"osd-button monitor-button content-centered ",isSelectedOn))
                       ,A2($Html$Events.onClick,address,OsdSelectButtonPress)]),
               _U.list([$GreenGui$Widgets.selectIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered ")
-                      ,A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
-              _U.list([$GreenGui$Widgets.exitOsdIcon]))]))]));
+              _U.list([$Html$Attributes.$class("pip-button monitor-button content-centered "),A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
+              _U.list([$GreenGui$Widgets.exitOsdIcon]))]))]))]));
    });
    var osdButtonSetView = F2(function (address,monitorSettingScreenState) {
       var getIsPressedSrc = function (value) {    return value ? "images/osd_type_button_pressed.svg" : "images/osd_type_button.svg";};
@@ -12448,31 +12501,32 @@ Elm.GreenGui.Main.make = function (_elm) {
       var isUpDownOn = monitor.isPipUpDownPressed ? "disabled" : "";
       var isResizeOn = monitor.isPipResizePressed ? "disabled" : "";
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("div-1-1")]),
+      _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1 content-centered")]),
+      _U.list([A2($Html.div,
+      _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5")]),
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button button monitor-button content-centered ",isLeftRightOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button monitor-button content-centered ",isLeftRightOn))
                       ,A2($Html$Events.onClick,address,PipLeftRightButtonPress)]),
               _U.list([$GreenGui$Widgets.leftRightIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button button monitor-button content-centered ",isUpDownOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button monitor-button content-centered ",isUpDownOn))
                       ,A2($Html$Events.onClick,address,PipUpDownButtonPress)]),
               _U.list([$GreenGui$Widgets.upDownIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button button monitor-button content-centered ",isResizeOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"pip-button monitor-button content-centered ",isResizeOn))
                       ,A2($Html$Events.onClick,address,PipResizeButtonPress)]),
               _U.list([$GreenGui$Widgets.resizeIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered ")
-                      ,A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
-              _U.list([$GreenGui$Widgets.exitPipIcon]))]))]));
+              _U.list([$Html$Attributes.$class("pip-button monitor-button content-centered "),A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
+              _U.list([$GreenGui$Widgets.exitPipIcon]))]))]))]));
    });
    var pipButtonSetView = F2(function (address,monitorSettingScreenState) {
       var getIsPressedSrc = function (value) {    return value ? "images/pip_type_button_pressed.svg" : "images/pip_type_button.svg";};
@@ -12520,17 +12574,19 @@ Elm.GreenGui.Main.make = function (_elm) {
    var PipButtonPress = {ctor: "PipButtonPress"};
    var monitorSettingSegmentStateViewNone = F2(function (address,monitorSettingScreenState) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("div-1-1")]),
+      _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1 content-centered")]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-2 content-centered")]),
+      _U.list([$Html$Attributes.$class("div-4-5 vdiv-4-5")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered "),A2($Html$Events.onClick,address,PipButtonPress)]),
+              _U.list([$Html$Attributes.$class("pip-button monitor-button content-centered "),A2($Html$Events.onClick,address,PipButtonPress)]),
               _U.list([$GreenGui$Widgets.pipIcon]))]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-2 content-centered")]),
+              _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("pip-button button monitor-button content-centered "),A2($Html$Events.onClick,address,OsdButtonPress)]),
-              _U.list([$GreenGui$Widgets.osdIcon]))]))]));
+              _U.list([$Html$Attributes.$class("pip-button monitor-button content-centered "),A2($Html$Events.onClick,address,OsdButtonPress)]),
+              _U.list([$GreenGui$Widgets.osdIcon]))]))]))]));
    });
    var monitorSettingLowerBodyView = F2(function (address,monitorSettingScreenState) {
       var view = function () {
@@ -12544,16 +12600,16 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var monitorSettingBodyView = F3(function (address,monitorSettingScreenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
    });
    var CloseMonitorConfiguration = {ctor: "CloseMonitorConfiguration"};
    var monitorSettingTopBarView = F3(function (address,monitorSettingScreenState,style$) {
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-top-bar"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("float-left vdiv-1-1 content-centered nav-header")]),
-              _U.list([$Html.text(A2($Basics._op["++"],"MONITOR ",$Basics.toString(monitorSettingScreenState.selectedMonitor.number)))]))
+              _U.list([$Html.text(A2($Basics._op["++"],"#",monitorSettingScreenState.selectedMonitor.number))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("float-right menu-button"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
               _U.list([$GreenGui$Widgets.closeIcon]))]));
@@ -12644,7 +12700,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       ,A2($Html.div,
                       _U.list([$Html$Attributes.$class("div-1-1 vdiv-4-5 content-centered")]),
                       _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("div-2-5 vdiv-1-1 monitor-selectall-button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
+                      _U.list([$Html$Attributes.$class("div-3-10 vdiv-1-1 monitor-selectall-button"),A2($Html$Events.onClick,address,SelectAllMonitors)]),
                       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-10")]),_U.list([]))
                               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-4-5 content-centered")]),_U.list([$GreenGui$Widgets.selectAllIcon]))
                               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-10")]),_U.list([]))]))]))]))

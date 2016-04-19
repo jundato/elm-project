@@ -198,12 +198,10 @@ canvas {
   background-color: #005fa9;
 }
 .app-top-bar {
-  height: 5%;
   padding: 2px;
   color: #ffffff;
 }
 .app-body {
-  height: 95%;
   padding: 2px;
   color: #ffffff;
 }
@@ -300,12 +298,13 @@ canvas {
 }
 .monitor-selectall-view {
   height: 100%;
+  padding: 8px;
   box-sizing: border-box;
   position: relative;
 }
 .monitor-selectall-graphic {
   border-color: #444444;
-
+  border-width: 2px 2px 0px 2px;
   border-style: solid;
   height: 100%;
   margin-top: 4px;
@@ -318,9 +317,7 @@ canvas {
   text-align: center;
 }
 .monitor-selectall-button {
-  border-color: #444444;
-  border-radius: 8px;
-  border-width: 2px 2px 0px 2px;
+  border-radius: 4px;
   background-color: #D1D3D4;
 }
 .brightness-icon-container {
@@ -362,11 +359,6 @@ canvas {
 /* --- */
 /* monitor setting */
 /* --- */
-.pip-button,
-.osd-button {
-  width: 150px;
-  height: 150px;
-}
 .select-options {
   position: absolute;
   margin-top: 20px;
@@ -386,11 +378,11 @@ canvas {
 }
 .signal-matrix-input {
   background-color: #fff;
-  border-radius: 8px 8px 8px 8px;
+  border-radius: 4px;
   color: #000;
   height: 20px;
   text-align: center;
-  border: 2px solid #444444;
+  border: 2px solid #fff;
 }
 .signal-matrix-side {
   background-color: #444444;

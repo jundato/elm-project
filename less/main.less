@@ -214,13 +214,20 @@ canvas {
 .vdiv-4-5{
   height: 80%;
 }
-
+.vdiv-1-10 {
+  height: 10%;
+}
 .vdiv-2-10{
   height: 20%;
 }
-
 .vdiv-7-10{
   height: 70%;
+}
+.vdiv-9-10 {
+  height: 90%;
+}
+.vdiv-1-20 {
+  height: 5%;
 }
 
 
@@ -270,13 +277,11 @@ canvas {
 }
 
 .app-top-bar{
-  height: 5%;
   padding: 2px;
   color: @primary-text-color
 }
 
 .app-body{
-  height: 95%;
   padding: 2px;
   color: @primary-text-color
 }
@@ -413,15 +418,8 @@ canvas {
 }
 
 .monitor-selectall-button{
-  width: 180px;
-  border-radius: 8px;
-  padding: 4px 14px;
-  display: table;
-  margin: 8px 0px;
-}
-
-.monitor-selectall-button > div{
-  height: 100%;
+  border-radius: 4px;
+  background-color: #D1D3D4;
 }
 
 .brightness-icon-container{
@@ -471,10 +469,6 @@ canvas {
 /* --- */
 /* monitor setting */
 /* --- */
-.pip-button, .osd-button{
-  width: 150px;
-  height: 150px;
-}
 
 .select-options{
   position: absolute;
@@ -499,11 +493,11 @@ canvas {
 
 .signal-matrix-input{
   background-color: #fff;
-  border-radius: 8px 8px 8px 8px;
+  border-radius: 4px;
   color: #000;
   height: 20px;
   text-align: center;
-  .border-a;
+  border: 2px solid #fff;
 }
 
 .signal-matrix-side{
