@@ -859,9 +859,10 @@ monitorSettingScreenView address monitorSettingScreenState (lowerBodyStyle, uppe
 -- top bar for monitor setting view
 monitorSettingTopBarView address monitorSettingScreenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
-      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ]
-            [ text ("#" ++ monitorSettingScreenState.selectedMonitor.number) ]
-            , div [ class "float-right menu-button", onClick address CloseMonitorConfiguration ] [ closeIcon ] ]
+      [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+            [ appTopBarHeader ("#" ++ monitorSettingScreenState.selectedMonitor.number) ]
+      , appTopBarSpacer
+      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address CloseMonitorConfiguration ] [ closeIconView ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView address monitorSettingScreenState style' =
@@ -1030,9 +1031,9 @@ presetSettingScreenView address presetSettingScreenState (lowerBodyStyle, upperB
 -- top bar for monitor setting view
 presetSettingTopBarView address presetSettingScreenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
-      [ div [ class "float-left  vdiv-1-1 content-centered nav-header" ]
-            [ text "PRESETS" ]
-      , div [ class "float-right menu-button", onClick address ClosePresetSettings ] [ closeIcon ] ]
+      [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+            [ appTopBarHeader "PRESETS" ]
+      , div [ class "fdiv-1-10x vdiv-1-1 content-centered", onClick address ClosePresetSettings ] [ closeIconView ] ]
 
 -- main body for monitor setting view
 presetSettingBodyView address presets style' =
@@ -1068,53 +1069,56 @@ systemPreferencesView address screenState (lowerBodyStyle, upperBodyStyle) =
                                     , themeSelectorBodyView address screenState lowerBodyStyle ]
                 NETWORK ->  [ networkTopBarView address screenState upperBodyStyle
                             , networkBodyView address screenState lowerBodyStyle ]
-                SOFTWARE_UPDATE ->  [ softwareUpdateTopBarView address screenState lowerBodyStyle
-                                    , softwareUpdateBodyView address screenState upperBodyStyle ]
+                SOFTWARE_UPDATE ->  [ softwareUpdateTopBarView address screenState upperBodyStyle
+                                    , softwareUpdateBodyView address screenState lowerBodyStyle ]
   in div [ class "main" ] view
 
 -- top bar for menu option view
 systemPreferencesTopBarView address screenState style' =
-  div [ class "app-top-bar vdiv-1-10", style [style'] ]
-      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "MENU" ]
-            , div [ class "float-right menu-button", onClick address CloseSetupPress ] [ closeIcon ] ]
-
+  div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
+      [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+            [ appTopBarHeader "MENU" ]
+      , appTopBarSpacer
+      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address CloseSetupPress ] [ closeIconView ] ]
 -- main body for monitor setting view
 systemPreferencesBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
-      [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
-                , div [ class "div-3-5 vdiv-1-1" ]
+      [ div [ ] [ div [ class "div-1-10 vdiv-1-1" ] [ ]
+                , div [ class "div-4-5 vdiv-1-1" ]
                       [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
                             [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
-                                  [ div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                  [ div [ class "vdiv-1-1 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 menu content-centered"
                                               , onClick address MonitorSharpPress ]
-                                              [ img [ src "images/monitor_sharp_icon.svg" ] [ ] ] ]
-                                  , div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                              [ monitorSharpIcon ] ]
+                                  , div [ class "vdiv-1-1 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 menu content-centered"
                                               , onClick address NetworkPress ]
-                                              [ img [ src "images/network_icon.svg" ] [ ] ] ]
-                                  , div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                              [ networkIcon ] ]
+                                  , div [ class "vdiv-1-1 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 menu content-centered"
                                               , onClick address ThemePress ]
-                                              [ img [ src "images/theme_icon.svg" ] [ ] ] ]
-                                  , div [ class "vdiv-1-4 div-2-3 content-centered" ]
-                                        [ div [ class "vdiv-1-3 div-2-3 button menu content-centered"
+                                              [ themeIcon ] ]
+                                  , div [ class "vdiv-1-1 div-2-3 content-centered" ]
+                                        [ div [ class "vdiv-2-3 div-2-3 menu content-centered"
                                               , onClick address SoftwareUpdatePress ]
-                                              [ img [ src "images/update_icon.svg" ] [ ] ] ] ] ] ]
-                , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
+                                              [ updateIcon ] ] ] ] ]
+                , div [ class "div-1-10 vdiv-1-1" ] [ ] ] ]
 
 monitorSharpTopBarView address screenState style' =
-  div [ class "app-top-bar vdiv-1-10", style [style'] ]
-      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "MONITORS" ]
-            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+  div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
+      [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+            [ ]
+      , appTopBarSpacer
+      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 monitorSharpBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
                       [ div [ class "vdiv-2-5 div-1-1 content-centered" ]
-                            [ div [ class "div-4-5 vdiv-4-5 button content-centered" ]
-                                  [ monitorCountIcon ] ]
+                            [ div [ class "div-4-5 vdiv-4-5 content-centered" ]
+                                  [ monitorSharpIcon ] ]
                       , div [ class "vdiv-1-5 div-1-1 content-centered" ]
                             [ labelIcon (toString screenState.maxMonitorDisplays) ]
                       , div [ class "vdiv-2-5 div-1-1 content-centered" ]
@@ -1127,16 +1131,18 @@ monitorSharpBodyView address screenState style' =
                 , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 themeSelectorTopBarView address screenState style' =
-  div [ class "app-top-bar vdiv-1-10", style [style'] ]
-      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "THEMES" ]
-            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+  div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
+      [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+            [  ]
+      , appTopBarSpacer
+      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 themeSelectorBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
       [ div [ ] [ div [ class "div-1-5 vdiv-1-1" ] [ ]
                 , div [ class "div-3-5 vdiv-1-1" ]
                       [ div [ class "vdiv-2-5 div-1-1 content-centered" ]
-                            [ div [ class "div-4-5 vdiv-4-5 button content-centered" ]
+                            [ div [ class "div-4-5 vdiv-4-5 content-centered" ]
                                   [ themeIcon ] ]
                       , div [ class "vdiv-3-5 div-1-1 content-centered" ]
                             [ div [ class "div-1-4 vdiv-3-5 button padded content-centered"
@@ -1166,21 +1172,34 @@ themeSelectorBodyView address screenState style' =
       --           , div [ class "div-1-5 vdiv-1-1" ] [ ] ] ]
 
 networkTopBarView address screenState style' =
-  div [ class "app-top-bar vdiv-1-10", style [style'] ]
-      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "NETWORK" ]
-            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+    div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
+        [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+              [ ]
+        , appTopBarSpacer
+        , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+
 networkBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
       [ ]
 
 softwareUpdateTopBarView address screenState style' =
-  div [ class "app-top-bar vdiv-1-10", style [style'] ]
-      [ div [ class "float-left vdiv-1-1 content-centered nav-header" ] [ text "NETWORK" ]
-            , div [ class "float-right menu-button", onClick address BackToSystemPreferencesMain ] [ closeIcon ] ]
+  div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
+      [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
+            [ appTopBarHeader "UPDATE" ]
+      , appTopBarSpacer
+      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 softwareUpdateBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
-      [ ]
+      [ div [ ] [ div [ class "div-1-10 vdiv-1-1" ] [ ]
+                , div [ class "div-4-5 vdiv-1-1" ]
+                      [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
+                            [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
+                                  [ div [ class "vdiv-1-1 div-2-3" ]
+                                        [ div [ class "vdiv-1-3 div-1-1 content-centered version" ] [ text "Version V1.023" ]
+                                        , div [ class "vdiv-2-3 div-1-1 menu content-centered" ]
+                                              [ updateIcon ] ] ] ] ]
+                , div [ class "div-1-10 vdiv-1-1" ] [ ] ] ]
 -- top bar for menu option view
 matrixSetupOptionsTopBarView address screenState =
   div [ class "app-top-bar vdiv-1-10" ] [ div [ class "float-left vdiv-1-1 content-centered" ] [ text "SYSTEM PREFERENCES" ]
@@ -1196,6 +1215,14 @@ lockCountdownScreenView lockCountdownScreenState =
 backIcon : Html
 backIcon = img [ class "icon", src "images/back_icon.svg" ][ ]
 
+appTopBarSpacer : Html
+appTopBarSpacer = div [ class "div-4-5 vdiv-1-1" ] [ div [ style [("opacity", "0")] ] [ text "-" ]  ]
+
+appTopBarHeader : String -> Html
+appTopBarHeader value = div [ class "div-1-1 vdiv-2-3" ] [ labelLeftIcon value ]
+
+closeIconView : Html
+closeIconView = div [ class "div-1-1 vdiv-2-3" ] [ closeIcon ]
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""

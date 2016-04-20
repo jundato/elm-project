@@ -5,7 +5,8 @@ module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
                         , themeIcon, monitorCountIcon, rightIcon, leftIcon
                         , defaultThemeIcon, darkThemeIcon, defaultFlatThemeIcon
                         , darkFlatThemeIcon
-                        , exitOsdIcon,closeIcon, labelIcon) where
+                        , exitOsdIcon,closeIcon, labelIcon, labelLeftIcon
+                        , monitorSharpIcon, networkIcon, updateIcon) where
 
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
@@ -384,7 +385,10 @@ monitorCountIcon =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.path  [ d "M217.3,58.5H40.6c-2.6,0-4.7,2.9-4.7,6.4v145.5c0,3.5,2.2,6.4,4.7,6.4h176.7c2.6,0,4.7-2.9,4.7-6.4V64.8 C222,61.3,219.9,58.5,217.3,58.5z M178.7,208.6c-2.2-0.1-3.9-2-3.8-4.2c0.1-2.2,2-3.9,4.2-3.8c2.1,0.1,3.8,1.9,3.8,4 C182.9,206.8,181.1,208.6,178.7,208.6C178.8,208.6,178.8,208.6,178.7,208.6z M192.9,208.6c-2.2-0.1-4-1.9-3.9-4.1
+          [ Svg.path  [ d "M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z"
+                      , fill "#D1D3D4" ]
+                      [ ]
+          , Svg.path  [ d "M217.3,58.5H40.6c-2.6,0-4.7,2.9-4.7,6.4v145.5c0,3.5,2.2,6.4,4.7,6.4h176.7c2.6,0,4.7-2.9,4.7-6.4V64.8 C222,61.3,219.9,58.5,217.3,58.5z M178.7,208.6c-2.2-0.1-3.9-2-3.8-4.2c0.1-2.2,2-3.9,4.2-3.8c2.1,0.1,3.8,1.9,3.8,4 C182.9,206.8,181.1,208.6,178.7,208.6C178.8,208.6,178.8,208.6,178.7,208.6z M192.9,208.6c-2.2-0.1-4-1.9-3.9-4.1
                           c0.1-2.2,1.9-4,4.1-3.9c2.2,0.1,3.9,1.8,3.9,4C197,206.8,195.2,208.6,192.9,208.6z M207.1,208.6c-2.2-0.1-4-1.9-3.9-4.1
                           c0.1-2.2,1.9-4,4.1-3.9c2.2,0.1,3.9,1.8,3.9,4C211.2,206.8,209.4,208.6,207.1,208.6C207.1,208.6,207.1,208.6,207.1,208.6
                           L207.1,208.6z M213.1,192.3c0.2,1-0.5,2-1.5,2.2c0,0,0,0,0,0H46.3c-1-0.2-1.7-1.1-1.6-2.2c0,0,0,0,0,0V70.8c-0.2-1,0.5-2,1.5-2.2
@@ -405,7 +409,9 @@ themeIcon =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.ellipse [ transform "matrix(0.7707 -0.6372 0.6372 0.7707 -13.9444 62.9444)"
+          [ Svg.path  [ d "M125,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z"
+                      , fill "#D1D3D4" ] [ ]
+          , Svg.ellipse [ transform "matrix(0.7707 -0.6372 0.6372 0.7707 -13.9444 62.9444)"
                         , cx "80.5"
                         , cy "50.8"
                         , rx "6.3"
@@ -588,16 +594,19 @@ rightIcon =
 
 closeIcon : Svg
 closeIcon =
-  let containerWidth = 128
-      containerHeight = 128
+  let containerWidth = 256
+      containerHeight = 256
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.path  [ d "M22.5,18h24.2l18.6,28.7L84.5,18h22.8L76.9,61l33.1,47H85.2L64.5,76.9L43.4,108H20l33.1-47.1L22.5,18z"
-                      , fill "#fff" ] [ ] ]
+          [ Svg.text' [ transform "matrix(1 0 0 1 90.3178 173.8369)"
+                      , fill "#fff"
+                      , textAnchor "middle"
+                      , fontFamily "Arial-Black"
+                      , fontSize "240px" ] [ text "X" ] ]
 
 labelIcon : String -> Svg
 labelIcon value =
@@ -609,8 +618,135 @@ labelIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1.2 0 0 1 90.3178 173.8369)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 90.3178 173.8369)"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
-                      , fontSize "122px" ] [ text value ] ]
+                      , fontSize "240px" ] [ text value ] ]
+
+labelLeftIcon : String -> Svg
+labelLeftIcon value =
+  let containerWidth = 256
+      containerHeight = 256
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.text' [ transform "matrix(1 0 0 1 90.3178 173.8369)"
+                      , fill "#fff"
+                      , fontFamily "Arial-Black"
+                      , fontSize "240px" ] [ text value ] ]
+
+monitorSharpIcon : Svg
+monitorSharpIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z"
+                      , fill "#D1D3D4" ]
+                      [ ]
+          , Svg.path  [ d "M103.5,27.9H23.7c-1.2,0-2.1,1.3-2.1,2.9v65.7c0,1.6,1,2.9,2.1,2.9h79.8c1.2,0,2.1-1.3,2.1-2.9V30.8 C105.6,29.2,104.7,27.9,103.5,27.9z M86.1,95.7c-1,0-1.9-0.8-1.9-1.8c0-1,0.8-1.8,1.9-1.8c1,0,1.9,0.8,1.9,1.8 C88,94.9,87.1,95.7,86.1,95.7z M92.5,95.7c-1,0-1.9-0.8-1.9-1.8c0-1,0.8-1.8,1.9-1.8c1,0,1.9,0.8,1.9,1.8 C94.4,94.9,93.5,95.7,92.5,95.7z M98.9,95.7c-1,0-1.9-0.8-1.9-1.8c0-1,0.8-1.8,1.9-1.8c1,0,1.9,0.8,1.9,1.8 C100.8,94.9,100,95.7,98.9,95.7z M101.6,88.4c0,0.5-0.3,1-0.7,1H26.3c-0.4,0-0.7-0.4-0.7-1V33.5c0-0.5,0.3-1,0.7-1h74.6 c0.4,0,0.7,0.4,0.7,1V88.4z"
+                      , fill "#00596A" ] [ ]
+          , Svg.text' [ transform "matrix(1.2 0 0 1 48.6175 75.4754)"
+                      , fill "#00596A"
+                      , fontFamily "HelveticaNeue-Bold"
+                      , fontSize "43px" ] [ text "#" ] ]
+
+networkIcon : Svg
+networkIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z"
+                      , fill "#D1D3D4" ]
+                      [ ]
+          , Svg.circle  [ cx "64.5"
+                        , cy "63.6"
+                        , r "34.8"
+                        , fill "none"
+                        , stroke "#6D2B90"
+                        , strokeWidth "4"
+                        , strokeMiterlimit "10" ] [ ]
+          , Svg.ellipse [ cx "64.5"
+                        , cy "63.6"
+                        , rx "19.8"
+                        , ry "34.8"
+                        , fill "none"
+                        , stroke "#6D2B90"
+                        , strokeWidth "4"
+                        , strokeMiterlimit "10" ] [ ]
+          , Svg.line  [ x1 "30"
+                      , y1 "64"
+                      , x2 "98.5"
+                      , y2 "64"
+                      , fill "none"
+                      , stroke "#6D2B90"
+                      , strokeWidth "4"
+                      , strokeMiterlimit "10" ] [ ]
+          , Svg.line  [ x1 "64.2"
+                      , y1 "98.2"
+                      , x2 "64.2"
+                      , y2 "29.7"
+                      , fill "none"
+                      , stroke "#6D2B90"
+                      , strokeWidth "4"
+                      , strokeMiterlimit "10" ] [ ]
+          , Svg.path  [ d "M99.4,63.6c0-11.2-5.3-21.1-13.5-27.5c-5.9,4.6-13.3,7.3-21.4,7.3S49,40.7,43.1,36.1 C35,42.5,29.7,52.4,29.7,63.6c0,10.8,4.9,20.5,12.7,26.9c6-5,13.8-8,22.2-8c8.4,0,16.2,3,22.2,8C94.4,84.1,99.4,74.4,99.4,63.6z"
+                      , fill "none"
+                      , stroke "#6D2B90"
+                      , strokeWidth "4"
+                      , strokeMiterlimit "10" ] [ ]
+          , Svg.path  [ d "M42.3,90.5c6,5,13.8,8,22.2,8c8.4,0,16.2-3,22.2-8c-6-5-13.8-8-22.2-8C56.1,82.5,48.4,85.5,42.3,90.5z"
+                      , fill "none"
+                      , stroke "#6D2B90"
+                      , strokeWidth "4"
+                      , strokeMiterlimit "10" ] [ ]
+          , Svg.path  [ d "M85.9,36.1c-5.9-4.6-13.3-7.3-21.4-7.3S49,31.5,43.1,36.1c5.9,4.6,13.3,7.3,21.4,7.3S80,40.7,85.9,36.1z"
+                      , fill "none"
+                      , stroke "#6D2B90"
+                      , strokeWidth "4"
+                      , strokeMiterlimit "10" ] [ ] ]
+
+updateIcon : Svg
+updateIcon =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M124.9,106.6c0,9.7-7.9,17.6-17.6,17.6H21.1c-9.7,0-17.6-7.9-17.6-17.6V20.4c0-9.7,7.9-17.6,17.6-17.6h86.2 c9.7,0,17.6,7.9,17.6,17.6V106.6z"
+                      , fill "#D1D3D4" ]
+                      [ ]
+          , Svg.path  [ d "M31.7,65.5h-6.1c0-21.7,17.7-39.4,39.4-39.4c9.3,0,18.4,3.3,25.5,9.4l-3.9,4.6c-6-5.1-13.7-7.9-21.6-7.9 C46.7,32.2,31.7,47.2,31.7,65.5z"
+                      , fill "#0069AF" ] [ ]
+          , Svg.path  [ d "M33.4,84.8"
+                      , fill "#0069AF"
+                      , stroke "#000000"
+                      , strokeWidth "6"
+                      , strokeMiterlimit "10" ] [ ]
+          , Svg.polygon [ points "74.5,40.3 97,51.3 91.8,25.3"
+                        , fill "#0069AF" ] [ ]
+          , Svg.path  [ d "M63.7,102.3c-9.3,0-18.4-3.3-25.5-9.4l3.9-4.6c6,5.1,13.7,7.9,21.6,7.9C82,96.2,97,81.3,97,62.9h6.1 C103,84.6,85.4,102.3,63.7,102.3z"
+                      , fill "#0069AF" ] [ ]
+          , Svg.path  [ d "M94,43.2"
+                      , fill "#0069AF"
+                      , stroke "#000000"
+                      , strokeWidth "6"
+                      , strokeMiterlimit "10" ] [ ]
+          , Svg.polygon [ points "52.7,87.1 30.2,76.2 35.4,102.1"
+                        , fill "#0069AF" ] [ ] ]

@@ -100,6 +100,10 @@ canvas {
   width: 10%;
   float: left;
 }
+.div-1-10x {
+  width: 9.5%;
+  float: left;
+}
 .div-3-10 {
   width: 30%;
   float: left;
@@ -456,6 +460,9 @@ canvas {
 }
 .lock-countdown-timer {
   color: #ffffff;
+}
+.version {
+  font-size: 44px;
 }
 .padded {
   margin: 8px;
