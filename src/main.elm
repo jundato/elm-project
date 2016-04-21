@@ -206,7 +206,7 @@ defaultMonitor number' isVisible' =  { number = number'
                           , videoOne = "XBAND RADAR"
                           , videoTwo = "XBAND RADAR"
                           , videoThree = "XBAND RADAR"
-                          , isVgaOneCycle = False
+                          , isVgaOneCycle = True
                           , isVgaTwoCycle = False
                           , isDviOneCycle = False
                           , isDviTwoCycle = False
@@ -293,6 +293,7 @@ type Action
   | PresetPress
   | SystemPreferencesPress
 -- monitor setting actions
+  | SignalInputToggle String
   | CloseMonitorConfiguration
   | PipButtonPress
   | OsdButtonPress
@@ -403,6 +404,10 @@ update action appState =
                                                                                 , isVideoOneSelectOpen = False
                                                                                 , isVideoTwoSelectOpen = False
                                                                                 , isVideoThreeSelectOpen = False } }
+    SignalInputToggle signalType ->
+      let monitorSettingScreenState' = appState.monitorSettingScreenState
+          selectedMonitor'  = monitorSettingScreenState'.selectedMonitor
+      in { appState | monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor =  activateCycleSignalMatrix signalType selectedMonitor' } }
     PipButtonPress ->
       let monitorSettingScreenState' = appState.monitorSettingScreenState
       in { appState | monitorSettingScreenState = { monitorSettingScreenState'| segmentState = Pip } }
@@ -862,7 +867,7 @@ monitorSettingTopBarView address monitorSettingScreenState style' =
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader ("#" ++ monitorSettingScreenState.selectedMonitor.number) ]
       , appTopBarSpacer
-      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address CloseMonitorConfiguration ] [ closeIconView ] ]
+      , div [ class "div-1-10x", onClick address CloseMonitorConfiguration ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView address monitorSettingScreenState style' =
@@ -953,15 +958,23 @@ monitorSettingSegmentStateViewOsd address monitorSettingState =
 
 -- signal matrix view
 signalMatrixView address signalType signalName monitorSettingScreenState monitor =
-  div  [ class "signal-matrix-view" ]
+  let isActivated = case signalType of
+                        "VGA 1" -> monitor.isVgaOneCycle
+                        "VGA 2" -> monitor.isVgaTwoCycle
+                        "DVI 1" -> monitor.isDviOneCycle
+                        "DVI 2" -> monitor.isDviTwoCycle
+                        "VIDEO 1" -> monitor.isVideoOneCycle
+                        "VIDEO 2" -> monitor.isVideoTwoCycle
+                        "VIDEO 3" -> monitor.isVideoThreeCycle
+                        _ -> False
+  in div  [ class "signal-matrix-view" ]
           [ div [ class "signal-matrix-label" ]
-                [ text signalType ]
+              [ text signalType ]
           , div [ class "signal-matrix-container" ]
-                [ div [ class "div-1-1" ]
-                      [ input [ type' "text"
-                              , class "signal-matrix-input"
-                              , value signalName
-                              , on "input" targetValue (Signal.message address << (SignalInputChange signalType)) ][ ] ] ]
+              [ div [ class ("div-1-1 content-centered " ++ signalType) ]
+                    [ span  [ class ("signal-matrix-input div-3-5" ++ (if isActivated then " activated" else ""))
+                            , onClick address (SignalInputToggle signalType) ]
+                            [ text signalName ] ] ]
           , div [ class "clear-both" ] [ ] ]
 
 -- view for pip buttons set
@@ -1033,7 +1046,7 @@ presetSettingTopBarView address presetSettingScreenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader "PRESETS" ]
-      , div [ class "fdiv-1-10x vdiv-1-1 content-centered", onClick address ClosePresetSettings ] [ closeIconView ] ]
+      , div [ class "fdiv-1-10x", onClick address ClosePresetSettings ] [ closeIcon ] ]
 
 -- main body for monitor setting view
 presetSettingBodyView address presets style' =
@@ -1079,7 +1092,7 @@ systemPreferencesTopBarView address screenState style' =
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader "MENU" ]
       , appTopBarSpacer
-      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address CloseSetupPress ] [ closeIconView ] ]
+      , div [ class "div-1-10x", onClick address CloseSetupPress ] [ closeIconView ] ]
 -- main body for monitor setting view
 systemPreferencesBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1110,7 +1123,7 @@ monitorSharpTopBarView address screenState style' =
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ ]
       , appTopBarSpacer
-      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+      , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 monitorSharpBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1135,7 +1148,7 @@ themeSelectorTopBarView address screenState style' =
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [  ]
       , appTopBarSpacer
-      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+      , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 themeSelectorBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1176,7 +1189,7 @@ networkTopBarView address screenState style' =
         [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
               [ ]
         , appTopBarSpacer
-        , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+        , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 networkBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1187,7 +1200,7 @@ softwareUpdateTopBarView address screenState style' =
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader "UPDATE" ]
       , appTopBarSpacer
-      , div [ class "div-1-10x vdiv-1-1 content-centered", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+      , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 softwareUpdateBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1219,10 +1232,16 @@ appTopBarSpacer : Html
 appTopBarSpacer = div [ class "div-4-5 vdiv-1-1" ] [ div [ style [("opacity", "0")] ] [ text "-" ]  ]
 
 appTopBarHeader : String -> Html
-appTopBarHeader value = div [ class "div-1-1 vdiv-2-3" ] [ labelLeftIcon value ]
+appTopBarHeader value =
+  div [ class "div-1-1 vdiv-1-1" ]
+      [ div [ class "div-1-1 vdiv-1-5" ] [ ]
+      , div [ class "div-1-1 vdiv-3-5" ] [ labelLeftIcon value ] ]
 
 closeIconView : Html
-closeIconView = div [ class "div-1-1 vdiv-2-3" ] [ closeIcon ]
+closeIconView =
+  div [ class "div-1-1 vdiv-1-" ]
+      [ div [ class "div-1-1 vdiv-1-5" ] [ ]
+      , div [ class "div-1-1 vdiv-3-5" ] [ closeIcon ] ]
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""

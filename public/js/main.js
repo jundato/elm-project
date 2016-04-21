@@ -11271,7 +11271,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 90.3178 173.8369)")
+      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 0 240)")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.fontFamily("Arial-Black")
               ,$Svg$Attributes.fontSize("240px")]),
@@ -11290,7 +11290,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 90.3178 173.8369)")
+      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 0 240)")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.textAnchor("middle")
               ,$Svg$Attributes.fontFamily("Arial-Black")
@@ -11310,7 +11310,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 90.3178 173.8369)")
+      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 0 240)")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.textAnchor("middle")
               ,$Svg$Attributes.fontFamily("Arial-Black")
@@ -12124,9 +12124,15 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
-   var closeIconView = A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-2-3")]),_U.list([$GreenGui$Widgets.closeIcon]));
+   var closeIconView = A2($Html.div,
+   _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-")]),
+   _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
+           ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-3-5")]),_U.list([$GreenGui$Widgets.closeIcon]))]));
    var appTopBarHeader = function (value) {
-      return A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-2-3")]),_U.list([$GreenGui$Widgets.labelLeftIcon(value)]));
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-3-5")]),_U.list([$GreenGui$Widgets.labelLeftIcon(value)]))]));
    };
    var appTopBarSpacer = A2($Html.div,
    _U.list([$Html$Attributes.$class("div-4-5 vdiv-1-1")]),
@@ -12378,9 +12384,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([appTopBarHeader("MENU")]))
               ,appTopBarSpacer
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,CloseSetupPress)]),
-              _U.list([closeIconView]))]));
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,CloseSetupPress)]),_U.list([closeIconView]))]));
    });
    var matrixSetupOptionsTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
@@ -12397,7 +12401,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([]))
               ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var themeSelectorTopBarView = F3(function (address,screenState,style$) {
@@ -12406,7 +12410,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([]))
               ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var networkTopBarView = F3(function (address,screenState,style$) {
@@ -12415,7 +12419,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([]))
               ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var softwareUpdateTopBarView = F3(function (address,screenState,style$) {
@@ -12424,7 +12428,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([appTopBarHeader("UPDATE")]))
               ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var ThemeSelected = function (a) {    return {ctor: "ThemeSelected",_0: a};};
@@ -12568,8 +12572,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([appTopBarHeader("PRESETS")]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("fdiv-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
-              _U.list([closeIconView]))]));
+              _U.list([$Html$Attributes.$class("fdiv-1-10x"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
    });
    var presetSettingScreenView = F3(function (address,presetSettingScreenState,_p10) {
       var _p11 = _p10;
@@ -12580,45 +12584,6 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var SignalInputSelect = F2(function (a,b) {    return {ctor: "SignalInputSelect",_0: a,_1: b};});
    var SignalInputChange = F2(function (a,b) {    return {ctor: "SignalInputChange",_0: a,_1: b};});
-   var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("signal-matrix-view")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
-              _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-1")]),
-              _U.list([A2($Html.input,
-              _U.list([$Html$Attributes.type$("text")
-                      ,$Html$Attributes.$class("signal-matrix-input")
-                      ,$Html$Attributes.value(signalName)
-                      ,A3($Html$Events.on,
-                      "input",
-                      $Html$Events.targetValue,
-                      function (_p12) {
-                         return A2($Signal.message,address,A2(SignalInputChange,signalType,_p12));
-                      })]),
-              _U.list([]))]))]))
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
-   });
-   var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
-      var monitor = monitorSettingScreenState.selectedMonitor;
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
-      _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState,monitor)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState,monitor)]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
-              _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState,monitor)
-                      ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState,monitor)]))]));
-   });
    var ExitMonitorSettingSegmentPress = {ctor: "ExitMonitorSettingSegmentPress"};
    var OsdSelectButtonPress = {ctor: "OsdSelectButtonPress"};
    var OsdLeftRightButtonPress = {ctor: "OsdLeftRightButtonPress"};
@@ -12796,18 +12761,13 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var monitorSettingLowerBodyView = F2(function (address,monitorSettingScreenState) {
       var view = function () {
-         var _p13 = monitorSettingScreenState.segmentState;
-         switch (_p13.ctor)
+         var _p12 = monitorSettingScreenState.segmentState;
+         switch (_p12.ctor)
          {case "None": return A2(monitorSettingSegmentStateViewNone,address,monitorSettingScreenState);
             case "Pip": return A2(monitorSettingSegmentStateViewPip,address,monitorSettingScreenState);
             default: return A2(monitorSettingSegmentStateViewOsd,address,monitorSettingScreenState);}
       }();
       return A2($Html.div,_U.list([$Html$Attributes.$class("monitor-setting-lower-body")]),_U.list([view]));
-   });
-   var monitorSettingBodyView = F3(function (address,monitorSettingScreenState,style$) {
-      return A2($Html.div,
-      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
-      _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
    });
    var CloseMonitorConfiguration = {ctor: "CloseMonitorConfiguration"};
    var monitorSettingTopBarView = F3(function (address,monitorSettingScreenState,style$) {
@@ -12818,8 +12778,58 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([appTopBarHeader(A2($Basics._op["++"],"#",monitorSettingScreenState.selectedMonitor.number))]))
               ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x vdiv-1-1 content-centered"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
-              _U.list([closeIconView]))]));
+              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
+              _U.list([$GreenGui$Widgets.closeIcon]))]));
+   });
+   var SignalInputToggle = function (a) {    return {ctor: "SignalInputToggle",_0: a};};
+   var signalMatrixView = F5(function (address,signalType,signalName,monitorSettingScreenState,monitor) {
+      var isActivated = function () {
+         var _p13 = signalType;
+         switch (_p13)
+         {case "VGA 1": return monitor.isVgaOneCycle;
+            case "VGA 2": return monitor.isVgaTwoCycle;
+            case "DVI 1": return monitor.isDviOneCycle;
+            case "DVI 2": return monitor.isDviTwoCycle;
+            case "VIDEO 1": return monitor.isVideoOneCycle;
+            case "VIDEO 2": return monitor.isVideoTwoCycle;
+            case "VIDEO 3": return monitor.isVideoThreeCycle;
+            default: return false;}
+      }();
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("signal-matrix-view")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
+              _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-1-1 content-centered ",signalType))]),
+              _U.list([A2($Html.span,
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input div-3-5",isActivated ? " activated" : ""))
+                      ,A2($Html$Events.onClick,address,SignalInputToggle(signalType))]),
+              _U.list([$Html.text(signalName)]))]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
+   });
+   var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
+      var monitor = monitorSettingScreenState.selectedMonitor;
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
+      _U.list([A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState,monitor)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState,monitor)]))
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState,monitor)
+                      ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState,monitor)]))]));
+   });
+   var monitorSettingBodyView = F3(function (address,monitorSettingScreenState,style$) {
+      return A2($Html.div,
+      _U.list([$Html$Attributes.$class("app-body vdiv-9-10"),$Html$Attributes.style(_U.list([style$]))]),
+      _U.list([A2(monitorSettingUpperBodyView,address,monitorSettingScreenState),A2(monitorSettingLowerBodyView,address,monitorSettingScreenState)]));
    });
    var monitorSettingScreenView = F3(function (address,monitorSettingScreenState,_p14) {
       var _p15 = _p14;
@@ -13038,7 +13048,7 @@ Elm.GreenGui.Main.make = function (_elm) {
              ,videoOne: "XBAND RADAR"
              ,videoTwo: "XBAND RADAR"
              ,videoThree: "XBAND RADAR"
-             ,isVgaOneCycle: false
+             ,isVgaOneCycle: true
              ,isVgaTwoCycle: false
              ,isDviOneCycle: false
              ,isDviTwoCycle: false
@@ -13304,6 +13314,10 @@ Elm.GreenGui.Main.make = function (_elm) {
            ,isVideoOneSelectOpen: false
            ,isVideoTwoSelectOpen: false
            ,isVideoThreeSelectOpen: false})});
+         case "SignalInputToggle": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
+           var selectedMonitor$ = monitorSettingScreenState$.selectedMonitor;
+           return _U.update(appState,
+           {monitorSettingScreenState: _U.update(monitorSettingScreenState$,{selectedMonitor: A2(activateCycleSignalMatrix,_p29._0,selectedMonitor$)})});
          case "PipButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
            return _U.update(appState,{monitorSettingScreenState: _U.update(monitorSettingScreenState$,{segmentState: Pip})});
          case "OsdButtonPress": var monitorSettingScreenState$ = appState.monitorSettingScreenState;
@@ -13475,6 +13489,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,PowerPress: PowerPress
                                       ,PresetPress: PresetPress
                                       ,SystemPreferencesPress: SystemPreferencesPress
+                                      ,SignalInputToggle: SignalInputToggle
                                       ,CloseMonitorConfiguration: CloseMonitorConfiguration
                                       ,PipButtonPress: PipButtonPress
                                       ,OsdButtonPress: OsdButtonPress

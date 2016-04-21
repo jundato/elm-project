@@ -602,7 +602,7 @@ closeIcon =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 90.3178 173.8369)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 0 240)"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
@@ -618,7 +618,7 @@ labelIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 90.3178 173.8369)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 0 240)"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
@@ -634,7 +634,7 @@ labelLeftIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 90.3178 173.8369)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 0 240)"
                       , fill "#fff"
                       , fontFamily "Arial-Black"
                       , fontSize "240px" ] [ text value ] ]
