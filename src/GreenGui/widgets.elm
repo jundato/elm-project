@@ -4,7 +4,7 @@ module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
                         , resizeIcon, exitPipIcon, selectIcon, selectAllIcon
                         , themeIcon, monitorCountIcon, rightIcon, leftIcon
                         , defaultThemeIcon, darkThemeIcon, defaultFlatThemeIcon
-                        , darkFlatThemeIcon
+                        , darkFlatThemeIcon, menuIconHeader
                         , exitOsdIcon,closeIcon, labelIcon, labelLeftIcon
                         , monitorSharpIcon, networkIcon, updateIcon) where
 
@@ -182,6 +182,21 @@ menuIcon =
           [ Svg.path  [ d "M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z"
                       , transform "translate(-14.36 14) scale(0.8)"
                       , fill "#BCBEC0" ] [ ] ]
+
+menuIconHeader : Svg
+menuIconHeader =
+  let containerWidth = 128
+      containerHeight = 128
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z"
+                      , transform "translate(-14.36 14) scale(0.8)"
+                      , fill "#FFF" ] [ ] ]
+
 
 informationIcon : Svg
 informationIcon =
@@ -602,7 +617,7 @@ closeIcon =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 0 240)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 120 240)"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
@@ -618,7 +633,7 @@ labelIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 0 240)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 120 240)"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
@@ -634,7 +649,7 @@ labelLeftIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 0 240)"
+          [ Svg.text' [ transform "matrix(1 0 0 1 120 240)"
                       , fill "#fff"
                       , fontFamily "Arial-Black"
                       , fontSize "240px" ] [ text value ] ]
