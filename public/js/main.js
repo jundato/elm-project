@@ -11271,7 +11271,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 120 240)")
+      _U.list([$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("240")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.fontFamily("Arial-Black")
               ,$Svg$Attributes.fontSize("240px")]),
@@ -11290,7 +11291,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 120 240)")
+      _U.list([$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("240")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.textAnchor("middle")
               ,$Svg$Attributes.fontFamily("Arial-Black")
@@ -11310,7 +11312,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 120 240)")
+      _U.list([$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("240")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.textAnchor("middle")
               ,$Svg$Attributes.fontFamily("Arial-Black")
@@ -11559,7 +11562,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fontSize("95px")]),
               _U.list([$Svg.text("#")]))]));
    }();
-   var selectIcon = function () {
+   var selectIcon = function (isOn) {
+      var iconColor = isOn ? "#129848" : "#58595b";
       var containerHeight = 128;
       var containerWidth = 128;
       return A2($Svg.svg,
@@ -11576,9 +11580,9 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill("#D1D3D4")]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"),$Svg$Attributes.fill("#129848")]),
+              _U.list([$Svg$Attributes.points("52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"),$Svg$Attributes.fill(iconColor)]),
               _U.list([]))]));
-   }();
+   };
    var exitPipIcon = function () {
       var containerHeight = 128;
       var containerWidth = 128;
@@ -11620,7 +11624,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill("#6D2B90")]),
               _U.list([]))]));
    }();
-   var resizeIcon = function () {
+   var resizeIcon = function (isOn) {
+      var iconColor = isOn ? "#21409A" : "#58595b";
       var containerHeight = 128;
       var containerWidth = 128;
       return A2($Svg.svg,
@@ -11638,14 +11643,15 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               _U.list([]))
               ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M24.4,95.1c0-17.5,0-34.7,0-52.3c11.9,0,23.7,0,35.9,0c0.1,1.5,0.2,3,0.3,5c-10.2,0-30.5,0-30.5,0v37.6l17.7-17.1H35l-0.3-5.3c0,0,14.4,0,21.9,0c0,6.9,0,14,0,21.6c-1.4,0.1-2.9,0.2-5,0.3c0-3.8,0-12.9,0-12.9S38.6,85,34.2,89.8c17.5,0,39.1,0,58.5,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7C73.6,95.1,49.2,95.1,24.4,95.1z")
-                      ,$Svg$Attributes.fill("#21409A")]),
+                      ,$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M103.3,33.1c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C77.6,33.1,90.4,33.1,103.3,33.1zM97.8,57.3c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C79.7,57.3,88.5,57.3,97.8,57.3z")
-                      ,$Svg$Attributes.fill("#21409A")]),
+                      ,$Svg$Attributes.fill(iconColor)]),
               _U.list([]))]));
-   }();
-   var upDownIcon = function () {
+   };
+   var upDownIcon = function (isOn) {
+      var iconColor = isOn ? "#0069af" : "#58595b";
       var containerHeight = 128;
       var containerWidth = 128;
       return A2($Svg.svg,
@@ -11666,23 +11672,24 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.y("30.3")
                       ,$Svg$Attributes.width("8.4")
                       ,$Svg$Attributes.height("52.4")
-                      ,$Svg$Attributes.fill("#0069af")]),
+                      ,$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("44.8,21.2 23.2,42.9 28.4,47.8 44.6,31.6 61.1,48.2 66.3,43"),$Svg$Attributes.fill("#0069af")]),
+              _U.list([$Svg$Attributes.points("44.8,21.2 23.2,42.9 28.4,47.8 44.6,31.6 61.1,48.2 66.3,43"),$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.rect,
               _U.list([$Svg$Attributes.x("78.6")
                       ,$Svg$Attributes.y("45.2")
                       ,$Svg$Attributes.width("8.4")
                       ,$Svg$Attributes.height("52.2")
-                      ,$Svg$Attributes.fill("#0069af")]),
+                      ,$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"),$Svg$Attributes.fill("#0069af")]),
+              _U.list([$Svg$Attributes.points("82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"),$Svg$Attributes.fill(iconColor)]),
               _U.list([]))]));
-   }();
-   var leftRightIcon = function () {
+   };
+   var leftRightIcon = function (isOn) {
+      var iconColor = isOn ? "#00747d" : "#58595b";
       var containerHeight = 128;
       var containerWidth = 128;
       return A2($Svg.svg,
@@ -11703,22 +11710,22 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.y("40.7")
                       ,$Svg$Attributes.width("52.2")
                       ,$Svg$Attributes.height("8.4")
-                      ,$Svg$Attributes.fill("#00747d")]),
+                      ,$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("21.5,44.9 43.1,23.3 48.1,28.5 31.9,44.7 48.4,61.2 43.2,66.4"),$Svg$Attributes.fill("#00747d")]),
+              _U.list([$Svg$Attributes.points("21.5,44.9 43.1,23.3 48.1,28.5 31.9,44.7 48.4,61.2 43.2,66.4"),$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.rect,
               _U.list([$Svg$Attributes.x("45.5")
                       ,$Svg$Attributes.y("78.7")
                       ,$Svg$Attributes.width("52.2")
                       ,$Svg$Attributes.height("8.4")
-                      ,$Svg$Attributes.fill("#00747d")]),
+                      ,$Svg$Attributes.fill(iconColor)]),
               _U.list([]))
               ,A2($Svg.polygon,
-              _U.list([$Svg$Attributes.points("106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"),$Svg$Attributes.fill("#00747d")]),
+              _U.list([$Svg$Attributes.points("106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"),$Svg$Attributes.fill(iconColor)]),
               _U.list([]))]));
-   }();
+   };
    var osdIcon = function () {
       var containerHeight = 128;
       var containerWidth = 128;
@@ -11831,7 +11838,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
       _U.list([$Svg$Attributes.d("M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z")
-              ,$Svg$Attributes.transform("translate(-14.36 14) scale(0.8)")
+              ,$Svg$Attributes.transform("translate(14 14) scale(0.8)")
               ,$Svg$Attributes.fill("#FFF")]),
       _U.list([]))]));
    }();
@@ -11849,7 +11856,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.path,
       _U.list([$Svg$Attributes.d("M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z")
-              ,$Svg$Attributes.transform("translate(-14.36 14) scale(0.8)")
+              ,$Svg$Attributes.transform("translate(14 14) scale(0.8)")
               ,$Svg$Attributes.fill("#BCBEC0")]),
       _U.list([]))]));
    }();
@@ -11998,6 +12005,52 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fill("#414042")]),
               _U.list([]))]));
    }();
+   var decrementIcon = function () {
+      var containerHeight = 300;
+      var containerWidth = 180;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M171.1,11.3v51.8c0,0-71.3,19.2-67,87.6c3.8,60.9,67,85.3,67,85.3v50.6c0,0-26.5,17.5-45.7,0 S12.7,184.9,6.6,166.6s-5.7-17.1,0-34.3S112.8,23.5,132.2,10.1C156.6-1.3,171.1,11.3,171.1,11.3z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.text$,
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 30 180)")
+                      ,$Svg$Attributes.fontFamily("Arial-BoldMT")
+                      ,$Svg$Attributes.fill("#414042")
+                      ,$Svg$Attributes.fontSize("110px")]),
+              _U.list([$Svg.text("-")]))]));
+   }();
+   var incrementIcon = function () {
+      var containerHeight = 300;
+      var containerWidth = 180;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M8.1,289.2v-51.8c0,0,71.3-19.2,67-87.6c-3.8-60.9-67-85.3-67-85.3V13.9c0,0,26.5-17.5,45.7,0 s112.7,101.7,118.8,120c6.1,18.3,5.7,17.1,0,34.3C166.9,185.3,66.4,277,47,290.4C22.6,301.8,8.1,289.2,8.1,289.2z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.text$,
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 86 180)")
+                      ,$Svg$Attributes.fontFamily("Arial-BoldMT")
+                      ,$Svg$Attributes.fill("#414042")
+                      ,$Svg$Attributes.fontSize("110px")]),
+              _U.list([$Svg.text("+")]))]));
+   }();
    var powerIcon = function (isDisabled) {
       var color = isDisabled ? "#414042" : "#B71318";
       var containerHeight = 128;
@@ -12068,6 +12121,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                                          ,nightModeIcon: nightModeIcon
                                          ,monitorIcon: monitorIcon
                                          ,pipMenuIcon: pipMenuIcon
+                                         ,incrementIcon: incrementIcon
+                                         ,decrementIcon: decrementIcon
                                          ,lockIcon: lockIcon
                                          ,presetIcon: presetIcon
                                          ,menuIcon: menuIcon
@@ -12144,7 +12199,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
    var closeIconView = A2($Html.div,
-   _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-")]),
+   _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1")]),
    _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
            ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-3-5")]),_U.list([$GreenGui$Widgets.closeIcon]))]));
    var appTopBarHeaderIcon = function (html) {
@@ -12460,8 +12515,9 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),
               _U.list([appTopBarHeaderIcon($GreenGui$Widgets.menuIconHeader)]))
-              ,appTopBarSpacer
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,CloseSetupPress)]),_U.list([closeIconView]))]));
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,CloseSetupPress)]),
+              _U.list([closeIconView]))]));
    });
    var matrixSetupOptionsTopBarView = F2(function (address,screenState) {
       return A2($Html.div,
@@ -12476,36 +12532,32 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([]))
-              ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var themeSelectorTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([]))
-              ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var networkTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([]))
-              ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var softwareUpdateTopBarView = F3(function (address,screenState,style$) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([appTopBarHeader("")]))
-              ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,BackToSystemPreferencesMain)]),
               _U.list([closeIconView]))]));
    });
    var ThemeSelected = function (a) {    return {ctor: "ThemeSelected",_0: a};};
@@ -12648,8 +12700,9 @@ Elm.GreenGui.Main.make = function (_elm) {
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("app-top-bar vdiv-1-10"),$Html$Attributes.style(_U.list([style$]))]),
       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),_U.list([appTopBarHeader(" ")]))
-              ,appTopBarSpacer
-              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,ClosePresetSettings)]),_U.list([closeIconView]))]));
+              ,A2($Html.div,
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,ClosePresetSettings)]),
+              _U.list([closeIconView]))]));
    });
    var presetSettingScreenView = F3(function (address,presetSettingScreenState,_p10) {
       var _p11 = _p10;
@@ -12678,23 +12731,23 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-4 vdiv-3-4 osd-button monitor-button content-centered ",isLeftRightOn))
                       ,A2($Html$Events.onClick,address,OsdLeftRightButtonPress)]),
-              _U.list([$GreenGui$Widgets.leftRightIcon]))]))
+              _U.list([$GreenGui$Widgets.leftRightIcon(monitor.isOsdLeftRightPressed)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-4 vdiv-3-4 osd-button monitor-button content-centered ",isUpDownOn))
                       ,A2($Html$Events.onClick,address,OsdUpDownButtonPress)]),
-              _U.list([$GreenGui$Widgets.upDownIcon]))]))
+              _U.list([$GreenGui$Widgets.upDownIcon(monitor.isOsdUpDownPressed)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-4 vdiv-3-4 osd-button monitor-button content-centered ",isSelectedOn))
                       ,A2($Html$Events.onClick,address,OsdSelectButtonPress)]),
-              _U.list([$GreenGui$Widgets.selectIcon]))]))
+              _U.list([$GreenGui$Widgets.selectIcon(monitor.isOsdSelectPressed)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-2-3 vdiv-2-3 pip-button monitor-button content-centered ")
+              _U.list([$Html$Attributes.$class("div-3-4 vdiv-3-4 pip-button monitor-button content-centered ")
                       ,A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
               _U.list([$GreenGui$Widgets.exitOsdIcon]))]))]))]));
    });
@@ -12755,25 +12808,25 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-2-3 vdiv-2-3 pip-button monitor-button content-centered ",isLeftRightOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-4 vdiv-3-4 pip-button monitor-button content-centered ",isLeftRightOn))
                       ,A2($Html$Events.onClick,address,PipLeftRightButtonPress)]),
-              _U.list([$GreenGui$Widgets.leftRightIcon]))]))
+              _U.list([$GreenGui$Widgets.leftRightIcon(monitor.isPipLeftRightPressed)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-2-3 vdiv-2-3 pip-button monitor-button content-centered ",isUpDownOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-4 vdiv-3-4 pip-button monitor-button content-centered ",isUpDownOn))
                       ,A2($Html$Events.onClick,address,PipUpDownButtonPress)]),
-              _U.list([$GreenGui$Widgets.upDownIcon]))]))
+              _U.list([$GreenGui$Widgets.upDownIcon(monitor.isPipUpDownPressed)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-2-3 vdiv-2-3 pip-button monitor-button content-centered ",isResizeOn))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-3-4 vdiv-3-4 pip-button monitor-button content-centered ",isResizeOn))
                       ,A2($Html$Events.onClick,address,PipResizeButtonPress)]),
-              _U.list([$GreenGui$Widgets.resizeIcon]))]))
+              _U.list([$GreenGui$Widgets.resizeIcon(monitor.isPipResizePressed)]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-2-3 vdiv-2-3 pip-button monitor-button content-centered ")
+              _U.list([$Html$Attributes.$class("div-3-4 vdiv-3-4 pip-button monitor-button content-centered ")
                       ,A2($Html$Events.onClick,address,ExitMonitorSettingSegmentPress)]),
               _U.list([$GreenGui$Widgets.exitPipIcon]))]))]))]));
    });
@@ -12829,13 +12882,13 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-2-3 vdiv-2-3 pip-button monitor-button content-centered ")
+              _U.list([$Html$Attributes.$class("div-3-4 vdiv-3-4 pip-button monitor-button content-centered ")
                       ,A2($Html$Events.onClick,address,PipButtonPress)]),
               _U.list([$GreenGui$Widgets.pipIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-4 content-centered")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-2-3 vdiv-2-3 pip-button monitor-button content-centered ")
+              _U.list([$Html$Attributes.$class("div-3-4 vdiv-3-4 pip-button monitor-button content-centered ")
                       ,A2($Html$Events.onClick,address,OsdButtonPress)]),
               _U.list([$GreenGui$Widgets.osdIcon]))]))]))]));
    });
@@ -12856,9 +12909,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-1-10 vdiv-1-1 content-centered nav-header")]),
               _U.list([appTopBarHeader(A2($Basics._op["++"],"#",monitorSettingScreenState.selectedMonitor.number))]))
-              ,appTopBarSpacer
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-10x"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
+              _U.list([$Html$Attributes.$class("div-1-10 float-right"),A2($Html$Events.onClick,address,CloseMonitorConfiguration)]),
               _U.list([closeIconView]))]));
    });
    var SignalInputToggle = function (a) {    return {ctor: "SignalInputToggle",_0: a};};
@@ -12936,9 +12988,7 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
                       _U.list([$Html$Attributes.$class("content-centered")]),
                       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))
-                              ,A2($Html.div,
-                              _U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),
-                              _U.list([A2($Html.img,_U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/decrement_icon.svg")]),_U.list([]))]))
+                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.decrementIcon]))
                               ,A2($Html.div,
                               _U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),
                               _U.list([A2($Html.div,
@@ -12946,11 +12996,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                               _U.list([A2($Html.img,
                               _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/brightness_icon.svg")]),
                               _U.list([]))]))]))
-                              ,A2($Html.div,
-                              _U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),
-                              _U.list([A2($Html.img,
-                              _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/increment_icon.svg")]),
-                              _U.list([]))]))]))
+                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.incrementIcon]))]))
                       ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
@@ -12969,16 +13015,16 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("sub-panel-view"),$Html$Attributes.style(style$)]),
       _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered"),A2($Html$Events.onClick,address,LockScreenPressed(""))]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.lockIcon]))]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered vdiv-1-1 div-1-1")]),_U.list([$GreenGui$Widgets.lockIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered"),A2($Html$Events.onClick,address,PresetPress)]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.presetIcon]))]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered vdiv-1-1 div-1-1")]),_U.list([$GreenGui$Widgets.presetIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered"),A2($Html$Events.onClick,address,SystemPreferencesPress)]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.menuIcon]))]))
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered vdiv-1-1 div-1-1")]),_U.list([$GreenGui$Widgets.menuIcon]))]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-menu-item vdiv-1-1 div-1-4 content-centered")]),
-              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered")]),_U.list([$GreenGui$Widgets.informationIcon]))]))]));
+              _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("content-centered vdiv-1-1 div-1-1")]),_U.list([$GreenGui$Widgets.informationIcon]))]))]));
    });
    var PreviousMonitorPage = {ctor: "PreviousMonitorPage"};
    var NextMonitorPage = {ctor: "NextMonitorPage"};

@@ -1,4 +1,5 @@
 module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
+                        , incrementIcon, decrementIcon
                         , lockIcon, presetIcon, menuIcon, informationIcon
                         , pipIcon, osdIcon, leftRightIcon, upDownIcon
                         , resizeIcon, exitPipIcon, selectIcon, selectAllIcon
@@ -59,6 +60,43 @@ powerIcon isDisabled =
                       , fill "none" ] [ ]
           , Svg.path  [ d "M65.4,65.2c0,1.8-1.4,3.2-3.2,3.2l0,0c-1.8,0-3.2-1.4-3.2-3.2V36.1c0-1.8,1.4-3.2,3.2-3.2l0,0 c1.8,0,3.2,1.4,3.2,3.2V65.2z"
                       , fill color ] [ ] ]
+
+incrementIcon : Svg
+incrementIcon =
+  let containerWidth = 180
+      containerHeight = 300
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M8.1,289.2v-51.8c0,0,71.3-19.2,67-87.6c-3.8-60.9-67-85.3-67-85.3V13.9c0,0,26.5-17.5,45.7,0 s112.7,101.7,118.8,120c6.1,18.3,5.7,17.1,0,34.3C166.9,185.3,66.4,277,47,290.4C22.6,301.8,8.1,289.2,8.1,289.2z"
+                      , fill "#D1D3D4" ]
+                      [ ]
+          , Svg.text' [ transform "matrix(1 0 0 1 86 180)"
+                      , fontFamily "Arial-BoldMT"
+                      , fill "#414042"
+                      , fontSize "110px" ] [ text "+" ] ]
+
+decrementIcon : Svg
+decrementIcon =
+  let containerWidth = 180
+      containerHeight = 300
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.path  [ d "M171.1,11.3v51.8c0,0-71.3,19.2-67,87.6c3.8,60.9,67,85.3,67,85.3v50.6c0,0-26.5,17.5-45.7,0 S12.7,184.9,6.6,166.6s-5.7-17.1,0-34.3S112.8,23.5,132.2,10.1C156.6-1.3,171.1,11.3,171.1,11.3z"
+                      , fill "#D1D3D4" ]
+                      [ ]
+          , Svg.text' [ transform "matrix(1 0 0 1 30 180)"
+                      , fontFamily "Arial-BoldMT"
+                      , fill "#414042"
+                      , fontSize "110px" ] [ text "-" ] ]
+
 nightModeIcon : Svg
 nightModeIcon =
   let containerWidth = 128
@@ -180,7 +218,7 @@ menuIcon =
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
           [ Svg.path  [ d "M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z"
-                      , transform "translate(-14.36 14) scale(0.8)"
+                      , transform "translate(14 14) scale(0.8)"
                       , fill "#BCBEC0" ] [ ] ]
 
 menuIconHeader : Svg
@@ -194,7 +232,7 @@ menuIconHeader =
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
           [ Svg.path  [ d "M14.43,72.7l3.44,12a1.68,1.68,0,0,0,1.87,1.2l11-2a39,39,0,0,0,7.93,10L34.17,104a1.69,1.69,0,0,0,0,1.19,1.67,1.67,0,0,0,.77.9l10.89,6a1.68,1.68,0,0,0,2.17-.48l6.32-9.2a39,39,0,0,0,12.66,1.44L71,114.31a1.67,1.67,0,0,0,2,.95l12-3.43A1.67,1.67,0,0,0,86.2,110l-2-11a39.15,39.15,0,0,0,10-7.93l10.23,4.46a1.68,1.68,0,0,0,2.09-.74l6-10.89a1.7,1.7,0,0,0-.48-2.17l-9.21-6.32a39,39,0,0,0,1.44-12.66l10.39-4.08a1.68,1.68,0,0,0,.95-2l-3.43-12a1.67,1.67,0,0,0-1.87-1.2l-11,2a39.08,39.08,0,0,0-7.93-10l4.46-10.23a1.68,1.68,0,0,0,0-1.19,1.66,1.66,0,0,0-.77-0.9l-10.88-6a1.68,1.68,0,0,0-2.17.48l-6.32,9.2a39.05,39.05,0,0,0-12.66-1.44L59,15a1.66,1.66,0,0,0-.82-0.86A1.64,1.64,0,0,0,57,14.1L45,17.53a1.64,1.64,0,0,0-1,.7,1.68,1.68,0,0,0-.25,1.16l2,11a39,39,0,0,0-10,7.93L25.66,33.84a1.67,1.67,0,0,0-2.09.75l-6,10.88a1.73,1.73,0,0,0-.17,1.18,1.7,1.7,0,0,0,.65,1L27.21,54a39,39,0,0,0-1.45,12.66L15.38,70.7a1.65,1.65,0,0,0-.86.82A1.69,1.69,0,0,0,14.43,72.7Zm29.11-1.87A22.34,22.34,0,1,1,71.17,86.15,22.34,22.34,0,0,1,43.54,70.83Z"
-                      , transform "translate(-14.36 14) scale(0.8)"
+                      , transform "translate(14 14) scale(0.8)"
                       , fill "#FFF" ] [ ] ]
 
 
@@ -270,10 +308,11 @@ osdIcon =
           , Svg.path  [ d "M102.2,92H27.6V36.6h74.7V92z M33.6,86h62.7V42.6H33.6V86z"
                       , fill "#0290AB" ] [ ] ]
 
-leftRightIcon : Svg
-leftRightIcon =
+leftRightIcon : Bool -> Svg
+leftRightIcon isOn =
   let containerWidth = 128
       containerHeight = 128
+      iconColor = if isOn then "#00747d" else "#58595b"
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
@@ -287,21 +326,22 @@ leftRightIcon =
                       , y "40.7"
                       , width "52.2"
                       , height "8.4"
-                      , fill "#00747d" ] [ ]
+                      , fill iconColor ] [ ]
           , Svg.polygon [ points  "21.5,44.9 43.1,23.3 48.1,28.5 31.9,44.7 48.4,61.2 43.2,66.4"
-                        , fill "#00747d" ] [ ]
+                        , fill iconColor ] [ ]
           , Svg.rect  [ x "45.5"
                       , y "78.7"
                       , width "52.2"
                       , height "8.4"
-                      , fill "#00747d" ] [ ]
+                      , fill iconColor ] [ ]
           , Svg.polygon [ points  "106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"
-                        , fill "#00747d" ] [ ] ]
+                        , fill iconColor ] [ ] ]
 
-upDownIcon : Svg
-upDownIcon =
+upDownIcon : Bool -> Svg
+upDownIcon isOn =
   let containerWidth = 128
       containerHeight = 128
+      iconColor = if isOn then "#0069af" else "#58595b"
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
@@ -315,21 +355,22 @@ upDownIcon =
                       , y "30.3"
                       , width "8.4"
                       , height "52.4"
-                      , fill "#0069af" ] [ ]
+                      , fill iconColor ] [ ]
           , Svg.polygon [ points  "44.8,21.2 23.2,42.9 28.4,47.8 44.6,31.6 61.1,48.2 66.3,43"
-                        , fill "#0069af" ] [ ]
+                        , fill iconColor ] [ ]
           , Svg.rect  [ x "78.6"
                       , y "45.2"
                       , width "8.4"
                       , height "52.2"
-                      , fill "#0069af" ] [ ]
+                      , fill iconColor ] [ ]
           , Svg.polygon [ points  "82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"
-                        , fill "#0069af" ] [ ] ]
+                        , fill iconColor ] [ ] ]
 
-resizeIcon : Svg
-resizeIcon =
+resizeIcon : Bool -> Svg
+resizeIcon isOn =
   let containerWidth = 128
       containerHeight = 128
+      iconColor = if isOn then "#21409A" else "#58595b"
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
@@ -340,9 +381,9 @@ resizeIcon =
                       , fill "#D1D3D4" ]
                       [ ]
           , Svg.path  [ d "M24.4,95.1c0-17.5,0-34.7,0-52.3c11.9,0,23.7,0,35.9,0c0.1,1.5,0.2,3,0.3,5c-10.2,0-30.5,0-30.5,0v37.6l17.7-17.1H35l-0.3-5.3c0,0,14.4,0,21.9,0c0,6.9,0,14,0,21.6c-1.4,0.1-2.9,0.2-5,0.3c0-3.8,0-12.9,0-12.9S38.6,85,34.2,89.8c17.5,0,39.1,0,58.5,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7C73.6,95.1,49.2,95.1,24.4,95.1z"
-                      , fill "#21409A" ] [ ]
+                      , fill iconColor ] [ ]
           , Svg.path  [ d "M103.3,33.1c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C77.6,33.1,90.4,33.1,103.3,33.1zM97.8,57.3c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C79.7,57.3,88.5,57.3,97.8,57.3z"
-                      , fill "#21409A" ] [ ] ]
+                      , fill iconColor ] [ ] ]
 
 exitPipIcon : Svg
 exitPipIcon =
@@ -374,10 +415,11 @@ exitPipIcon =
                       , height "5.5"
                       , fill "#6D2B90" ] [ ] ]
 
-selectIcon : Svg
-selectIcon =
+selectIcon : Bool -> Svg
+selectIcon isOn =
   let containerWidth = 128
       containerHeight = 128
+      iconColor = if isOn then "#129848" else "#58595b"
   in  svg [ version "1.1"
           , height "100%"
           , width "100%"
@@ -388,7 +430,7 @@ selectIcon =
                       , fill "#D1D3D4" ]
                       [ ]
           , Svg.polygon   [ points "52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"
-                          , fill "#129848" ] [ ] ]
+                          , fill iconColor ] [ ] ]
 
 monitorCountIcon : Svg
 monitorCountIcon =
@@ -617,7 +659,8 @@ closeIcon =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 120 240)"
+          [ Svg.text' [ x "0"
+                      , y "240"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
@@ -633,7 +676,8 @@ labelIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 120 240)"
+          [ Svg.text' [ x "0"
+                      , y "240"
                       , fill "#fff"
                       , textAnchor "middle"
                       , fontFamily "Arial-Black"
@@ -649,7 +693,8 @@ labelLeftIcon value =
           , x "0"
           , y "0"
           , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
-          [ Svg.text' [ transform "matrix(1 0 0 1 120 240)"
+          [ Svg.text' [ x "0"
+                      , y "240"
                       , fill "#fff"
                       , fontFamily "Arial-Black"
                       , fontSize "240px" ] [ text value ] ]

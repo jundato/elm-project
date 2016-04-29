@@ -869,11 +869,11 @@ homePanelView address homeScreenState =
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class "content-centered" ]
                       [ div [ class "div-1-10 vdiv-7-10"] [ ]
-                      , div [ class "div-2-10 vdiv-7-10" ] [ img [ class "icon", src "images/decrement_icon.svg" ] [] ]
+                      , div [ class "div-2-10 vdiv-7-10" ] [ decrementIcon ]
                       , div [ class "div-2-10 vdiv-7-10" ] [ div [ class "brightness-icon-container" ]
                                                       [ img [ class "icon", src "images/brightness_icon.svg" ] [] ]
                                                       ]
-                      , div [ class "div-2-10 vdiv-7-10" ] [ img [ class "icon", src "images/increment_icon.svg" ] [] ] ]
+                      , div [ class "div-2-10 vdiv-7-10" ] [ incrementIcon ] ]
                       , div [ class "div-1-10 vdiv-7-10"] [ ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class "content-centered night-mode" ]
@@ -888,13 +888,13 @@ homePanelView address homeScreenState =
 homeMenuView address style' =
   div [ class "sub-panel-view", style style' ]
       [ div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address (LockScreenPressed "") ]
-            [ div [ class "content-centered" ] [ lockIcon ] ]
+            [ div [ class "content-centered vdiv-1-1 div-1-1" ] [ lockIcon ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address PresetPress ]
-            [ div [ class "content-centered" ] [ presetIcon ] ]
+            [ div [ class "content-centered vdiv-1-1 div-1-1" ] [ presetIcon ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick address SystemPreferencesPress ]
-            [ div [ class "content-centered" ] [ menuIcon ] ]
+            [ div [ class "content-centered vdiv-1-1 div-1-1" ] [ menuIcon ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered" ]
-            [ div [ class "content-centered" ] [ informationIcon ] ] ]
+            [ div [ class "content-centered vdiv-1-1 div-1-1" ] [ informationIcon ] ] ]
 
 ---- Monitor Setting View
 -- monitor view
@@ -908,8 +908,7 @@ monitorSettingTopBarView address monitorSettingScreenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader ("#" ++ monitorSettingScreenState.selectedMonitor.number) ]
-      , appTopBarSpacer
-      , div [ class "div-1-10x", onClick address CloseMonitorConfiguration ] [ closeIconView ] ]
+      , div [ class "div-1-10 float-right", onClick address CloseMonitorConfiguration ] [ closeIconView ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView address monitorSettingScreenState style' =
@@ -942,11 +941,11 @@ monitorSettingSegmentStateViewNone address monitorSettingScreenState =
   div [ class "div-1-1 vdiv-1-1 content-centered" ]
       [ div [ class "div-4-5 vdiv-4-5" ]
             [ div [ class "div-1-4 content-centered" ]
-                  [ div [ class "div-2-3 vdiv-2-3 pip-button monitor-button content-centered "
+                  [ div [ class "div-3-4 vdiv-3-4 pip-button monitor-button content-centered "
                         , onClick address PipButtonPress ]
                         [ pipIcon ] ]
             , div [ class "div-1-4 content-centered" ]
-                  [ div [ class "div-2-3 vdiv-2-3 pip-button monitor-button content-centered "
+                  [ div [ class "div-3-4 vdiv-3-4 pip-button monitor-button content-centered "
                         , onClick address OsdButtonPress ]
                         [ osdIcon ] ] ] ]
 
@@ -958,19 +957,19 @@ monitorSettingSegmentStateViewPip address monitorSettingState =
   in  div [ class "div-1-1 vdiv-1-1 content-centered" ]
           [ div [ class "div-4-5 vdiv-4-5" ]
                 [ div [ class "div-1-4 content-centered" ]
-                      [ div [ class ("div-2-3 vdiv-2-3 pip-button monitor-button content-centered " ++ isLeftRightOn)
+                      [ div [ class ("div-3-4 vdiv-3-4 pip-button monitor-button content-centered " ++ isLeftRightOn)
                             , onClick address PipLeftRightButtonPress ]
-                            [ leftRightIcon ] ]
+                            [ leftRightIcon monitor.isPipLeftRightPressed ] ]
                 , div [ class "div-1-4 content-centered" ]
-                      [ div [ class ("div-2-3 vdiv-2-3 pip-button monitor-button content-centered " ++ isUpDownOn)
+                      [ div [ class ("div-3-4 vdiv-3-4 pip-button monitor-button content-centered " ++ isUpDownOn)
                             , onClick address PipUpDownButtonPress ]
-                            [ upDownIcon ] ]
+                            [ upDownIcon monitor.isPipUpDownPressed ] ]
                 , div [ class "div-1-4 content-centered" ]
-                      [ div [ class ("div-2-3 vdiv-2-3 pip-button monitor-button content-centered " ++ isResizeOn)
+                      [ div [ class ("div-3-4 vdiv-3-4 pip-button monitor-button content-centered " ++ isResizeOn)
                             , onClick address PipResizeButtonPress ]
-                            [ resizeIcon ] ]
+                            [ resizeIcon monitor.isPipResizePressed ] ]
                 , div [ class "div-1-4 content-centered" ]
-                      [ div [ class "div-2-3 vdiv-2-3 pip-button monitor-button content-centered "
+                      [ div [ class "div-3-4 vdiv-3-4 pip-button monitor-button content-centered "
                             , onClick address ExitMonitorSettingSegmentPress ]
                             [ exitPipIcon ] ] ] ]
 
@@ -984,17 +983,17 @@ monitorSettingSegmentStateViewOsd address monitorSettingState =
                 [ div [ class "div-1-4 content-centered" ]
                       [ div [ class ("div-3-4 vdiv-3-4 osd-button monitor-button content-centered " ++ isLeftRightOn)
                             , onClick address OsdLeftRightButtonPress ]
-                            [ leftRightIcon ] ]
+                            [ leftRightIcon monitor.isOsdLeftRightPressed ] ]
                 , div [ class "div-1-4 content-centered" ]
                       [ div [ class ("div-3-4 vdiv-3-4 osd-button monitor-button content-centered " ++ isUpDownOn)
                             , onClick address OsdUpDownButtonPress ]
-                            [ upDownIcon ] ]
+                            [ upDownIcon monitor.isOsdUpDownPressed ] ]
                 , div [ class "div-1-4 content-centered" ]
                       [ div [ class ("div-3-4 vdiv-3-4 osd-button monitor-button content-centered " ++ isSelectedOn)
                             , onClick address OsdSelectButtonPress ]
-                            [ selectIcon ] ]
+                            [ selectIcon monitor.isOsdSelectPressed ] ]
                 , div [ class "div-1-4 content-centered" ]
-                      [ div [ class "div-2-3 vdiv-2-3 pip-button monitor-button content-centered "
+                      [ div [ class "div-3-4 vdiv-3-4 pip-button monitor-button content-centered "
                             , onClick address ExitMonitorSettingSegmentPress ]
                             [ exitOsdIcon ] ] ] ]
 
@@ -1088,8 +1087,7 @@ presetSettingTopBarView address presetSettingScreenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader " " ]
-      , appTopBarSpacer      
-      , div [ class "div-1-10x", onClick address ClosePresetSettings ] [ closeIconView ] ]
+      , div [ class "div-1-10 float-right", onClick address ClosePresetSettings ] [ closeIconView ] ]
 
 -- main body for monitor setting view
 presetSettingBodyView address presets style' =
@@ -1134,8 +1132,7 @@ systemPreferencesTopBarView address screenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeaderIcon menuIconHeader ]
-      , appTopBarSpacer
-      , div [ class "div-1-10x", onClick address CloseSetupPress ] [ closeIconView ] ]
+      , div [ class "div-1-10 float-right", onClick address CloseSetupPress ] [ closeIconView ] ]
 -- main body for monitor setting view
 systemPreferencesBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1165,8 +1162,7 @@ monitorSharpTopBarView address screenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ ]
-      , appTopBarSpacer
-      , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+      , div [ class "div-1-10 float-right", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 monitorSharpBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1190,8 +1186,7 @@ themeSelectorTopBarView address screenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [  ]
-      , appTopBarSpacer
-      , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+      , div [ class "div-1-10 float-right", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 themeSelectorBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1231,8 +1226,7 @@ networkTopBarView address screenState style' =
     div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
         [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
               [ ]
-        , appTopBarSpacer
-        , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+        , div [ class "div-1-10 float-right", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 networkBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1242,8 +1236,7 @@ softwareUpdateTopBarView address screenState style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
             [ appTopBarHeader "" ]
-      , appTopBarSpacer
-      , div [ class "div-1-10x", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
+      , div [ class "div-1-10 float-right", onClick address BackToSystemPreferencesMain ] [ closeIconView ] ]
 
 softwareUpdateBodyView address screenState style' =
   div [ class "app-body vdiv-9-10", style [style'] ]
@@ -1288,7 +1281,7 @@ appTopBarHeaderIcon html =
 
 closeIconView : Html
 closeIconView =
-  div [ class "div-1-1 vdiv-1-" ]
+  div [ class "div-1-1 vdiv-1-1" ]
       [ div [ class "div-1-1 vdiv-1-5" ] [ ]
       , div [ class "div-1-1 vdiv-3-5" ] [ closeIcon ] ]
 -- determine if key code pressed is esc
