@@ -868,12 +868,19 @@ homePanelView address homeScreenState =
                       [ div [ class "div-3-5 vdiv-3-5" ]
                             [ powerIcon homeScreenState.isPowerDisabled ] ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
-                [ div [ class "content-centered" ]
-                      [ div [ class "div-1-10 vdiv-7-10"] [ ]
-                      , div [ class "div-2-10 vdiv-7-10" ] [ decrementIcon ]
-                      , div [ class "div-2-10 vdiv-7-10" ] [ brightnessIcon ]
-                      , div [ class "div-2-10 vdiv-7-10" ] [ incrementIcon ] ]
-                      , div [ class "div-1-10 vdiv-7-10"] [ ] ]
+                [ brightnessSetupIcon
+                -- div [ class "content-centered overlap" ]
+                --       [ div [ class "div-1-10 vdiv-7-10"] [ ]
+                --       , div [ class "div-3-5 vdiv-7-10" ] [ decrementIcon ]
+                --       , div [ class "div-1-10 vdiv-7-10"] [ ]
+                --       , div [ class "div-1-10 vdiv-7-10"] [ ]
+                --       , div [ class "div-3-5 vdiv-7-10" ] [ incrementIcon ]
+                --       , div [ class "div-1-10 vdiv-7-10"] [ ] ]
+                -- , div [ class "content-centered overlap "]
+                --       [ div [ class "div-1-10 vdiv-7-10"] [ ]
+                --       , div [ class "div-3-5 vdiv-7-10" ] [ decrementIcon ]
+                --       , div [ class "div-1-10 vdiv-7-10"] [ ] ]
+                ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
                 [ div [ class "content-centered night-mode" ]
                       [ div [ class "div-3-5 vdiv-3-5" ]
@@ -1010,7 +1017,7 @@ signalMatrixView address signalType signalName monitorSettingScreenState monitor
                         "VIDEO 3" -> monitor.isVideoThreeCycle
                         _ -> False
   in div  [ class "signal-matrix-view vdiv-1-3" ]
-          [ div [ class "signal-matrix-label div-1-1 vdiv-1-2" ]
+          [ div [ class "signal-matrix-label div-1-1 vdiv-1-2 content-centered" ]
               [ text signalType ]
           , div [ class "signal-matrix-container div-1-1 vdiv-1-2" ]
               [ div [ class ("div-1-1 vdiv-1-1 content-centered " ++ signalType) ]
@@ -1288,7 +1295,7 @@ closeIconView =
 
 buildVersion : Html
 buildVersion =
-  div [ class "build-version" ] [ text "v.1.05012016720" ]
+  div [ class "build-version" ] [ text "v.1.050120161420" ]
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""

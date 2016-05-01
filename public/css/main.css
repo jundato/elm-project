@@ -166,6 +166,9 @@ canvas {
 .vdiv-1-20 {
   height: 5%;
 }
+.overlap {
+  position: relative;
+}
 .button {
   cursor: pointer;
   border-radius: 8px;

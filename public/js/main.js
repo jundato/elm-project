@@ -12089,6 +12089,72 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fontSize("110px")]),
               _U.list([$Svg.text("+")]))]));
    }();
+   var brightnessSetupIcon = function () {
+      var containerHeight = 128;
+      var containerWidth = 176;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.circle,
+              _U.list([$Svg$Attributes.cx("89.3"),$Svg$Attributes.cy("64.4"),$Svg$Attributes.r("10.4"),$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M91.4,49.4c0,1.2-0.9,2.1-2.1,2.1l0,0c-1.2,0-2.1-0.9-2.1-2.1V38.8c0-1.2,0.9-2.1,2.1-2.1l0,0 c1.2,0,2.1,0.9,2.1,2.1V49.4z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M80.1,52.2c0.8,0.8,0.8,2.2,0,3l0,0c-0.8,0.8-2.2,0.8-3,0l-7.5-7.5c-0.8-0.8-0.8-2.2,0-3l0,0 c0.8-0.8,2.2-0.8,3,0L80.1,52.2z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M74.1,62.2c1.2,0,2.1,0.9,2.1,2.1l0,0c0,1.2-0.9,2.1-2.1,2.1H63.5c-1.2,0-2.1-0.9-2.1-2.1l0,0 c0-1.2,0.9-2.1,2.1-2.1H74.1z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M76.9,73.6c0.8-0.8,2.2-0.8,3,0l0,0c0.8,0.8,0.8,2.2,0,3L72.4,84c-0.8,0.8-2.2,0.8-3,0l0,0 c-0.8-0.8-0.8-2.2,0-3L76.9,73.6z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M86.9,79.6c0-1.2,0.9-2.1,2.1-2.1l0,0c1.2,0,2.1,0.9,2.1,2.1v10.6c0,1.2-0.9,2.1-2.1,2.1l0,0 c-1.2,0-2.1-0.9-2.1-2.1V79.6z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M98.2,76.7c-0.8-0.8-0.8-2.2,0-3l0,0c0.8-0.8,2.2-0.8,3,0l7.5,7.5c0.8,0.8,0.8,2.2,0,3l0,0 c-0.8,0.8-2.2,0.8-3,0L98.2,76.7z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M104.2,66.7c-1.2,0-2.1-0.9-2.1-2.1l0,0c0-1.2,0.9-2.1,2.1-2.1h10.6c1.2,0,2.1,0.9,2.1,2.1l0,0 c0,1.2-0.9,2.1-2.1,2.1H104.2z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M101.4,55.4c-0.8,0.8-2.2,0.8-3,0l0,0c-0.8-0.8-0.8-2.2,0-3l7.5-7.5c0.8-0.8,2.2-0.8,3,0l0,0 c0.8,0.8,0.8,2.2,0,3L101.4,55.4z")
+                      ,$Svg$Attributes.fill("#FFD400")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M48.3,63.9c0-16.2,10.9-29.9,25.8-34.1V8.2C69,3,60.6,3,55.4,8.2L9.5,54.1c-5.2,5.2-5.2,13.6,0,18.7 l45.9,45.9c5.2,5.2,13.6,5.2,18.7,0V97.9C59.2,93.8,48.3,80.1,48.3,63.9z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.text$,
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 19.3679 71.0002)")
+                      ,$Svg$Attributes.fontFamily("HelveticaNeue-Bold")
+                      ,$Svg$Attributes.fontSize("24px")]),
+              _U.list([]))
+              ,A2($Svg.path,
+              _U.list([$Svg$Attributes.d("M129.5,63.9c0-16.2-10.9-29.9-25.8-34.1V8.2c5.2-5.2,13.6-5.2,18.7,0l45.9,45.9c5.2,5.2,5.2,13.6,0,18.7 l-45.9,45.9c-5.2,5.2-13.6,5.2-18.7,0V97.9C118.5,93.8,129.5,80.1,129.5,63.9z")
+                      ,$Svg$Attributes.fill("#D1D3D4")]),
+              _U.list([]))
+              ,A2($Svg.text$,
+              _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 142.5398 71.0002)")
+                      ,$Svg$Attributes.fontFamily("HelveticaNeue-Bold")
+                      ,$Svg$Attributes.fontSize("24px")]),
+              _U.list([]))]));
+   }();
    var powerIcon = function (isDisabled) {
       var color = isDisabled ? "#414042" : "#B71318";
       var containerHeight = 128;
@@ -12159,6 +12225,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                                          ,nightModeIcon: nightModeIcon
                                          ,monitorIcon: monitorIcon
                                          ,pipMenuIcon: pipMenuIcon
+                                         ,brightnessSetupIcon: brightnessSetupIcon
                                          ,brightnessIcon: brightnessIcon
                                          ,incrementIcon: incrementIcon
                                          ,decrementIcon: decrementIcon
@@ -12237,7 +12304,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
-   var buildVersion = A2($Html.div,_U.list([$Html$Attributes.$class("build-version")]),_U.list([$Html.text("v.1.05012016720")]));
+   var buildVersion = A2($Html.div,_U.list([$Html$Attributes.$class("build-version")]),_U.list([$Html.text("v.1.050120161420")]));
    var closeIconView = A2($Html.div,
    _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1")]),
    _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
@@ -12969,7 +13036,7 @@ Elm.GreenGui.Main.make = function (_elm) {
       }();
       return A2($Html.div,
       _U.list([$Html$Attributes.$class("signal-matrix-view vdiv-1-3")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label div-1-1 vdiv-1-2")]),_U.list([$Html.text(signalType)]))
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label div-1-1 vdiv-1-2 content-centered")]),_U.list([$Html.text(signalType)]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("signal-matrix-container div-1-1 vdiv-1-2")]),
               _U.list([A2($Html.div,
@@ -13023,15 +13090,7 @@ Elm.GreenGui.Main.make = function (_elm) {
               _U.list([A2($Html.div,
               _U.list([$Html$Attributes.$class("div-3-5 vdiv-3-5")]),
               _U.list([$GreenGui$Widgets.powerIcon(homeScreenState.isPowerDisabled)]))]))]))
-              ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
-              _U.list([A2($Html.div,
-                      _U.list([$Html$Attributes.$class("content-centered")]),
-                      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))
-                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.decrementIcon]))
-                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.brightnessIcon]))
-                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.incrementIcon]))]))
-                      ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))]))
+              ,A2($Html.div,_U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),_U.list([$GreenGui$Widgets.brightnessSetupIcon]))
               ,A2($Html.div,
               _U.list([$Html$Attributes.$class("home-panel-division div-1-4 vdiv-1-1")]),
               _U.list([A2($Html.div,
