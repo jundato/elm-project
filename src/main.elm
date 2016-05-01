@@ -816,6 +816,7 @@ homeScreenView address homeScreenState systemPreferencesScreenState (bodyStyle, 
         [ monitorPanelView address homeScreenState systemPreferencesScreenState
         , homePanelView address homeScreenState
         , homeMenuView address [lowerBodyStyle]
+        , buildVersion
         ]
 
 -- monitor panel view contains buttons container and pager
@@ -870,9 +871,7 @@ homePanelView address homeScreenState =
                 [ div [ class "content-centered" ]
                       [ div [ class "div-1-10 vdiv-7-10"] [ ]
                       , div [ class "div-2-10 vdiv-7-10" ] [ decrementIcon ]
-                      , div [ class "div-2-10 vdiv-7-10" ] [ div [ class "brightness-icon-container" ]
-                                                      [ img [ class "icon", src "images/brightness_icon.svg" ] [] ]
-                                                      ]
+                      , div [ class "div-2-10 vdiv-7-10" ] [ brightnessIcon ]
                       , div [ class "div-2-10 vdiv-7-10" ] [ incrementIcon ] ]
                       , div [ class "div-1-10 vdiv-7-10"] [ ] ]
           , div [ class "home-panel-division div-1-4 vdiv-1-1" ]
@@ -919,13 +918,15 @@ monitorSettingBodyView address monitorSettingScreenState style' =
 -- monitor setting upper body view
 monitorSettingUpperBodyView address monitorSettingScreenState =
   let monitor = monitorSettingScreenState.selectedMonitor
-  in div [ class "monitor-setting-upper-body" ] [ div  [ class "div-1-3" ]  [ signalMatrixView address "VGA 1" monitor.vgaOne monitorSettingScreenState monitor
-                                                                            , signalMatrixView address "VGA 2" monitor.vgaTwo monitorSettingScreenState monitor ]
-                                                , div [ class "div-1-3" ]   [ signalMatrixView address "DVI 1" monitor.dviOne monitorSettingScreenState monitor
-                                                                            , signalMatrixView address "DVI 2" monitor.dviTwo monitorSettingScreenState monitor ]
-                                                , div [ class "div-1-3" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne monitorSettingScreenState monitor
-                                                                            , signalMatrixView address "VIDEO 2" monitor.videoTwo monitorSettingScreenState monitor
-                                                                            , signalMatrixView address "VIDEO 3" monitor.videoThree monitorSettingScreenState monitor]]
+  in div [ class "monitor-setting-upper-body div-1-1" ]
+          [ div [ class "div-1-3 vdiv-1-1" ]
+                [ signalMatrixView address "VGA 1" monitor.vgaOne monitorSettingScreenState monitor
+                , signalMatrixView address "VGA 2" monitor.vgaTwo monitorSettingScreenState monitor ]
+          , div [ class "div-1-3 vdiv-1-1" ]   [ signalMatrixView address "DVI 1" monitor.dviOne monitorSettingScreenState monitor
+                , signalMatrixView address "DVI 2" monitor.dviTwo monitorSettingScreenState monitor ]
+          , div [ class "div-1-3 vdiv-1-1" ]   [ signalMatrixView address "VIDEO 1" monitor.videoOne monitorSettingScreenState monitor
+                , signalMatrixView address "VIDEO 2" monitor.videoTwo monitorSettingScreenState monitor
+                , signalMatrixView address "VIDEO 3" monitor.videoThree monitorSettingScreenState monitor]]
 
 monitorSettingLowerBodyView address monitorSettingScreenState =
   let view =  case monitorSettingScreenState.segmentState of
@@ -1008,12 +1009,12 @@ signalMatrixView address signalType signalName monitorSettingScreenState monitor
                         "VIDEO 2" -> monitor.isVideoTwoCycle
                         "VIDEO 3" -> monitor.isVideoThreeCycle
                         _ -> False
-  in div  [ class "signal-matrix-view" ]
-          [ div [ class "signal-matrix-label" ]
+  in div  [ class "signal-matrix-view vdiv-1-3" ]
+          [ div [ class "signal-matrix-label div-1-1 vdiv-1-2" ]
               [ text signalType ]
-          , div [ class "signal-matrix-container" ]
-              [ div [ class ("div-1-1 content-centered " ++ signalType) ]
-                    [ span  [ class ("signal-matrix-input div-3-5" ++ (if isActivated then " activated" else ""))
+          , div [ class "signal-matrix-container div-1-1 vdiv-1-2" ]
+              [ div [ class ("div-1-1 vdiv-1-1 content-centered " ++ signalType) ]
+                    [ span  [ class ("signal-matrix-input div-3-5 vdiv-1-1 content-centered " ++ (if isActivated then " activated" else ""))
                             , onClick address (SignalInputToggle signalType) ]
                             [ text signalName ] ] ]
           , div [ class "clear-both" ] [ ] ]
@@ -1284,6 +1285,10 @@ closeIconView =
   div [ class "div-1-1 vdiv-1-1" ]
       [ div [ class "div-1-1 vdiv-1-5" ] [ ]
       , div [ class "div-1-1 vdiv-3-5" ] [ closeIcon ] ]
+
+buildVersion : Html
+buildVersion =
+  div [ class "build-version" ] [ text "v.1.05012016720" ]
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""

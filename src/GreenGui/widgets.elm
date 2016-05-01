@@ -1,5 +1,5 @@
 module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
-                        , incrementIcon, decrementIcon
+                        , brightnessIcon, incrementIcon, decrementIcon
                         , lockIcon, presetIcon, menuIcon, informationIcon
                         , pipIcon, osdIcon, leftRightIcon, upDownIcon
                         , resizeIcon, exitPipIcon, selectIcon, selectAllIcon
@@ -79,6 +79,43 @@ incrementIcon =
                       , fill "#414042"
                       , fontSize "110px" ] [ text "+" ] ]
 
+brightnessIcon : Svg
+brightnessIcon =
+  let containerWidth = 180
+      containerHeight = 300
+  in  svg [ version "1.1"
+          , height "100%"
+          , width "100%"
+          , x "0"
+          , y "0"
+          , viewBox ("0 0 " ++ (toString containerWidth) ++ " " ++ (toString containerHeight)) ]
+          [ Svg.circle  [ cx "89"
+                        , cy "147"
+                        , r "24.5"
+                        , fill "#FFFF0B" ]
+                        [ ]
+          , brightnessLine "89" "80.6" "89" "113.3"
+          , brightnessLine "116.4" "122.9" "137.7" "101.2"
+          , brightnessLine "123.3" "149.7" "152.2" "149.7"
+          , brightnessLine "113.4" "174.3" "133.2" "194.8"
+          , brightnessLine "89" "181.1" "89" "213.1"
+          , brightnessLine "64.6" "174.3" "41" "194.8"
+          , brightnessLine "52.8" "149.7" "22.7" "149.7"
+          , brightnessLine "62" "120.1" "41" "97.7" ]
+
+brightnessLine : String -> String -> String -> String -> Svg
+brightnessLine x1' y1' x2' y2' =
+  Svg.line  [ x1 x1'
+            , y1 y1'
+            , x2 x2'
+            , y2 y2'
+            , cx "89"
+            , cy "148"
+            , r "24.5"
+            , stroke "#FFFF00"
+            , strokeWidth "10"
+            , strokeMiterlimit "10" ] [ ]
+
 decrementIcon : Svg
 decrementIcon =
   let containerWidth = 180
@@ -96,6 +133,8 @@ decrementIcon =
                       , fontFamily "Arial-BoldMT"
                       , fill "#414042"
                       , fontSize "110px" ] [ text "-" ] ]
+
+
 
 nightModeIcon : Svg
 nightModeIcon =

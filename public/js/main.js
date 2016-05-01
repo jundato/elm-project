@@ -12028,6 +12028,44 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                       ,$Svg$Attributes.fontSize("110px")]),
               _U.list([$Svg.text("-")]))]));
    }();
+   var brightnessLine = F4(function (x1$,y1$,x2$,y2$) {
+      return A2($Svg.line,
+      _U.list([$Svg$Attributes.x1(x1$)
+              ,$Svg$Attributes.y1(y1$)
+              ,$Svg$Attributes.x2(x2$)
+              ,$Svg$Attributes.y2(y2$)
+              ,$Svg$Attributes.cx("89")
+              ,$Svg$Attributes.cy("148")
+              ,$Svg$Attributes.r("24.5")
+              ,$Svg$Attributes.stroke("#FFFF00")
+              ,$Svg$Attributes.strokeWidth("10")
+              ,$Svg$Attributes.strokeMiterlimit("10")]),
+      _U.list([]));
+   });
+   var brightnessIcon = function () {
+      var containerHeight = 300;
+      var containerWidth = 180;
+      return A2($Svg.svg,
+      _U.list([$Svg$Attributes.version("1.1")
+              ,$Svg$Attributes.height("100%")
+              ,$Svg$Attributes.width("100%")
+              ,$Svg$Attributes.x("0")
+              ,$Svg$Attributes.y("0")
+              ,$Svg$Attributes.viewBox(A2($Basics._op["++"],
+              "0 0 ",
+              A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
+      _U.list([A2($Svg.circle,
+              _U.list([$Svg$Attributes.cx("89"),$Svg$Attributes.cy("147"),$Svg$Attributes.r("24.5"),$Svg$Attributes.fill("#FFFF0B")]),
+              _U.list([]))
+              ,A4(brightnessLine,"89","80.6","89","113.3")
+              ,A4(brightnessLine,"116.4","122.9","137.7","101.2")
+              ,A4(brightnessLine,"123.3","149.7","152.2","149.7")
+              ,A4(brightnessLine,"113.4","174.3","133.2","194.8")
+              ,A4(brightnessLine,"89","181.1","89","213.1")
+              ,A4(brightnessLine,"64.6","174.3","41","194.8")
+              ,A4(brightnessLine,"52.8","149.7","22.7","149.7")
+              ,A4(brightnessLine,"62","120.1","41","97.7")]));
+   }();
    var incrementIcon = function () {
       var containerHeight = 300;
       var containerWidth = 180;
@@ -12121,6 +12159,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
                                          ,nightModeIcon: nightModeIcon
                                          ,monitorIcon: monitorIcon
                                          ,pipMenuIcon: pipMenuIcon
+                                         ,brightnessIcon: brightnessIcon
                                          ,incrementIcon: incrementIcon
                                          ,decrementIcon: decrementIcon
                                          ,lockIcon: lockIcon
@@ -12198,6 +12237,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
+   var buildVersion = A2($Html.div,_U.list([$Html$Attributes.$class("build-version")]),_U.list([$Html.text("v.1.05012016720")]));
    var closeIconView = A2($Html.div,
    _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1")]),
    _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
@@ -12928,14 +12968,14 @@ Elm.GreenGui.Main.make = function (_elm) {
             default: return false;}
       }();
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("signal-matrix-view")]),
-      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label")]),_U.list([$Html.text(signalType)]))
+      _U.list([$Html$Attributes.$class("signal-matrix-view vdiv-1-3")]),
+      _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("signal-matrix-label div-1-1 vdiv-1-2")]),_U.list([$Html.text(signalType)]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("signal-matrix-container")]),
+              _U.list([$Html$Attributes.$class("signal-matrix-container div-1-1 vdiv-1-2")]),
               _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-1-1 content-centered ",signalType))]),
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"div-1-1 vdiv-1-1 content-centered ",signalType))]),
               _U.list([A2($Html.span,
-              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input div-3-5",isActivated ? " activated" : ""))
+              _U.list([$Html$Attributes.$class(A2($Basics._op["++"],"signal-matrix-input div-3-5 vdiv-1-1 content-centered ",isActivated ? " activated" : ""))
                       ,A2($Html$Events.onClick,address,SignalInputToggle(signalType))]),
               _U.list([$Html.text(signalName)]))]))]))
               ,A2($Html.div,_U.list([$Html$Attributes.$class("clear-both")]),_U.list([]))]));
@@ -12943,17 +12983,17 @@ Elm.GreenGui.Main.make = function (_elm) {
    var monitorSettingUpperBodyView = F2(function (address,monitorSettingScreenState) {
       var monitor = monitorSettingScreenState.selectedMonitor;
       return A2($Html.div,
-      _U.list([$Html$Attributes.$class("monitor-setting-upper-body")]),
+      _U.list([$Html$Attributes.$class("monitor-setting-upper-body div-1-1")]),
       _U.list([A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1")]),
               _U.list([A5(signalMatrixView,address,"VGA 1",monitor.vgaOne,monitorSettingScreenState,monitor)
                       ,A5(signalMatrixView,address,"VGA 2",monitor.vgaTwo,monitorSettingScreenState,monitor)]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1")]),
               _U.list([A5(signalMatrixView,address,"DVI 1",monitor.dviOne,monitorSettingScreenState,monitor)
                       ,A5(signalMatrixView,address,"DVI 2",monitor.dviTwo,monitorSettingScreenState,monitor)]))
               ,A2($Html.div,
-              _U.list([$Html$Attributes.$class("div-1-3")]),
+              _U.list([$Html$Attributes.$class("div-1-3 vdiv-1-1")]),
               _U.list([A5(signalMatrixView,address,"VIDEO 1",monitor.videoOne,monitorSettingScreenState,monitor)
                       ,A5(signalMatrixView,address,"VIDEO 2",monitor.videoTwo,monitorSettingScreenState,monitor)
                       ,A5(signalMatrixView,address,"VIDEO 3",monitor.videoThree,monitorSettingScreenState,monitor)]))]));
@@ -12989,13 +13029,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                       _U.list([$Html$Attributes.$class("content-centered")]),
                       _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))
                               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.decrementIcon]))
-                              ,A2($Html.div,
-                              _U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),
-                              _U.list([A2($Html.div,
-                              _U.list([$Html$Attributes.$class("brightness-icon-container")]),
-                              _U.list([A2($Html.img,
-                              _U.list([$Html$Attributes.$class("icon"),$Html$Attributes.src("images/brightness_icon.svg")]),
-                              _U.list([]))]))]))
+                              ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.brightnessIcon]))
                               ,A2($Html.div,_U.list([$Html$Attributes.$class("div-2-10 vdiv-7-10")]),_U.list([$GreenGui$Widgets.incrementIcon]))]))
                       ,A2($Html.div,_U.list([$Html$Attributes.$class("div-1-10 vdiv-7-10")]),_U.list([]))]))
               ,A2($Html.div,
@@ -13085,7 +13119,8 @@ Elm.GreenGui.Main.make = function (_elm) {
       _U.list([$Html$Attributes.$class("main"),$Html$Attributes.style(_U.list([_p17._0]))]),
       _U.list([A3(monitorPanelView,address,homeScreenState,systemPreferencesScreenState)
               ,A2(homePanelView,address,homeScreenState)
-              ,A2(homeMenuView,address,_U.list([_p17._1]))]));
+              ,A2(homeMenuView,address,_U.list([_p17._1]))
+              ,buildVersion]));
    });
    var NoOp = {ctor: "NoOp"};
    var actions = $Signal.mailbox(NoOp);
@@ -13718,6 +13753,7 @@ Elm.GreenGui.Main.make = function (_elm) {
                                       ,appTopBarHeader: appTopBarHeader
                                       ,appTopBarHeaderIcon: appTopBarHeaderIcon
                                       ,closeIconView: closeIconView
+                                      ,buildVersion: buildVersion
                                       ,isEsc: isEsc
                                       ,pressedMonitor: pressedMonitor
                                       ,pressReleasedMonitor: pressReleasedMonitor
