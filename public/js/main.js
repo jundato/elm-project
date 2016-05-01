@@ -11291,7 +11291,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               "0 0 ",
               A2($Basics._op["++"],$Basics.toString(containerWidth),A2($Basics._op["++"]," ",$Basics.toString(containerHeight)))))]),
       _U.list([A2($Svg.text$,
-      _U.list([$Svg$Attributes.x("0")
+      _U.list([$Svg$Attributes.x("128")
               ,$Svg$Attributes.y("240")
               ,$Svg$Attributes.fill("#fff")
               ,$Svg$Attributes.textAnchor("middle")
