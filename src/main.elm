@@ -1295,7 +1295,7 @@ closeIconView =
 
 buildVersion : Html
 buildVersion =
-  div [ class "build-version" ] [ text "v.1.050120161420" ]
+  div [ class "build-version" ] [ text "v.1.052520161350" ]
 -- determine if key code pressed is esc
 isEsc : Int -> Result String ()
 isEsc code = if code == 27 then Ok () else Err ""

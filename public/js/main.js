@@ -12304,7 +12304,7 @@ Elm.GreenGui.Main.make = function (_elm) {
    });
    var isEsc = function (code) {    return _U.eq(code,27) ? $Result.Ok({ctor: "_Tuple0"}) : $Result.Err("");};
    var onEsc = function (message) {    return A3($Html$Events.on,"keydown",A2($Json$Decode.customDecoder,$Html$Events.keyCode,isEsc),$Basics.always(message));};
-   var buildVersion = A2($Html.div,_U.list([$Html$Attributes.$class("build-version")]),_U.list([$Html.text("v.1.050120161420")]));
+   var buildVersion = A2($Html.div,_U.list([$Html$Attributes.$class("build-version")]),_U.list([$Html.text("v.1.052520161350")]));
    var closeIconView = A2($Html.div,
    _U.list([$Html$Attributes.$class("div-1-1 vdiv-1-1")]),
    _U.list([A2($Html.div,_U.list([$Html$Attributes.$class("div-1-1 vdiv-1-5")]),_U.list([]))
