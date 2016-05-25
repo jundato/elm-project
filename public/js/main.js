@@ -12143,8 +12143,8 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               ,A2($Svg.text$,
               _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 19.3679 71.0002)")
                       ,$Svg$Attributes.fontFamily("HelveticaNeue-Bold")
-                      ,$Svg$Attributes.fontSize("24px")]),
-              _U.list([]))
+                      ,$Svg$Attributes.fontSize("28px")]),
+              _U.list([$Svg.text("-")]))
               ,A2($Svg.path,
               _U.list([$Svg$Attributes.d("M129.5,63.9c0-16.2-10.9-29.9-25.8-34.1V8.2c5.2-5.2,13.6-5.2,18.7,0l45.9,45.9c5.2,5.2,5.2,13.6,0,18.7 l-45.9,45.9c-5.2,5.2-13.6,5.2-18.7,0V97.9C118.5,93.8,129.5,80.1,129.5,63.9z")
                       ,$Svg$Attributes.fill("#D1D3D4")]),
@@ -12153,7 +12153,7 @@ Elm.GreenGui.Widgets.make = function (_elm) {
               _U.list([$Svg$Attributes.transform("matrix(1 0 0 1 142.5398 71.0002)")
                       ,$Svg$Attributes.fontFamily("HelveticaNeue-Bold")
                       ,$Svg$Attributes.fontSize("24px")]),
-              _U.list([]))]));
+              _U.list([$Svg.text("+")]))]));
    }();
    var powerIcon = function (isDisabled) {
       var color = isDisabled ? "#414042" : "#B71318";

@@ -250,7 +250,7 @@ canvas {
   overflow-y: hidden;
 }
 .monitor-views {
-  height: 120%;
+  height: 100%;
   width: auto;
   overflow-x: scroll;
   white-space: nowrap;
