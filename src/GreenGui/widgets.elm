@@ -1,18 +1,18 @@
-module GreenGui.Widgets (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
-                        , brightnessSetupIcon, brightnessIcon, incrementIcon, decrementIcon
-                        , lockIcon, presetIcon, menuIcon, informationIcon
-                        , pipIcon, osdIcon, leftRightIcon, upDownIcon
-                        , resizeIcon, exitPipIcon, selectIcon, selectAllIcon
-                        , themeIcon, monitorCountIcon, rightIcon, leftIcon
-                        , defaultThemeIcon, darkThemeIcon, defaultFlatThemeIcon
-                        , darkFlatThemeIcon, menuIconHeader
-                        , exitOsdIcon,closeIcon, labelIcon, labelLeftIcon
-                        , monitorSharpIcon, networkIcon, updateIcon) where
+module GreenGui.Widgets exposing (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
+  , brightnessSetupIcon, brightnessIcon, incrementIcon, decrementIcon
+  , lockIcon, presetIcon, menuIcon, informationIcon
+  , pipIcon, osdIcon, leftRightIcon, upDownIcon
+  , resizeIcon, exitPipIcon, selectIcon, selectAllIcon
+  , themeIcon, monitorCountIcon, rightIcon, leftIcon
+  , defaultThemeIcon, darkThemeIcon, defaultFlatThemeIcon
+  , darkFlatThemeIcon, menuIconHeader
+  , exitOsdIcon,closeIcon, labelIcon, labelLeftIcon
+  , monitorSharpIcon, networkIcon, updateIcon)
 
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 
-selectAllIcon : Svg
+selectAllIcon : Svg msg
 selectAllIcon =
   let containerWidth = 204
       containerHeight = 48
@@ -38,7 +38,7 @@ selectAllIcon =
           , Svg.polygon [ points "202.09 23.74 178.35 0 172.91 5.7 190.69 23.47 172.51 41.64 178.22 47.35 202.09 23.74"
                         , fill color ] [ ]]
 
-powerIcon : Bool -> Svg
+powerIcon : Bool -> Svg msg
 powerIcon isDisabled =
   let containerWidth = 128
       containerHeight = 128
@@ -61,7 +61,7 @@ powerIcon isDisabled =
           , Svg.path  [ d "M65.4,65.2c0,1.8-1.4,3.2-3.2,3.2l0,0c-1.8,0-3.2-1.4-3.2-3.2V36.1c0-1.8,1.4-3.2,3.2-3.2l0,0 c1.8,0,3.2,1.4,3.2,3.2V65.2z"
                       , fill color ] [ ] ]
 
-brightnessSetupIcon : Svg
+brightnessSetupIcon : Svg msg
 brightnessSetupIcon =
   let containerWidth = 176
       containerHeight = 128
@@ -102,7 +102,7 @@ brightnessSetupIcon =
                       , fontFamily "HelveticaNeue-Bold"
                       , fontSize "24px" ] [ text "+" ]
           ]
-incrementIcon : Svg
+incrementIcon : Svg msg
 incrementIcon =
   let containerWidth = 180
       containerHeight = 300
@@ -120,7 +120,7 @@ incrementIcon =
                       , fill "#414042"
                       , fontSize "110px" ] [ text "+" ] ]
 
-brightnessIcon : Svg
+brightnessIcon : Svg msg
 brightnessIcon =
   let containerWidth = 180
       containerHeight = 300
@@ -144,7 +144,7 @@ brightnessIcon =
           , brightnessLine "52.8" "149.7" "22.7" "149.7"
           , brightnessLine "62" "120.1" "41" "97.7" ]
 
-brightnessLine : String -> String -> String -> String -> Svg
+brightnessLine : String -> String -> String -> String -> Svg msg
 brightnessLine x1' y1' x2' y2' =
   Svg.line  [ x1 x1'
             , y1 y1'
@@ -157,7 +157,7 @@ brightnessLine x1' y1' x2' y2' =
             , strokeWidth "10"
             , strokeMiterlimit "10" ] [ ]
 
-decrementIcon : Svg
+decrementIcon : Svg msg
 decrementIcon =
   let containerWidth = 180
       containerHeight = 300
@@ -177,7 +177,7 @@ decrementIcon =
 
 
 
-nightModeIcon : Svg
+nightModeIcon : Svg msg
 nightModeIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -192,7 +192,7 @@ nightModeIcon =
           , Svg.path  [ d "M65.3,30.7c-1.3-0.6-2.6-1-3.9-1.4c7.4,11.3,9.4,25,4,37c-4.9,11-14.9,18.4-26.8,21.2c0.4,0.2,0.8,0.4,1.2,0.6 c15.8,7,34.4-0.1,41.4-15.9C88.2,56.3,81.1,37.7,65.3,30.7z"
                       , fill "#414042" ] [ ] ]
 
-pipMenuIcon : Svg
+pipMenuIcon : Svg msg
 pipMenuIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -209,7 +209,7 @@ pipMenuIcon =
           , Svg.path  [ d "M30.9,85.3c16.9,0,41.8,0,60.5,0c0-7.2,0-14.2,0-21.5c1.8,0,3.3,0,5.1,0c0,8.8,0,17.6,0,26.7 c-23.5,0-47,0-71,0c0-16.9,0-50.4,0-50.4h34.9l0,4.9H30.9v36.3"
                       , fill "#6D2B90" ] [ ] ]
 
-monitorIcon : String -> Bool -> Svg
+monitorIcon : String -> Bool -> Svg msg
 monitorIcon label isSelected =
   let containerWidth = 160
       containerHeight = 140
@@ -243,7 +243,7 @@ monitorIcon label isSelected =
                         , textAnchor "middle"
                         , fontSize "80px" ] [ text label ] ]
 
-lockIcon : Svg
+lockIcon : Svg msg
 lockIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -258,7 +258,7 @@ lockIcon =
 
 
 
-presetIcon : Svg
+presetIcon : Svg msg
 presetIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -287,7 +287,7 @@ presetIcon =
                         , r "4.9"
                         , fill "#BCBEC0"  ] [ ] ]
 
-menuIcon : Svg
+menuIcon : Svg msg
 menuIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -301,7 +301,7 @@ menuIcon =
                       , transform "translate(14 14) scale(0.8)"
                       , fill "#BCBEC0" ] [ ] ]
 
-menuIconHeader : Svg
+menuIconHeader : Svg msg
 menuIconHeader =
   let containerWidth = 128
       containerHeight = 128
@@ -316,7 +316,7 @@ menuIconHeader =
                       , fill "#FFF" ] [ ] ]
 
 
-informationIcon : Svg
+informationIcon : Svg msg
 informationIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -335,7 +335,7 @@ informationIcon =
                         , r "5.8"
                         , fill "#BCBEC0" ] [ ] ]
 
-pipButtonIcon : Svg
+pipButtonIcon : Svg msg
 pipButtonIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -350,7 +350,7 @@ pipButtonIcon =
           , Svg.path  [ d "M28.9,89.8c17.5,0,43.3,0,62.8,0c0-7.5,0-14.7,0-22.3c1.9,0,3.4,0,5.2,0c0,9.1,0,18.2,0,27.7c-24.4,0-48.7,0-73.6,0c0-17.5,0-52.3,0-52.3h36.2l0,5H29v37.6"
                       , fill "#6D2B90" ] [ ] ]
 
-pipIcon : Svg
+pipIcon : Svg msg
 pipIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -370,7 +370,7 @@ pipIcon =
           , Svg.path  [ d "M32.2,72.5l1.1,3.8c0,0.1,0.1,0.2,0.2,0.3c0.1,0.1,0.2,0.1,0.4,0.1l3.5-0.7c0.7,1.2,1.5,2.3,2.5,3.2l-1.4,3.3c0,0.1-0.1,0.3,0,0.4c0,0.1,0.1,0.2,0.2,0.3l3.5,1.9c0.1,0.1,0.2,0.1,0.4,0.1c0.1,0,0.2-0.1,0.3-0.2l2-2.9c1.3,0.4,2.7,0.5,4,0.5l1.3,3.3c0,0.1,0.1,0.2,0.3,0.3c0.1,0.1,0.3,0.1,0.4,0l3.8-1.1c0.1,0,0.2-0.1,0.3-0.2c0.1-0.1,0.1-0.2,0.1-0.4l-0.7-3.5c1.2-0.7,2.3-1.5,3.2-2.5l3.3,1.4c0.1,0,0.3,0.1,0.4,0c0.1,0,0.2-0.1,0.3-0.2l1.9-3.5c0.1-0.1,0.1-0.2,0.1-0.4c0-0.1-0.1-0.2-0.2-0.3l-2.9-2c0.4-1.3,0.5-2.7,0.5-4l3.3-1.3c0.1-0.1,0.2-0.1,0.3-0.3c0.1-0.1,0.1-0.3,0-0.4l-1.1-3.8c0-0.1-0.1-0.2-0.2-0.3c-0.1-0.1-0.2-0.1-0.4-0.1l-3.5,0.7c-0.7-1.2-1.5-2.3-2.5-3.2l1.4-3.3c0-0.1,0.1-0.3,0-0.4c0-0.1-0.1-0.2-0.2-0.3l-3.5-1.9c-0.1-0.1-0.2-0.1-0.4-0.1c-0.1,0-0.2,0.1-0.3,0.2l-2,2.9c-1.3-0.4-2.7-0.5-4-0.5l-1.3-3.3c0-0.1-0.1-0.2-0.3-0.3c-0.1-0.1-0.3-0.1-0.4,0L42,54.9c-0.1,0-0.2,0.1-0.3,0.2c-0.1,0.1-0.1,0.2-0.1,0.4l0.7,3.5c-1.2,0.7-2.3,1.5-3.2,2.5l-3.3-1.4c-0.1,0-0.3-0.1-0.4,0c-0.1,0-0.2,0.1-0.3,0.2l-1.9,3.5c-0.1,0.1-0.1,0.2-0.1,0.4c0,0.1,0.1,0.2,0.2,0.3l2.9,2c-0.4,1.3-0.5,2.7-0.5,4l-3.3,1.3c-0.1,0-0.2,0.1-0.3,0.3C32.2,72.3,32.2,72.4,32.2,72.5z M41.5,71.9c-1.1-3.8,1.1-7.7,4.9-8.8c3.8-1.1,7.7,1.1,8.8,4.9c1.1,3.8-1.1,7.7-4.9,8.8C46.5,77.9,42.6,75.7,41.5,71.9z"
                       , fill "#3C2F90"] [ ] ]
 
-osdIcon : Svg
+osdIcon : Svg msg
 osdIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -388,7 +388,7 @@ osdIcon =
           , Svg.path  [ d "M102.2,92H27.6V36.6h74.7V92z M33.6,86h62.7V42.6H33.6V86z"
                       , fill "#0290AB" ] [ ] ]
 
-leftRightIcon : Bool -> Svg
+leftRightIcon : Bool -> Svg msg
 leftRightIcon isOn =
   let containerWidth = 128
       containerHeight = 128
@@ -417,7 +417,7 @@ leftRightIcon isOn =
           , Svg.polygon [ points  "106.7,82.8 85.1,104.4 80.2,99.2 96.3,83 79.8,66.5 85,61.3"
                         , fill iconColor ] [ ] ]
 
-upDownIcon : Bool -> Svg
+upDownIcon : Bool -> Svg msg
 upDownIcon isOn =
   let containerWidth = 128
       containerHeight = 128
@@ -446,7 +446,7 @@ upDownIcon isOn =
           , Svg.polygon [ points  "82.7,106.5 104.3,84.8 99.1,79.9 83,96.1 66.4,79.5 61.2,84.7"
                         , fill iconColor ] [ ] ]
 
-resizeIcon : Bool -> Svg
+resizeIcon : Bool -> Svg msg
 resizeIcon isOn =
   let containerWidth = 128
       containerHeight = 128
@@ -465,7 +465,7 @@ resizeIcon isOn =
           , Svg.path  [ d "M103.3,33.1c0,9.9,0,19.6,0,29.5c-12.8,0-25.5,0-38.4,0c0-9.8,0-19.5,0-29.5C77.6,33.1,90.4,33.1,103.3,33.1zM97.8,57.3c0-6.5,0-12.5,0-18.6c-9.3,0-18.4,0-27.3,0c0,6.4,0,12.4,0,18.6C79.7,57.3,88.5,57.3,97.8,57.3z"
                       , fill iconColor ] [ ] ]
 
-exitPipIcon : Svg
+exitPipIcon : Svg msg
 exitPipIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -495,7 +495,7 @@ exitPipIcon =
                       , height "5.5"
                       , fill "#6D2B90" ] [ ] ]
 
-selectIcon : Bool -> Svg
+selectIcon : Bool -> Svg msg
 selectIcon isOn =
   let containerWidth = 128
       containerHeight = 128
@@ -512,7 +512,7 @@ selectIcon isOn =
           , Svg.polygon   [ points "52.6,95.9 31.2,75.3 36.2,62.3 51.7,82.6 83.9,32.2 95.7,41.3"
                           , fill iconColor ] [ ] ]
 
-monitorCountIcon : Svg
+monitorCountIcon : Svg msg
 monitorCountIcon =
   let containerWidth = 256
       containerHeight = 256
@@ -536,7 +536,7 @@ monitorCountIcon =
                       , fontFamily "HelveticaNeue-Bold"
                       , fontSize "95px" ] [ text "#" ] ]
 
-themeIcon : Svg
+themeIcon : Svg msg
 themeIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -577,7 +577,7 @@ themeIcon =
 --                 , darkBackgroundNavStyle = ("background", "#4c4c4e")
 --                 }
 
-defaultThemeIcon : Svg
+defaultThemeIcon : Svg msg
 defaultThemeIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -599,7 +599,7 @@ defaultThemeIcon =
                       , height "108.8"
                       , fill "url(#SVGID_1_)" ] [ ] ]
 
-darkThemeIcon : Svg
+darkThemeIcon : Svg msg
 darkThemeIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -631,7 +631,7 @@ darkThemeIcon =
 -- <rect x="10" y="10.5" class="st0" width="108.8" height="108.8"/>
 -- </svg>
 
-defaultFlatThemeIcon : Svg
+defaultFlatThemeIcon : Svg msg
 defaultFlatThemeIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -647,7 +647,7 @@ defaultFlatThemeIcon =
                       , height "108.8"
                       , fill "#005fa9" ] [ ] ]
 
-darkFlatThemeIcon : Svg
+darkFlatThemeIcon : Svg msg
 darkFlatThemeIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -663,7 +663,7 @@ darkFlatThemeIcon =
                       , height "108.8"
                       , fill "#a1a2a6" ] [ ] ]
 
-exitOsdIcon : Svg
+exitOsdIcon : Svg msg
 exitOsdIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -693,7 +693,7 @@ exitOsdIcon =
                       , height "5.5"
                       , fill "#0290AB" ] [ ] ]
 
-leftIcon : Svg
+leftIcon : Svg msg
 leftIcon =
   let containerWidth = 256
       containerHeight = 128
@@ -711,7 +711,7 @@ leftIcon =
           , Svg.polygon [ points "39.58 64.38 85.41 18.54 95.91 29.55 61.6 63.87 96.68 98.95 85.67 109.96 39.58 64.38"
                         , fill "#231f20" ] [ ] ]
 
-rightIcon : Svg
+rightIcon : Svg msg
 rightIcon =
   let containerWidth = 256
       containerHeight = 128
@@ -729,7 +729,7 @@ rightIcon =
           , Svg.polygon [ points "215.8,64.4 169.9,18.5 159.4,29.6 193.7,63.9 158.6,98.9 169.7,110"
                         , fill "#231f20" ] [ ] ]
 
-closeIcon : Svg
+closeIcon : Svg msg
 closeIcon =
   let containerWidth = 256
       containerHeight = 256
@@ -746,7 +746,7 @@ closeIcon =
                       , fontFamily "Arial-Black"
                       , fontSize "240px" ] [ text "X" ] ]
 
-labelIcon : String -> Svg
+labelIcon : String -> Svg msg
 labelIcon value =
   let containerWidth = 256
       containerHeight = 256
@@ -763,7 +763,7 @@ labelIcon value =
                       , fontFamily "Arial-Black"
                       , fontSize "240px" ] [ text value ] ]
 
-labelLeftIcon : String -> Svg
+labelLeftIcon : String -> Svg msg
 labelLeftIcon value =
   let containerWidth = 256
       containerHeight = 256
@@ -779,7 +779,7 @@ labelLeftIcon value =
                       , fontFamily "Arial-Black"
                       , fontSize "240px" ] [ text value ] ]
 
-monitorSharpIcon : Svg
+monitorSharpIcon : Svg msg
 monitorSharpIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -799,7 +799,7 @@ monitorSharpIcon =
                       , fontFamily "HelveticaNeue-Bold"
                       , fontSize "43px" ] [ text "#" ] ]
 
-networkIcon : Svg
+networkIcon : Svg msg
 networkIcon =
   let containerWidth = 128
       containerHeight = 128
@@ -859,7 +859,7 @@ networkIcon =
                       , strokeWidth "4"
                       , strokeMiterlimit "10" ] [ ] ]
 
-updateIcon : Svg
+updateIcon : Svg msg
 updateIcon =
   let containerWidth = 128
       containerHeight = 128

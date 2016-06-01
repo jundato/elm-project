@@ -1,13 +1,9 @@
 -- author: virgilio dato
 -- temporary site : http://ghoulish-scarecrow-6363.herokuapp.com/
-module GreenGui.Main where
-
-import Window
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Lazy exposing (lazy, lazy2, lazy3)
-import Signal exposing (..)
 import List
 import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Basics
