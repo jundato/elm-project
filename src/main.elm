@@ -3,18 +3,9 @@
 
 import Html exposing (..)
 import Html.App as App
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Html exposing (..)
-import List
-import Html.Lazy exposing (lazy, lazy2, lazy3)
 import Basics
-import String
-import Debug
-import Json.Decode as Json
 import Ports
-import GreenGui.Widgets exposing (..)
 import Home
 
 type alias Model =
@@ -26,11 +17,11 @@ init =
   let
     (val, cmd) = Home.init
   in
-    Model val 0 ! [Cmd.map MainMsg cmd]
+    Model val 0 ! [Cmd.map HomeMainMsg cmd]
 -- UPDATE
 
 type Msg
-  = MainMsg Home.Msg
+  = HomeMainMsg Home.Msg
   | LongPressedMonitor String
   | UnlockLockCountdown String
   | UpdateLockCountdownSecondsLeft Int
@@ -38,13 +29,13 @@ type Msg
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    MainMsg compMsg ->
+    HomeMainMsg compMsg ->
       let
         (newHomeModel, cmd) = Home.update compMsg model.homeModel
       in
-        { model | homeModel = newHomeModel } ! [Cmd.map MainMsg cmd]
+        { model | homeModel = newHomeModel } ! [Cmd.map HomeMainMsg cmd]
     LongPressedMonitor val ->
-      model ! [ ]
+      { model | viewState = 1 } ! [ ]
     UnlockLockCountdown val ->
       model ! [ ]
     UpdateLockCountdownSecondsLeft val ->
@@ -52,7 +43,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div [ ] [ App.map MainMsg (Home.view model.homeModel)  ]
+  div [ ] [ App.map HomeMainMsg (Home.view model.homeModel)  ]
 
 --- entry point
 main : Program Never
@@ -67,4 +58,5 @@ main =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
-    [ Sub.map MainMsg (Home.subscriptions model.homeModel) ]
+    [ Sub.map HomeMainMsg (Home.subscriptions model.homeModel)
+    , Ports.in_longPressedMonitor LongPressedMonitor ]

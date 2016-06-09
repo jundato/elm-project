@@ -60,7 +60,7 @@ update msg model =
     SelectMonitor monitor ->
       let monitors' = toggleMonitorAsSelected monitor model.monitors
           powerMustBeDisabled = if List.length (List.filter (\m -> m.isSelected ) monitors') > 0 then False else True
-      in { model  | monitors = model.monitors
+      in { model  | monitors = monitors'
                   , isPowerDisabled = powerMustBeDisabled } ! []
     SelectAllMonitors ->
       let model' = model
@@ -70,7 +70,7 @@ update msg model =
     SelectMonitorToConfigure monitor' ->
       let model' = model
       in { model  | monitors = setMonitorAsSelected monitor' model'.monitors } ! []
-    MonitorPressedDown number -> model ! []
+    MonitorPressedDown number -> model ! [ out_onPressedMonitor number ]
     MonitorPressReleased number -> model ! []
     LongPressedMonitor number ->
       let model' = model
@@ -136,23 +136,27 @@ view : Model -> Html Msg
 view model =
   let (upperBodyStyle, lowerBodyStyle) = getThemeStyle model.selectedTheme
   in div  [ class "main", style [upperBodyStyle] ]
-          [ monitorPanelView model
+          [ text (toString model.test)
+          , monitorPanelView model
           , homePanelView model
           , homeMenuView [lowerBodyStyle]
           , buildVersion
           ]
 
 -- monitor panel view contains buttons container and pager
+monitorPanelView : Model -> Html Msg
 monitorPanelView model =
   div [ class "monitor-panel-view" ]
-      [ monitorViewPager model
+      [ monitorViewPager
       , div [ class "div-1-1 vdiv-4-5 monitor-views-parent" ] [ div [ class "monitor-views div-1-1" ] ( monitorViewButtons model  ) ] ]
 
 -- list of monitor buttons
+monitorViewButtons : Model -> List (Html Msg)
 monitorViewButtons model =
   (List.map (monitorViewButton model.monitorsPerPage) model.monitors)
 
 --- view of a monitor button
+monitorViewButton : Int -> Monitor -> Html Msg
 monitorViewButton monitorsPerPage monitor =
   let maxMonitorDisplays = toString monitorsPerPage
   in
@@ -162,12 +166,13 @@ monitorViewButton monitorsPerPage monitor =
           , onDoubleClick (SelectMonitorToConfigure monitor)
           , onMouseDown (MonitorPressedDown monitor.number)
           , onMouseUp (MonitorPressReleased monitor.number) ]
-          [ div [ class "div-4-5 vdiv-4-5" ]
+          [ div [ class ("div-4-5 vdiv-4-5 " ++ (toString monitor.isSelected)) ]
                 [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number monitor.isSelected ] ] ]
     ]
 
 --- view of a monitor view pager, it is located at the upper portion of the screen
-monitorViewPager screenState =
+monitorViewPager : Html Msg
+monitorViewPager =
   div [ class "monitor-pager-view" ]
       [ div [ class "div-1-10 vdiv-1-1" ] [ ]
       , div [ class "div-4-5 vdiv-1-1" ]
@@ -183,6 +188,7 @@ monitorViewPager screenState =
       ]
 
 --- view of the home panel, the home panel is located on the center of the screen
+homePanelView : Model -> Html Msg
 homePanelView model =
   let powerButtonState = if model.isPowerDisabled then "_disabled" else ""
   in div  [ class "home-panel-view" ]
@@ -214,6 +220,7 @@ homePanelView model =
                             [ pipMenuIcon ] ] ] ]
 
 --- view of menus of the home panel, it is located at the bottom of the screen
+homeMenuView : List(String, String) -> Html Msg
 homeMenuView style' =
   div [ class "sub-panel-view", style style' ]
       [ div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick (LockScreenPressed "") ]

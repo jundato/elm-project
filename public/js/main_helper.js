@@ -11,6 +11,12 @@ function main() {
 
 var app = Elm.Main.fullscreen()
 
+app.ports.out_onPressedMonitor.subscribe(function(monitor) {
+  monitorPressTimer = window.setTimeout(function() {
+    app.ports.in_longPressedMonitor.send(monitor);
+  },1000);
+});
+
 var updateTimeout = function(){
 
   app.ports.fromJS.send(new Date().getTime());

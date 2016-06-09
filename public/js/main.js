@@ -7219,10 +7219,6 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _elm_lang$html$Html_Lazy$lazy3 = _elm_lang$virtual_dom$VirtualDom$lazy3;
-var _elm_lang$html$Html_Lazy$lazy2 = _elm_lang$virtual_dom$VirtualDom$lazy2;
-var _elm_lang$html$Html_Lazy$lazy = _elm_lang$virtual_dom$VirtualDom$lazy;
-
 var _elm_lang$svg$Svg$text = _elm_lang$virtual_dom$VirtualDom$text;
 var _elm_lang$svg$Svg$svgNamespace = A2(
 	_elm_lang$virtual_dom$VirtualDom$property,
@@ -10186,7 +10182,7 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{monitors: model.monitors, isPowerDisabled: powerMustBeDisabled}),
+						{monitors: monitors$, isPowerDisabled: powerMustBeDisabled}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'SelectAllMonitors':
@@ -10218,7 +10214,9 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					_elm_lang$core$Native_List.fromArray(
-						[]));
+						[
+							_user$project$Ports$out_onPressedMonitor(_p1._0)
+						]));
 			case 'MonitorPressReleased':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10505,93 +10503,91 @@ var _user$project$Home$MonitorPressedDown = function (a) {
 	return {ctor: 'MonitorPressedDown', _0: a};
 };
 var _user$project$Home$SelectAllMonitors = {ctor: 'SelectAllMonitors'};
-var _user$project$Home$monitorViewPager = function (screenState) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$html$Html_Attributes$class('monitor-pager-view')
-			]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-1-1')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$html$Html$div,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-2-5')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$html$Html$div,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5 content-centered')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[
-								A2(
-								_elm_lang$html$Html$div,
-								_elm_lang$core$Native_List.fromArray(
-									[
-										_elm_lang$html$Html_Attributes$class('div-1-5 vdiv-1-1 monitor-selectall-button'),
-										_elm_lang$html$Html_Events$onClick(_user$project$Home$SelectAllMonitors)
-									]),
-								_elm_lang$core$Native_List.fromArray(
-									[
-										A2(
-										_elm_lang$html$Html$div,
-										_elm_lang$core$Native_List.fromArray(
-											[
-												_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-10')
-											]),
-										_elm_lang$core$Native_List.fromArray(
-											[])),
-										A2(
-										_elm_lang$html$Html$div,
-										_elm_lang$core$Native_List.fromArray(
-											[
-												_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-4-5 content-centered')
-											]),
-										_elm_lang$core$Native_List.fromArray(
-											[_user$project$GreenGui_Widgets$selectAllIcon])),
-										A2(
-										_elm_lang$html$Html$div,
-										_elm_lang$core$Native_List.fromArray(
-											[
-												_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-10')
-											]),
-										_elm_lang$core$Native_List.fromArray(
-											[]))
-									]))
-							]))
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[]))
-			]));
-};
+var _user$project$Home$monitorViewPager = A2(
+	_elm_lang$html$Html$div,
+	_elm_lang$core$Native_List.fromArray(
+		[
+			_elm_lang$html$Html_Attributes$class('monitor-pager-view')
+		]),
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[])),
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-1-1')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-2-5')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5 content-centered')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-5 vdiv-1-1 monitor-selectall-button'),
+									_elm_lang$html$Html_Events$onClick(_user$project$Home$SelectAllMonitors)
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-10')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[])),
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-4-5 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[_user$project$GreenGui_Widgets$selectAllIcon])),
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-10')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[]))
+								]))
+						]))
+				])),
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[]))
+		]));
 var _user$project$Home$SelectMonitor = function (a) {
 	return {ctor: 'SelectMonitor', _0: a};
 };
@@ -10630,7 +10626,11 @@ var _user$project$Home$monitorViewButton = F2(
 							_elm_lang$html$Html$div,
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-4-5')
+									_elm_lang$html$Html_Attributes$class(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										'div-4-5 vdiv-4-5 ',
+										_elm_lang$core$Basics$toString(monitor.isSelected)))
 								]),
 							_elm_lang$core$Native_List.fromArray(
 								[
@@ -10663,7 +10663,7 @@ var _user$project$Home$monitorPanelView = function (model) {
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_user$project$Home$monitorViewPager(model),
+				_user$project$Home$monitorViewPager,
 				A2(
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
@@ -10697,6 +10697,8 @@ var _user$project$Home$view = function (model) {
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
+				_elm_lang$html$Html$text(
+				_elm_lang$core$Basics$toString(model.test)),
 				_user$project$Home$monitorPanelView(model),
 				_user$project$Home$homePanelView(model),
 				_user$project$Home$homeMenuView(
@@ -10729,8 +10731,8 @@ var _user$project$Main$UnlockLockCountdown = function (a) {
 var _user$project$Main$LongPressedMonitor = function (a) {
 	return {ctor: 'LongPressedMonitor', _0: a};
 };
-var _user$project$Main$MainMsg = function (a) {
-	return {ctor: 'MainMsg', _0: a};
+var _user$project$Main$HomeMainMsg = function (a) {
+	return {ctor: 'HomeMainMsg', _0: a};
 };
 var _user$project$Main$init = function () {
 	var _p0 = _user$project$Home$init;
@@ -10741,14 +10743,14 @@ var _user$project$Main$init = function () {
 		A2(_user$project$Main$Model, val, 0),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MainMsg, cmd)
+				A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, cmd)
 			]));
 }();
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
 		switch (_p1.ctor) {
-			case 'MainMsg':
+			case 'HomeMainMsg':
 				var _p2 = A2(_user$project$Home$update, _p1._0, model.homeModel);
 				var newHomeModel = _p2._0;
 				var cmd = _p2._1;
@@ -10759,12 +10761,14 @@ var _user$project$Main$update = F2(
 						{homeModel: newHomeModel}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MainMsg, cmd)
+							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, cmd)
 						]));
 			case 'LongPressedMonitor':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewState: 1}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'UnlockLockCountdown':
@@ -10790,7 +10794,7 @@ var _user$project$Main$view = function (model) {
 			[
 				A2(
 				_elm_lang$html$Html_App$map,
-				_user$project$Main$MainMsg,
+				_user$project$Main$HomeMainMsg,
 				_user$project$Home$view(model.homeModel))
 			]));
 };
@@ -10800,8 +10804,9 @@ var _user$project$Main$subscriptions = function (model) {
 			[
 				A2(
 				_elm_lang$core$Platform_Sub$map,
-				_user$project$Main$MainMsg,
-				_user$project$Home$subscriptions(model.homeModel))
+				_user$project$Main$HomeMainMsg,
+				_user$project$Home$subscriptions(model.homeModel)),
+				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor)
 			]));
 };
 var _user$project$Main$main = {
