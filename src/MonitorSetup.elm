@@ -3,6 +3,7 @@ module MonitorSetup exposing (..)
 import Types exposing (..)
 import Icons exposing (..)
 import General exposing (..)
+import Ports
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -56,42 +57,21 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
 ---- Monitor Setting Actions
-    CloseMonitorConfiguration -> model ! []
-      -- let homeScreenState' = appState.homeScreenState
-      --     monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | viewState = 1
-      --               , homeScreenState = { homeScreenState' | monitors = updateMonitorList monitorSettingScreenState'.selectedMonitor homeScreenState'.monitors } }
-    SignalInputToggle signalType -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      --     selectedMonitor'  = monitorSettingScreenState'.selectedMonitor
-      -- in { appState | monitorSettingScreenState = { monitorSettingScreenState' | selectedMonitor =  activateCycleSignalMatrix signalType selectedMonitor' } }
-    PipButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = { monitorSettingScreenState'| segmentState = Pip } }
-    OsdButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = { monitorSettingScreenState'| segmentState = Osd } }
-    PipUpDownButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = setPipUpDownButtonPress monitorSettingScreenState' }
-    PipLeftRightButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = setPipLeftRightButtonPress monitorSettingScreenState' }
-    PipResizeButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = setPipResizeButtonPress monitorSettingScreenState' }
-    OsdUpDownButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = setOsdUpDownButtonPress monitorSettingScreenState' }
-    OsdLeftRightButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = setOsdLeftRightButtonPress monitorSettingScreenState' }
-    OsdSelectButtonPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = setOsdSelectButtonPress monitorSettingScreenState' }
-    ExitMonitorSettingSegmentPress -> model ! []
-      -- let monitorSettingScreenState' = appState.monitorSettingScreenState
-      -- in { appState | monitorSettingScreenState = { monitorSettingScreenState' | segmentState = None }  }
+    CloseMonitorConfiguration -> model ! [ Ports.out_returnToHomeMode "" ]
+    SignalInputToggle signalType ->
+      let selectedMonitor'  = model.selectedMonitor
+      in { model | selectedMonitor =  activateCycleSignalMatrix signalType selectedMonitor' } ! []
+    PipButtonPress ->
+      { model | segmentState = Pip } ! []
+    OsdButtonPress ->
+      { model | segmentState = Osd } ! []
+    PipUpDownButtonPress -> setPipUpDownButtonPress model ! []
+    PipLeftRightButtonPress -> setPipLeftRightButtonPress model ! []
+    PipResizeButtonPress -> setPipResizeButtonPress model ! []
+    OsdUpDownButtonPress -> setOsdUpDownButtonPress model ! []
+    OsdLeftRightButtonPress -> setOsdLeftRightButtonPress model ! []
+    OsdSelectButtonPress -> setOsdSelectButtonPress model ! []
+    ExitMonitorSettingSegmentPress -> { model | segmentState = None } ! []
 
 init : (Model, Cmd Msg)
 init = defaultModel ! []
@@ -287,3 +267,115 @@ osdButtonSetView model =
                       , div [ class "vdiv-4-5" ]
                             [ img [ class "vdiv-1-1", src selectSrc, onClick OsdSelectButtonPress ] [ ] ] ] ]
           ]
+
+-- updates monitor on list
+updateMonitorList : Monitor -> List Monitor -> List Monitor
+updateMonitorList monitor monitors =
+  List.map (\m -> if m.number ==  monitor.number then { monitor | isSelected = True }  else m ) monitors
+
+-- set signal input depending on control
+-- VGA 1, VGA 2, DVI 1, DVI 2, VIDEO 1, VIDEO 2, VIDEO 3
+setSignalInputChange : String -> String -> Monitor -> Monitor
+setSignalInputChange signalType value monitor =
+  let newMonitor = case signalType of
+                      "VGA 1" -> { monitor | vgaOne = value }
+                      "VGA 2" -> { monitor | vgaTwo = value }
+                      "DVI 1" -> { monitor | dviOne = value }
+                      "DVI 2" -> { monitor | dviTwo = value }
+                      "VIDEO 1" -> { monitor | videoOne = value }
+                      "VIDEO 2" -> { monitor | videoTwo = value }
+                      "VIDEO 3" -> { monitor | videoThree = value }
+                      _ -> monitor
+  in newMonitor
+
+-- toggles pip button and sets the rest to false
+setPipButtonPress : Model -> Model
+setPipButtonPress model = model
+
+-- toggles osd button and sets the rest to false
+setOsdButtonPress : Model -> Model
+setOsdButtonPress model = model
+
+-- toggle signal matrix button
+activateCycleSignalMatrix : String -> Monitor -> Monitor
+activateCycleSignalMatrix signalType monitor =
+  let newMonitor = case signalType of
+                      "VGA 1" -> { monitor  | isVgaOneCycle = not monitor.isVgaOneCycle
+                                            , isVgaTwoCycle = False
+                                            , isDviOneCycle = False
+                                            , isDviTwoCycle = False
+                                            , isVideoOneCycle = False
+                                            , isVideoTwoCycle = False
+                                            , isVideoThreeCycle = False }
+                      "VGA 2" -> { monitor  | isVgaOneCycle = False
+                                            , isVgaTwoCycle = not monitor.isVgaTwoCycle
+                                            , isDviOneCycle = False
+                                            , isDviTwoCycle = False
+                                            , isVideoOneCycle = False
+                                            , isVideoTwoCycle = False
+                                            , isVideoThreeCycle = False }
+                      "DVI 1" -> { monitor  | isVgaOneCycle = False
+                                            , isVgaTwoCycle = False
+                                            , isDviOneCycle = not monitor.isDviOneCycle
+                                            , isDviTwoCycle = False
+                                            , isVideoOneCycle = False
+                                            , isVideoTwoCycle = False
+                                            , isVideoThreeCycle = False }
+                      "DVI 2" -> { monitor  | isVgaOneCycle = False
+                                            , isVgaTwoCycle = False
+                                            , isDviOneCycle = False
+                                            , isDviTwoCycle = not monitor.isDviTwoCycle
+                                            , isVideoOneCycle = False
+                                            , isVideoTwoCycle = False
+                                            , isVideoThreeCycle = False }
+                      "VIDEO 1" -> { monitor  | isVgaOneCycle = False
+                                              , isVgaTwoCycle = False
+                                              , isDviOneCycle = False
+                                              , isDviTwoCycle = False
+                                              , isVideoOneCycle = not monitor.isVideoOneCycle
+                                              , isVideoTwoCycle = False
+                                              , isVideoThreeCycle = False }
+                      "VIDEO 2" -> { monitor  | isVgaOneCycle = False
+                                              , isVgaTwoCycle = False
+                                              , isDviOneCycle = False
+                                              , isDviTwoCycle = False
+                                              , isVideoOneCycle = False
+                                              , isVideoTwoCycle = not monitor.isVideoTwoCycle
+                                              , isVideoThreeCycle = False }
+                      "VIDEO 3" -> { monitor  | isVgaOneCycle = False
+                                              , isVgaTwoCycle = False
+                                              , isDviOneCycle = False
+                                              , isDviTwoCycle = False
+                                              , isVideoOneCycle = False
+                                              , isVideoTwoCycle = False
+                                              , isVideoThreeCycle = not monitor.isVideoThreeCycle }
+                      _ -> monitor
+  in newMonitor
+
+-- toggles pip butons
+setPipUpDownButtonPress : Model -> Model
+setPipUpDownButtonPress model =
+  let monitor = model.selectedMonitor
+  in { model | selectedMonitor = { monitor |  isPipUpDownPressed = not monitor.isPipUpDownPressed }}
+setPipLeftRightButtonPress : Model -> Model
+setPipLeftRightButtonPress model =
+  let monitor = model.selectedMonitor
+  in { model | selectedMonitor = { monitor |  isPipLeftRightPressed = not monitor.isPipLeftRightPressed }}
+setPipResizeButtonPress : Model -> Model
+setPipResizeButtonPress model =
+  let monitor = model.selectedMonitor
+  in { model | selectedMonitor = { monitor |  isPipResizePressed = not monitor.isPipResizePressed }}
+
+-- toggle osd buttons
+setOsdUpDownButtonPress : Model -> Model
+setOsdUpDownButtonPress model =
+  let monitor = model.selectedMonitor
+  in { model | selectedMonitor = { monitor |  isOsdUpDownPressed = not monitor.isOsdUpDownPressed }}
+setOsdLeftRightButtonPress : Model -> Model
+setOsdLeftRightButtonPress model =
+  let monitor = model.selectedMonitor
+  in { model | selectedMonitor = { monitor |  isOsdLeftRightPressed = not monitor.isOsdLeftRightPressed }}
+setOsdSelectButtonPress : Model -> Model
+setOsdSelectButtonPress model =
+  let monitor = model.selectedMonitor
+  in { model | selectedMonitor = { monitor |  isOsdSelectPressed = not monitor.isOsdSelectPressed }}

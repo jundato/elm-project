@@ -10023,6 +10023,7 @@ var _user$project$General$appTopBarHeader = function (value) {
 var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort('in_longPressedMonitor', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_unlockLockCountdown = _elm_lang$core$Native_Platform.incomingPort('in_unlockLockCountdown', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_updateLockCountdownSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateLockCountdownSecondsLeft', _elm_lang$core$Json_Decode$int);
+var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$out_onPressedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onPressedMonitor',
 	function (v) {
@@ -10035,6 +10036,11 @@ var _user$project$Ports$out_onPressReleasedMonitor = _elm_lang$core$Native_Platf
 	});
 var _user$project$Ports$out_onLockScreenPressed = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onLockScreenPressed',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_returnToHomeMode = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_returnToHomeMode',
 	function (v) {
 		return v;
 	});
@@ -10792,77 +10798,228 @@ var _user$project$Home$subscriptions = function (model) {
 			]));
 };
 
-var _user$project$MonitorSetup$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'CloseMonitorConfiguration':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'SignalInputToggle':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'PipButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'OsdButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'PipUpDownButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'PipLeftRightButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'PipResizeButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'OsdUpDownButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'OsdLeftRightButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			case 'OsdSelectButtonPress':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			default:
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-		}
+var _user$project$MonitorSetup$setOsdSelectButtonPress = function (model) {
+	var monitor = model.selectedMonitor;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			selectedMonitor: _elm_lang$core$Native_Utils.update(
+				monitor,
+				{
+					isOsdSelectPressed: _elm_lang$core$Basics$not(monitor.isOsdSelectPressed)
+				})
+		});
+};
+var _user$project$MonitorSetup$setOsdLeftRightButtonPress = function (model) {
+	var monitor = model.selectedMonitor;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			selectedMonitor: _elm_lang$core$Native_Utils.update(
+				monitor,
+				{
+					isOsdLeftRightPressed: _elm_lang$core$Basics$not(monitor.isOsdLeftRightPressed)
+				})
+		});
+};
+var _user$project$MonitorSetup$setOsdUpDownButtonPress = function (model) {
+	var monitor = model.selectedMonitor;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			selectedMonitor: _elm_lang$core$Native_Utils.update(
+				monitor,
+				{
+					isOsdUpDownPressed: _elm_lang$core$Basics$not(monitor.isOsdUpDownPressed)
+				})
+		});
+};
+var _user$project$MonitorSetup$setPipResizeButtonPress = function (model) {
+	var monitor = model.selectedMonitor;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			selectedMonitor: _elm_lang$core$Native_Utils.update(
+				monitor,
+				{
+					isPipResizePressed: _elm_lang$core$Basics$not(monitor.isPipResizePressed)
+				})
+		});
+};
+var _user$project$MonitorSetup$setPipLeftRightButtonPress = function (model) {
+	var monitor = model.selectedMonitor;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			selectedMonitor: _elm_lang$core$Native_Utils.update(
+				monitor,
+				{
+					isPipLeftRightPressed: _elm_lang$core$Basics$not(monitor.isPipLeftRightPressed)
+				})
+		});
+};
+var _user$project$MonitorSetup$setPipUpDownButtonPress = function (model) {
+	var monitor = model.selectedMonitor;
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{
+			selectedMonitor: _elm_lang$core$Native_Utils.update(
+				monitor,
+				{
+					isPipUpDownPressed: _elm_lang$core$Basics$not(monitor.isPipUpDownPressed)
+				})
+		});
+};
+var _user$project$MonitorSetup$activateCycleSignalMatrix = F2(
+	function (signalType, monitor) {
+		var newMonitor = function () {
+			var _p0 = signalType;
+			switch (_p0) {
+				case 'VGA 1':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: _elm_lang$core$Basics$not(monitor.isVgaOneCycle),
+							isVgaTwoCycle: false,
+							isDviOneCycle: false,
+							isDviTwoCycle: false,
+							isVideoOneCycle: false,
+							isVideoTwoCycle: false,
+							isVideoThreeCycle: false
+						});
+				case 'VGA 2':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: false,
+							isVgaTwoCycle: _elm_lang$core$Basics$not(monitor.isVgaTwoCycle),
+							isDviOneCycle: false,
+							isDviTwoCycle: false,
+							isVideoOneCycle: false,
+							isVideoTwoCycle: false,
+							isVideoThreeCycle: false
+						});
+				case 'DVI 1':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: false,
+							isVgaTwoCycle: false,
+							isDviOneCycle: _elm_lang$core$Basics$not(monitor.isDviOneCycle),
+							isDviTwoCycle: false,
+							isVideoOneCycle: false,
+							isVideoTwoCycle: false,
+							isVideoThreeCycle: false
+						});
+				case 'DVI 2':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: false,
+							isVgaTwoCycle: false,
+							isDviOneCycle: false,
+							isDviTwoCycle: _elm_lang$core$Basics$not(monitor.isDviTwoCycle),
+							isVideoOneCycle: false,
+							isVideoTwoCycle: false,
+							isVideoThreeCycle: false
+						});
+				case 'VIDEO 1':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: false,
+							isVgaTwoCycle: false,
+							isDviOneCycle: false,
+							isDviTwoCycle: false,
+							isVideoOneCycle: _elm_lang$core$Basics$not(monitor.isVideoOneCycle),
+							isVideoTwoCycle: false,
+							isVideoThreeCycle: false
+						});
+				case 'VIDEO 2':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: false,
+							isVgaTwoCycle: false,
+							isDviOneCycle: false,
+							isDviTwoCycle: false,
+							isVideoOneCycle: false,
+							isVideoTwoCycle: _elm_lang$core$Basics$not(monitor.isVideoTwoCycle),
+							isVideoThreeCycle: false
+						});
+				case 'VIDEO 3':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{
+							isVgaOneCycle: false,
+							isVgaTwoCycle: false,
+							isDviOneCycle: false,
+							isDviTwoCycle: false,
+							isVideoOneCycle: false,
+							isVideoTwoCycle: false,
+							isVideoThreeCycle: _elm_lang$core$Basics$not(monitor.isVideoThreeCycle)
+						});
+				default:
+					return monitor;
+			}
+		}();
+		return newMonitor;
+	});
+var _user$project$MonitorSetup$setOsdButtonPress = function (model) {
+	return model;
+};
+var _user$project$MonitorSetup$setPipButtonPress = function (model) {
+	return model;
+};
+var _user$project$MonitorSetup$setSignalInputChange = F3(
+	function (signalType, value, monitor) {
+		var newMonitor = function () {
+			var _p1 = signalType;
+			switch (_p1) {
+				case 'VGA 1':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{vgaOne: value});
+				case 'VGA 2':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{vgaTwo: value});
+				case 'DVI 1':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{dviOne: value});
+				case 'DVI 2':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{dviTwo: value});
+				case 'VIDEO 1':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{videoOne: value});
+				case 'VIDEO 2':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{videoTwo: value});
+				case 'VIDEO 3':
+					return _elm_lang$core$Native_Utils.update(
+						monitor,
+						{videoThree: value});
+				default:
+					return monitor;
+			}
+		}();
+		return newMonitor;
+	});
+var _user$project$MonitorSetup$updateMonitorList = F2(
+	function (monitor, monitors) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (m) {
+				return _elm_lang$core$Native_Utils.eq(m.number, monitor.number) ? _elm_lang$core$Native_Utils.update(
+					monitor,
+					{isSelected: true}) : m;
+			},
+			monitors);
 	});
 var _user$project$MonitorSetup$Model = function (a) {
 	return function (b) {
@@ -10911,6 +11068,91 @@ var _user$project$MonitorSetup$init = A2(
 	_user$project$MonitorSetup$defaultModel,
 	_elm_lang$core$Native_List.fromArray(
 		[]));
+var _user$project$MonitorSetup$update = F2(
+	function (msg, model) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
+			case 'CloseMonitorConfiguration':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Ports$out_returnToHomeMode('')
+						]));
+			case 'SignalInputToggle':
+				var selectedMonitor$ = model.selectedMonitor;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedMonitor: A2(_user$project$MonitorSetup$activateCycleSignalMatrix, _p2._0, selectedMonitor$)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{segmentState: _user$project$MonitorSetup$Pip}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{segmentState: _user$project$MonitorSetup$Osd}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipUpDownButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_user$project$MonitorSetup$setPipUpDownButtonPress(model),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipLeftRightButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_user$project$MonitorSetup$setPipLeftRightButtonPress(model),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipResizeButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_user$project$MonitorSetup$setPipResizeButtonPress(model),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdUpDownButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_user$project$MonitorSetup$setOsdUpDownButtonPress(model),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdLeftRightButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_user$project$MonitorSetup$setOsdLeftRightButtonPress(model),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdSelectButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_user$project$MonitorSetup$setOsdSelectButtonPress(model),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{segmentState: _user$project$MonitorSetup$None}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+		}
+	});
 var _user$project$MonitorSetup$ExitMonitorSettingSegmentPress = {ctor: 'ExitMonitorSettingSegmentPress'};
 var _user$project$MonitorSetup$OsdSelectButtonPress = {ctor: 'OsdSelectButtonPress'};
 var _user$project$MonitorSetup$OsdLeftRightButtonPress = {ctor: 'OsdLeftRightButtonPress'};
@@ -11492,8 +11734,8 @@ var _user$project$MonitorSetup$monitorSettingSegmentStateViewNone = function (mo
 };
 var _user$project$MonitorSetup$monitorSettingLowerBodyView = function (model) {
 	var view = function () {
-		var _p1 = model.segmentState;
-		switch (_p1.ctor) {
+		var _p3 = model.segmentState;
+		switch (_p3.ctor) {
 			case 'None':
 				return _user$project$MonitorSetup$monitorSettingSegmentStateViewNone(model);
 			case 'Pip':
@@ -11553,8 +11795,8 @@ var _user$project$MonitorSetup$SignalInputToggle = function (a) {
 var _user$project$MonitorSetup$signalMatrixView = F4(
 	function (signalType, signalName, monitorSettingScreenState, monitor) {
 		var isActivated = function () {
-			var _p2 = signalType;
-			switch (_p2) {
+			var _p4 = signalType;
+			switch (_p4) {
 				case 'VGA 1':
 					return monitor.isVgaOneCycle;
 				case 'VGA 2':
@@ -11700,9 +11942,9 @@ var _user$project$MonitorSetup$monitorSettingBodyView = F2(
 				]));
 	});
 var _user$project$MonitorSetup$view = function (model) {
-	var _p3 = _user$project$Types$getThemeStyle(model.selectedTheme);
-	var upperBodyStyle = _p3._0;
-	var lowerBodyStyle = _p3._1;
+	var _p5 = _user$project$Types$getThemeStyle(model.selectedTheme);
+	var upperBodyStyle = _p5._0;
+	var lowerBodyStyle = _p5._1;
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -11722,6 +11964,9 @@ var _user$project$Main$Model = F3(
 	});
 var _user$project$Main$MonitorSetupMode = {ctor: 'MonitorSetupMode'};
 var _user$project$Main$HomeMode = {ctor: 'HomeMode'};
+var _user$project$Main$ReturnToHomeMode = function (a) {
+	return {ctor: 'ReturnToHomeMode', _0: a};
+};
 var _user$project$Main$UpdateLockCountdownSecondsLeft = function (a) {
 	return {ctor: 'UpdateLockCountdownSecondsLeft', _0: a};
 };
@@ -11799,10 +12044,18 @@ var _user$project$Main$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[]));
-			default:
+			case 'UpdateLockCountdownSecondsLeft':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewMode: _user$project$Main$HomeMode}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 		}
@@ -11837,7 +12090,8 @@ var _user$project$Main$subscriptions = function (model) {
 				_elm_lang$core$Platform_Sub$map,
 				_user$project$Main$HomeMainMsg,
 				_user$project$Home$subscriptions(model.homeModel)),
-				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor)
+				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor),
+				_user$project$Ports$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode)
 			]));
 };
 var _user$project$Main$main = {

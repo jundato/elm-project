@@ -1,6 +1,6 @@
 module Home exposing (..)
 
-import Ports exposing (..)
+import Ports
 import Types exposing (..)
 import Icons exposing (..)
 import Html exposing (..)
@@ -70,7 +70,7 @@ update msg model =
     SelectMonitorToConfigure monitor' ->
       let model' = model
       in { model  | monitors = setMonitorAsSelected monitor' model'.monitors } ! []
-    MonitorPressedDown number -> model ! [ out_onPressedMonitor number ]
+    MonitorPressedDown number -> model ! [ Ports.out_onPressedMonitor number ]
     MonitorPressReleased number -> model ! []
     LongPressedMonitor number ->
       let model' = model
@@ -240,4 +240,4 @@ buildVersion =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-      [ fromJS UpdateValue ]
+      [ Ports.fromJS UpdateValue ]

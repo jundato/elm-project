@@ -17,6 +17,10 @@ app.ports.out_onPressedMonitor.subscribe(function(monitor) {
   },1000);
 });
 
+app.ports.out_returnToHomeMode.subscribe(function(temp){
+  app.ports.in_returnToHomeMode.send("");
+});
+
 var updateTimeout = function(){
 
   app.ports.fromJS.send(new Date().getTime());

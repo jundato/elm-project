@@ -32,6 +32,7 @@ type Msg
   | LongPressedMonitor String
   | UnlockLockCountdown String
   | UpdateLockCountdownSecondsLeft Int
+  | ReturnToHomeMode String
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -52,6 +53,8 @@ update msg model =
       model ! [ ]
     UpdateLockCountdownSecondsLeft val ->
       model ! [ ]
+    ReturnToHomeMode tmp ->
+      { model | viewMode = HomeMode } ! [ ]
 
 view : Model -> Html Msg
 view model =
@@ -75,4 +78,5 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
     [ Sub.map HomeMainMsg (Home.subscriptions model.homeModel)
-    , Ports.in_longPressedMonitor LongPressedMonitor ]
+    , Ports.in_longPressedMonitor LongPressedMonitor
+    , Ports.in_returnToHomeMode ReturnToHomeMode ]
