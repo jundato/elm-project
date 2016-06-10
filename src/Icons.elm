@@ -1,4 +1,4 @@
-module GreenGui.Widgets exposing (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
+module Icons exposing (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
   , brightnessSetupIcon, brightnessIcon, incrementIcon, decrementIcon
   , lockIcon, presetIcon, menuIcon, informationIcon
   , pipIcon, osdIcon, leftRightIcon, upDownIcon

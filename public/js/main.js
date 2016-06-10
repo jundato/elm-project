@@ -7567,7 +7567,7 @@ var _elm_lang$svg$Svg_Attributes$accumulate = _elm_lang$virtual_dom$VirtualDom$a
 var _elm_lang$svg$Svg_Attributes$accelerate = _elm_lang$virtual_dom$VirtualDom$attribute('accelerate');
 var _elm_lang$svg$Svg_Attributes$accentHeight = _elm_lang$virtual_dom$VirtualDom$attribute('accent-height');
 
-var _user$project$GreenGui_Widgets$updateIcon = function () {
+var _user$project$Icons$updateIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -7664,7 +7664,7 @@ var _user$project$GreenGui_Widgets$updateIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$networkIcon = function () {
+var _user$project$Icons$networkIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -7796,7 +7796,7 @@ var _user$project$GreenGui_Widgets$networkIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$monitorSharpIcon = function () {
+var _user$project$Icons$monitorSharpIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -7855,7 +7855,7 @@ var _user$project$GreenGui_Widgets$monitorSharpIcon = function () {
 					]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$labelLeftIcon = function (value) {
+var _user$project$Icons$labelLeftIcon = function (value) {
 	var containerHeight = 256;
 	var containerWidth = 256;
 	return A2(
@@ -7897,7 +7897,7 @@ var _user$project$GreenGui_Widgets$labelLeftIcon = function (value) {
 					]))
 			]));
 };
-var _user$project$GreenGui_Widgets$labelIcon = function (value) {
+var _user$project$Icons$labelIcon = function (value) {
 	var containerHeight = 256;
 	var containerWidth = 256;
 	return A2(
@@ -7940,7 +7940,7 @@ var _user$project$GreenGui_Widgets$labelIcon = function (value) {
 					]))
 			]));
 };
-var _user$project$GreenGui_Widgets$closeIcon = function () {
+var _user$project$Icons$closeIcon = function () {
 	var containerHeight = 256;
 	var containerWidth = 256;
 	return A2(
@@ -7983,7 +7983,7 @@ var _user$project$GreenGui_Widgets$closeIcon = function () {
 					]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$rightIcon = function () {
+var _user$project$Icons$rightIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 256;
 	return A2(
@@ -8032,7 +8032,7 @@ var _user$project$GreenGui_Widgets$rightIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$leftIcon = function () {
+var _user$project$Icons$leftIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 256;
 	return A2(
@@ -8081,7 +8081,7 @@ var _user$project$GreenGui_Widgets$leftIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$exitOsdIcon = function () {
+var _user$project$Icons$exitOsdIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8162,7 +8162,7 @@ var _user$project$GreenGui_Widgets$exitOsdIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$darkFlatThemeIcon = function () {
+var _user$project$Icons$darkFlatThemeIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8202,7 +8202,7 @@ var _user$project$GreenGui_Widgets$darkFlatThemeIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$defaultFlatThemeIcon = function () {
+var _user$project$Icons$defaultFlatThemeIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8242,7 +8242,7 @@ var _user$project$GreenGui_Widgets$defaultFlatThemeIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$darkThemeIcon = function () {
+var _user$project$Icons$darkThemeIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8310,7 +8310,7 @@ var _user$project$GreenGui_Widgets$darkThemeIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$defaultThemeIcon = function () {
+var _user$project$Icons$defaultThemeIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8378,7 +8378,7 @@ var _user$project$GreenGui_Widgets$defaultThemeIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$themeIcon = function () {
+var _user$project$Icons$themeIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8470,7 +8470,7 @@ var _user$project$GreenGui_Widgets$themeIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$monitorCountIcon = function () {
+var _user$project$Icons$monitorCountIcon = function () {
 	var containerHeight = 256;
 	var containerWidth = 256;
 	return A2(
@@ -8529,7 +8529,7 @@ var _user$project$GreenGui_Widgets$monitorCountIcon = function () {
 					]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$selectIcon = function (isOn) {
+var _user$project$Icons$selectIcon = function (isOn) {
 	var iconColor = isOn ? '#129848' : '#58595b';
 	var containerHeight = 128;
 	var containerWidth = 128;
@@ -8576,7 +8576,7 @@ var _user$project$GreenGui_Widgets$selectIcon = function (isOn) {
 					[]))
 			]));
 };
-var _user$project$GreenGui_Widgets$exitPipIcon = function () {
+var _user$project$Icons$exitPipIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8657,7 +8657,7 @@ var _user$project$GreenGui_Widgets$exitPipIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$resizeIcon = function (isOn) {
+var _user$project$Icons$resizeIcon = function (isOn) {
 	var iconColor = isOn ? '#21409A' : '#58595b';
 	var containerHeight = 128;
 	var containerWidth = 128;
@@ -8713,7 +8713,7 @@ var _user$project$GreenGui_Widgets$resizeIcon = function (isOn) {
 					[]))
 			]));
 };
-var _user$project$GreenGui_Widgets$upDownIcon = function (isOn) {
+var _user$project$Icons$upDownIcon = function (isOn) {
 	var iconColor = isOn ? '#0069af' : '#58595b';
 	var containerHeight = 128;
 	var containerWidth = 128;
@@ -8793,7 +8793,7 @@ var _user$project$GreenGui_Widgets$upDownIcon = function (isOn) {
 					[]))
 			]));
 };
-var _user$project$GreenGui_Widgets$leftRightIcon = function (isOn) {
+var _user$project$Icons$leftRightIcon = function (isOn) {
 	var iconColor = isOn ? '#00747d' : '#58595b';
 	var containerHeight = 128;
 	var containerWidth = 128;
@@ -8873,7 +8873,7 @@ var _user$project$GreenGui_Widgets$leftRightIcon = function (isOn) {
 					[]))
 			]));
 };
-var _user$project$GreenGui_Widgets$osdIcon = function () {
+var _user$project$Icons$osdIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8928,7 +8928,7 @@ var _user$project$GreenGui_Widgets$osdIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$pipIcon = function () {
+var _user$project$Icons$pipIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -8992,7 +8992,7 @@ var _user$project$GreenGui_Widgets$pipIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$pipButtonIcon = function () {
+var _user$project$Icons$pipButtonIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9038,7 +9038,7 @@ var _user$project$GreenGui_Widgets$pipButtonIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$informationIcon = function () {
+var _user$project$Icons$informationIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9095,7 +9095,7 @@ var _user$project$GreenGui_Widgets$informationIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$menuIconHeader = function () {
+var _user$project$Icons$menuIconHeader = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9133,7 +9133,7 @@ var _user$project$GreenGui_Widgets$menuIconHeader = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$menuIcon = function () {
+var _user$project$Icons$menuIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9171,7 +9171,7 @@ var _user$project$GreenGui_Widgets$menuIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$presetIcon = function () {
+var _user$project$Icons$presetIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9259,7 +9259,7 @@ var _user$project$GreenGui_Widgets$presetIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$lockIcon = function () {
+var _user$project$Icons$lockIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9296,7 +9296,7 @@ var _user$project$GreenGui_Widgets$lockIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$monitorIcon = F2(
+var _user$project$Icons$monitorIcon = F2(
 	function (label, isSelected) {
 		var containerHeight = 140;
 		var containerWidth = 160;
@@ -9393,7 +9393,7 @@ var _user$project$GreenGui_Widgets$monitorIcon = F2(
 						]))
 				]));
 	});
-var _user$project$GreenGui_Widgets$pipMenuIcon = function () {
+var _user$project$Icons$pipMenuIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9448,7 +9448,7 @@ var _user$project$GreenGui_Widgets$pipMenuIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$nightModeIcon = function () {
+var _user$project$Icons$nightModeIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9494,7 +9494,7 @@ var _user$project$GreenGui_Widgets$nightModeIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$decrementIcon = function () {
+var _user$project$Icons$decrementIcon = function () {
 	var containerHeight = 300;
 	var containerWidth = 180;
 	return A2(
@@ -9544,7 +9544,7 @@ var _user$project$GreenGui_Widgets$decrementIcon = function () {
 					]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$brightnessLine = F4(
+var _user$project$Icons$brightnessLine = F4(
 	function (x1$, y1$, x2$, y2$) {
 		return A2(
 			_elm_lang$svg$Svg$line,
@@ -9564,7 +9564,7 @@ var _user$project$GreenGui_Widgets$brightnessLine = F4(
 			_elm_lang$core$Native_List.fromArray(
 				[]));
 	});
-var _user$project$GreenGui_Widgets$brightnessIcon = function () {
+var _user$project$Icons$brightnessIcon = function () {
 	var containerHeight = 300;
 	var containerWidth = 180;
 	return A2(
@@ -9601,17 +9601,17 @@ var _user$project$GreenGui_Widgets$brightnessIcon = function () {
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[])),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '89', '80.6', '89', '113.3'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '116.4', '122.9', '137.7', '101.2'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '123.3', '149.7', '152.2', '149.7'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '113.4', '174.3', '133.2', '194.8'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '89', '181.1', '89', '213.1'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '64.6', '174.3', '41', '194.8'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '52.8', '149.7', '22.7', '149.7'),
-				A4(_user$project$GreenGui_Widgets$brightnessLine, '62', '120.1', '41', '97.7')
+				A4(_user$project$Icons$brightnessLine, '89', '80.6', '89', '113.3'),
+				A4(_user$project$Icons$brightnessLine, '116.4', '122.9', '137.7', '101.2'),
+				A4(_user$project$Icons$brightnessLine, '123.3', '149.7', '152.2', '149.7'),
+				A4(_user$project$Icons$brightnessLine, '113.4', '174.3', '133.2', '194.8'),
+				A4(_user$project$Icons$brightnessLine, '89', '181.1', '89', '213.1'),
+				A4(_user$project$Icons$brightnessLine, '64.6', '174.3', '41', '194.8'),
+				A4(_user$project$Icons$brightnessLine, '52.8', '149.7', '22.7', '149.7'),
+				A4(_user$project$Icons$brightnessLine, '62', '120.1', '41', '97.7')
 			]));
 }();
-var _user$project$GreenGui_Widgets$incrementIcon = function () {
+var _user$project$Icons$incrementIcon = function () {
 	var containerHeight = 300;
 	var containerWidth = 180;
 	return A2(
@@ -9661,7 +9661,7 @@ var _user$project$GreenGui_Widgets$incrementIcon = function () {
 					]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$brightnessSetupIcon = function () {
+var _user$project$Icons$brightnessSetupIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 176;
 	return A2(
@@ -9814,7 +9814,7 @@ var _user$project$GreenGui_Widgets$brightnessSetupIcon = function () {
 					]))
 			]));
 }();
-var _user$project$GreenGui_Widgets$powerIcon = function (isDisabled) {
+var _user$project$Icons$powerIcon = function (isDisabled) {
 	var color = isDisabled ? '#414042' : '#B71318';
 	var containerHeight = 128;
 	var containerWidth = 128;
@@ -9874,7 +9874,7 @@ var _user$project$GreenGui_Widgets$powerIcon = function (isDisabled) {
 					[]))
 			]));
 };
-var _user$project$GreenGui_Widgets$selectAllIcon = function () {
+var _user$project$Icons$selectAllIcon = function () {
 	var color = '#231f20';
 	var containerHeight = 48;
 	var containerWidth = 204;
@@ -9945,6 +9945,80 @@ var _user$project$GreenGui_Widgets$selectAllIcon = function () {
 					[]))
 			]));
 }();
+
+var _user$project$General$closeIconView = A2(
+	_elm_lang$html$Html$div,
+	_elm_lang$core$Native_List.fromArray(
+		[
+			_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+		]),
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-5')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[])),
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[_user$project$Icons$closeIcon]))
+		]));
+var _user$project$General$appTopBarHeaderIcon = function (html) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[html]))
+			]));
+};
+var _user$project$General$appTopBarHeader = function (value) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_user$project$Icons$labelLeftIcon(value)
+					]))
+			]));
+};
 
 var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort('in_longPressedMonitor', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_unlockLockCountdown = _elm_lang$core$Native_Platform.incomingPort('in_unlockLockCountdown', _elm_lang$core$Json_Decode$string);
@@ -10337,7 +10411,7 @@ var _user$project$Home$homePanelView = function (model) {
 									]),
 								_elm_lang$core$Native_List.fromArray(
 									[
-										_user$project$GreenGui_Widgets$powerIcon(model.isPowerDisabled)
+										_user$project$Icons$powerIcon(model.isPowerDisabled)
 									]))
 							]))
 					])),
@@ -10348,7 +10422,7 @@ var _user$project$Home$homePanelView = function (model) {
 						_elm_lang$html$Html_Attributes$class('home-panel-division div-1-4 vdiv-1-1')
 					]),
 				_elm_lang$core$Native_List.fromArray(
-					[_user$project$GreenGui_Widgets$brightnessSetupIcon])),
+					[_user$project$Icons$brightnessSetupIcon])),
 				A2(
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
@@ -10372,7 +10446,7 @@ var _user$project$Home$homePanelView = function (model) {
 										_elm_lang$html$Html_Attributes$class('div-3-5 vdiv-3-5')
 									]),
 								_elm_lang$core$Native_List.fromArray(
-									[_user$project$GreenGui_Widgets$nightModeIcon]))
+									[_user$project$Icons$nightModeIcon]))
 							]))
 					])),
 				A2(
@@ -10398,7 +10472,7 @@ var _user$project$Home$homePanelView = function (model) {
 										_elm_lang$html$Html_Attributes$class('div-3-5 vdiv-3-5')
 									]),
 								_elm_lang$core$Native_List.fromArray(
-									[_user$project$GreenGui_Widgets$pipMenuIcon]))
+									[_user$project$Icons$pipMenuIcon]))
 							]))
 					]))
 			]));
@@ -10433,7 +10507,7 @@ var _user$project$Home$homeMenuView = function (style$) {
 								_elm_lang$html$Html_Attributes$class('content-centered vdiv-1-1 div-1-1')
 							]),
 						_elm_lang$core$Native_List.fromArray(
-							[_user$project$GreenGui_Widgets$lockIcon]))
+							[_user$project$Icons$lockIcon]))
 					])),
 				A2(
 				_elm_lang$html$Html$div,
@@ -10451,7 +10525,7 @@ var _user$project$Home$homeMenuView = function (style$) {
 								_elm_lang$html$Html_Attributes$class('content-centered vdiv-1-1 div-1-1')
 							]),
 						_elm_lang$core$Native_List.fromArray(
-							[_user$project$GreenGui_Widgets$presetIcon]))
+							[_user$project$Icons$presetIcon]))
 					])),
 				A2(
 				_elm_lang$html$Html$div,
@@ -10469,7 +10543,7 @@ var _user$project$Home$homeMenuView = function (style$) {
 								_elm_lang$html$Html_Attributes$class('content-centered vdiv-1-1 div-1-1')
 							]),
 						_elm_lang$core$Native_List.fromArray(
-							[_user$project$GreenGui_Widgets$menuIcon]))
+							[_user$project$Icons$menuIcon]))
 					])),
 				A2(
 				_elm_lang$html$Html$div,
@@ -10486,7 +10560,7 @@ var _user$project$Home$homeMenuView = function (style$) {
 								_elm_lang$html$Html_Attributes$class('content-centered vdiv-1-1 div-1-1')
 							]),
 						_elm_lang$core$Native_List.fromArray(
-							[_user$project$GreenGui_Widgets$informationIcon]))
+							[_user$project$Icons$informationIcon]))
 					]))
 			]));
 };
@@ -10567,7 +10641,7 @@ var _user$project$Home$monitorViewPager = A2(
 											_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-4-5 content-centered')
 										]),
 									_elm_lang$core$Native_List.fromArray(
-										[_user$project$GreenGui_Widgets$selectAllIcon])),
+										[_user$project$Icons$selectAllIcon])),
 									A2(
 									_elm_lang$html$Html$div,
 									_elm_lang$core$Native_List.fromArray(
@@ -10642,7 +10716,7 @@ var _user$project$Home$monitorViewButton = F2(
 										]),
 									_elm_lang$core$Native_List.fromArray(
 										[
-											A2(_user$project$GreenGui_Widgets$monitorIcon, monitor.number, monitor.isSelected)
+											A2(_user$project$Icons$monitorIcon, monitor.number, monitor.isSelected)
 										]))
 								]))
 						]))
@@ -10718,10 +10792,936 @@ var _user$project$Home$subscriptions = function (model) {
 			]));
 };
 
-var _user$project$Main$Model = F2(
-	function (a, b) {
-		return {homeModel: a, viewState: b};
+var _user$project$MonitorSetup$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'CloseMonitorConfiguration':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'SignalInputToggle':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipUpDownButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipLeftRightButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PipResizeButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdUpDownButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdLeftRightButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'OsdSelectButtonPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+		}
 	});
+var _user$project$MonitorSetup$Model = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return function (l) {
+												return {selectedMonitor: a, isVgaOneSelectOpen: b, isVgaTwoSelectOpen: c, isDviOneSelectOpen: d, isDviTwoSelectOpen: e, isVideoOneSelectOpen: f, isVideoTwoSelectOpen: g, isVideoThreeSelectOpen: h, isOsdSetPressed: i, isPipSetPressed: j, segmentState: k, selectedTheme: l};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$MonitorSetup$Osd = {ctor: 'Osd'};
+var _user$project$MonitorSetup$Pip = {ctor: 'Pip'};
+var _user$project$MonitorSetup$None = {ctor: 'None'};
+var _user$project$MonitorSetup$defaultModel = {
+	selectedMonitor: A2(_user$project$Types$defaultMonitor, '1', true),
+	isVgaOneSelectOpen: false,
+	isVgaTwoSelectOpen: false,
+	isDviOneSelectOpen: false,
+	isDviTwoSelectOpen: false,
+	isVideoOneSelectOpen: false,
+	isVideoTwoSelectOpen: false,
+	isVideoThreeSelectOpen: false,
+	isOsdSetPressed: false,
+	isPipSetPressed: false,
+	segmentState: _user$project$MonitorSetup$None,
+	selectedTheme: _user$project$Types$DefaultTheme
+};
+var _user$project$MonitorSetup$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	_user$project$MonitorSetup$defaultModel,
+	_elm_lang$core$Native_List.fromArray(
+		[]));
+var _user$project$MonitorSetup$ExitMonitorSettingSegmentPress = {ctor: 'ExitMonitorSettingSegmentPress'};
+var _user$project$MonitorSetup$OsdSelectButtonPress = {ctor: 'OsdSelectButtonPress'};
+var _user$project$MonitorSetup$OsdLeftRightButtonPress = {ctor: 'OsdLeftRightButtonPress'};
+var _user$project$MonitorSetup$OsdUpDownButtonPress = {ctor: 'OsdUpDownButtonPress'};
+var _user$project$MonitorSetup$monitorSettingSegmentStateViewOsd = function (monitorSettingState) {
+	var monitor = monitorSettingState.selectedMonitor;
+	var isLeftRightOn = monitor.isOsdLeftRightPressed ? 'disabled' : '';
+	var isUpDownOn = monitor.isOsdUpDownPressed ? 'disabled' : '';
+	var isSelectedOn = monitor.isOsdSelectPressed ? 'disabled' : '';
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1 content-centered')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-4-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], 'div-3-4 vdiv-3-4 osd-button monitor-button content-centered ', isLeftRightOn)),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdLeftRightButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_user$project$Icons$leftRightIcon(monitor.isOsdLeftRightPressed)
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], 'div-3-4 vdiv-3-4 osd-button monitor-button content-centered ', isUpDownOn)),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdUpDownButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_user$project$Icons$upDownIcon(monitor.isOsdUpDownPressed)
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], 'div-3-4 vdiv-3-4 osd-button monitor-button content-centered ', isSelectedOn)),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdSelectButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_user$project$Icons$selectIcon(monitor.isOsdSelectPressed)
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('div-3-4 vdiv-3-4 pip-button monitor-button content-centered '),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$ExitMonitorSettingSegmentPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[_user$project$Icons$exitOsdIcon]))
+							]))
+					]))
+			]));
+};
+var _user$project$MonitorSetup$osdButtonSetView = function (model) {
+	var getIsPressedSrc = function (value) {
+		return value ? 'images/osd_type_button_pressed.svg' : 'images/osd_type_button.svg';
+	};
+	var monitor = model.selectedMonitor;
+	var upDownSrc = getIsPressedSrc(monitor.isOsdUpDownPressed);
+	var leftRightSrc = getIsPressedSrc(monitor.isOsdLeftRightPressed);
+	var selectSrc = getIsPressedSrc(monitor.isOsdSelectPressed);
+	var isVisible = _elm_lang$core$Basics$not(model.isOsdSetPressed) ? 'hidden' : '';
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class(
+				A2(_elm_lang$core$Basics_ops['++'], 'div-1-3 ', isVisible))
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('vdiv-1-2')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-2 align-center')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-1-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('LEFT/RIGHT')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-4-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+												_elm_lang$html$Html_Attributes$src(leftRightSrc),
+												_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdLeftRightButtonPress)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-2 align-center')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-1-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('UP/DOWN')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-4-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+												_elm_lang$html$Html_Attributes$src(upDownSrc),
+												_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdUpDownButtonPress)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('vdiv-1-2 align-center')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-1 align-center')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-1-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('SELECT')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-4-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+												_elm_lang$html$Html_Attributes$src(selectSrc),
+												_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdSelectButtonPress)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							]))
+					]))
+			]));
+};
+var _user$project$MonitorSetup$PipResizeButtonPress = {ctor: 'PipResizeButtonPress'};
+var _user$project$MonitorSetup$PipLeftRightButtonPress = {ctor: 'PipLeftRightButtonPress'};
+var _user$project$MonitorSetup$PipUpDownButtonPress = {ctor: 'PipUpDownButtonPress'};
+var _user$project$MonitorSetup$monitorSettingSegmentStateViewPip = function (model) {
+	var monitor = model.selectedMonitor;
+	var isLeftRightOn = monitor.isPipLeftRightPressed ? 'disabled' : '';
+	var isUpDownOn = monitor.isPipUpDownPressed ? 'disabled' : '';
+	var isResizeOn = monitor.isPipResizePressed ? 'disabled' : '';
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1 content-centered')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-4-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], 'div-3-4 vdiv-3-4 pip-button monitor-button content-centered ', isLeftRightOn)),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipLeftRightButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_user$project$Icons$leftRightIcon(monitor.isPipLeftRightPressed)
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], 'div-3-4 vdiv-3-4 pip-button monitor-button content-centered ', isUpDownOn)),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipUpDownButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_user$project$Icons$upDownIcon(monitor.isPipUpDownPressed)
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], 'div-3-4 vdiv-3-4 pip-button monitor-button content-centered ', isResizeOn)),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipResizeButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_user$project$Icons$resizeIcon(monitor.isPipResizePressed)
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('div-3-4 vdiv-3-4 pip-button monitor-button content-centered '),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$ExitMonitorSettingSegmentPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[_user$project$Icons$exitPipIcon]))
+							]))
+					]))
+			]));
+};
+var _user$project$MonitorSetup$pipButtonSetView = function (model) {
+	var getIsPressedSrc = function (value) {
+		return value ? 'images/pip_type_button_pressed.svg' : 'images/pip_type_button.svg';
+	};
+	var monitor = model.selectedMonitor;
+	var upDownSrc = getIsPressedSrc(monitor.isPipUpDownPressed);
+	var leftRightSrc = getIsPressedSrc(monitor.isPipLeftRightPressed);
+	var resizeSrc = getIsPressedSrc(monitor.isPipResizePressed);
+	var isVisible = _elm_lang$core$Basics$not(model.isPipSetPressed) ? 'hidden' : '';
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class(
+				A2(_elm_lang$core$Basics_ops['++'], 'div-1-3 ', isVisible))
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('vdiv-1-2')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-2 align-center')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-1-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('LEFT/RIGHT')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-4-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+												_elm_lang$html$Html_Attributes$src(leftRightSrc),
+												_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipLeftRightButtonPress)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-2 align-center')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-1-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('UP/DOWN')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-4-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+												_elm_lang$html$Html_Attributes$src(upDownSrc),
+												_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipUpDownButtonPress)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('vdiv-1-2 align-center')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-1 align-center')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-1-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('RESIZE')
+									])),
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('vdiv-4-5')
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										A2(
+										_elm_lang$html$Html$img,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+												_elm_lang$html$Html_Attributes$src(resizeSrc),
+												_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipResizeButtonPress)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[]))
+									]))
+							]))
+					]))
+			]));
+};
+var _user$project$MonitorSetup$OsdButtonPress = {ctor: 'OsdButtonPress'};
+var _user$project$MonitorSetup$PipButtonPress = {ctor: 'PipButtonPress'};
+var _user$project$MonitorSetup$monitorSettingSegmentStateViewNone = function (monitor) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1 content-centered')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-4-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('div-3-4 vdiv-3-4 pip-button monitor-button content-centered '),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$PipButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[_user$project$Icons$pipIcon]))
+							])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('div-1-4 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A2(
+								_elm_lang$html$Html$div,
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html_Attributes$class('div-3-4 vdiv-3-4 pip-button monitor-button content-centered '),
+										_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$OsdButtonPress)
+									]),
+								_elm_lang$core$Native_List.fromArray(
+									[_user$project$Icons$osdIcon]))
+							]))
+					]))
+			]));
+};
+var _user$project$MonitorSetup$monitorSettingLowerBodyView = function (model) {
+	var view = function () {
+		var _p1 = model.segmentState;
+		switch (_p1.ctor) {
+			case 'None':
+				return _user$project$MonitorSetup$monitorSettingSegmentStateViewNone(model);
+			case 'Pip':
+				return _user$project$MonitorSetup$monitorSettingSegmentStateViewPip(model);
+			default:
+				return _user$project$MonitorSetup$monitorSettingSegmentStateViewOsd(model);
+		}
+	}();
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('monitor-setting-lower-body')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[view]));
+};
+var _user$project$MonitorSetup$CloseMonitorConfiguration = {ctor: 'CloseMonitorConfiguration'};
+var _user$project$MonitorSetup$monitorSettingTopBarView = F2(
+	function (monitorSettingScreenState, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$General$appTopBarHeader(
+							A2(_elm_lang$core$Basics_ops['++'], '#', monitorSettingScreenState.selectedMonitor.number))
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$CloseMonitorConfiguration)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$General$closeIconView]))
+				]));
+	});
+var _user$project$MonitorSetup$SignalInputToggle = function (a) {
+	return {ctor: 'SignalInputToggle', _0: a};
+};
+var _user$project$MonitorSetup$signalMatrixView = F4(
+	function (signalType, signalName, monitorSettingScreenState, monitor) {
+		var isActivated = function () {
+			var _p2 = signalType;
+			switch (_p2) {
+				case 'VGA 1':
+					return monitor.isVgaOneCycle;
+				case 'VGA 2':
+					return monitor.isVgaTwoCycle;
+				case 'DVI 1':
+					return monitor.isDviOneCycle;
+				case 'DVI 2':
+					return monitor.isDviTwoCycle;
+				case 'VIDEO 1':
+					return monitor.isVideoOneCycle;
+				case 'VIDEO 2':
+					return monitor.isVideoTwoCycle;
+				case 'VIDEO 3':
+					return monitor.isVideoThreeCycle;
+				default:
+					return false;
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('signal-matrix-view vdiv-1-3')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('signal-matrix-label div-1-1 vdiv-1-2 content-centered')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(signalType)
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('signal-matrix-container div-1-1 vdiv-1-2')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class(
+									A2(_elm_lang$core$Basics_ops['++'], 'div-1-1 vdiv-1-1 content-centered ', signalType))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$span,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'signal-matrix-input div-3-5 vdiv-1-1 content-centered ',
+												isActivated ? ' activated' : '')),
+											_elm_lang$html$Html_Events$onClick(
+											_user$project$MonitorSetup$SignalInputToggle(signalType))
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html$text(signalName)
+										]))
+								]))
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('clear-both')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[]))
+				]));
+	});
+var _user$project$MonitorSetup$monitorSettingUpperBodyView = function (model) {
+	var monitor = model.selectedMonitor;
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('monitor-setting-upper-body div-1-1')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-3 vdiv-1-1')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A4(_user$project$MonitorSetup$signalMatrixView, 'VGA 1', monitor.vgaOne, model, monitor),
+						A4(_user$project$MonitorSetup$signalMatrixView, 'VGA 2', monitor.vgaTwo, model, monitor)
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-3 vdiv-1-1')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A4(_user$project$MonitorSetup$signalMatrixView, 'DVI 1', monitor.dviOne, model, monitor),
+						A4(_user$project$MonitorSetup$signalMatrixView, 'DVI 2', monitor.dviTwo, model, monitor)
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-3 vdiv-1-1')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A4(_user$project$MonitorSetup$signalMatrixView, 'VIDEO 1', monitor.videoOne, model, monitor),
+						A4(_user$project$MonitorSetup$signalMatrixView, 'VIDEO 2', monitor.videoTwo, model, monitor),
+						A4(_user$project$MonitorSetup$signalMatrixView, 'VIDEO 3', monitor.videoThree, model, monitor)
+					]))
+			]));
+};
+var _user$project$MonitorSetup$monitorSettingBodyView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_user$project$MonitorSetup$monitorSettingUpperBodyView(model),
+					_user$project$MonitorSetup$monitorSettingLowerBodyView(model)
+				]));
+	});
+var _user$project$MonitorSetup$view = function (model) {
+	var _p3 = _user$project$Types$getThemeStyle(model.selectedTheme);
+	var upperBodyStyle = _p3._0;
+	var lowerBodyStyle = _p3._1;
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('main')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(_user$project$MonitorSetup$monitorSettingTopBarView, model, upperBodyStyle),
+				A2(_user$project$MonitorSetup$monitorSettingBodyView, model, lowerBodyStyle)
+			]));
+};
+
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {homeModel: a, monitorSetupModel: b, viewMode: c};
+	});
+var _user$project$Main$MonitorSetupMode = {ctor: 'MonitorSetupMode'};
+var _user$project$Main$HomeMode = {ctor: 'HomeMode'};
 var _user$project$Main$UpdateLockCountdownSecondsLeft = function (a) {
 	return {ctor: 'UpdateLockCountdownSecondsLeft', _0: a};
 };
@@ -10731,29 +11731,38 @@ var _user$project$Main$UnlockLockCountdown = function (a) {
 var _user$project$Main$LongPressedMonitor = function (a) {
 	return {ctor: 'LongPressedMonitor', _0: a};
 };
+var _user$project$Main$MonitorSetupMainMsg = function (a) {
+	return {ctor: 'MonitorSetupMainMsg', _0: a};
+};
 var _user$project$Main$HomeMainMsg = function (a) {
 	return {ctor: 'HomeMainMsg', _0: a};
 };
 var _user$project$Main$init = function () {
-	var _p0 = _user$project$Home$init;
-	var val = _p0._0;
-	var cmd = _p0._1;
-	return A2(
-		_elm_lang$core$Platform_Cmd_ops['!'],
-		A2(_user$project$Main$Model, val, 0),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, cmd)
-			]));
+	var _p0 = _user$project$MonitorSetup$init;
+	var monitorSetupVal = _p0._0;
+	var monitorSetupCmd = _p0._1;
+	var _p1 = _user$project$Home$init;
+	var homeVal = _p1._0;
+	var homeCmd = _p1._1;
+	return {
+		ctor: '_Tuple2',
+		_0: A3(_user$project$Main$Model, homeVal, monitorSetupVal, _user$project$Main$HomeMode),
+		_1: _elm_lang$core$Platform_Cmd$batch(
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, homeCmd),
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, monitorSetupCmd)
+				]))
+	};
 }();
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'HomeMainMsg':
-				var _p2 = A2(_user$project$Home$update, _p1._0, model.homeModel);
-				var newHomeModel = _p2._0;
-				var cmd = _p2._1;
+				var _p3 = A2(_user$project$Home$update, _p2._0, model.homeModel);
+				var newHomeModel = _p3._0;
+				var cmd = _p3._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -10763,12 +11772,25 @@ var _user$project$Main$update = F2(
 						[
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, cmd)
 						]));
+			case 'MonitorSetupMainMsg':
+				var _p4 = A2(_user$project$MonitorSetup$update, _p2._0, model.monitorSetupModel);
+				var newMonitorSetupModel = _p4._0;
+				var cmd = _p4._1;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{monitorSetupModel: newMonitorSetupModel}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, cmd)
+						]));
 			case 'LongPressedMonitor':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{viewState: 1}),
+						{viewMode: _user$project$Main$MonitorSetupMode}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'UnlockLockCountdown':
@@ -10786,17 +11808,26 @@ var _user$project$Main$update = F2(
 		}
 	});
 var _user$project$Main$view = function (model) {
+	var view = function () {
+		var _p5 = model.viewMode;
+		if (_p5.ctor === 'HomeMode') {
+			return A2(
+				_elm_lang$html$Html_App$map,
+				_user$project$Main$HomeMainMsg,
+				_user$project$Home$view(model.homeModel));
+		} else {
+			return A2(
+				_elm_lang$html$Html_App$map,
+				_user$project$Main$MonitorSetupMainMsg,
+				_user$project$MonitorSetup$view(model.monitorSetupModel));
+		}
+	}();
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
 		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html_App$map,
-				_user$project$Main$HomeMainMsg,
-				_user$project$Home$view(model.homeModel))
-			]));
+			[view]));
 };
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(

@@ -7,21 +7,28 @@ import Html exposing (..)
 import Basics
 import Ports
 import Home
+import MonitorSetup
 
 type alias Model =
   { homeModel : Home.Model
-  , viewState : Int }
+  , monitorSetupModel : MonitorSetup.Model
+  , viewMode : ViewMode }
+
+type ViewMode = HomeMode | MonitorSetupMode
 
 init : ( Model, Cmd Msg )
 init =
   let
-    (val, cmd) = Home.init
+    (homeVal, homeCmd) = Home.init
+    (monitorSetupVal, monitorSetupCmd) = MonitorSetup.init
   in
-    Model val 0 ! [Cmd.map HomeMainMsg cmd]
+    (Model homeVal monitorSetupVal HomeMode,
+      Cmd.batch [ Cmd.map HomeMainMsg homeCmd, Cmd.map MonitorSetupMainMsg monitorSetupCmd ])
 -- UPDATE
 
 type Msg
   = HomeMainMsg Home.Msg
+  | MonitorSetupMainMsg MonitorSetup.Msg
   | LongPressedMonitor String
   | UnlockLockCountdown String
   | UpdateLockCountdownSecondsLeft Int
@@ -29,13 +36,18 @@ type Msg
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    HomeMainMsg compMsg ->
+    HomeMainMsg homeMainMsg ->
       let
-        (newHomeModel, cmd) = Home.update compMsg model.homeModel
+        (newHomeModel, cmd) = Home.update homeMainMsg model.homeModel
       in
         { model | homeModel = newHomeModel } ! [Cmd.map HomeMainMsg cmd]
+    MonitorSetupMainMsg monitorSetupMainMsg ->
+      let
+        (newMonitorSetupModel, cmd) = MonitorSetup.update monitorSetupMainMsg  model.monitorSetupModel
+      in
+        { model | monitorSetupModel = newMonitorSetupModel } ! [Cmd.map MonitorSetupMainMsg cmd]
     LongPressedMonitor val ->
-      { model | viewState = 1 } ! [ ]
+      { model | viewMode = MonitorSetupMode } ! [ ]
     UnlockLockCountdown val ->
       model ! [ ]
     UpdateLockCountdownSecondsLeft val ->
@@ -43,7 +55,11 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div [ ] [ App.map HomeMainMsg (Home.view model.homeModel)  ]
+  let view =
+    case model.viewMode of
+      HomeMode -> App.map HomeMainMsg (Home.view model.homeModel)
+      MonitorSetupMode -> App.map MonitorSetupMainMsg (MonitorSetup.view model.monitorSetupModel)
+  in div [ ] [ view ]
 
 --- entry point
 main : Program Never

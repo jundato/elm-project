@@ -2,7 +2,7 @@ module Home exposing (..)
 
 import Ports exposing (..)
 import Types exposing (..)
-import GreenGui.Widgets exposing (..)
+import Icons exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
