@@ -12,12 +12,21 @@ function main() {
 var app = Elm.Main.fullscreen()
 
 app.ports.out_onPressedMonitor.subscribe(function(monitor) {
+
   monitorPressTimer = window.setTimeout(function() {
+    console.log(monitor);
+    app.ports.in_startEditingMonitor.send(monitor);
     app.ports.in_longPressedMonitor.send(monitor);
   },1000);
 });
 
 app.ports.out_returnToHomeMode.subscribe(function(temp){
+  app.ports.in_returnToHomeMode.send("");
+});
+
+app.ports.out_exitAndSaveMonitorChanges.subscribe(function(monitor){
+  console.log(monitor);
+  app.ports.in_updateMonitor.send(monitor);
   app.ports.in_returnToHomeMode.send("");
 });
 

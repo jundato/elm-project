@@ -42,7 +42,7 @@ defaultModel =  { selectedMonitor = defaultMonitor "1" True
 
 type Msg
   = SignalInputToggle String
-  | CloseMonitorConfiguration
+  | CloseMonitorConfiguration Monitor
   | PipButtonPress
   | OsdButtonPress
   | PipUpDownButtonPress
@@ -52,17 +52,17 @@ type Msg
   | OsdLeftRightButtonPress
   | OsdSelectButtonPress
   | ExitMonitorSettingSegmentPress
+  | StartEditingMonitor Monitor
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
 ---- Monitor Setting Actions
-    CloseMonitorConfiguration -> model ! [ Ports.out_returnToHomeMode "" ]
+    CloseMonitorConfiguration monitor -> model ! [ Ports.out_exitAndSaveMonitorChanges monitor ]
     SignalInputToggle signalType ->
       let selectedMonitor'  = model.selectedMonitor
       in { model | selectedMonitor =  activateCycleSignalMatrix signalType selectedMonitor' } ! []
-    PipButtonPress ->
-      { model | segmentState = Pip } ! []
+    PipButtonPress -> { model | segmentState = Pip } ! []
     OsdButtonPress ->
       { model | segmentState = Osd } ! []
     PipUpDownButtonPress -> setPipUpDownButtonPress model ! []
@@ -72,24 +72,26 @@ update msg model =
     OsdLeftRightButtonPress -> setOsdLeftRightButtonPress model ! []
     OsdSelectButtonPress -> setOsdSelectButtonPress model ! []
     ExitMonitorSettingSegmentPress -> { model | segmentState = None } ! []
+    StartEditingMonitor monitor -> { model | selectedMonitor = monitor } ! []
 
 init : (Model, Cmd Msg)
 init = defaultModel ! []
 
 view : Model -> Html Msg
 view model =
-  let (upperBodyStyle, lowerBodyStyle) = getThemeStyle model.selectedTheme
+  let
+    (upperBodyStyle, lowerBodyStyle) = getThemeStyle model.selectedTheme
   in div  [ class "main" ]
           [ monitorSettingTopBarView model upperBodyStyle
           , monitorSettingBodyView model lowerBodyStyle ]
 
 -- top bar for monitor setting view
 monitorSettingTopBarView : Model -> (String, String) -> Html Msg
-monitorSettingTopBarView monitorSettingScreenState style' =
+monitorSettingTopBarView model style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
-            [ appTopBarHeader ("#" ++ monitorSettingScreenState.selectedMonitor.number) ]
-      , div [ class "div-1-10 float-right", onClick CloseMonitorConfiguration ] [ closeIconView ] ]
+            [ appTopBarHeader ("#" ++ model.selectedMonitor.number) ]
+      , div [ class "div-1-10 float-right", onClick (CloseMonitorConfiguration model.selectedMonitor) ] [ closeIconView ] ]
 
 -- main body for monitor setting view
 monitorSettingBodyView : Model -> (String, String) -> Html Msg
@@ -101,7 +103,9 @@ monitorSettingBodyView model style' =
 -- monitor setting upper body view
 monitorSettingUpperBodyView : Model -> Html Msg
 monitorSettingUpperBodyView model =
-  let monitor = model.selectedMonitor
+  let
+    monitor = model.selectedMonitor
+    asd = Debug.log monitor.number 1
   in div [ class "monitor-setting-upper-body div-1-1" ]
           [ div [ class "div-1-3 vdiv-1-1" ]
                 [ signalMatrixView "VGA 1" monitor.vgaOne model monitor
@@ -379,3 +383,7 @@ setOsdSelectButtonPress : Model -> Model
 setOsdSelectButtonPress model =
   let monitor = model.selectedMonitor
   in { model | selectedMonitor = { monitor |  isOsdSelectPressed = not monitor.isOsdSelectPressed }}
+
+-- WIRING --
+subscriptions : Model -> Sub Msg
+subscriptions model = Ports.in_startEditingMonitor StartEditingMonitor

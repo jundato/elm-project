@@ -10020,37 +10020,6 @@ var _user$project$General$appTopBarHeader = function (value) {
 			]));
 };
 
-var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort('in_longPressedMonitor', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_unlockLockCountdown = _elm_lang$core$Native_Platform.incomingPort('in_unlockLockCountdown', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_updateLockCountdownSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateLockCountdownSecondsLeft', _elm_lang$core$Json_Decode$int);
-var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$out_onPressedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_onPressedMonitor',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$out_onPressReleasedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_onPressReleasedMonitor',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$out_onLockScreenPressed = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_onLockScreenPressed',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$out_returnToHomeMode = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_returnToHomeMode',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
-	'toJS',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$fromJS = _elm_lang$core$Native_Platform.incomingPort('fromJS', _elm_lang$core$Json_Decode$int);
-
 var _user$project$Types$defaultMonitor = F2(
 	function (number$, isVisible$) {
 		return {number: number$, isSelected: false, isVisible: isVisible$, vgaOne: 'XBAND RADAR', vgaTwo: 'XBAND RADAR', dviOne: 'XBAND RADAR', dviTwo: 'XBAND RADAR', videoOne: 'XBAND RADAR', videoTwo: 'XBAND RADAR', videoThree: 'XBAND RADAR', isVgaOneCycle: true, isVgaTwoCycle: false, isDviOneCycle: false, isDviTwoCycle: false, isVideoOneCycle: false, isVideoTwoCycle: false, isVideoThreeCycle: false, isPipUpDownPressed: false, isPipLeftRightPressed: false, isPipResizePressed: false, isOsdUpDownPressed: false, isOsdLeftRightPressed: false, isOsdSelectPressed: false, isOn: false};
@@ -10136,6 +10105,428 @@ var _user$project$Types$DarkTheme = {ctor: 'DarkTheme'};
 var _user$project$Types$DefaultFlatTheme = {ctor: 'DefaultFlatTheme'};
 var _user$project$Types$DefaultTheme = {ctor: 'DefaultTheme'};
 
+var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort(
+	'in_longPressedMonitor',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'number', _elm_lang$core$Json_Decode$string),
+		function (number) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'isSelected', _elm_lang$core$Json_Decode$bool),
+				function (isSelected) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVisible', _elm_lang$core$Json_Decode$bool),
+						function (isVisible) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaOne', _elm_lang$core$Json_Decode$string),
+								function (vgaOne) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaTwo', _elm_lang$core$Json_Decode$string),
+										function (vgaTwo) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												A2(_elm_lang$core$Json_Decode_ops[':='], 'dviOne', _elm_lang$core$Json_Decode$string),
+												function (dviOne) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														A2(_elm_lang$core$Json_Decode_ops[':='], 'dviTwo', _elm_lang$core$Json_Decode$string),
+														function (dviTwo) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																A2(_elm_lang$core$Json_Decode_ops[':='], 'videoOne', _elm_lang$core$Json_Decode$string),
+																function (videoOne) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		A2(_elm_lang$core$Json_Decode_ops[':='], 'videoTwo', _elm_lang$core$Json_Decode$string),
+																		function (videoTwo) {
+																			return A2(
+																				_elm_lang$core$Json_Decode$andThen,
+																				A2(_elm_lang$core$Json_Decode_ops[':='], 'videoThree', _elm_lang$core$Json_Decode$string),
+																				function (videoThree) {
+																					return A2(
+																						_elm_lang$core$Json_Decode$andThen,
+																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaOneCycle', _elm_lang$core$Json_Decode$bool),
+																						function (isVgaOneCycle) {
+																							return A2(
+																								_elm_lang$core$Json_Decode$andThen,
+																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaTwoCycle', _elm_lang$core$Json_Decode$bool),
+																								function (isVgaTwoCycle) {
+																									return A2(
+																										_elm_lang$core$Json_Decode$andThen,
+																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																										function (isDviOneCycle) {
+																											return A2(
+																												_elm_lang$core$Json_Decode$andThen,
+																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																												function (isDviOneCycle) {
+																													return A2(
+																														_elm_lang$core$Json_Decode$andThen,
+																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviTwoCycle', _elm_lang$core$Json_Decode$bool),
+																														function (isDviTwoCycle) {
+																															return A2(
+																																_elm_lang$core$Json_Decode$andThen,
+																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoOneCycle', _elm_lang$core$Json_Decode$bool),
+																																function (isVideoOneCycle) {
+																																	return A2(
+																																		_elm_lang$core$Json_Decode$andThen,
+																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoTwoCycle', _elm_lang$core$Json_Decode$bool),
+																																		function (isVideoTwoCycle) {
+																																			return A2(
+																																				_elm_lang$core$Json_Decode$andThen,
+																																				A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoThreeCycle', _elm_lang$core$Json_Decode$bool),
+																																				function (isVideoThreeCycle) {
+																																					return A2(
+																																						_elm_lang$core$Json_Decode$andThen,
+																																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																						function (isPipUpDownPressed) {
+																																							return A2(
+																																								_elm_lang$core$Json_Decode$andThen,
+																																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																								function (isPipLeftRightPressed) {
+																																									return A2(
+																																										_elm_lang$core$Json_Decode$andThen,
+																																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipResizePressed', _elm_lang$core$Json_Decode$bool),
+																																										function (isPipResizePressed) {
+																																											return A2(
+																																												_elm_lang$core$Json_Decode$andThen,
+																																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																												function (isOsdUpDownPressed) {
+																																													return A2(
+																																														_elm_lang$core$Json_Decode$andThen,
+																																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																														function (isOsdLeftRightPressed) {
+																																															return A2(
+																																																_elm_lang$core$Json_Decode$andThen,
+																																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdSelectPressed', _elm_lang$core$Json_Decode$bool),
+																																																function (isOsdSelectPressed) {
+																																																	return A2(
+																																																		_elm_lang$core$Json_Decode$andThen,
+																																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isOn', _elm_lang$core$Json_Decode$bool),
+																																																		function (isOn) {
+																																																			return _elm_lang$core$Json_Decode$succeed(
+																																																				{number: number, isSelected: isSelected, isVisible: isVisible, vgaOne: vgaOne, vgaTwo: vgaTwo, dviOne: dviOne, dviTwo: dviTwo, videoOne: videoOne, videoTwo: videoTwo, videoThree: videoThree, isVgaOneCycle: isVgaOneCycle, isVgaTwoCycle: isVgaTwoCycle, isDviOneCycle: isDviOneCycle, isDviOneCycle: isDviOneCycle, isDviTwoCycle: isDviTwoCycle, isVideoOneCycle: isVideoOneCycle, isVideoTwoCycle: isVideoTwoCycle, isVideoThreeCycle: isVideoThreeCycle, isPipUpDownPressed: isPipUpDownPressed, isPipLeftRightPressed: isPipLeftRightPressed, isPipResizePressed: isPipResizePressed, isOsdUpDownPressed: isOsdUpDownPressed, isOsdLeftRightPressed: isOsdLeftRightPressed, isOsdSelectPressed: isOsdSelectPressed, isOn: isOn});
+																																																		});
+																																																});
+																																														});
+																																												});
+																																										});
+																																								});
+																																						});
+																																				});
+																																		});
+																																});
+																														});
+																												});
+																										});
+																								});
+																						});
+																				});
+																		});
+																});
+														});
+												});
+										});
+								});
+						});
+				});
+		}));
+var _user$project$Ports$in_unlockLockCountdown = _elm_lang$core$Native_Platform.incomingPort('in_unlockLockCountdown', _elm_lang$core$Json_Decode$string);
+var _user$project$Ports$in_updateLockCountdownSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateLockCountdownSecondsLeft', _elm_lang$core$Json_Decode$int);
+var _user$project$Ports$in_updateMonitor = _elm_lang$core$Native_Platform.incomingPort(
+	'in_updateMonitor',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'number', _elm_lang$core$Json_Decode$string),
+		function (number) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'isSelected', _elm_lang$core$Json_Decode$bool),
+				function (isSelected) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVisible', _elm_lang$core$Json_Decode$bool),
+						function (isVisible) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaOne', _elm_lang$core$Json_Decode$string),
+								function (vgaOne) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaTwo', _elm_lang$core$Json_Decode$string),
+										function (vgaTwo) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												A2(_elm_lang$core$Json_Decode_ops[':='], 'dviOne', _elm_lang$core$Json_Decode$string),
+												function (dviOne) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														A2(_elm_lang$core$Json_Decode_ops[':='], 'dviTwo', _elm_lang$core$Json_Decode$string),
+														function (dviTwo) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																A2(_elm_lang$core$Json_Decode_ops[':='], 'videoOne', _elm_lang$core$Json_Decode$string),
+																function (videoOne) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		A2(_elm_lang$core$Json_Decode_ops[':='], 'videoTwo', _elm_lang$core$Json_Decode$string),
+																		function (videoTwo) {
+																			return A2(
+																				_elm_lang$core$Json_Decode$andThen,
+																				A2(_elm_lang$core$Json_Decode_ops[':='], 'videoThree', _elm_lang$core$Json_Decode$string),
+																				function (videoThree) {
+																					return A2(
+																						_elm_lang$core$Json_Decode$andThen,
+																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaOneCycle', _elm_lang$core$Json_Decode$bool),
+																						function (isVgaOneCycle) {
+																							return A2(
+																								_elm_lang$core$Json_Decode$andThen,
+																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaTwoCycle', _elm_lang$core$Json_Decode$bool),
+																								function (isVgaTwoCycle) {
+																									return A2(
+																										_elm_lang$core$Json_Decode$andThen,
+																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																										function (isDviOneCycle) {
+																											return A2(
+																												_elm_lang$core$Json_Decode$andThen,
+																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																												function (isDviOneCycle) {
+																													return A2(
+																														_elm_lang$core$Json_Decode$andThen,
+																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviTwoCycle', _elm_lang$core$Json_Decode$bool),
+																														function (isDviTwoCycle) {
+																															return A2(
+																																_elm_lang$core$Json_Decode$andThen,
+																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoOneCycle', _elm_lang$core$Json_Decode$bool),
+																																function (isVideoOneCycle) {
+																																	return A2(
+																																		_elm_lang$core$Json_Decode$andThen,
+																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoTwoCycle', _elm_lang$core$Json_Decode$bool),
+																																		function (isVideoTwoCycle) {
+																																			return A2(
+																																				_elm_lang$core$Json_Decode$andThen,
+																																				A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoThreeCycle', _elm_lang$core$Json_Decode$bool),
+																																				function (isVideoThreeCycle) {
+																																					return A2(
+																																						_elm_lang$core$Json_Decode$andThen,
+																																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																						function (isPipUpDownPressed) {
+																																							return A2(
+																																								_elm_lang$core$Json_Decode$andThen,
+																																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																								function (isPipLeftRightPressed) {
+																																									return A2(
+																																										_elm_lang$core$Json_Decode$andThen,
+																																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipResizePressed', _elm_lang$core$Json_Decode$bool),
+																																										function (isPipResizePressed) {
+																																											return A2(
+																																												_elm_lang$core$Json_Decode$andThen,
+																																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																												function (isOsdUpDownPressed) {
+																																													return A2(
+																																														_elm_lang$core$Json_Decode$andThen,
+																																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																														function (isOsdLeftRightPressed) {
+																																															return A2(
+																																																_elm_lang$core$Json_Decode$andThen,
+																																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdSelectPressed', _elm_lang$core$Json_Decode$bool),
+																																																function (isOsdSelectPressed) {
+																																																	return A2(
+																																																		_elm_lang$core$Json_Decode$andThen,
+																																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isOn', _elm_lang$core$Json_Decode$bool),
+																																																		function (isOn) {
+																																																			return _elm_lang$core$Json_Decode$succeed(
+																																																				{number: number, isSelected: isSelected, isVisible: isVisible, vgaOne: vgaOne, vgaTwo: vgaTwo, dviOne: dviOne, dviTwo: dviTwo, videoOne: videoOne, videoTwo: videoTwo, videoThree: videoThree, isVgaOneCycle: isVgaOneCycle, isVgaTwoCycle: isVgaTwoCycle, isDviOneCycle: isDviOneCycle, isDviOneCycle: isDviOneCycle, isDviTwoCycle: isDviTwoCycle, isVideoOneCycle: isVideoOneCycle, isVideoTwoCycle: isVideoTwoCycle, isVideoThreeCycle: isVideoThreeCycle, isPipUpDownPressed: isPipUpDownPressed, isPipLeftRightPressed: isPipLeftRightPressed, isPipResizePressed: isPipResizePressed, isOsdUpDownPressed: isOsdUpDownPressed, isOsdLeftRightPressed: isOsdLeftRightPressed, isOsdSelectPressed: isOsdSelectPressed, isOn: isOn});
+																																																		});
+																																																});
+																																														});
+																																												});
+																																										});
+																																								});
+																																						});
+																																				});
+																																		});
+																																});
+																														});
+																												});
+																										});
+																								});
+																						});
+																				});
+																		});
+																});
+														});
+												});
+										});
+								});
+						});
+				});
+		}));
+var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
+var _user$project$Ports$in_startEditingMonitor = _elm_lang$core$Native_Platform.incomingPort(
+	'in_startEditingMonitor',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'number', _elm_lang$core$Json_Decode$string),
+		function (number) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'isSelected', _elm_lang$core$Json_Decode$bool),
+				function (isSelected) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVisible', _elm_lang$core$Json_Decode$bool),
+						function (isVisible) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaOne', _elm_lang$core$Json_Decode$string),
+								function (vgaOne) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaTwo', _elm_lang$core$Json_Decode$string),
+										function (vgaTwo) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												A2(_elm_lang$core$Json_Decode_ops[':='], 'dviOne', _elm_lang$core$Json_Decode$string),
+												function (dviOne) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														A2(_elm_lang$core$Json_Decode_ops[':='], 'dviTwo', _elm_lang$core$Json_Decode$string),
+														function (dviTwo) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																A2(_elm_lang$core$Json_Decode_ops[':='], 'videoOne', _elm_lang$core$Json_Decode$string),
+																function (videoOne) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		A2(_elm_lang$core$Json_Decode_ops[':='], 'videoTwo', _elm_lang$core$Json_Decode$string),
+																		function (videoTwo) {
+																			return A2(
+																				_elm_lang$core$Json_Decode$andThen,
+																				A2(_elm_lang$core$Json_Decode_ops[':='], 'videoThree', _elm_lang$core$Json_Decode$string),
+																				function (videoThree) {
+																					return A2(
+																						_elm_lang$core$Json_Decode$andThen,
+																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaOneCycle', _elm_lang$core$Json_Decode$bool),
+																						function (isVgaOneCycle) {
+																							return A2(
+																								_elm_lang$core$Json_Decode$andThen,
+																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaTwoCycle', _elm_lang$core$Json_Decode$bool),
+																								function (isVgaTwoCycle) {
+																									return A2(
+																										_elm_lang$core$Json_Decode$andThen,
+																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																										function (isDviOneCycle) {
+																											return A2(
+																												_elm_lang$core$Json_Decode$andThen,
+																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																												function (isDviOneCycle) {
+																													return A2(
+																														_elm_lang$core$Json_Decode$andThen,
+																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviTwoCycle', _elm_lang$core$Json_Decode$bool),
+																														function (isDviTwoCycle) {
+																															return A2(
+																																_elm_lang$core$Json_Decode$andThen,
+																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoOneCycle', _elm_lang$core$Json_Decode$bool),
+																																function (isVideoOneCycle) {
+																																	return A2(
+																																		_elm_lang$core$Json_Decode$andThen,
+																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoTwoCycle', _elm_lang$core$Json_Decode$bool),
+																																		function (isVideoTwoCycle) {
+																																			return A2(
+																																				_elm_lang$core$Json_Decode$andThen,
+																																				A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoThreeCycle', _elm_lang$core$Json_Decode$bool),
+																																				function (isVideoThreeCycle) {
+																																					return A2(
+																																						_elm_lang$core$Json_Decode$andThen,
+																																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																						function (isPipUpDownPressed) {
+																																							return A2(
+																																								_elm_lang$core$Json_Decode$andThen,
+																																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																								function (isPipLeftRightPressed) {
+																																									return A2(
+																																										_elm_lang$core$Json_Decode$andThen,
+																																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipResizePressed', _elm_lang$core$Json_Decode$bool),
+																																										function (isPipResizePressed) {
+																																											return A2(
+																																												_elm_lang$core$Json_Decode$andThen,
+																																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																												function (isOsdUpDownPressed) {
+																																													return A2(
+																																														_elm_lang$core$Json_Decode$andThen,
+																																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																														function (isOsdLeftRightPressed) {
+																																															return A2(
+																																																_elm_lang$core$Json_Decode$andThen,
+																																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdSelectPressed', _elm_lang$core$Json_Decode$bool),
+																																																function (isOsdSelectPressed) {
+																																																	return A2(
+																																																		_elm_lang$core$Json_Decode$andThen,
+																																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isOn', _elm_lang$core$Json_Decode$bool),
+																																																		function (isOn) {
+																																																			return _elm_lang$core$Json_Decode$succeed(
+																																																				{number: number, isSelected: isSelected, isVisible: isVisible, vgaOne: vgaOne, vgaTwo: vgaTwo, dviOne: dviOne, dviTwo: dviTwo, videoOne: videoOne, videoTwo: videoTwo, videoThree: videoThree, isVgaOneCycle: isVgaOneCycle, isVgaTwoCycle: isVgaTwoCycle, isDviOneCycle: isDviOneCycle, isDviOneCycle: isDviOneCycle, isDviTwoCycle: isDviTwoCycle, isVideoOneCycle: isVideoOneCycle, isVideoTwoCycle: isVideoTwoCycle, isVideoThreeCycle: isVideoThreeCycle, isPipUpDownPressed: isPipUpDownPressed, isPipLeftRightPressed: isPipLeftRightPressed, isPipResizePressed: isPipResizePressed, isOsdUpDownPressed: isOsdUpDownPressed, isOsdLeftRightPressed: isOsdLeftRightPressed, isOsdSelectPressed: isOsdSelectPressed, isOn: isOn});
+																																																		});
+																																																});
+																																														});
+																																												});
+																																										});
+																																								});
+																																						});
+																																				});
+																																		});
+																																});
+																														});
+																												});
+																										});
+																								});
+																						});
+																				});
+																		});
+																});
+														});
+												});
+										});
+								});
+						});
+				});
+		}));
+var _user$project$Ports$out_onPressedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onPressedMonitor',
+	function (v) {
+		return {number: v.number, isSelected: v.isSelected, isVisible: v.isVisible, vgaOne: v.vgaOne, vgaTwo: v.vgaTwo, dviOne: v.dviOne, dviTwo: v.dviTwo, videoOne: v.videoOne, videoTwo: v.videoTwo, videoThree: v.videoThree, isVgaOneCycle: v.isVgaOneCycle, isVgaTwoCycle: v.isVgaTwoCycle, isDviOneCycle: v.isDviOneCycle, isDviOneCycle: v.isDviOneCycle, isDviTwoCycle: v.isDviTwoCycle, isVideoOneCycle: v.isVideoOneCycle, isVideoTwoCycle: v.isVideoTwoCycle, isVideoThreeCycle: v.isVideoThreeCycle, isPipUpDownPressed: v.isPipUpDownPressed, isPipLeftRightPressed: v.isPipLeftRightPressed, isPipResizePressed: v.isPipResizePressed, isOsdUpDownPressed: v.isOsdUpDownPressed, isOsdLeftRightPressed: v.isOsdLeftRightPressed, isOsdSelectPressed: v.isOsdSelectPressed, isOn: v.isOn};
+	});
+var _user$project$Ports$out_onPressReleasedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onPressReleasedMonitor',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_onLockScreenPressed = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onLockScreenPressed',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_exitAndSaveMonitorChanges = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_exitAndSaveMonitorChanges',
+	function (v) {
+		return {number: v.number, isSelected: v.isSelected, isVisible: v.isVisible, vgaOne: v.vgaOne, vgaTwo: v.vgaTwo, dviOne: v.dviOne, dviTwo: v.dviTwo, videoOne: v.videoOne, videoTwo: v.videoTwo, videoThree: v.videoThree, isVgaOneCycle: v.isVgaOneCycle, isVgaTwoCycle: v.isVgaTwoCycle, isDviOneCycle: v.isDviOneCycle, isDviOneCycle: v.isDviOneCycle, isDviTwoCycle: v.isDviTwoCycle, isVideoOneCycle: v.isVideoOneCycle, isVideoTwoCycle: v.isVideoTwoCycle, isVideoThreeCycle: v.isVideoThreeCycle, isPipUpDownPressed: v.isPipUpDownPressed, isPipLeftRightPressed: v.isPipLeftRightPressed, isPipResizePressed: v.isPipResizePressed, isOsdUpDownPressed: v.isOsdUpDownPressed, isOsdLeftRightPressed: v.isOsdLeftRightPressed, isOsdSelectPressed: v.isOsdSelectPressed, isOn: v.isOn};
+	});
+var _user$project$Ports$out_returnToHomeMode = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_returnToHomeMode',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
+	'toJS',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$fromJS = _elm_lang$core$Native_Platform.incomingPort('fromJS', _elm_lang$core$Json_Decode$int);
+
 var _user$project$Home$buildVersion = A2(
 	_elm_lang$html$Html$div,
 	_elm_lang$core$Native_List.fromArray(
@@ -10146,12 +10537,14 @@ var _user$project$Home$buildVersion = A2(
 		[
 			_elm_lang$html$Html$text('v.1.052520161350')
 		]));
-var _user$project$Home$setVisibilityByPageIndex = F4(
-	function (newPageIndex, monitorsPerPage, index, monitor) {
-		var isVisible$ = _elm_lang$core$Native_Utils.eq((index / monitorsPerPage) | 0, newPageIndex) ? true : false;
-		return _elm_lang$core$Native_Utils.update(
-			monitor,
-			{isVisible: isVisible$});
+var _user$project$Home$updateMonitor = F2(
+	function (monitor, monitors) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (m) {
+				return _elm_lang$core$Native_Utils.eq(m.number, monitor.number) ? monitor : m;
+			},
+			monitors);
 	});
 var _user$project$Home$findMonitor = F2(
 	function (number, monitors) {
@@ -10182,20 +10575,6 @@ var _user$project$Home$setSelectedMonitorsToPowerPress = function (monitors) {
 		},
 		monitors);
 };
-var _user$project$Home$flipMonitorPage = F4(
-	function (flips, maxFlips, monitorsPerPage, model) {
-		var newPageIndex = A3(_elm_lang$core$Basics$clamp, 0, maxFlips - 1, model.monitorPageIndex + flips);
-		var monitors$ = model.monitors;
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				monitorPageIndex: newPageIndex,
-				monitors: A2(
-					_elm_lang$core$List$indexedMap,
-					A2(_user$project$Home$setVisibilityByPageIndex, newPageIndex, monitorsPerPage),
-					monitors$)
-			});
-	});
 var _user$project$Home$setAllMonitorAsSelected = F2(
 	function (monitors, isSelected$) {
 		return A2(
@@ -10248,7 +10627,8 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'SelectMonitor':
-				var monitors$ = A2(_user$project$Home$toggleMonitorAsSelected, _p1._0, model.monitors);
+				var _p2 = _p1._0;
+				var monitors$ = A2(_user$project$Home$toggleMonitorAsSelected, _p2, model.monitors);
 				var powerMustBeDisabled = (_elm_lang$core$Native_Utils.cmp(
 					_elm_lang$core$List$length(
 						A2(
@@ -10262,7 +10642,7 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{monitors: monitors$, isPowerDisabled: powerMustBeDisabled}),
+						{selectedMonitor: _p2, monitors: monitors$, isPowerDisabled: powerMustBeDisabled}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'SelectAllMonitors':
@@ -10337,6 +10717,12 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[]));
+			case 'LockScreenPressed':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 			default:
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10347,6 +10733,7 @@ var _user$project$Home$update = F2(
 	});
 var _user$project$Home$defaultModel = {
 	componentId: 1,
+	selectedMonitor: A2(_user$project$Types$defaultMonitor, '1', true),
 	monitors: _elm_lang$core$Native_List.fromArray(
 		[
 			A2(_user$project$Types$defaultMonitor, '1', true),
@@ -10374,10 +10761,13 @@ var _user$project$Home$init = A2(
 	_user$project$Home$defaultModel,
 	_elm_lang$core$Native_List.fromArray(
 		[]));
-var _user$project$Home$Model = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {componentId: a, monitors: b, monitorsPerPage: c, monitorPageIndex: d, isPowerDisabled: e, isSelectAllActive: f, test: g, selectedTheme: h};
+var _user$project$Home$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {componentId: a, selectedMonitor: b, monitors: c, monitorsPerPage: d, monitorPageIndex: e, isPowerDisabled: f, isSelectAllActive: g, test: h, selectedTheme: i};
 	});
+var _user$project$Home$UpdateMonitor = function (a) {
+	return {ctor: 'UpdateMonitor', _0: a};
+};
 var _user$project$Home$SystemPreferencesPress = {ctor: 'SystemPreferencesPress'};
 var _user$project$Home$PresetPress = {ctor: 'PresetPress'};
 var _user$project$Home$PowerPress = {ctor: 'PowerPress'};
@@ -10696,7 +11086,7 @@ var _user$project$Home$monitorViewButton = F2(
 							_elm_lang$html$Html_Events$onDoubleClick(
 							_user$project$Home$SelectMonitorToConfigure(monitor)),
 							_elm_lang$html$Html_Events$onMouseDown(
-							_user$project$Home$MonitorPressedDown(monitor.number)),
+							_user$project$Home$MonitorPressedDown(monitor)),
 							_elm_lang$html$Html_Events$onMouseUp(
 							_user$project$Home$MonitorPressReleased(monitor.number))
 						]),
@@ -10763,9 +11153,9 @@ var _user$project$Home$monitorPanelView = function (model) {
 			]));
 };
 var _user$project$Home$view = function (model) {
-	var _p2 = _user$project$Types$getThemeStyle(model.selectedTheme);
-	var upperBodyStyle = _p2._0;
-	var lowerBodyStyle = _p2._1;
+	var _p3 = _user$project$Types$getThemeStyle(model.selectedTheme);
+	var upperBodyStyle = _p3._0;
+	var lowerBodyStyle = _p3._1;
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -10777,8 +11167,6 @@ var _user$project$Home$view = function (model) {
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html$text(
-				_elm_lang$core$Basics$toString(model.test)),
 				_user$project$Home$monitorPanelView(model),
 				_user$project$Home$homePanelView(model),
 				_user$project$Home$homeMenuView(
@@ -10794,7 +11182,8 @@ var _user$project$Home$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_user$project$Ports$fromJS(_user$project$Home$UpdateValue)
+				_user$project$Ports$fromJS(_user$project$Home$UpdateValue),
+				_user$project$Ports$in_updateMonitor(_user$project$Home$UpdateMonitor)
 			]));
 };
 
@@ -11078,7 +11467,7 @@ var _user$project$MonitorSetup$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_returnToHomeMode('')
+							_user$project$Ports$out_exitAndSaveMonitorChanges(_p2._0)
 						]));
 			case 'SignalInputToggle':
 				var selectedMonitor$ = model.selectedMonitor;
@@ -11143,7 +11532,7 @@ var _user$project$MonitorSetup$update = F2(
 					_user$project$MonitorSetup$setOsdSelectButtonPress(model),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
-			default:
+			case 'ExitMonitorSettingSegmentPress':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -11151,8 +11540,22 @@ var _user$project$MonitorSetup$update = F2(
 						{segmentState: _user$project$MonitorSetup$None}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{selectedMonitor: _p2._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 		}
 	});
+var _user$project$MonitorSetup$StartEditingMonitor = function (a) {
+	return {ctor: 'StartEditingMonitor', _0: a};
+};
+var _user$project$MonitorSetup$subscriptions = function (model) {
+	return _user$project$Ports$in_startEditingMonitor(_user$project$MonitorSetup$StartEditingMonitor);
+};
 var _user$project$MonitorSetup$ExitMonitorSettingSegmentPress = {ctor: 'ExitMonitorSettingSegmentPress'};
 var _user$project$MonitorSetup$OsdSelectButtonPress = {ctor: 'OsdSelectButtonPress'};
 var _user$project$MonitorSetup$OsdLeftRightButtonPress = {ctor: 'OsdLeftRightButtonPress'};
@@ -11753,9 +12156,11 @@ var _user$project$MonitorSetup$monitorSettingLowerBodyView = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[view]));
 };
-var _user$project$MonitorSetup$CloseMonitorConfiguration = {ctor: 'CloseMonitorConfiguration'};
+var _user$project$MonitorSetup$CloseMonitorConfiguration = function (a) {
+	return {ctor: 'CloseMonitorConfiguration', _0: a};
+};
 var _user$project$MonitorSetup$monitorSettingTopBarView = F2(
-	function (monitorSettingScreenState, style$) {
+	function (model, style$) {
 		return A2(
 			_elm_lang$html$Html$div,
 			_elm_lang$core$Native_List.fromArray(
@@ -11776,14 +12181,15 @@ var _user$project$MonitorSetup$monitorSettingTopBarView = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[
 							_user$project$General$appTopBarHeader(
-							A2(_elm_lang$core$Basics_ops['++'], '#', monitorSettingScreenState.selectedMonitor.number))
+							A2(_elm_lang$core$Basics_ops['++'], '#', model.selectedMonitor.number))
 						])),
 					A2(
 					_elm_lang$html$Html$div,
 					_elm_lang$core$Native_List.fromArray(
 						[
 							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
-							_elm_lang$html$Html_Events$onClick(_user$project$MonitorSetup$CloseMonitorConfiguration)
+							_elm_lang$html$Html_Events$onClick(
+							_user$project$MonitorSetup$CloseMonitorConfiguration(model.selectedMonitor))
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[_user$project$General$closeIconView]))
@@ -11880,6 +12286,7 @@ var _user$project$MonitorSetup$signalMatrixView = F4(
 	});
 var _user$project$MonitorSetup$monitorSettingUpperBodyView = function (model) {
 	var monitor = model.selectedMonitor;
+	var asd = A2(_elm_lang$core$Debug$log, monitor.number, 1);
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -12090,6 +12497,10 @@ var _user$project$Main$subscriptions = function (model) {
 				_elm_lang$core$Platform_Sub$map,
 				_user$project$Main$HomeMainMsg,
 				_user$project$Home$subscriptions(model.homeModel)),
+				A2(
+				_elm_lang$core$Platform_Sub$map,
+				_user$project$Main$MonitorSetupMainMsg,
+				_user$project$MonitorSetup$subscriptions(model.monitorSetupModel)),
 				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor),
 				_user$project$Ports$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode)
 			]));

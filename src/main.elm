@@ -5,6 +5,8 @@ import Html exposing (..)
 import Html.App as App
 import Html exposing (..)
 import Basics
+
+import Types exposing (..)
 import Ports
 import Home
 import MonitorSetup
@@ -29,7 +31,7 @@ init =
 type Msg
   = HomeMainMsg Home.Msg
   | MonitorSetupMainMsg MonitorSetup.Msg
-  | LongPressedMonitor String
+  | LongPressedMonitor Monitor
   | UnlockLockCountdown String
   | UpdateLockCountdownSecondsLeft Int
   | ReturnToHomeMode String
@@ -47,8 +49,7 @@ update msg model =
         (newMonitorSetupModel, cmd) = MonitorSetup.update monitorSetupMainMsg  model.monitorSetupModel
       in
         { model | monitorSetupModel = newMonitorSetupModel } ! [Cmd.map MonitorSetupMainMsg cmd]
-    LongPressedMonitor val ->
-      { model | viewMode = MonitorSetupMode } ! [ ]
+    LongPressedMonitor val -> { model  | viewMode = MonitorSetupMode } ! [ ]
     UnlockLockCountdown val ->
       model ! [ ]
     UpdateLockCountdownSecondsLeft val ->
@@ -78,5 +79,6 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
     [ Sub.map HomeMainMsg (Home.subscriptions model.homeModel)
+    , Sub.map MonitorSetupMainMsg (MonitorSetup.subscriptions model.monitorSetupModel)
     , Ports.in_longPressedMonitor LongPressedMonitor
     , Ports.in_returnToHomeMode ReturnToHomeMode ]

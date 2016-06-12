@@ -9,6 +9,7 @@ import Html.Events exposing (..)
 
 -- MODEL
 type alias Model =  { componentId : Int
+                    , selectedMonitor : Monitor
                     , monitors : List Monitor
                     , monitorsPerPage : Int
                     , monitorPageIndex : Int
@@ -20,6 +21,7 @@ type alias Model =  { componentId : Int
 
 defaultModel : Model
 defaultModel =    { componentId = 1
+                  , selectedMonitor = defaultMonitor "1" True
                   , monitors =  [ defaultMonitor "1" True
                                 , defaultMonitor "2" True
                                 , defaultMonitor "3" True
@@ -44,7 +46,7 @@ type Msg
   = UpdateValue Int
   | SelectMonitor Monitor
   | SelectAllMonitors
-  | MonitorPressedDown String
+  | MonitorPressedDown Monitor
   | MonitorPressReleased String
   | LongPressedMonitor String
   | SelectMonitorToConfigure Monitor
@@ -52,6 +54,7 @@ type Msg
   | PowerPress
   | PresetPress
   | SystemPreferencesPress
+  | UpdateMonitor Monitor
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -60,7 +63,8 @@ update msg model =
     SelectMonitor monitor ->
       let monitors' = toggleMonitorAsSelected monitor model.monitors
           powerMustBeDisabled = if List.length (List.filter (\m -> m.isSelected ) monitors') > 0 then False else True
-      in { model  | monitors = monitors'
+      in { model  | selectedMonitor = monitor
+                  , monitors = monitors'
                   , isPowerDisabled = powerMustBeDisabled } ! []
     SelectAllMonitors ->
       let model' = model
@@ -70,18 +74,18 @@ update msg model =
     SelectMonitorToConfigure monitor' ->
       let model' = model
       in { model  | monitors = setMonitorAsSelected monitor' model'.monitors } ! []
-    MonitorPressedDown number -> model ! [ Ports.out_onPressedMonitor number ]
+    MonitorPressedDown monitor -> model ! [ Ports.out_onPressedMonitor monitor ]
     MonitorPressReleased number -> model ! []
     LongPressedMonitor number ->
       let model' = model
           foundMonitor = findMonitor number model'.monitors
       in { model  | monitors = setMonitorAsSelected foundMonitor model'.monitors } ! []
-
     PowerPress ->
       { model | monitors = setSelectedMonitorsToPowerPress model.monitors } ! []
     PresetPress -> model ! []
     SystemPreferencesPress -> model ! []
     LockScreenPressed temporary -> model ! []
+    UpdateMonitor monitor -> model ! []
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
@@ -100,15 +104,6 @@ setAllMonitorAsSelected : List Monitor -> Bool -> List Monitor
 setAllMonitorAsSelected  monitors isSelected' =
   List.map (\m -> { m | isSelected = isSelected' } ) monitors
 
--- moves monitor pages left and right : negative for left, positive for right
-flipMonitorPage : Int -> Int -> Int -> Model -> Model
-flipMonitorPage flips maxFlips monitorsPerPage model =
-  let monitors' = model.monitors
-      newPageIndex = clamp 0 (maxFlips - 1) (model.monitorPageIndex + flips)
-  in
-    { model | monitorPageIndex = newPageIndex
-                      , monitors = (List.indexedMap (setVisibilityByPageIndex newPageIndex monitorsPerPage) monitors') }
-
 -- sets a monitor as selected
 setSelectedMonitorsToPowerPress : List Monitor -> List Monitor
 setSelectedMonitorsToPowerPress monitors =
@@ -122,12 +117,10 @@ findMonitor number monitors =
     [monitor] -> monitor
     _ -> defaultMonitor "-1" False
 
--- set visibility of page by index
-setVisibilityByPageIndex : Int -> Int -> Int -> Monitor -> Monitor
-setVisibilityByPageIndex newPageIndex monitorsPerPage index monitor =
-  let isVisible' =  if index // monitorsPerPage == newPageIndex then True
-                    else False
-  in { monitor | isVisible = isVisible' }
+-- updates the monitor
+updateMonitor : Monitor -> List Monitor -> List Monitor
+updateMonitor monitor monitors =
+  List.map (\m -> if m.number == monitor.number then monitor else m) monitors
 
 init : (Model, Cmd Msg)
 init = defaultModel ! []
@@ -136,8 +129,7 @@ view : Model -> Html Msg
 view model =
   let (upperBodyStyle, lowerBodyStyle) = getThemeStyle model.selectedTheme
   in div  [ class "main", style [upperBodyStyle] ]
-          [ text (toString model.test)
-          , monitorPanelView model
+          [ monitorPanelView model
           , homePanelView model
           , homeMenuView [lowerBodyStyle]
           , buildVersion
@@ -164,7 +156,7 @@ monitorViewButton monitorsPerPage monitor =
     [ div [ class "monitor-view content-centered"
           , onClick (SelectMonitor monitor)
           , onDoubleClick (SelectMonitorToConfigure monitor)
-          , onMouseDown (MonitorPressedDown monitor.number)
+          , onMouseDown (MonitorPressedDown monitor)
           , onMouseUp (MonitorPressReleased monitor.number) ]
           [ div [ class ("div-4-5 vdiv-4-5 " ++ (toString monitor.isSelected)) ]
                 [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number monitor.isSelected ] ] ]
@@ -240,4 +232,5 @@ buildVersion =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-      [ Ports.fromJS UpdateValue ]
+      [ Ports.fromJS UpdateValue
+      , Ports.in_updateMonitor UpdateMonitor ]
