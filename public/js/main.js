@@ -10726,7 +10726,11 @@ var _user$project$Home$update = F2(
 			default:
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							monitors: A2(_user$project$Home$updateMonitor, _p1._0, model.monitors)
+						}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 		}

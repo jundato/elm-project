@@ -85,7 +85,7 @@ update msg model =
     PresetPress -> model ! []
     SystemPreferencesPress -> model ! []
     LockScreenPressed temporary -> model ! []
-    UpdateMonitor monitor -> model ! []
+    UpdateMonitor monitor -> { model | monitors = (updateMonitor monitor model.monitors) } ! []
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
