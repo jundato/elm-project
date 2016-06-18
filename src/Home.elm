@@ -2,6 +2,7 @@ module Home exposing (..)
 
 import Ports
 import Types exposing (..)
+import Commons exposing (..)
 import Icons exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -12,10 +13,8 @@ type alias Model =  { componentId : Int
                     , selectedMonitor : Monitor
                     , monitors : List Monitor
                     , monitorsPerPage : Int
-                    , monitorPageIndex : Int
                     , isPowerDisabled : Bool
                     , isSelectAllActive : Bool
-                    , test : Int
                     , selectedTheme : Theme
                     }
 
@@ -35,16 +34,15 @@ defaultModel =    { componentId = 1
                                 , defaultMonitor "11" True
                                 , defaultMonitor "12" True ]
                   , monitorsPerPage = 5
-                  , monitorPageIndex = 0
                   , isPowerDisabled = True
                   , isSelectAllActive = True
-                  , test = 0
                   , selectedTheme = DefaultTheme
                   }
 
+
+
 type Msg
-  = UpdateValue Int
-  | SelectMonitor Monitor
+  = SelectMonitor Monitor
   | SelectAllMonitors
   | MonitorPressedDown Monitor
   | MonitorPressReleased String
@@ -59,7 +57,6 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
-    UpdateValue val -> { model | test = val } ! []
     SelectMonitor monitor ->
       let monitors' = toggleMonitorAsSelected monitor model.monitors
           powerMustBeDisabled = if List.length (List.filter (\m -> m.isSelected ) monitors') > 0 then False else True
@@ -83,7 +80,7 @@ update msg model =
     PowerPress ->
       { model | monitors = setSelectedMonitorsToPowerPress model.monitors } ! []
     PresetPress -> model ! []
-    SystemPreferencesPress -> model ! []
+    SystemPreferencesPress -> model ! [ Ports.out_onSystemPreferencesOpen "" ]
     LockScreenPressed temporary -> model ! []
     UpdateMonitor monitor -> { model | monitors = (updateMonitor monitor model.monitors) } ! []
 ---- HOME SCREEN VIEW FUNCTIONS
@@ -232,5 +229,4 @@ buildVersion =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-      [ Ports.fromJS UpdateValue
-      , Ports.in_updateMonitor UpdateMonitor ]
+      [ Ports.in_updateMonitor UpdateMonitor ]

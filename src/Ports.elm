@@ -1,31 +1,36 @@
 
-port module Ports exposing (
-  in_longPressedMonitor, in_unlockLockCountdown, in_updateLockCountdownSecondsLeft,
-  in_returnToHomeMode, in_startEditingMonitor, in_updateMonitor,
-  out_onPressedMonitor, out_onPressReleasedMonitor, out_onLockScreenPressed,
-  out_returnToHomeMode, out_exitAndSaveMonitorChanges,
-  toJS, fromJS
-  )
+port module Ports exposing (..)
 
 import Types exposing (..)
 
 --* PORTS IN *---
+--main screen
+port in_openSystemPreferences : (String -> msg) -> Sub msg
+port in_returnToHomeMode: (String -> msg) -> Sub msg
+
 --home screen
 port in_longPressedMonitor : (Monitor -> msg) -> Sub msg
 port in_unlockLockCountdown : (String -> msg) -> Sub msg
 port in_updateLockCountdownSecondsLeft : (Int -> msg) -> Sub msg
 port in_updateMonitor : (Monitor -> msg) -> Sub msg
-port in_returnToHomeMode: (String -> msg) -> Sub msg
 
 --monitor setup
 port in_startEditingMonitor: (Monitor -> msg) -> Sub msg
 
 --* PORTS OUT *--
+-- home outgoing ports
 port out_onPressedMonitor : Monitor -> Cmd msg
 port out_onPressReleasedMonitor : String -> Cmd msg
 port out_onLockScreenPressed : String -> Cmd msg
+port out_onPressedSettings : String -> Cmd msg
+port out_onSystemPreferencesOpen : String -> Cmd msg
+
+-- monitor setup outgoing ports
 port out_exitAndSaveMonitorChanges : Monitor -> Cmd msg
 port out_returnToHomeMode : String -> Cmd msg
+
+-- system preferences outgoing ports
+port out_onSystemPreferencesClose : String -> Cmd msg
 
 --Testing temporaries
 port toJS : String -> Cmd msg

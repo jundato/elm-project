@@ -9095,7 +9095,7 @@ var _user$project$Icons$informationIcon = function () {
 					[]))
 			]));
 }();
-var _user$project$Icons$menuIconHeader = function () {
+var _user$project$Icons$systemPreferencesIconHeader = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
 	return A2(
@@ -9946,105 +9946,6 @@ var _user$project$Icons$selectAllIcon = function () {
 			]));
 }();
 
-var _user$project$General$closeIconView = A2(
-	_elm_lang$html$Html$div,
-	_elm_lang$core$Native_List.fromArray(
-		[
-			_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
-		]),
-	_elm_lang$core$Native_List.fromArray(
-		[
-			A2(
-			_elm_lang$html$Html$div,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-5')
-				]),
-			_elm_lang$core$Native_List.fromArray(
-				[])),
-			A2(
-			_elm_lang$html$Html$div,
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5')
-				]),
-			_elm_lang$core$Native_List.fromArray(
-				[_user$project$Icons$closeIcon]))
-		]));
-var _user$project$General$appTopBarHeaderIcon = function (html) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
-			]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[html]))
-			]));
-};
-var _user$project$General$appTopBarHeader = function (value) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
-			]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-5')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_user$project$Icons$labelLeftIcon(value)
-					]))
-			]));
-};
-
-var _user$project$Types$defaultMonitor = F2(
-	function (number$, isVisible$) {
-		return {number: number$, isSelected: false, isVisible: isVisible$, vgaOne: 'XBAND RADAR', vgaTwo: 'XBAND RADAR', dviOne: 'XBAND RADAR', dviTwo: 'XBAND RADAR', videoOne: 'XBAND RADAR', videoTwo: 'XBAND RADAR', videoThree: 'XBAND RADAR', isVgaOneCycle: true, isVgaTwoCycle: false, isDviOneCycle: false, isDviTwoCycle: false, isVideoOneCycle: false, isVideoTwoCycle: false, isVideoThreeCycle: false, isPipUpDownPressed: false, isPipLeftRightPressed: false, isPipResizePressed: false, isOsdUpDownPressed: false, isOsdLeftRightPressed: false, isOsdSelectPressed: false, isOn: false};
-	});
-var _user$project$Types$themeLibrary = {
-	defaultBackgroundStyle: {ctor: '_Tuple2', _0: 'background', _1: '-webkit-linear-gradient(-90deg, #005fa9, #00417a)'},
-	defaultBackgroundFlatStyle: {ctor: '_Tuple2', _0: 'background', _1: '#005fa9'},
-	defaultBackgroundNavStyle: {ctor: '_Tuple2', _0: 'background', _1: '#003169'},
-	darkBackgroundStyle: {ctor: '_Tuple2', _0: 'background', _1: '-webkit-linear-gradient(-90deg, #a1a2a6, #4c4c4e)'},
-	darkBackgroundFlatStyle: {ctor: '_Tuple2', _0: 'background', _1: '#a1a2a6'},
-	darkBackgroundNavStyle: {ctor: '_Tuple2', _0: 'background', _1: '#4c4c4e'}
-};
-var _user$project$Types$getThemeStyle = function (theme) {
-	var _p0 = theme;
-	switch (_p0.ctor) {
-		case 'DefaultTheme':
-			return {ctor: '_Tuple2', _0: _user$project$Types$themeLibrary.defaultBackgroundStyle, _1: _user$project$Types$themeLibrary.defaultBackgroundNavStyle};
-		case 'DefaultFlatTheme':
-			return {ctor: '_Tuple2', _0: _user$project$Types$themeLibrary.defaultBackgroundFlatStyle, _1: _user$project$Types$themeLibrary.defaultBackgroundNavStyle};
-		case 'DarkTheme':
-			return {ctor: '_Tuple2', _0: _user$project$Types$themeLibrary.darkBackgroundStyle, _1: _user$project$Types$themeLibrary.darkBackgroundNavStyle};
-		default:
-			return {ctor: '_Tuple2', _0: _user$project$Types$themeLibrary.darkBackgroundFlatStyle, _1: _user$project$Types$themeLibrary.darkBackgroundNavStyle};
-	}
-};
 var _user$project$Types$Monitor = function (a) {
 	return function (b) {
 		return function (c) {
@@ -10105,6 +10006,107 @@ var _user$project$Types$DarkTheme = {ctor: 'DarkTheme'};
 var _user$project$Types$DefaultFlatTheme = {ctor: 'DefaultFlatTheme'};
 var _user$project$Types$DefaultTheme = {ctor: 'DefaultTheme'};
 
+var _user$project$Commons$defaultMonitor = F2(
+	function (number$, isVisible$) {
+		return {number: number$, isSelected: false, isVisible: isVisible$, vgaOne: 'XBAND RADAR', vgaTwo: 'XBAND RADAR', dviOne: 'XBAND RADAR', dviTwo: 'XBAND RADAR', videoOne: 'XBAND RADAR', videoTwo: 'XBAND RADAR', videoThree: 'XBAND RADAR', isVgaOneCycle: true, isVgaTwoCycle: false, isDviOneCycle: false, isDviTwoCycle: false, isVideoOneCycle: false, isVideoTwoCycle: false, isVideoThreeCycle: false, isPipUpDownPressed: false, isPipLeftRightPressed: false, isPipResizePressed: false, isOsdUpDownPressed: false, isOsdLeftRightPressed: false, isOsdSelectPressed: false, isOn: false};
+	});
+var _user$project$Commons$themeLibrary = {
+	defaultBackgroundStyle: {ctor: '_Tuple2', _0: 'background', _1: '-webkit-linear-gradient(-90deg, #005fa9, #00417a)'},
+	defaultBackgroundFlatStyle: {ctor: '_Tuple2', _0: 'background', _1: '#005fa9'},
+	defaultBackgroundNavStyle: {ctor: '_Tuple2', _0: 'background', _1: '#003169'},
+	darkBackgroundStyle: {ctor: '_Tuple2', _0: 'background', _1: '-webkit-linear-gradient(-90deg, #a1a2a6, #4c4c4e)'},
+	darkBackgroundFlatStyle: {ctor: '_Tuple2', _0: 'background', _1: '#a1a2a6'},
+	darkBackgroundNavStyle: {ctor: '_Tuple2', _0: 'background', _1: '#4c4c4e'}
+};
+var _user$project$Commons$getThemeStyle = function (theme) {
+	var _p0 = theme;
+	switch (_p0.ctor) {
+		case 'DefaultTheme':
+			return {ctor: '_Tuple2', _0: _user$project$Commons$themeLibrary.defaultBackgroundStyle, _1: _user$project$Commons$themeLibrary.defaultBackgroundNavStyle};
+		case 'DefaultFlatTheme':
+			return {ctor: '_Tuple2', _0: _user$project$Commons$themeLibrary.defaultBackgroundFlatStyle, _1: _user$project$Commons$themeLibrary.defaultBackgroundNavStyle};
+		case 'DarkTheme':
+			return {ctor: '_Tuple2', _0: _user$project$Commons$themeLibrary.darkBackgroundStyle, _1: _user$project$Commons$themeLibrary.darkBackgroundNavStyle};
+		default:
+			return {ctor: '_Tuple2', _0: _user$project$Commons$themeLibrary.darkBackgroundFlatStyle, _1: _user$project$Commons$themeLibrary.darkBackgroundNavStyle};
+	}
+};
+var _user$project$Commons$closeIconView = A2(
+	_elm_lang$html$Html$div,
+	_elm_lang$core$Native_List.fromArray(
+		[
+			_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+		]),
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-5')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[])),
+			A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[_user$project$Icons$closeIcon]))
+		]));
+var _user$project$Commons$appTopBarHeaderIcon = function (html) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[html]))
+			]));
+};
+var _user$project$Commons$appTopBarHeaderText = function (value) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-3-5')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_user$project$Icons$labelLeftIcon(value)
+					]))
+			]));
+};
+
+var _user$project$Ports$in_openSystemPreferences = _elm_lang$core$Native_Platform.incomingPort('in_openSystemPreferences', _elm_lang$core$Json_Decode$string);
+var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort(
 	'in_longPressedMonitor',
 	A2(
@@ -10365,7 +10367,6 @@ var _user$project$Ports$in_updateMonitor = _elm_lang$core$Native_Platform.incomi
 						});
 				});
 		}));
-var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_startEditingMonitor = _elm_lang$core$Native_Platform.incomingPort(
 	'in_startEditingMonitor',
 	A2(
@@ -10510,6 +10511,16 @@ var _user$project$Ports$out_onLockScreenPressed = _elm_lang$core$Native_Platform
 	function (v) {
 		return v;
 	});
+var _user$project$Ports$out_onPressedSettings = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onPressedSettings',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_onSystemPreferencesOpen = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onSystemPreferencesOpen',
+	function (v) {
+		return v;
+	});
 var _user$project$Ports$out_exitAndSaveMonitorChanges = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_exitAndSaveMonitorChanges',
 	function (v) {
@@ -10517,6 +10528,11 @@ var _user$project$Ports$out_exitAndSaveMonitorChanges = _elm_lang$core$Native_Pl
 	});
 var _user$project$Ports$out_returnToHomeMode = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_returnToHomeMode',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_onSystemPreferencesClose = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onSystemPreferencesClose',
 	function (v) {
 		return v;
 	});
@@ -10560,7 +10576,7 @@ var _user$project$Home$findMonitor = F2(
 		if ((_p0.ctor === '::') && (_p0._1.ctor === '[]')) {
 			return _p0._0;
 		} else {
-			return A2(_user$project$Types$defaultMonitor, '-1', false);
+			return A2(_user$project$Commons$defaultMonitor, '-1', false);
 		}
 	});
 var _user$project$Home$setSelectedMonitorsToPowerPress = function (monitors) {
@@ -10618,14 +10634,6 @@ var _user$project$Home$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
 		switch (_p1.ctor) {
-			case 'UpdateValue':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{test: _p1._0}),
-					_elm_lang$core$Native_List.fromArray(
-						[]));
 			case 'SelectMonitor':
 				var _p2 = _p1._0;
 				var monitors$ = A2(_user$project$Home$toggleMonitorAsSelected, _p2, model.monitors);
@@ -10716,7 +10724,9 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					_elm_lang$core$Native_List.fromArray(
-						[]));
+						[
+							_user$project$Ports$out_onSystemPreferencesOpen('')
+						]));
 			case 'LockScreenPressed':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10737,27 +10747,25 @@ var _user$project$Home$update = F2(
 	});
 var _user$project$Home$defaultModel = {
 	componentId: 1,
-	selectedMonitor: A2(_user$project$Types$defaultMonitor, '1', true),
+	selectedMonitor: A2(_user$project$Commons$defaultMonitor, '1', true),
 	monitors: _elm_lang$core$Native_List.fromArray(
 		[
-			A2(_user$project$Types$defaultMonitor, '1', true),
-			A2(_user$project$Types$defaultMonitor, '2', true),
-			A2(_user$project$Types$defaultMonitor, '3', true),
-			A2(_user$project$Types$defaultMonitor, '4', true),
-			A2(_user$project$Types$defaultMonitor, '5', true),
-			A2(_user$project$Types$defaultMonitor, '6', true),
-			A2(_user$project$Types$defaultMonitor, '7', true),
-			A2(_user$project$Types$defaultMonitor, '8', true),
-			A2(_user$project$Types$defaultMonitor, '9', true),
-			A2(_user$project$Types$defaultMonitor, '10', true),
-			A2(_user$project$Types$defaultMonitor, '11', true),
-			A2(_user$project$Types$defaultMonitor, '12', true)
+			A2(_user$project$Commons$defaultMonitor, '1', true),
+			A2(_user$project$Commons$defaultMonitor, '2', true),
+			A2(_user$project$Commons$defaultMonitor, '3', true),
+			A2(_user$project$Commons$defaultMonitor, '4', true),
+			A2(_user$project$Commons$defaultMonitor, '5', true),
+			A2(_user$project$Commons$defaultMonitor, '6', true),
+			A2(_user$project$Commons$defaultMonitor, '7', true),
+			A2(_user$project$Commons$defaultMonitor, '8', true),
+			A2(_user$project$Commons$defaultMonitor, '9', true),
+			A2(_user$project$Commons$defaultMonitor, '10', true),
+			A2(_user$project$Commons$defaultMonitor, '11', true),
+			A2(_user$project$Commons$defaultMonitor, '12', true)
 		]),
 	monitorsPerPage: 5,
-	monitorPageIndex: 0,
 	isPowerDisabled: true,
 	isSelectAllActive: true,
-	test: 0,
 	selectedTheme: _user$project$Types$DefaultTheme
 };
 var _user$project$Home$init = A2(
@@ -10765,12 +10773,19 @@ var _user$project$Home$init = A2(
 	_user$project$Home$defaultModel,
 	_elm_lang$core$Native_List.fromArray(
 		[]));
-var _user$project$Home$Model = F9(
-	function (a, b, c, d, e, f, g, h, i) {
-		return {componentId: a, selectedMonitor: b, monitors: c, monitorsPerPage: d, monitorPageIndex: e, isPowerDisabled: f, isSelectAllActive: g, test: h, selectedTheme: i};
+var _user$project$Home$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {componentId: a, selectedMonitor: b, monitors: c, monitorsPerPage: d, isPowerDisabled: e, isSelectAllActive: f, selectedTheme: g};
 	});
 var _user$project$Home$UpdateMonitor = function (a) {
 	return {ctor: 'UpdateMonitor', _0: a};
+};
+var _user$project$Home$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$Ports$in_updateMonitor(_user$project$Home$UpdateMonitor)
+			]));
 };
 var _user$project$Home$SystemPreferencesPress = {ctor: 'SystemPreferencesPress'};
 var _user$project$Home$PresetPress = {ctor: 'PresetPress'};
@@ -11157,7 +11172,7 @@ var _user$project$Home$monitorPanelView = function (model) {
 			]));
 };
 var _user$project$Home$view = function (model) {
-	var _p3 = _user$project$Types$getThemeStyle(model.selectedTheme);
+	var _p3 = _user$project$Commons$getThemeStyle(model.selectedTheme);
 	var upperBodyStyle = _p3._0;
 	var lowerBodyStyle = _p3._1;
 	return A2(
@@ -11177,17 +11192,6 @@ var _user$project$Home$view = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[lowerBodyStyle])),
 				_user$project$Home$buildVersion
-			]));
-};
-var _user$project$Home$UpdateValue = function (a) {
-	return {ctor: 'UpdateValue', _0: a};
-};
-var _user$project$Home$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_user$project$Ports$fromJS(_user$project$Home$UpdateValue),
-				_user$project$Ports$in_updateMonitor(_user$project$Home$UpdateMonitor)
 			]));
 };
 
@@ -11443,7 +11447,7 @@ var _user$project$MonitorSetup$Osd = {ctor: 'Osd'};
 var _user$project$MonitorSetup$Pip = {ctor: 'Pip'};
 var _user$project$MonitorSetup$None = {ctor: 'None'};
 var _user$project$MonitorSetup$defaultModel = {
-	selectedMonitor: A2(_user$project$Types$defaultMonitor, '1', true),
+	selectedMonitor: A2(_user$project$Commons$defaultMonitor, '1', true),
 	isVgaOneSelectOpen: false,
 	isVgaTwoSelectOpen: false,
 	isDviOneSelectOpen: false,
@@ -12184,7 +12188,7 @@ var _user$project$MonitorSetup$monitorSettingTopBarView = F2(
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$General$appTopBarHeader(
+							_user$project$Commons$appTopBarHeaderText(
 							A2(_elm_lang$core$Basics_ops['++'], '#', model.selectedMonitor.number))
 						])),
 					A2(
@@ -12196,7 +12200,7 @@ var _user$project$MonitorSetup$monitorSettingTopBarView = F2(
 							_user$project$MonitorSetup$CloseMonitorConfiguration(model.selectedMonitor))
 						]),
 					_elm_lang$core$Native_List.fromArray(
-						[_user$project$General$closeIconView]))
+						[_user$project$Commons$closeIconView]))
 				]));
 	});
 var _user$project$MonitorSetup$SignalInputToggle = function (a) {
@@ -12353,7 +12357,7 @@ var _user$project$MonitorSetup$monitorSettingBodyView = F2(
 				]));
 	});
 var _user$project$MonitorSetup$view = function (model) {
-	var _p5 = _user$project$Types$getThemeStyle(model.selectedTheme);
+	var _p5 = _user$project$Commons$getThemeStyle(model.selectedTheme);
 	var upperBodyStyle = _p5._0;
 	var lowerBodyStyle = _p5._1;
 	return A2(
@@ -12369,14 +12373,118 @@ var _user$project$MonitorSetup$view = function (model) {
 			]));
 };
 
-var _user$project$Main$Model = F3(
-	function (a, b, c) {
-		return {homeModel: a, monitorSetupModel: b, viewMode: c};
+var _user$project$SystemPreferences$systemPreferencesBodyView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[]));
 	});
+var _user$project$SystemPreferences$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		if (_p0.ctor === 'NoOp') {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				model,
+				_elm_lang$core$Native_List.fromArray(
+					[]));
+		} else {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				model,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_user$project$Ports$out_onSystemPreferencesClose('')
+					]));
+		}
+	});
+var _user$project$SystemPreferences$Model = F2(
+	function (a, b) {
+		return {viewState: a, selectedTheme: b};
+	});
+var _user$project$SystemPreferences$SoftwareUpdate = {ctor: 'SoftwareUpdate'};
+var _user$project$SystemPreferences$Themes = {ctor: 'Themes'};
+var _user$project$SystemPreferences$MonitorCount = {ctor: 'MonitorCount'};
+var _user$project$SystemPreferences$Home = {ctor: 'Home'};
+var _user$project$SystemPreferences$defaultModel = {viewState: _user$project$SystemPreferences$Home, selectedTheme: _user$project$Types$DefaultTheme};
+var _user$project$SystemPreferences$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	_user$project$SystemPreferences$defaultModel,
+	_elm_lang$core$Native_List.fromArray(
+		[]));
+var _user$project$SystemPreferences$CloseSystemPreferences = {ctor: 'CloseSystemPreferences'};
+var _user$project$SystemPreferences$systemPreferencesTopBarView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Commons$appTopBarHeaderIcon(_user$project$Icons$systemPreferencesIconHeader)
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$CloseSystemPreferences)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$Commons$closeIconView]))
+				]));
+	});
+var _user$project$SystemPreferences$view = function (model) {
+	var _p1 = _user$project$Commons$getThemeStyle(model.selectedTheme);
+	var upperBodyStyle = _p1._0;
+	var lowerBodyStyle = _p1._1;
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('main')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
+				A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
+			]));
+};
+var _user$project$SystemPreferences$NoOp = {ctor: 'NoOp'};
+
+var _user$project$Main$Model = F4(
+	function (a, b, c, d) {
+		return {homeModel: a, monitorSetupModel: b, systemPreferencesModel: c, viewMode: d};
+	});
+var _user$project$Main$SystemPreferencesMode = {ctor: 'SystemPreferencesMode'};
 var _user$project$Main$MonitorSetupMode = {ctor: 'MonitorSetupMode'};
 var _user$project$Main$HomeMode = {ctor: 'HomeMode'};
 var _user$project$Main$ReturnToHomeMode = function (a) {
 	return {ctor: 'ReturnToHomeMode', _0: a};
+};
+var _user$project$Main$OpenSystemPreferences = function (a) {
+	return {ctor: 'OpenSystemPreferences', _0: a};
 };
 var _user$project$Main$UpdateLockCountdownSecondsLeft = function (a) {
 	return {ctor: 'UpdateLockCountdownSecondsLeft', _0: a};
@@ -12387,6 +12495,9 @@ var _user$project$Main$UnlockLockCountdown = function (a) {
 var _user$project$Main$LongPressedMonitor = function (a) {
 	return {ctor: 'LongPressedMonitor', _0: a};
 };
+var _user$project$Main$SystemPreferencesMsg = function (a) {
+	return {ctor: 'SystemPreferencesMsg', _0: a};
+};
 var _user$project$Main$MonitorSetupMainMsg = function (a) {
 	return {ctor: 'MonitorSetupMainMsg', _0: a};
 };
@@ -12394,31 +12505,35 @@ var _user$project$Main$HomeMainMsg = function (a) {
 	return {ctor: 'HomeMainMsg', _0: a};
 };
 var _user$project$Main$init = function () {
-	var _p0 = _user$project$MonitorSetup$init;
-	var monitorSetupVal = _p0._0;
-	var monitorSetupCmd = _p0._1;
-	var _p1 = _user$project$Home$init;
-	var homeVal = _p1._0;
-	var homeCmd = _p1._1;
+	var _p0 = _user$project$SystemPreferences$init;
+	var systemPreferencesVal = _p0._0;
+	var systemPreferencesCmd = _p0._1;
+	var _p1 = _user$project$MonitorSetup$init;
+	var monitorSetupVal = _p1._0;
+	var monitorSetupCmd = _p1._1;
+	var _p2 = _user$project$Home$init;
+	var homeVal = _p2._0;
+	var homeCmd = _p2._1;
 	return {
 		ctor: '_Tuple2',
-		_0: A3(_user$project$Main$Model, homeVal, monitorSetupVal, _user$project$Main$HomeMode),
+		_0: A4(_user$project$Main$Model, homeVal, monitorSetupVal, systemPreferencesVal, _user$project$Main$HomeMode),
 		_1: _elm_lang$core$Platform_Cmd$batch(
 			_elm_lang$core$Native_List.fromArray(
 				[
 					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, homeCmd),
-					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, monitorSetupCmd)
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, monitorSetupCmd),
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$SystemPreferencesMsg, systemPreferencesCmd)
 				]))
 	};
 }();
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p2 = msg;
-		switch (_p2.ctor) {
+		var _p3 = msg;
+		switch (_p3.ctor) {
 			case 'HomeMainMsg':
-				var _p3 = A2(_user$project$Home$update, _p2._0, model.homeModel);
-				var newHomeModel = _p3._0;
-				var cmd = _p3._1;
+				var _p4 = A2(_user$project$Home$update, _p3._0, model.homeModel);
+				var newHomeModel = _p4._0;
+				var cmd = _p4._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -12429,9 +12544,9 @@ var _user$project$Main$update = F2(
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, cmd)
 						]));
 			case 'MonitorSetupMainMsg':
-				var _p4 = A2(_user$project$MonitorSetup$update, _p2._0, model.monitorSetupModel);
-				var newMonitorSetupModel = _p4._0;
-				var cmd = _p4._1;
+				var _p5 = A2(_user$project$MonitorSetup$update, _p3._0, model.monitorSetupModel);
+				var newMonitorSetupModel = _p5._0;
+				var cmd = _p5._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -12440,6 +12555,19 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, cmd)
+						]));
+			case 'SystemPreferencesMsg':
+				var _p6 = A2(_user$project$SystemPreferences$update, _p3._0, model.systemPreferencesModel);
+				var newSystemPreferencesModel = _p6._0;
+				var cmd = _p6._1;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{systemPreferencesModel: newSystemPreferencesModel}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$SystemPreferencesMsg, cmd)
 						]));
 			case 'LongPressedMonitor':
 				return A2(
@@ -12461,6 +12589,14 @@ var _user$project$Main$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[]));
+			case 'OpenSystemPreferences':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewMode: _user$project$Main$SystemPreferencesMode}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 			default:
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -12473,17 +12609,23 @@ var _user$project$Main$update = F2(
 	});
 var _user$project$Main$view = function (model) {
 	var view = function () {
-		var _p5 = model.viewMode;
-		if (_p5.ctor === 'HomeMode') {
-			return A2(
-				_elm_lang$html$Html_App$map,
-				_user$project$Main$HomeMainMsg,
-				_user$project$Home$view(model.homeModel));
-		} else {
-			return A2(
-				_elm_lang$html$Html_App$map,
-				_user$project$Main$MonitorSetupMainMsg,
-				_user$project$MonitorSetup$view(model.monitorSetupModel));
+		var _p7 = model.viewMode;
+		switch (_p7.ctor) {
+			case 'HomeMode':
+				return A2(
+					_elm_lang$html$Html_App$map,
+					_user$project$Main$HomeMainMsg,
+					_user$project$Home$view(model.homeModel));
+			case 'MonitorSetupMode':
+				return A2(
+					_elm_lang$html$Html_App$map,
+					_user$project$Main$MonitorSetupMainMsg,
+					_user$project$MonitorSetup$view(model.monitorSetupModel));
+			default:
+				return A2(
+					_elm_lang$html$Html_App$map,
+					_user$project$Main$SystemPreferencesMsg,
+					_user$project$SystemPreferences$view(model.systemPreferencesModel));
 		}
 	}();
 	return A2(
@@ -12506,7 +12648,8 @@ var _user$project$Main$subscriptions = function (model) {
 				_user$project$Main$MonitorSetupMainMsg,
 				_user$project$MonitorSetup$subscriptions(model.monitorSetupModel)),
 				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor),
-				_user$project$Ports$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode)
+				_user$project$Ports$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode),
+				_user$project$Ports$in_openSystemPreferences(_user$project$Main$OpenSystemPreferences)
 			]));
 };
 var _user$project$Main$main = {

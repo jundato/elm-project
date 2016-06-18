@@ -25,8 +25,16 @@ app.ports.out_returnToHomeMode.subscribe(function(temp){
 });
 
 app.ports.out_exitAndSaveMonitorChanges.subscribe(function(monitor){
-  console.log(monitor);
   app.ports.in_updateMonitor.send(monitor);
+  app.ports.in_returnToHomeMode.send("");
+});
+
+app.ports.out_onSystemPreferencesOpen.subscribe(function(temporary){
+  app.ports.in_openSystemPreferences.send("");
+});
+
+app.ports.out_onSystemPreferencesClose.subscribe(function(temporary){
+  console.log('sdasd');
   app.ports.in_returnToHomeMode.send("");
 });
 

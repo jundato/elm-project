@@ -1,13 +1,4 @@
-module Icons exposing (powerIcon, nightModeIcon, monitorIcon, pipMenuIcon
-  , brightnessSetupIcon, brightnessIcon, incrementIcon, decrementIcon
-  , lockIcon, presetIcon, menuIcon, informationIcon
-  , pipIcon, osdIcon, leftRightIcon, upDownIcon
-  , resizeIcon, exitPipIcon, selectIcon, selectAllIcon
-  , themeIcon, monitorCountIcon, rightIcon, leftIcon
-  , defaultThemeIcon, darkThemeIcon, defaultFlatThemeIcon
-  , darkFlatThemeIcon, menuIconHeader
-  , exitOsdIcon,closeIcon, labelIcon, labelLeftIcon
-  , monitorSharpIcon, networkIcon, updateIcon)
+module Icons exposing (..)
 
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
@@ -301,8 +292,8 @@ menuIcon =
                       , transform "translate(14 14) scale(0.8)"
                       , fill "#BCBEC0" ] [ ] ]
 
-menuIconHeader : Svg msg
-menuIconHeader =
+systemPreferencesIconHeader : Svg msg
+systemPreferencesIconHeader =
   let containerWidth = 128
       containerHeight = 128
   in  svg [ version "1.1"

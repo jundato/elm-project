@@ -2,7 +2,7 @@ module MonitorSetup exposing (..)
 
 import Types exposing (..)
 import Icons exposing (..)
-import General exposing (..)
+import Commons exposing (..)
 import Ports
 
 import Html exposing (..)
@@ -90,7 +90,7 @@ monitorSettingTopBarView : Model -> (String, String) -> Html Msg
 monitorSettingTopBarView model style' =
   div [ class "app-top-bar vdiv-1-10", style [ style' ] ]
       [ div [ class "div-1-10 vdiv-1-1 content-centered nav-header" ]
-            [ appTopBarHeader ("#" ++ model.selectedMonitor.number) ]
+            [ appTopBarHeaderText ("#" ++ model.selectedMonitor.number) ]
       , div [ class "div-1-10 float-right", onClick (CloseMonitorConfiguration model.selectedMonitor) ] [ closeIconView ] ]
 
 -- main body for monitor setting view
