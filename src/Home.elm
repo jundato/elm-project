@@ -12,7 +12,7 @@ import Html.Events exposing (..)
 type alias Model =  { componentId : Int
                     , selectedMonitor : Monitor
                     , monitors : List Monitor
-                    , monitorsPerPage : Int
+                    , monitorDisplays : Int
                     , isPowerDisabled : Bool
                     , isSelectAllActive : Bool
                     , selectedTheme : Theme
@@ -33,7 +33,7 @@ defaultModel =    { componentId = 1
                                 , defaultMonitor "10" True
                                 , defaultMonitor "11" True
                                 , defaultMonitor "12" True ]
-                  , monitorsPerPage = 5
+                  , monitorDisplays = 5
                   , isPowerDisabled = True
                   , isSelectAllActive = True
                   , selectedTheme = DefaultTheme
@@ -53,6 +53,8 @@ type Msg
   | PresetPress
   | SystemPreferencesPress
   | UpdateMonitor Monitor
+  | UpdateMonitorMaxDisplays Int
+  | UpdateTheme String
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -83,6 +85,10 @@ update msg model =
     SystemPreferencesPress -> model ! [ Ports.out_onSystemPreferencesOpen "" ]
     LockScreenPressed temporary -> model ! []
     UpdateMonitor monitor -> { model | monitors = (updateMonitor monitor model.monitors) } ! []
+    UpdateMonitorMaxDisplays maxMonitorDisplays -> { model | monitorDisplays = maxMonitorDisplays } ! []
+    UpdateTheme name ->
+      let theme = getThemeType name
+      in { model | selectedTheme = theme } ! []
 ---- HOME SCREEN VIEW FUNCTIONS
 -- sets the monitor to selected and returns the new list
 setMonitorAsSelected : Monitor -> List Monitor -> List Monitor
@@ -142,12 +148,12 @@ monitorPanelView model =
 -- list of monitor buttons
 monitorViewButtons : Model -> List (Html Msg)
 monitorViewButtons model =
-  (List.map (monitorViewButton model.monitorsPerPage) model.monitors)
+  (List.map (monitorViewButton model.monitorDisplays) model.monitors)
 
 --- view of a monitor button
 monitorViewButton : Int -> Monitor -> Html Msg
-monitorViewButton monitorsPerPage monitor =
-  let maxMonitorDisplays = toString monitorsPerPage
+monitorViewButton monitorDisplays monitor =
+  let maxMonitorDisplays = toString monitorDisplays
   in
     div [ class ("div-1-" ++ maxMonitorDisplays ++ " monitor-view-container ") ]
     [ div [ class "monitor-view content-centered"
@@ -229,4 +235,6 @@ buildVersion =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-      [ Ports.in_updateMonitor UpdateMonitor ]
+      [ Ports.in_updateMonitor UpdateMonitor
+      , Ports.in_updateMonitorMaxDisplays UpdateMonitorMaxDisplays
+      , Ports.in_themeSelected UpdateTheme ]

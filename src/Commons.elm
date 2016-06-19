@@ -22,6 +22,14 @@ closeIconView =
       [ div [ class "div-1-1 vdiv-1-5" ] [ ]
       , div [ class "div-1-1 vdiv-3-5" ] [ closeIcon ] ]
 
+getThemeType: String -> Theme
+getThemeType name =
+  case name of
+    "Default" -> DefaultTheme
+    "Default Flat" -> DefaultFlatTheme
+    "Dark" -> DarkTheme
+    "Dark Flat" -> DarkFlatTheme
+    _ -> DefaultTheme
 
 getThemeStyle: Theme -> ((String, String),(String, String))
 getThemeStyle theme =

@@ -53,6 +53,7 @@ type Msg
   | OsdSelectButtonPress
   | ExitMonitorSettingSegmentPress
   | StartEditingMonitor Monitor
+  | UpdateTheme String
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -73,6 +74,9 @@ update msg model =
     OsdSelectButtonPress -> setOsdSelectButtonPress model ! []
     ExitMonitorSettingSegmentPress -> { model | segmentState = None } ! []
     StartEditingMonitor monitor -> { model | selectedMonitor = monitor } ! []
+    UpdateTheme name ->
+      let theme = getThemeType name
+      in { model | selectedTheme = theme } ! []
 
 init : (Model, Cmd Msg)
 init = defaultModel ! []

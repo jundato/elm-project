@@ -27,7 +27,7 @@ init =
     (monitorSetupVal, monitorSetupCmd) = MonitorSetup.init
     (systemPreferencesVal, systemPreferencesCmd) = SystemPreferences.init
   in
-    (Model homeVal monitorSetupVal systemPreferencesVal HomeMode,
+    (Model homeVal monitorSetupVal systemPreferencesVal SystemPreferencesMode,
       Cmd.batch [ Cmd.map HomeMainMsg homeCmd
                 , Cmd.map MonitorSetupMainMsg monitorSetupCmd
                 , Cmd.map SystemPreferencesMsg systemPreferencesCmd ])

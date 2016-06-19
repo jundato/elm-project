@@ -10031,6 +10031,21 @@ var _user$project$Commons$getThemeStyle = function (theme) {
 			return {ctor: '_Tuple2', _0: _user$project$Commons$themeLibrary.darkBackgroundFlatStyle, _1: _user$project$Commons$themeLibrary.darkBackgroundNavStyle};
 	}
 };
+var _user$project$Commons$getThemeType = function (name) {
+	var _p1 = name;
+	switch (_p1) {
+		case 'Default':
+			return _user$project$Types$DefaultTheme;
+		case 'Default Flat':
+			return _user$project$Types$DefaultFlatTheme;
+		case 'Dark':
+			return _user$project$Types$DarkTheme;
+		case 'Dark Flat':
+			return _user$project$Types$DarkFlatTheme;
+		default:
+			return _user$project$Types$DefaultTheme;
+	}
+};
 var _user$project$Commons$closeIconView = A2(
 	_elm_lang$html$Html$div,
 	_elm_lang$core$Native_List.fromArray(
@@ -10105,6 +10120,7 @@ var _user$project$Commons$appTopBarHeaderText = function (value) {
 			]));
 };
 
+var _user$project$Ports$in_themeSelected = _elm_lang$core$Native_Platform.incomingPort('in_themeSelected', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_openSystemPreferences = _elm_lang$core$Native_Platform.incomingPort('in_openSystemPreferences', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort(
@@ -10367,6 +10383,7 @@ var _user$project$Ports$in_updateMonitor = _elm_lang$core$Native_Platform.incomi
 						});
 				});
 		}));
+var _user$project$Ports$in_updateMonitorMaxDisplays = _elm_lang$core$Native_Platform.incomingPort('in_updateMonitorMaxDisplays', _elm_lang$core$Json_Decode$int);
 var _user$project$Ports$in_startEditingMonitor = _elm_lang$core$Native_Platform.incomingPort(
 	'in_startEditingMonitor',
 	A2(
@@ -10531,8 +10548,18 @@ var _user$project$Ports$out_returnToHomeMode = _elm_lang$core$Native_Platform.ou
 	function (v) {
 		return v;
 	});
+var _user$project$Ports$out_onThemeSelected = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onThemeSelected',
+	function (v) {
+		return v;
+	});
 var _user$project$Ports$out_onSystemPreferencesClose = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onSystemPreferencesClose',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_updateMonitorMaxDisplays = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_updateMonitorMaxDisplays',
 	function (v) {
 		return v;
 	});
@@ -10733,7 +10760,7 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[]));
-			default:
+			case 'UpdateMonitor':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -10741,6 +10768,23 @@ var _user$project$Home$update = F2(
 						{
 							monitors: A2(_user$project$Home$updateMonitor, _p1._0, model.monitors)
 						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'UpdateMonitorMaxDisplays':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{monitorDisplays: _p1._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				var theme = _user$project$Commons$getThemeType(_p1._0);
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTheme: theme}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 		}
@@ -10763,7 +10807,7 @@ var _user$project$Home$defaultModel = {
 			A2(_user$project$Commons$defaultMonitor, '11', true),
 			A2(_user$project$Commons$defaultMonitor, '12', true)
 		]),
-	monitorsPerPage: 5,
+	monitorDisplays: 5,
 	isPowerDisabled: true,
 	isSelectAllActive: true,
 	selectedTheme: _user$project$Types$DefaultTheme
@@ -10775,8 +10819,14 @@ var _user$project$Home$init = A2(
 		[]));
 var _user$project$Home$Model = F7(
 	function (a, b, c, d, e, f, g) {
-		return {componentId: a, selectedMonitor: b, monitors: c, monitorsPerPage: d, isPowerDisabled: e, isSelectAllActive: f, selectedTheme: g};
+		return {componentId: a, selectedMonitor: b, monitors: c, monitorDisplays: d, isPowerDisabled: e, isSelectAllActive: f, selectedTheme: g};
 	});
+var _user$project$Home$UpdateTheme = function (a) {
+	return {ctor: 'UpdateTheme', _0: a};
+};
+var _user$project$Home$UpdateMonitorMaxDisplays = function (a) {
+	return {ctor: 'UpdateMonitorMaxDisplays', _0: a};
+};
 var _user$project$Home$UpdateMonitor = function (a) {
 	return {ctor: 'UpdateMonitor', _0: a};
 };
@@ -10784,7 +10834,9 @@ var _user$project$Home$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_user$project$Ports$in_updateMonitor(_user$project$Home$UpdateMonitor)
+				_user$project$Ports$in_updateMonitor(_user$project$Home$UpdateMonitor),
+				_user$project$Ports$in_updateMonitorMaxDisplays(_user$project$Home$UpdateMonitorMaxDisplays),
+				_user$project$Ports$in_themeSelected(_user$project$Home$UpdateTheme)
 			]));
 };
 var _user$project$Home$SystemPreferencesPress = {ctor: 'SystemPreferencesPress'};
@@ -11081,8 +11133,8 @@ var _user$project$Home$SelectMonitor = function (a) {
 	return {ctor: 'SelectMonitor', _0: a};
 };
 var _user$project$Home$monitorViewButton = F2(
-	function (monitorsPerPage, monitor) {
-		var maxMonitorDisplays = _elm_lang$core$Basics$toString(monitorsPerPage);
+	function (monitorDisplays, monitor) {
+		var maxMonitorDisplays = _elm_lang$core$Basics$toString(monitorDisplays);
 		return A2(
 			_elm_lang$html$Html$div,
 			_elm_lang$core$Native_List.fromArray(
@@ -11140,7 +11192,7 @@ var _user$project$Home$monitorViewButton = F2(
 var _user$project$Home$monitorViewButtons = function (model) {
 	return A2(
 		_elm_lang$core$List$map,
-		_user$project$Home$monitorViewButton(model.monitorsPerPage),
+		_user$project$Home$monitorViewButton(model.monitorDisplays),
 		model.monitors);
 };
 var _user$project$Home$monitorPanelView = function (model) {
@@ -11548,7 +11600,7 @@ var _user$project$MonitorSetup$update = F2(
 						{segmentState: _user$project$MonitorSetup$None}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
-			default:
+			case 'StartEditingMonitor':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -11556,8 +11608,20 @@ var _user$project$MonitorSetup$update = F2(
 						{selectedMonitor: _p2._0}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
+			default:
+				var theme = _user$project$Commons$getThemeType(_p2._0);
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTheme: theme}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 		}
 	});
+var _user$project$MonitorSetup$UpdateTheme = function (a) {
+	return {ctor: 'UpdateTheme', _0: a};
+};
 var _user$project$MonitorSetup$StartEditingMonitor = function (a) {
 	return {ctor: 'StartEditingMonitor', _0: a};
 };
@@ -12373,7 +12437,108 @@ var _user$project$MonitorSetup$view = function (model) {
 			]));
 };
 
-var _user$project$SystemPreferences$systemPreferencesBodyView = F2(
+var _user$project$SystemPreferences$softwareUpdateBodyView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-4-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1 content-centered')
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-2-3')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[
+															A2(
+															_elm_lang$html$Html$div,
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html_Attributes$class('vdiv-1-3 div-1-1 content-centered version')
+																]),
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html$text('Version V1.023')
+																])),
+															A2(
+															_elm_lang$html$Html$div,
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html_Attributes$class('vdiv-2-3 div-1-1 menu content-centered')
+																]),
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	A2(
+																	_elm_lang$html$Html$div,
+																	_elm_lang$core$Native_List.fromArray(
+																		[
+																			_elm_lang$html$Html_Attributes$class('vdiv-2-3 div-2-3')
+																		]),
+																	_elm_lang$core$Native_List.fromArray(
+																		[_user$project$Icons$updateIcon]))
+																]))
+														]))
+												]))
+										]))
+								])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[]))
+						]))
+				]));
+	});
+var _user$project$SystemPreferences$networkBodyView = F2(
 	function (model, style$) {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -12387,39 +12552,639 @@ var _user$project$SystemPreferences$systemPreferencesBodyView = F2(
 			_elm_lang$core$Native_List.fromArray(
 				[]));
 	});
-var _user$project$SystemPreferences$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		if (_p0.ctor === 'NoOp') {
-			return A2(
-				_elm_lang$core$Platform_Cmd_ops['!'],
-				model,
-				_elm_lang$core$Native_List.fromArray(
-					[]));
-		} else {
-			return A2(
-				_elm_lang$core$Platform_Cmd_ops['!'],
-				model,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_user$project$Ports$out_onSystemPreferencesClose('')
-					]));
-		}
-	});
-var _user$project$SystemPreferences$Model = F2(
-	function (a, b) {
-		return {viewState: a, selectedTheme: b};
+var _user$project$SystemPreferences$Model = F3(
+	function (a, b, c) {
+		return {viewState: a, selectedTheme: b, maxMonitorDisplays: c};
 	});
 var _user$project$SystemPreferences$SoftwareUpdate = {ctor: 'SoftwareUpdate'};
 var _user$project$SystemPreferences$Themes = {ctor: 'Themes'};
+var _user$project$SystemPreferences$Network = {ctor: 'Network'};
 var _user$project$SystemPreferences$MonitorCount = {ctor: 'MonitorCount'};
 var _user$project$SystemPreferences$Home = {ctor: 'Home'};
-var _user$project$SystemPreferences$defaultModel = {viewState: _user$project$SystemPreferences$Home, selectedTheme: _user$project$Types$DefaultTheme};
+var _user$project$SystemPreferences$defaultModel = {viewState: _user$project$SystemPreferences$Home, selectedTheme: _user$project$Types$DefaultTheme, maxMonitorDisplays: 5};
 var _user$project$SystemPreferences$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
 	_user$project$SystemPreferences$defaultModel,
 	_elm_lang$core$Native_List.fromArray(
 		[]));
+var _user$project$SystemPreferences$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'NoOp':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'CloseSystemPreferences':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Ports$out_onSystemPreferencesClose('')
+						]));
+			case 'MonitorSharpPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewState: _user$project$SystemPreferences$MonitorCount}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'NetworkPress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewState: _user$project$SystemPreferences$Network}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'ThemePress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewState: _user$project$SystemPreferences$Themes}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'SoftwareUpdatePress':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewState: _user$project$SystemPreferences$SoftwareUpdate}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'IncreaseMonitorDisplayPress':
+				var monitorDisplays = A3(_elm_lang$core$Basics$clamp, 2, 12, model.maxMonitorDisplays + 1);
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{maxMonitorDisplays: monitorDisplays}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Ports$out_updateMonitorMaxDisplays(monitorDisplays)
+						]));
+			case 'DecreaseMonitorDisplayPress':
+				var monitorDisplays = A3(_elm_lang$core$Basics$clamp, 2, 12, model.maxMonitorDisplays - 1);
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{maxMonitorDisplays: monitorDisplays}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Ports$out_updateMonitorMaxDisplays(monitorDisplays)
+						]));
+			case 'ThemeSelected':
+				var _p2 = _p0._0;
+				var selectedTheme$ = function () {
+					var _p1 = _p2;
+					switch (_p1) {
+						case 'Default':
+							return _user$project$Types$DefaultTheme;
+						case 'Default Flat':
+							return _user$project$Types$DefaultFlatTheme;
+						case 'Dark':
+							return _user$project$Types$DarkTheme;
+						case 'Dark Flat':
+							return _user$project$Types$DarkFlatTheme;
+						default:
+							return _user$project$Types$DefaultTheme;
+					}
+				}();
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTheme: selectedTheme$}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Ports$out_onThemeSelected(_p2)
+						]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewState: _user$project$SystemPreferences$Home}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+		}
+	});
+var _user$project$SystemPreferences$BackToSystemPreferencesMain = {ctor: 'BackToSystemPreferencesMain'};
+var _user$project$SystemPreferences$monitorCountTopBarView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$BackToSystemPreferencesMain)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$Commons$closeIconView]))
+				]));
+	});
+var _user$project$SystemPreferences$themeSelectorTopBarView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$BackToSystemPreferencesMain)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$Commons$closeIconView]))
+				]));
+	});
+var _user$project$SystemPreferences$networkTopBarView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$BackToSystemPreferencesMain)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$Commons$closeIconView]))
+				]));
+	});
+var _user$project$SystemPreferences$softwareUpdateTopBarView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Commons$appTopBarHeaderText('')
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$BackToSystemPreferencesMain)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$Commons$closeIconView]))
+				]));
+	});
+var _user$project$SystemPreferences$IncreaseMonitorDisplayPress = {ctor: 'IncreaseMonitorDisplayPress'};
+var _user$project$SystemPreferences$DecreaseMonitorDisplayPress = {ctor: 'DecreaseMonitorDisplayPress'};
+var _user$project$SystemPreferences$monitorCountBodyView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-3-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-2-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-4-5 content-centered')
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[_user$project$Icons$monitorSharpIcon]))
+										])),
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-1-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_user$project$Icons$labelIcon(
+											_elm_lang$core$Basics$toString(model.maxMonitorDisplays))
+										])),
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-2-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-3-5 vdiv-3-5 padded content-centered'),
+													_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$DecreaseMonitorDisplayPress)
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('div-3-4 vdiv-3-4 button')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[_user$project$Icons$leftIcon]))
+												])),
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-3-5 vdiv-3-5 padded content-centered'),
+													_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$IncreaseMonitorDisplayPress)
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('div-3-4 vdiv-3-4 button')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[_user$project$Icons$rightIcon]))
+												]))
+										]))
+								])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[]))
+						]))
+				]));
+	});
+var _user$project$SystemPreferences$ThemeSelected = function (a) {
+	return {ctor: 'ThemeSelected', _0: a};
+};
+var _user$project$SystemPreferences$themeSelectorBodyView = F2(
+	function (screenState, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-3-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-2-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-4-5 content-centered')
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[_user$project$Icons$themeIcon]))
+										])),
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-3-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-1-4 vdiv-3-5 button padded content-centered'),
+													_elm_lang$html$Html_Events$onClick(
+													_user$project$SystemPreferences$ThemeSelected('Default'))
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[_user$project$Icons$defaultThemeIcon])),
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-1-4 vdiv-3-5 button padded content-centered'),
+													_elm_lang$html$Html_Events$onClick(
+													_user$project$SystemPreferences$ThemeSelected('Default Flat'))
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[_user$project$Icons$defaultFlatThemeIcon])),
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-1-4 vdiv-3-5 button padded content-centered'),
+													_elm_lang$html$Html_Events$onClick(
+													_user$project$SystemPreferences$ThemeSelected('Dark'))
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[_user$project$Icons$darkThemeIcon])),
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-1-4 vdiv-3-5 button padded content-centered'),
+													_elm_lang$html$Html_Events$onClick(
+													_user$project$SystemPreferences$ThemeSelected('Dark Flat'))
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[_user$project$Icons$darkFlatThemeIcon]))
+										]))
+								])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[]))
+						]))
+				]));
+	});
+var _user$project$SystemPreferences$SoftwareUpdatePress = {ctor: 'SoftwareUpdatePress'};
+var _user$project$SystemPreferences$ThemePress = {ctor: 'ThemePress'};
+var _user$project$SystemPreferences$NetworkPress = {ctor: 'NetworkPress'};
+var _user$project$SystemPreferences$MonitorSharpPress = {ctor: 'MonitorSharpPress'};
+var _user$project$SystemPreferences$systemPreferencesBodyView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-4-5 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-4-5 div-1-1 content-centered')
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											A2(
+											_elm_lang$html$Html$div,
+											_elm_lang$core$Native_List.fromArray(
+												[
+													_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-1 content-centered')
+												]),
+											_elm_lang$core$Native_List.fromArray(
+												[
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-2-3 content-centered')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[
+															A2(
+															_elm_lang$html$Html$div,
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html_Attributes$class('vdiv-2-3 div-2-3 menu content-centered'),
+																	_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$MonitorSharpPress)
+																]),
+															_elm_lang$core$Native_List.fromArray(
+																[_user$project$Icons$monitorSharpIcon]))
+														])),
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-2-3 content-centered')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[
+															A2(
+															_elm_lang$html$Html$div,
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html_Attributes$class('vdiv-2-3 div-2-3 menu content-centered'),
+																	_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$NetworkPress)
+																]),
+															_elm_lang$core$Native_List.fromArray(
+																[_user$project$Icons$networkIcon]))
+														])),
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-2-3 content-centered')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[
+															A2(
+															_elm_lang$html$Html$div,
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html_Attributes$class('vdiv-2-3 div-2-3 menu content-centered'),
+																	_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$ThemePress)
+																]),
+															_elm_lang$core$Native_List.fromArray(
+																[_user$project$Icons$themeIcon]))
+														])),
+													A2(
+													_elm_lang$html$Html$div,
+													_elm_lang$core$Native_List.fromArray(
+														[
+															_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-2-3 content-centered')
+														]),
+													_elm_lang$core$Native_List.fromArray(
+														[
+															A2(
+															_elm_lang$html$Html$div,
+															_elm_lang$core$Native_List.fromArray(
+																[
+																	_elm_lang$html$Html_Attributes$class('vdiv-2-3 div-2-3 menu content-centered'),
+																	_elm_lang$html$Html_Events$onClick(_user$project$SystemPreferences$SoftwareUpdatePress)
+																]),
+															_elm_lang$core$Native_List.fromArray(
+																[_user$project$Icons$updateIcon]))
+														]))
+												]))
+										]))
+								])),
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[]))
+						]))
+				]));
+	});
 var _user$project$SystemPreferences$CloseSystemPreferences = {ctor: 'CloseSystemPreferences'};
 var _user$project$SystemPreferences$systemPreferencesTopBarView = F2(
 	function (model, style$) {
@@ -12456,9 +13221,46 @@ var _user$project$SystemPreferences$systemPreferencesTopBarView = F2(
 				]));
 	});
 var _user$project$SystemPreferences$view = function (model) {
-	var _p1 = _user$project$Commons$getThemeStyle(model.selectedTheme);
-	var upperBodyStyle = _p1._0;
-	var lowerBodyStyle = _p1._1;
+	var _p3 = _user$project$Commons$getThemeStyle(model.selectedTheme);
+	var lowerBodyStyle = _p3._0;
+	var upperBodyStyle = _p3._1;
+	var _p4 = function () {
+		var _p5 = model.viewState;
+		switch (_p5.ctor) {
+			case 'Home':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
+				};
+			case 'MonitorCount':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$SystemPreferences$monitorCountTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$monitorCountBodyView, model, lowerBodyStyle)
+				};
+			case 'Network':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
+				};
+			case 'Themes':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$SystemPreferences$themeSelectorTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$themeSelectorBodyView, model, lowerBodyStyle)
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
+				};
+		}
+	}();
+	var upperBodyView = _p4._0;
+	var lowerBodyView = _p4._1;
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -12466,10 +13268,7 @@ var _user$project$SystemPreferences$view = function (model) {
 				_elm_lang$html$Html_Attributes$class('main')
 			]),
 		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
-				A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
-			]));
+			[upperBodyView, lowerBodyView]));
 };
 var _user$project$SystemPreferences$NoOp = {ctor: 'NoOp'};
 
@@ -12516,7 +13315,7 @@ var _user$project$Main$init = function () {
 	var homeCmd = _p2._1;
 	return {
 		ctor: '_Tuple2',
-		_0: A4(_user$project$Main$Model, homeVal, monitorSetupVal, systemPreferencesVal, _user$project$Main$HomeMode),
+		_0: A4(_user$project$Main$Model, homeVal, monitorSetupVal, systemPreferencesVal, _user$project$Main$SystemPreferencesMode),
 		_1: _elm_lang$core$Platform_Cmd$batch(
 			_elm_lang$core$Native_List.fromArray(
 				[

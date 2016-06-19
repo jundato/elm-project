@@ -29,12 +29,19 @@ app.ports.out_exitAndSaveMonitorChanges.subscribe(function(monitor){
   app.ports.in_returnToHomeMode.send("");
 });
 
+app.ports.out_onThemeSelected.subscribe(function(theme){
+  app.ports.in_themeSelected.send(theme);
+});
+
+app.ports.out_updateMonitorMaxDisplays.subscribe(function(monitorDisplays){
+  app.ports.in_updateMonitorMaxDisplays.send(monitorDisplays);
+});
+
 app.ports.out_onSystemPreferencesOpen.subscribe(function(temporary){
   app.ports.in_openSystemPreferences.send("");
 });
 
 app.ports.out_onSystemPreferencesClose.subscribe(function(temporary){
-  console.log('sdasd');
   app.ports.in_returnToHomeMode.send("");
 });
 
