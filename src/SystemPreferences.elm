@@ -73,12 +73,12 @@ view model =
                 , systemPreferencesBodyView model lowerBodyStyle )
         MonitorCount -> ( monitorCountTopBarView model upperBodyStyle
                         , monitorCountBodyView model lowerBodyStyle )
-        Network -> ( systemPreferencesTopBarView model upperBodyStyle
-                        , systemPreferencesBodyView model lowerBodyStyle )
+        Network -> ( networkTopBarView model upperBodyStyle
+                        , networkBodyView model lowerBodyStyle )
         Themes -> ( themeSelectorTopBarView model upperBodyStyle
                   , themeSelectorBodyView model lowerBodyStyle )
-        SoftwareUpdate -> ( systemPreferencesTopBarView model upperBodyStyle
-                          , systemPreferencesBodyView model lowerBodyStyle )
+        SoftwareUpdate -> ( softwareUpdateTopBarView model upperBodyStyle
+                          , softwareUpdateBodyView model lowerBodyStyle )
   in div  [ class "main" ]
           [ upperBodyView
           , lowerBodyView ]

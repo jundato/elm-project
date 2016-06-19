@@ -10123,6 +10123,8 @@ var _user$project$Commons$appTopBarHeaderText = function (value) {
 var _user$project$Ports$in_themeSelected = _elm_lang$core$Native_Platform.incomingPort('in_themeSelected', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_openSystemPreferences = _elm_lang$core$Native_Platform.incomingPort('in_openSystemPreferences', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
+var _user$project$Ports$in_lockScreen = _elm_lang$core$Native_Platform.incomingPort('in_lockScreen', _elm_lang$core$Json_Decode$string);
+var _user$project$Ports$in_managePresets = _elm_lang$core$Native_Platform.incomingPort('in_managePresets', _elm_lang$core$Json_Decode$string);
 var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort(
 	'in_longPressedMonitor',
 	A2(
@@ -10513,6 +10515,7 @@ var _user$project$Ports$in_startEditingMonitor = _elm_lang$core$Native_Platform.
 						});
 				});
 		}));
+var _user$project$Ports$in_updateSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateSecondsLeft', _elm_lang$core$Json_Decode$int);
 var _user$project$Ports$out_onPressedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onPressedMonitor',
 	function (v) {
@@ -10535,6 +10538,16 @@ var _user$project$Ports$out_onPressedSettings = _elm_lang$core$Native_Platform.o
 	});
 var _user$project$Ports$out_onSystemPreferencesOpen = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onSystemPreferencesOpen',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_onScreenLock = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onScreenLock',
+	function (v) {
+		return v;
+	});
+var _user$project$Ports$out_onManagePresets = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onManagePresets',
 	function (v) {
 		return v;
 	});
@@ -10717,7 +10730,9 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					_elm_lang$core$Native_List.fromArray(
-						[]));
+						[
+							_user$project$Ports$out_onPressReleasedMonitor('')
+						]));
 			case 'LongPressedMonitor':
 				var model$ = model;
 				var foundMonitor = A2(_user$project$Home$findMonitor, _p1._0, model$.monitors);
@@ -10745,7 +10760,9 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					_elm_lang$core$Native_List.fromArray(
-						[]));
+						[
+							_user$project$Ports$out_onManagePresets('')
+						]));
 			case 'SystemPreferencesPress':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10759,7 +10776,9 @@ var _user$project$Home$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					_elm_lang$core$Native_List.fromArray(
-						[]));
+						[
+							_user$project$Ports$out_onLockScreenPressed('')
+						]));
 			case 'UpdateMonitor':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10944,9 +10963,7 @@ var _user$project$Home$homePanelView = function (model) {
 					]))
 			]));
 };
-var _user$project$Home$LockScreenPressed = function (a) {
-	return {ctor: 'LockScreenPressed', _0: a};
-};
+var _user$project$Home$LockScreenPressed = {ctor: 'LockScreenPressed'};
 var _user$project$Home$homeMenuView = function (style$) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -10962,8 +10979,7 @@ var _user$project$Home$homeMenuView = function (style$) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$class('home-menu-item vdiv-1-1 div-1-4 content-centered'),
-						_elm_lang$html$Html_Events$onClick(
-						_user$project$Home$LockScreenPressed(''))
+						_elm_lang$html$Html_Events$onClick(_user$project$Home$LockScreenPressed)
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[
@@ -11037,9 +11053,7 @@ var _user$project$Home$SelectMonitorToConfigure = function (a) {
 var _user$project$Home$LongPressedMonitor = function (a) {
 	return {ctor: 'LongPressedMonitor', _0: a};
 };
-var _user$project$Home$MonitorPressReleased = function (a) {
-	return {ctor: 'MonitorPressReleased', _0: a};
-};
+var _user$project$Home$MonitorPressReleased = {ctor: 'MonitorPressReleased'};
 var _user$project$Home$MonitorPressedDown = function (a) {
 	return {ctor: 'MonitorPressedDown', _0: a};
 };
@@ -11158,8 +11172,7 @@ var _user$project$Home$monitorViewButton = F2(
 							_user$project$Home$SelectMonitorToConfigure(monitor)),
 							_elm_lang$html$Html_Events$onMouseDown(
 							_user$project$Home$MonitorPressedDown(monitor)),
-							_elm_lang$html$Html_Events$onMouseUp(
-							_user$project$Home$MonitorPressReleased(monitor.number))
+							_elm_lang$html$Html_Events$onMouseUp(_user$project$Home$MonitorPressReleased)
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[
@@ -11234,7 +11247,8 @@ var _user$project$Home$view = function (model) {
 				_elm_lang$html$Html_Attributes$class('main'),
 				_elm_lang$html$Html_Attributes$style(
 				_elm_lang$core$Native_List.fromArray(
-					[upperBodyStyle]))
+					[upperBodyStyle])),
+				_elm_lang$html$Html_Events$onMouseUp(_user$project$Home$MonitorPressReleased)
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -11244,6 +11258,100 @@ var _user$project$Home$view = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[lowerBodyStyle])),
 				_user$project$Home$buildVersion
+			]));
+};
+
+var _user$project$Lock$lockCountdownScreenView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-1-1'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('vdiv-1-3 div-1-1')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('vdiv-1-3 div-1-1 content-centered lock-countdown-timer')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'Unlocking in ',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(model.secondsLeft),
+									' seconds')))
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('vdiv-1-3 div-1-1')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[]))
+				]));
+	});
+var _user$project$Lock$view = function (model) {
+	var _p0 = _user$project$Commons$getThemeStyle(model.selectedTheme);
+	var style$ = _p0._1;
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('main')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(_user$project$Lock$lockCountdownScreenView, model, style$)
+			]));
+};
+var _user$project$Lock$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		return A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			_elm_lang$core$Native_Utils.update(
+				model,
+				{secondsLeft: _p1._0}),
+			_elm_lang$core$Native_List.fromArray(
+				[]));
+	});
+var _user$project$Lock$defaultModel = {selectedTheme: _user$project$Types$DefaultTheme, secondsLeft: 30};
+var _user$project$Lock$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	_user$project$Lock$defaultModel,
+	_elm_lang$core$Native_List.fromArray(
+		[]));
+var _user$project$Lock$Model = F2(
+	function (a, b) {
+		return {selectedTheme: a, secondsLeft: b};
+	});
+var _user$project$Lock$UpdateSecondsLeft = function (a) {
+	return {ctor: 'UpdateSecondsLeft', _0: a};
+};
+var _user$project$Lock$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$Ports$in_updateSecondsLeft(_user$project$Lock$UpdateSecondsLeft)
 			]));
 };
 
@@ -13242,8 +13350,8 @@ var _user$project$SystemPreferences$view = function (model) {
 			case 'Network':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
-					_1: A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
+					_0: A2(_user$project$SystemPreferences$networkTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$networkBodyView, model, lowerBodyStyle)
 				};
 			case 'Themes':
 				return {
@@ -13254,8 +13362,8 @@ var _user$project$SystemPreferences$view = function (model) {
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$SystemPreferences$systemPreferencesTopBarView, model, upperBodyStyle),
-					_1: A2(_user$project$SystemPreferences$systemPreferencesBodyView, model, lowerBodyStyle)
+					_0: A2(_user$project$SystemPreferences$softwareUpdateTopBarView, model, upperBodyStyle),
+					_1: A2(_user$project$SystemPreferences$softwareUpdateBodyView, model, lowerBodyStyle)
 				};
 		}
 	}();
@@ -13272,13 +13380,440 @@ var _user$project$SystemPreferences$view = function (model) {
 };
 var _user$project$SystemPreferences$NoOp = {ctor: 'NoOp'};
 
-var _user$project$Main$Model = F4(
-	function (a, b, c, d) {
-		return {homeModel: a, monitorSetupModel: b, systemPreferencesModel: c, viewMode: d};
+var _user$project$Presets$onEsc = F2(
+	function (fail, success) {
+		var tagger = function (code) {
+			return _elm_lang$core$Native_Utils.eq(code, 27) ? success : fail;
+		};
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'keyup',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
 	});
+var _user$project$Presets$onEnter = F2(
+	function (fail, success) {
+		var tagger = function (code) {
+			return _elm_lang$core$Native_Utils.eq(code, 13) ? success : fail;
+		};
+		return A2(
+			_elm_lang$html$Html_Events$on,
+			'keyup',
+			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
+	});
+var _user$project$Presets$setPresetNameCommit = F2(
+	function (preset, presets) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? _elm_lang$core$Native_Utils.update(
+					p,
+					{name: p.tempName, isEditingName: false}) : p;
+			},
+			presets);
+	});
+var _user$project$Presets$setPresetName = F3(
+	function (preset, value, presets) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? _elm_lang$core$Native_Utils.update(
+					p,
+					{tempName: value}) : p;
+			},
+			presets);
+	});
+var _user$project$Presets$cancelPresetEdit = F2(
+	function (preset, presets) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? _elm_lang$core$Native_Utils.update(
+					p,
+					{isEditingName: false}) : p;
+			},
+			presets);
+	});
+var _user$project$Presets$setPresetCommit = F3(
+	function (preset, presets, monitors$) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? _elm_lang$core$Native_Utils.update(
+					p,
+					{monitors: monitors$}) : p;
+			},
+			presets);
+	});
+var _user$project$Presets$setPresetToEdit = F2(
+	function (preset, presets) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? _elm_lang$core$Native_Utils.update(
+					p,
+					{
+						isEditingName: _elm_lang$core$Basics$not(p.isEditingName),
+						tempName: p.name
+					}) : _elm_lang$core$Native_Utils.update(
+					p,
+					{isEditingName: false, tempName: ''});
+			},
+			presets);
+	});
+var _user$project$Presets$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'NoOp':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'ClosePresetSettings':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PresetSelected':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PresetEdit':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							presets: A2(_user$project$Presets$setPresetToEdit, _p0._0, model.presets)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PresetCommit':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							presets: A3(_user$project$Presets$setPresetCommit, _p0._0, model.presets, model.monitors)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PresetNameInput':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							presets: A3(_user$project$Presets$setPresetName, _p0._0, _p0._1, model.presets)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			case 'PresetNameEditDone':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							presets: A2(_user$project$Presets$setPresetNameCommit, _p0._0, model.presets)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							presets: A2(_user$project$Presets$cancelPresetEdit, _p0._0, model.presets)
+						}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+		}
+	});
+var _user$project$Presets$defaultPreset = function (id$) {
+	return {
+		id: id$,
+		name: '<empty>',
+		tempName: '',
+		monitors: _elm_lang$core$Native_List.fromArray(
+			[]),
+		isSelected: false,
+		isEditingName: false
+	};
+};
+var _user$project$Presets$defaultModel = {
+	selectedTheme: _user$project$Types$DefaultTheme,
+	presets: _elm_lang$core$Native_List.fromArray(
+		[
+			_user$project$Presets$defaultPreset(1),
+			_user$project$Presets$defaultPreset(2),
+			_user$project$Presets$defaultPreset(3),
+			_user$project$Presets$defaultPreset(4),
+			_user$project$Presets$defaultPreset(5),
+			_user$project$Presets$defaultPreset(6)
+		]),
+	monitors: _elm_lang$core$Native_List.fromArray(
+		[])
+};
+var _user$project$Presets$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	_user$project$Presets$defaultModel,
+	_elm_lang$core$Native_List.fromArray(
+		[]));
+var _user$project$Presets$Model = F3(
+	function (a, b, c) {
+		return {selectedTheme: a, presets: b, monitors: c};
+	});
+var _user$project$Presets$Preset = F6(
+	function (a, b, c, d, e, f) {
+		return {id: a, name: b, tempName: c, monitors: d, isSelected: e, isEditingName: f};
+	});
+var _user$project$Presets$PresetEditCancel = function (a) {
+	return {ctor: 'PresetEditCancel', _0: a};
+};
+var _user$project$Presets$PresetNameEditDone = function (a) {
+	return {ctor: 'PresetNameEditDone', _0: a};
+};
+var _user$project$Presets$PresetNameInput = F2(
+	function (a, b) {
+		return {ctor: 'PresetNameInput', _0: a, _1: b};
+	});
+var _user$project$Presets$PresetCommit = function (a) {
+	return {ctor: 'PresetCommit', _0: a};
+};
+var _user$project$Presets$PresetEdit = function (a) {
+	return {ctor: 'PresetEdit', _0: a};
+};
+var _user$project$Presets$PresetSelected = function (a) {
+	return {ctor: 'PresetSelected', _0: a};
+};
+var _user$project$Presets$ClosePresetSettings = {ctor: 'ClosePresetSettings'};
+var _user$project$Presets$presetSettingTopBarView = F2(
+	function (model, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-top-bar vdiv-1-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 vdiv-1-1 content-centered nav-header')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Commons$appTopBarHeaderText(' ')
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('div-1-10 float-right'),
+							_elm_lang$html$Html_Events$onClick(_user$project$Presets$ClosePresetSettings)
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[_user$project$Commons$closeIconView]))
+				]));
+	});
+var _user$project$Presets$NoOp = {ctor: 'NoOp'};
+var _user$project$Presets$presetButtonView = function (preset) {
+	var isEditingName = preset.isEditingName;
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('preset-button div-4-5 vdiv-1-2 button content-centered'),
+				_elm_lang$html$Html_Events$onDoubleClick(
+				_user$project$Presets$PresetEdit(preset))
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'div-4-5 vdiv-1-1 PresetNameEditDone',
+							isEditingName ? ' hidden' : ''))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('vdiv-1-1 div-1-1 content-centered')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text(preset.name)
+							]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'div-4-5 vdiv-1-1',
+							_elm_lang$core$Basics$not(isEditingName) ? ' hidden' : '')),
+						A2(
+						_user$project$Presets$onEsc,
+						_user$project$Presets$NoOp,
+						_user$project$Presets$PresetEditCancel(preset))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$input,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('preset-button-input vdiv-1-1'),
+								_elm_lang$html$Html_Attributes$type$('text'),
+								_elm_lang$html$Html_Attributes$value(preset.tempName),
+								A2(
+								_elm_lang$html$Html_Events$on,
+								'input',
+								A2(
+									_elm_lang$core$Json_Decode$map,
+									_user$project$Presets$PresetNameInput(preset),
+									_elm_lang$html$Html_Events$targetValue)),
+								A2(
+								_user$project$Presets$onEnter,
+								_user$project$Presets$NoOp,
+								_user$project$Presets$PresetNameEditDone(preset))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-10')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$img,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('icon'),
+								_elm_lang$html$Html_Attributes$src('images/load_icon.svg'),
+								_elm_lang$html$Html_Events$onClick(
+								_user$project$Presets$PresetSelected(preset))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('div-1-10')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$img,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$class('icon'),
+								_elm_lang$html$Html_Attributes$src('images/save_icon.svg'),
+								_elm_lang$html$Html_Events$onClick(
+								_user$project$Presets$PresetCommit(preset))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
+					]))
+			]));
+};
+var _user$project$Presets$presetContainerView = function (preset) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('vdiv-1-3 div-1-2 align-center preset-button-container')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$Presets$presetButtonView(preset)
+			]));
+};
+var _user$project$Presets$presetSettingBodyView = F2(
+	function (presets, style$) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('app-body vdiv-9-10'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[style$]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('vdiv-1-2 div-1-1')
+						]),
+					A2(_elm_lang$core$List$map, _user$project$Presets$presetContainerView, presets)),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('vdiv-1-2 div-1-1')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[]))
+				]));
+	});
+var _user$project$Presets$view = function (model) {
+	var _p1 = _user$project$Commons$getThemeStyle(model.selectedTheme);
+	var lowerBodyStyle = _p1._0;
+	var upperBodyStyle = _p1._1;
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(_user$project$Presets$presetSettingTopBarView, model, upperBodyStyle),
+				A2(_user$project$Presets$presetSettingBodyView, model.presets, lowerBodyStyle)
+			]));
+};
+
+var _user$project$Main$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {homeModel: a, monitorSetupModel: b, systemPreferencesModel: c, lockModel: d, presetsModel: e, viewMode: f};
+	});
+var _user$project$Main$PresetsMode = {ctor: 'PresetsMode'};
+var _user$project$Main$LockScreenMode = {ctor: 'LockScreenMode'};
 var _user$project$Main$SystemPreferencesMode = {ctor: 'SystemPreferencesMode'};
 var _user$project$Main$MonitorSetupMode = {ctor: 'MonitorSetupMode'};
 var _user$project$Main$HomeMode = {ctor: 'HomeMode'};
+var _user$project$Main$ManagePresets = function (a) {
+	return {ctor: 'ManagePresets', _0: a};
+};
+var _user$project$Main$LockScreen = function (a) {
+	return {ctor: 'LockScreen', _0: a};
+};
 var _user$project$Main$ReturnToHomeMode = function (a) {
 	return {ctor: 'ReturnToHomeMode', _0: a};
 };
@@ -13294,6 +13829,12 @@ var _user$project$Main$UnlockLockCountdown = function (a) {
 var _user$project$Main$LongPressedMonitor = function (a) {
 	return {ctor: 'LongPressedMonitor', _0: a};
 };
+var _user$project$Main$PresetsMsg = function (a) {
+	return {ctor: 'PresetsMsg', _0: a};
+};
+var _user$project$Main$LockMsg = function (a) {
+	return {ctor: 'LockMsg', _0: a};
+};
 var _user$project$Main$SystemPreferencesMsg = function (a) {
 	return {ctor: 'SystemPreferencesMsg', _0: a};
 };
@@ -13304,35 +13845,43 @@ var _user$project$Main$HomeMainMsg = function (a) {
 	return {ctor: 'HomeMainMsg', _0: a};
 };
 var _user$project$Main$init = function () {
-	var _p0 = _user$project$SystemPreferences$init;
-	var systemPreferencesVal = _p0._0;
-	var systemPreferencesCmd = _p0._1;
-	var _p1 = _user$project$MonitorSetup$init;
-	var monitorSetupVal = _p1._0;
-	var monitorSetupCmd = _p1._1;
-	var _p2 = _user$project$Home$init;
-	var homeVal = _p2._0;
-	var homeCmd = _p2._1;
+	var _p0 = _user$project$Presets$init;
+	var presetsVal = _p0._0;
+	var presetCmd = _p0._1;
+	var _p1 = _user$project$Lock$init;
+	var lockVal = _p1._0;
+	var lockCmd = _p1._1;
+	var _p2 = _user$project$SystemPreferences$init;
+	var systemPreferencesVal = _p2._0;
+	var systemPreferencesCmd = _p2._1;
+	var _p3 = _user$project$MonitorSetup$init;
+	var monitorSetupVal = _p3._0;
+	var monitorSetupCmd = _p3._1;
+	var _p4 = _user$project$Home$init;
+	var homeVal = _p4._0;
+	var homeCmd = _p4._1;
 	return {
 		ctor: '_Tuple2',
-		_0: A4(_user$project$Main$Model, homeVal, monitorSetupVal, systemPreferencesVal, _user$project$Main$SystemPreferencesMode),
+		_0: A6(_user$project$Main$Model, homeVal, monitorSetupVal, systemPreferencesVal, lockVal, presetsVal, _user$project$Main$HomeMode),
 		_1: _elm_lang$core$Platform_Cmd$batch(
 			_elm_lang$core$Native_List.fromArray(
 				[
 					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, homeCmd),
 					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, monitorSetupCmd),
-					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$SystemPreferencesMsg, systemPreferencesCmd)
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$SystemPreferencesMsg, systemPreferencesCmd),
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$LockMsg, lockCmd),
+					A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PresetsMsg, presetCmd)
 				]))
 	};
 }();
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p3 = msg;
-		switch (_p3.ctor) {
+		var _p5 = msg;
+		switch (_p5.ctor) {
 			case 'HomeMainMsg':
-				var _p4 = A2(_user$project$Home$update, _p3._0, model.homeModel);
-				var newHomeModel = _p4._0;
-				var cmd = _p4._1;
+				var _p6 = A2(_user$project$Home$update, _p5._0, model.homeModel);
+				var newHomeModel = _p6._0;
+				var cmd = _p6._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -13343,9 +13892,9 @@ var _user$project$Main$update = F2(
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$HomeMainMsg, cmd)
 						]));
 			case 'MonitorSetupMainMsg':
-				var _p5 = A2(_user$project$MonitorSetup$update, _p3._0, model.monitorSetupModel);
-				var newMonitorSetupModel = _p5._0;
-				var cmd = _p5._1;
+				var _p7 = A2(_user$project$MonitorSetup$update, _p5._0, model.monitorSetupModel);
+				var newMonitorSetupModel = _p7._0;
+				var cmd = _p7._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -13356,9 +13905,9 @@ var _user$project$Main$update = F2(
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$MonitorSetupMainMsg, cmd)
 						]));
 			case 'SystemPreferencesMsg':
-				var _p6 = A2(_user$project$SystemPreferences$update, _p3._0, model.systemPreferencesModel);
-				var newSystemPreferencesModel = _p6._0;
-				var cmd = _p6._1;
+				var _p8 = A2(_user$project$SystemPreferences$update, _p5._0, model.systemPreferencesModel);
+				var newSystemPreferencesModel = _p8._0;
+				var cmd = _p8._1;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -13367,6 +13916,32 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$SystemPreferencesMsg, cmd)
+						]));
+			case 'LockMsg':
+				var _p9 = A2(_user$project$Lock$update, _p5._0, model.lockModel);
+				var newLockModel = _p9._0;
+				var cmd = _p9._1;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{lockModel: newLockModel}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$LockMsg, cmd)
+						]));
+			case 'PresetsMsg':
+				var _p10 = A2(_user$project$Presets$update, _p5._0, model.presetsModel);
+				var newPresetsModel = _p10._0;
+				var cmd = _p10._1;
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{presetsModel: newPresetsModel}),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PresetsMsg, cmd)
 						]));
 			case 'LongPressedMonitor':
 				return A2(
@@ -13396,7 +13971,7 @@ var _user$project$Main$update = F2(
 						{viewMode: _user$project$Main$SystemPreferencesMode}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
-			default:
+			case 'ReturnToHomeMode':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -13404,12 +13979,28 @@ var _user$project$Main$update = F2(
 						{viewMode: _user$project$Main$HomeMode}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
+			case 'LockScreen':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewMode: _user$project$Main$LockScreenMode}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{viewMode: _user$project$Main$PresetsMode}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 		}
 	});
 var _user$project$Main$view = function (model) {
 	var view = function () {
-		var _p7 = model.viewMode;
-		switch (_p7.ctor) {
+		var _p11 = model.viewMode;
+		switch (_p11.ctor) {
 			case 'HomeMode':
 				return A2(
 					_elm_lang$html$Html_App$map,
@@ -13420,11 +14011,21 @@ var _user$project$Main$view = function (model) {
 					_elm_lang$html$Html_App$map,
 					_user$project$Main$MonitorSetupMainMsg,
 					_user$project$MonitorSetup$view(model.monitorSetupModel));
-			default:
+			case 'SystemPreferencesMode':
 				return A2(
 					_elm_lang$html$Html_App$map,
 					_user$project$Main$SystemPreferencesMsg,
 					_user$project$SystemPreferences$view(model.systemPreferencesModel));
+			case 'LockScreenMode':
+				return A2(
+					_elm_lang$html$Html_App$map,
+					_user$project$Main$LockMsg,
+					_user$project$Lock$view(model.lockModel));
+			default:
+				return A2(
+					_elm_lang$html$Html_App$map,
+					_user$project$Main$PresetsMsg,
+					_user$project$Presets$view(model.presetsModel));
 		}
 	}();
 	return A2(
@@ -13446,9 +14047,14 @@ var _user$project$Main$subscriptions = function (model) {
 				_elm_lang$core$Platform_Sub$map,
 				_user$project$Main$MonitorSetupMainMsg,
 				_user$project$MonitorSetup$subscriptions(model.monitorSetupModel)),
+				A2(
+				_elm_lang$core$Platform_Sub$map,
+				_user$project$Main$LockMsg,
+				_user$project$Lock$subscriptions(model.lockModel)),
 				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor),
 				_user$project$Ports$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode),
-				_user$project$Ports$in_openSystemPreferences(_user$project$Main$OpenSystemPreferences)
+				_user$project$Ports$in_openSystemPreferences(_user$project$Main$OpenSystemPreferences),
+				_user$project$Ports$in_lockScreen(_user$project$Main$LockScreen)
 			]));
 };
 var _user$project$Main$main = {

@@ -45,10 +45,10 @@ type Msg
   = SelectMonitor Monitor
   | SelectAllMonitors
   | MonitorPressedDown Monitor
-  | MonitorPressReleased String
+  | MonitorPressReleased
   | LongPressedMonitor String
   | SelectMonitorToConfigure Monitor
-  | LockScreenPressed String
+  | LockScreenPressed
   | PowerPress
   | PresetPress
   | SystemPreferencesPress
@@ -74,16 +74,16 @@ update msg model =
       let model' = model
       in { model  | monitors = setMonitorAsSelected monitor' model'.monitors } ! []
     MonitorPressedDown monitor -> model ! [ Ports.out_onPressedMonitor monitor ]
-    MonitorPressReleased number -> model ! []
+    MonitorPressReleased -> model ! [ Ports.out_onPressReleasedMonitor ""]
     LongPressedMonitor number ->
       let model' = model
           foundMonitor = findMonitor number model'.monitors
       in { model  | monitors = setMonitorAsSelected foundMonitor model'.monitors } ! []
     PowerPress ->
       { model | monitors = setSelectedMonitorsToPowerPress model.monitors } ! []
-    PresetPress -> model ! []
+    PresetPress -> model ! [ Ports.out_onManagePresets "" ]
     SystemPreferencesPress -> model ! [ Ports.out_onSystemPreferencesOpen "" ]
-    LockScreenPressed temporary -> model ! []
+    LockScreenPressed -> model ! [ Ports.out_onLockScreenPressed "" ]
     UpdateMonitor monitor -> { model | monitors = (updateMonitor monitor model.monitors) } ! []
     UpdateMonitorMaxDisplays maxMonitorDisplays -> { model | monitorDisplays = maxMonitorDisplays } ! []
     UpdateTheme name ->
@@ -131,7 +131,9 @@ init = defaultModel ! []
 view : Model -> Html Msg
 view model =
   let (upperBodyStyle, lowerBodyStyle) = getThemeStyle model.selectedTheme
-  in div  [ class "main", style [upperBodyStyle] ]
+  in div  [ class "main"
+          , style [upperBodyStyle]
+          , onMouseUp MonitorPressReleased ]
           [ monitorPanelView model
           , homePanelView model
           , homeMenuView [lowerBodyStyle]
@@ -160,7 +162,7 @@ monitorViewButton monitorDisplays monitor =
           , onClick (SelectMonitor monitor)
           , onDoubleClick (SelectMonitorToConfigure monitor)
           , onMouseDown (MonitorPressedDown monitor)
-          , onMouseUp (MonitorPressReleased monitor.number) ]
+          , onMouseUp MonitorPressReleased ]
           [ div [ class ("div-4-5 vdiv-4-5 " ++ (toString monitor.isSelected)) ]
                 [ div [ class "div-1-1 vdiv-1-1" ] [ monitorIcon monitor.number monitor.isSelected ] ] ]
     ]
@@ -218,7 +220,7 @@ homePanelView model =
 homeMenuView : List(String, String) -> Html Msg
 homeMenuView style' =
   div [ class "sub-panel-view", style style' ]
-      [ div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick (LockScreenPressed "") ]
+      [ div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick LockScreenPressed ]
             [ div [ class "content-centered vdiv-1-1 div-1-1" ] [ lockIcon ] ]
       , div [ class "home-menu-item vdiv-1-1 div-1-4 content-centered", onClick PresetPress ]
             [ div [ class "content-centered vdiv-1-1 div-1-1" ] [ presetIcon ] ]
