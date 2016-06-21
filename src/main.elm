@@ -6,8 +6,8 @@ import Html.App as App
 import Html exposing (..)
 import Basics
 
-import Types exposing (..)
-import Ports
+import MainPorts
+
 import Home
 import MonitorSetup
 import SystemPreferences
@@ -47,7 +47,7 @@ type Msg
   | SystemPreferencesMsg SystemPreferences.Msg
   | LockMsg Lock.Msg
   | PresetsMsg Presets.Msg
-  | LongPressedMonitor Monitor
+  | MonitorSetup String
   | UnlockLockCountdown String
   | UpdateLockCountdownSecondsLeft Int
   | OpenSystemPreferences String
@@ -83,7 +83,7 @@ update msg model =
         (newPresetsModel, cmd) = Presets.update presetMsg  model.presetsModel
       in
         { model | presetsModel = newPresetsModel } ! [Cmd.map PresetsMsg cmd]
-    LongPressedMonitor val -> { model  | viewMode = MonitorSetupMode } ! [ ]
+    MonitorSetup val -> { model  | viewMode = MonitorSetupMode } ! [ ]
     UnlockLockCountdown val ->
       model ! [ ]
     UpdateLockCountdownSecondsLeft val ->
@@ -120,7 +120,8 @@ subscriptions model =
     [ Sub.map HomeMainMsg (Home.subscriptions model.homeModel)
     , Sub.map MonitorSetupMainMsg (MonitorSetup.subscriptions model.monitorSetupModel)
     , Sub.map LockMsg (Lock.subscriptions model.lockModel)
-    , Ports.in_longPressedMonitor LongPressedMonitor
-    , Ports.in_returnToHomeMode ReturnToHomeMode
-    , Ports.in_openSystemPreferences OpenSystemPreferences
-    , Ports.in_lockScreen LockScreen ]
+    , MainPorts.in_managePresets ManagePresets
+    , MainPorts.in_monitorSetup MonitorSetup
+    , MainPorts.in_returnToHomeMode ReturnToHomeMode
+    , MainPorts.in_openSystemPreferences OpenSystemPreferences
+    , MainPorts.in_lockScreen LockScreen ]

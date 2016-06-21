@@ -2,7 +2,7 @@ module Lock exposing (..)
 
 import Types exposing (..)
 import Commons exposing (..)
-import Ports
+import LockPorts
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -45,4 +45,4 @@ lockCountdownScreenView model style' =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
-    [ Ports.in_updateSecondsLeft UpdateSecondsLeft ]
+    [ LockPorts.in_updateSecondsLeft UpdateSecondsLeft ]

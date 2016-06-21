@@ -3,7 +3,7 @@ module MonitorSetup exposing (..)
 import Types exposing (..)
 import Icons exposing (..)
 import Commons exposing (..)
-import Ports
+import MonitorSetupPorts
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -59,7 +59,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
 ---- Monitor Setting Actions
-    CloseMonitorConfiguration monitor -> model ! [ Ports.out_exitAndSaveMonitorChanges monitor ]
+    CloseMonitorConfiguration monitor -> model ! [ MonitorSetupPorts.out_exitAndSaveMonitorChanges monitor ]
     SignalInputToggle signalType ->
       let selectedMonitor'  = model.selectedMonitor
       in { model | selectedMonitor =  activateCycleSignalMatrix signalType selectedMonitor' } ! []
@@ -390,4 +390,4 @@ setOsdSelectButtonPress model =
 
 -- WIRING --
 subscriptions : Model -> Sub Msg
-subscriptions model = Ports.in_startEditingMonitor StartEditingMonitor
+subscriptions model = MonitorSetupPorts.in_startEditingMonitor StartEditingMonitor

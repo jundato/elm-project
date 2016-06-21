@@ -7567,6 +7567,87 @@ var _elm_lang$svg$Svg_Attributes$accumulate = _elm_lang$virtual_dom$VirtualDom$a
 var _elm_lang$svg$Svg_Attributes$accelerate = _elm_lang$virtual_dom$VirtualDom$attribute('accelerate');
 var _elm_lang$svg$Svg_Attributes$accentHeight = _elm_lang$virtual_dom$VirtualDom$attribute('accent-height');
 
+var _user$project$CommonPorts$in_themeSelected = _elm_lang$core$Native_Platform.incomingPort('in_themeSelected', _elm_lang$core$Json_Decode$string);
+
+var _user$project$Icons$saveIcon = function (isEnabled) {
+	var iconColor = isEnabled ? '#2968a1' : '#aaaaaa';
+	var containerHeight = 116;
+	var containerWidth = 116;
+	return A2(
+		_elm_lang$svg$Svg$svg,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$svg$Svg_Attributes$version('1.1'),
+				_elm_lang$svg$Svg_Attributes$height('100%'),
+				_elm_lang$svg$Svg_Attributes$width('100%'),
+				_elm_lang$svg$Svg_Attributes$x('0'),
+				_elm_lang$svg$Svg_Attributes$y('0'),
+				_elm_lang$svg$Svg_Attributes$viewBox(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'0 0 ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(containerWidth),
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							' ',
+							_elm_lang$core$Basics$toString(containerHeight)))))
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$svg$Svg$path,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$d('M64.23,7.77A56.45,56.45,0,1,1,7.8,63.3,56.35,56.35,0,0,1,64.23,7.77ZM64.14,88.94h21c2.61,0,3.76-1.16,3.76-3.79q0-14.28,0-28.57a8.5,8.5,0,0,0-2.6-6.25q-4.1-4.09-8.19-8.19a8.61,8.61,0,0,0-6.36-2.62H43.33c-2.68,0-3.82,1.14-3.82,3.85q0,20.86,0,41.73c0,2.71,1.13,3.85,3.82,3.85H64.14Z'),
+						_elm_lang$svg$Svg_Attributes$fill(iconColor),
+						_elm_lang$svg$Svg_Attributes$transform('translate(-6.6 -6.61)')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$svg$Svg$path,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$d('M64.14,88.94H43.33c-2.69,0-3.82-1.14-3.82-3.85q0-20.86,0-41.73c0-2.7,1.13-3.85,3.82-3.85H71.79a8.61,8.61,0,0,1,6.36,2.62q4.09,4.11,8.19,8.19a8.5,8.5,0,0,1,2.6,6.25q0,14.28,0,28.57c0,2.62-1.15,3.79-3.76,3.79h-21ZM43.68,64.17c0,5.85,0,11.7,0,17.55,0,1-.45,2.32.22,2.89s1.86,0.09,2.82.18,1.07-.22,1.06-1.06c0-3.94,0-7.87,0-11.81,0-2.41,1.17-3.6,3.58-3.6H77.11c2.39,0,3.55,1.2,3.55,3.62,0,3.26,0,6.52,0,9.78,0,1-.42,2.22.17,2.82s1.92,0.12,2.91.23c0.76,0.08,1-.16,1-1q0-13.66,0-27.33a4.34,4.34,0,0,0-1.34-3.22Q79.28,49.13,75.16,45a4.35,4.35,0,0,0-1.47-1c-1.09-.43-1.21-0.36-1.21.79q0,5.9,0,11.81A3.2,3.2,0,0,1,69,60.13H51.39c-2.43,0-3.6-1.17-3.61-3.57,0-3.34,0-6.67,0-10,0-.92.42-2.13-0.2-2.7s-1.8-.08-2.72-0.18-1.2.2-1.19,1.16C43.7,51.28,43.68,57.72,43.68,64.17Zm20.55,20.6c3.78,0,7.57,0,11.35,0,0.76,0,1-.18,1-1q-0.07-5.17,0-10.34c0-.81-0.25-1-1-1q-11.35,0-22.71,0c-0.76,0-1,.18-1,1q0.07,5.17,0,10.34c0,0.81.25,1,1,1C56.66,84.75,60.44,84.77,64.23,84.77Zm4.09-35c0-1.57,0-3.15,0-4.72A1.16,1.16,0,0,0,67,43.68q-2.75,0-5.51,0A1.16,1.16,0,0,0,60.13,45q0,4.78,0,9.56A1.16,1.16,0,0,0,61.46,56q2.75,0,5.51,0a1.16,1.16,0,0,0,1.35-1.36C68.29,53,68.31,51.39,68.31,49.78Z'),
+						_elm_lang$svg$Svg_Attributes$fill('#fff'),
+						_elm_lang$svg$Svg_Attributes$transform('translate(-6.6 -6.61)')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$svg$Svg$path,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$d('M43.68,64.17c0-6.45,0-12.9,0-19.34,0-1,.27-1.26,1.19-1.16s2.12-.37,2.72.18,0.19,1.78.2,2.7c0,3.34,0,6.67,0,10,0,2.4,1.18,3.57,3.61,3.57H69a3.2,3.2,0,0,0,3.44-3.55q0-5.9,0-11.81c0-1.16.12-1.23,1.21-.79a4.35,4.35,0,0,1,1.47,1q4.13,4.14,8.27,8.27a4.34,4.34,0,0,1,1.34,3.22q0,13.66,0,27.33c0,0.81-.27,1.06-1,1-1-.11-2.27.42-2.91-0.23s-0.16-1.86-.17-2.82c0-3.26,0-6.52,0-9.78,0-2.43-1.16-3.62-3.55-3.62H51.36c-2.4,0-3.57,1.19-3.58,3.6,0,3.94,0,7.87,0,11.81,0,0.84-.21,1.14-1.06,1.06s-2.25.31-2.82-.18-0.22-1.9-.22-2.89C43.67,75.87,43.68,70,43.68,64.17Z'),
+						_elm_lang$svg$Svg_Attributes$fill(iconColor),
+						_elm_lang$svg$Svg_Attributes$transform('translate(-6.6 -6.61)')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$svg$Svg$path,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$d('M64.23,84.77c-3.79,0-7.57,0-11.36,0-0.77,0-1-.18-1-1q0.06-5.17,0-10.34c0-.81.26-1,1-1q11.35,0,22.71,0c0.77,0,1,.18,1,1q-0.06,5.17,0,10.34c0,0.81-.25,1-1,1C71.79,84.75,68,84.77,64.23,84.77Z'),
+						_elm_lang$svg$Svg_Attributes$fill(iconColor),
+						_elm_lang$svg$Svg_Attributes$transform('translate(-6.6 -6.61)')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
+				A2(
+				_elm_lang$svg$Svg$path,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$d('M68.31,49.78c0,1.61,0,3.22,0,4.83A1.16,1.16,0,0,1,67,56q-2.75,0-5.51,0a1.16,1.16,0,0,1-1.33-1.38q0-4.78,0-9.56a1.16,1.16,0,0,1,1.35-1.36q2.75,0,5.51,0a1.16,1.16,0,0,1,1.33,1.38C68.29,46.63,68.31,48.21,68.31,49.78Z'),
+						_elm_lang$svg$Svg_Attributes$fill(iconColor),
+						_elm_lang$svg$Svg_Attributes$transform('translate(-6.6 -6.61)')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
+			]));
+};
 var _user$project$Icons$updateIcon = function () {
 	var containerHeight = 128;
 	var containerWidth = 128;
@@ -10120,12 +10201,7 @@ var _user$project$Commons$appTopBarHeaderText = function (value) {
 			]));
 };
 
-var _user$project$Ports$in_themeSelected = _elm_lang$core$Native_Platform.incomingPort('in_themeSelected', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_openSystemPreferences = _elm_lang$core$Native_Platform.incomingPort('in_openSystemPreferences', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_lockScreen = _elm_lang$core$Native_Platform.incomingPort('in_lockScreen', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_managePresets = _elm_lang$core$Native_Platform.incomingPort('in_managePresets', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort(
+var _user$project$HomePorts$in_longPressedMonitor = _elm_lang$core$Native_Platform.incomingPort(
 	'in_longPressedMonitor',
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
@@ -10254,9 +10330,9 @@ var _user$project$Ports$in_longPressedMonitor = _elm_lang$core$Native_Platform.i
 						});
 				});
 		}));
-var _user$project$Ports$in_unlockLockCountdown = _elm_lang$core$Native_Platform.incomingPort('in_unlockLockCountdown', _elm_lang$core$Json_Decode$string);
-var _user$project$Ports$in_updateLockCountdownSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateLockCountdownSecondsLeft', _elm_lang$core$Json_Decode$int);
-var _user$project$Ports$in_updateMonitor = _elm_lang$core$Native_Platform.incomingPort(
+var _user$project$HomePorts$in_unlockLockCountdown = _elm_lang$core$Native_Platform.incomingPort('in_unlockLockCountdown', _elm_lang$core$Json_Decode$string);
+var _user$project$HomePorts$in_updateLockCountdownSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateLockCountdownSecondsLeft', _elm_lang$core$Json_Decode$int);
+var _user$project$HomePorts$in_updateMonitor = _elm_lang$core$Native_Platform.incomingPort(
 	'in_updateMonitor',
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
@@ -10385,203 +10461,42 @@ var _user$project$Ports$in_updateMonitor = _elm_lang$core$Native_Platform.incomi
 						});
 				});
 		}));
-var _user$project$Ports$in_updateMonitorMaxDisplays = _elm_lang$core$Native_Platform.incomingPort('in_updateMonitorMaxDisplays', _elm_lang$core$Json_Decode$int);
-var _user$project$Ports$in_startEditingMonitor = _elm_lang$core$Native_Platform.incomingPort(
-	'in_startEditingMonitor',
-	A2(
-		_elm_lang$core$Json_Decode$andThen,
-		A2(_elm_lang$core$Json_Decode_ops[':='], 'number', _elm_lang$core$Json_Decode$string),
-		function (number) {
-			return A2(
-				_elm_lang$core$Json_Decode$andThen,
-				A2(_elm_lang$core$Json_Decode_ops[':='], 'isSelected', _elm_lang$core$Json_Decode$bool),
-				function (isSelected) {
-					return A2(
-						_elm_lang$core$Json_Decode$andThen,
-						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVisible', _elm_lang$core$Json_Decode$bool),
-						function (isVisible) {
-							return A2(
-								_elm_lang$core$Json_Decode$andThen,
-								A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaOne', _elm_lang$core$Json_Decode$string),
-								function (vgaOne) {
-									return A2(
-										_elm_lang$core$Json_Decode$andThen,
-										A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaTwo', _elm_lang$core$Json_Decode$string),
-										function (vgaTwo) {
-											return A2(
-												_elm_lang$core$Json_Decode$andThen,
-												A2(_elm_lang$core$Json_Decode_ops[':='], 'dviOne', _elm_lang$core$Json_Decode$string),
-												function (dviOne) {
-													return A2(
-														_elm_lang$core$Json_Decode$andThen,
-														A2(_elm_lang$core$Json_Decode_ops[':='], 'dviTwo', _elm_lang$core$Json_Decode$string),
-														function (dviTwo) {
-															return A2(
-																_elm_lang$core$Json_Decode$andThen,
-																A2(_elm_lang$core$Json_Decode_ops[':='], 'videoOne', _elm_lang$core$Json_Decode$string),
-																function (videoOne) {
-																	return A2(
-																		_elm_lang$core$Json_Decode$andThen,
-																		A2(_elm_lang$core$Json_Decode_ops[':='], 'videoTwo', _elm_lang$core$Json_Decode$string),
-																		function (videoTwo) {
-																			return A2(
-																				_elm_lang$core$Json_Decode$andThen,
-																				A2(_elm_lang$core$Json_Decode_ops[':='], 'videoThree', _elm_lang$core$Json_Decode$string),
-																				function (videoThree) {
-																					return A2(
-																						_elm_lang$core$Json_Decode$andThen,
-																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaOneCycle', _elm_lang$core$Json_Decode$bool),
-																						function (isVgaOneCycle) {
-																							return A2(
-																								_elm_lang$core$Json_Decode$andThen,
-																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaTwoCycle', _elm_lang$core$Json_Decode$bool),
-																								function (isVgaTwoCycle) {
-																									return A2(
-																										_elm_lang$core$Json_Decode$andThen,
-																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
-																										function (isDviOneCycle) {
-																											return A2(
-																												_elm_lang$core$Json_Decode$andThen,
-																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
-																												function (isDviOneCycle) {
-																													return A2(
-																														_elm_lang$core$Json_Decode$andThen,
-																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviTwoCycle', _elm_lang$core$Json_Decode$bool),
-																														function (isDviTwoCycle) {
-																															return A2(
-																																_elm_lang$core$Json_Decode$andThen,
-																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoOneCycle', _elm_lang$core$Json_Decode$bool),
-																																function (isVideoOneCycle) {
-																																	return A2(
-																																		_elm_lang$core$Json_Decode$andThen,
-																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoTwoCycle', _elm_lang$core$Json_Decode$bool),
-																																		function (isVideoTwoCycle) {
-																																			return A2(
-																																				_elm_lang$core$Json_Decode$andThen,
-																																				A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoThreeCycle', _elm_lang$core$Json_Decode$bool),
-																																				function (isVideoThreeCycle) {
-																																					return A2(
-																																						_elm_lang$core$Json_Decode$andThen,
-																																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipUpDownPressed', _elm_lang$core$Json_Decode$bool),
-																																						function (isPipUpDownPressed) {
-																																							return A2(
-																																								_elm_lang$core$Json_Decode$andThen,
-																																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipLeftRightPressed', _elm_lang$core$Json_Decode$bool),
-																																								function (isPipLeftRightPressed) {
-																																									return A2(
-																																										_elm_lang$core$Json_Decode$andThen,
-																																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipResizePressed', _elm_lang$core$Json_Decode$bool),
-																																										function (isPipResizePressed) {
-																																											return A2(
-																																												_elm_lang$core$Json_Decode$andThen,
-																																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdUpDownPressed', _elm_lang$core$Json_Decode$bool),
-																																												function (isOsdUpDownPressed) {
-																																													return A2(
-																																														_elm_lang$core$Json_Decode$andThen,
-																																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdLeftRightPressed', _elm_lang$core$Json_Decode$bool),
-																																														function (isOsdLeftRightPressed) {
-																																															return A2(
-																																																_elm_lang$core$Json_Decode$andThen,
-																																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdSelectPressed', _elm_lang$core$Json_Decode$bool),
-																																																function (isOsdSelectPressed) {
-																																																	return A2(
-																																																		_elm_lang$core$Json_Decode$andThen,
-																																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isOn', _elm_lang$core$Json_Decode$bool),
-																																																		function (isOn) {
-																																																			return _elm_lang$core$Json_Decode$succeed(
-																																																				{number: number, isSelected: isSelected, isVisible: isVisible, vgaOne: vgaOne, vgaTwo: vgaTwo, dviOne: dviOne, dviTwo: dviTwo, videoOne: videoOne, videoTwo: videoTwo, videoThree: videoThree, isVgaOneCycle: isVgaOneCycle, isVgaTwoCycle: isVgaTwoCycle, isDviOneCycle: isDviOneCycle, isDviOneCycle: isDviOneCycle, isDviTwoCycle: isDviTwoCycle, isVideoOneCycle: isVideoOneCycle, isVideoTwoCycle: isVideoTwoCycle, isVideoThreeCycle: isVideoThreeCycle, isPipUpDownPressed: isPipUpDownPressed, isPipLeftRightPressed: isPipLeftRightPressed, isPipResizePressed: isPipResizePressed, isOsdUpDownPressed: isOsdUpDownPressed, isOsdLeftRightPressed: isOsdLeftRightPressed, isOsdSelectPressed: isOsdSelectPressed, isOn: isOn});
-																																																		});
-																																																});
-																																														});
-																																												});
-																																										});
-																																								});
-																																						});
-																																				});
-																																		});
-																																});
-																														});
-																												});
-																										});
-																								});
-																						});
-																				});
-																		});
-																});
-														});
-												});
-										});
-								});
-						});
-				});
-		}));
-var _user$project$Ports$in_updateSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateSecondsLeft', _elm_lang$core$Json_Decode$int);
-var _user$project$Ports$out_onPressedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$in_updateMonitorMaxDisplays = _elm_lang$core$Native_Platform.incomingPort('in_updateMonitorMaxDisplays', _elm_lang$core$Json_Decode$int);
+var _user$project$HomePorts$out_onPressedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onPressedMonitor',
 	function (v) {
 		return {number: v.number, isSelected: v.isSelected, isVisible: v.isVisible, vgaOne: v.vgaOne, vgaTwo: v.vgaTwo, dviOne: v.dviOne, dviTwo: v.dviTwo, videoOne: v.videoOne, videoTwo: v.videoTwo, videoThree: v.videoThree, isVgaOneCycle: v.isVgaOneCycle, isVgaTwoCycle: v.isVgaTwoCycle, isDviOneCycle: v.isDviOneCycle, isDviOneCycle: v.isDviOneCycle, isDviTwoCycle: v.isDviTwoCycle, isVideoOneCycle: v.isVideoOneCycle, isVideoTwoCycle: v.isVideoTwoCycle, isVideoThreeCycle: v.isVideoThreeCycle, isPipUpDownPressed: v.isPipUpDownPressed, isPipLeftRightPressed: v.isPipLeftRightPressed, isPipResizePressed: v.isPipResizePressed, isOsdUpDownPressed: v.isOsdUpDownPressed, isOsdLeftRightPressed: v.isOsdLeftRightPressed, isOsdSelectPressed: v.isOsdSelectPressed, isOn: v.isOn};
 	});
-var _user$project$Ports$out_onPressReleasedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$out_onPressReleasedMonitor = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onPressReleasedMonitor',
 	function (v) {
 		return v;
 	});
-var _user$project$Ports$out_onLockScreenPressed = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$out_onLockScreenPressed = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onLockScreenPressed',
 	function (v) {
 		return v;
 	});
-var _user$project$Ports$out_onPressedSettings = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$out_onPressedSettings = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onPressedSettings',
 	function (v) {
 		return v;
 	});
-var _user$project$Ports$out_onSystemPreferencesOpen = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$out_onSystemPreferencesOpen = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onSystemPreferencesOpen',
 	function (v) {
 		return v;
 	});
-var _user$project$Ports$out_onScreenLock = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$out_onScreenLock = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onScreenLock',
 	function (v) {
 		return v;
 	});
-var _user$project$Ports$out_onManagePresets = _elm_lang$core$Native_Platform.outgoingPort(
+var _user$project$HomePorts$out_onManagePresets = _elm_lang$core$Native_Platform.outgoingPort(
 	'out_onManagePresets',
 	function (v) {
 		return v;
 	});
-var _user$project$Ports$out_exitAndSaveMonitorChanges = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_exitAndSaveMonitorChanges',
-	function (v) {
-		return {number: v.number, isSelected: v.isSelected, isVisible: v.isVisible, vgaOne: v.vgaOne, vgaTwo: v.vgaTwo, dviOne: v.dviOne, dviTwo: v.dviTwo, videoOne: v.videoOne, videoTwo: v.videoTwo, videoThree: v.videoThree, isVgaOneCycle: v.isVgaOneCycle, isVgaTwoCycle: v.isVgaTwoCycle, isDviOneCycle: v.isDviOneCycle, isDviOneCycle: v.isDviOneCycle, isDviTwoCycle: v.isDviTwoCycle, isVideoOneCycle: v.isVideoOneCycle, isVideoTwoCycle: v.isVideoTwoCycle, isVideoThreeCycle: v.isVideoThreeCycle, isPipUpDownPressed: v.isPipUpDownPressed, isPipLeftRightPressed: v.isPipLeftRightPressed, isPipResizePressed: v.isPipResizePressed, isOsdUpDownPressed: v.isOsdUpDownPressed, isOsdLeftRightPressed: v.isOsdLeftRightPressed, isOsdSelectPressed: v.isOsdSelectPressed, isOn: v.isOn};
-	});
-var _user$project$Ports$out_returnToHomeMode = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_returnToHomeMode',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$out_onThemeSelected = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_onThemeSelected',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$out_onSystemPreferencesClose = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_onSystemPreferencesClose',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$out_updateMonitorMaxDisplays = _elm_lang$core$Native_Platform.outgoingPort(
-	'out_updateMonitorMaxDisplays',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
-	'toJS',
-	function (v) {
-		return v;
-	});
-var _user$project$Ports$fromJS = _elm_lang$core$Native_Platform.incomingPort('fromJS', _elm_lang$core$Json_Decode$int);
 
 var _user$project$Home$buildVersion = A2(
 	_elm_lang$html$Html$div,
@@ -10591,7 +10506,7 @@ var _user$project$Home$buildVersion = A2(
 		]),
 	_elm_lang$core$Native_List.fromArray(
 		[
-			_elm_lang$html$Html$text('v.1.052520161350')
+			_elm_lang$html$Html$text('v.1.062120161550')
 		]));
 var _user$project$Home$updateMonitor = F2(
 	function (monitor, monitors) {
@@ -10723,7 +10638,7 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onPressedMonitor(_p1._0)
+							_user$project$HomePorts$out_onPressedMonitor(_p1._0)
 						]));
 			case 'MonitorPressReleased':
 				return A2(
@@ -10731,7 +10646,7 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onPressReleasedMonitor('')
+							_user$project$HomePorts$out_onPressReleasedMonitor('')
 						]));
 			case 'LongPressedMonitor':
 				var model$ = model;
@@ -10761,7 +10676,7 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onManagePresets('')
+							_user$project$HomePorts$out_onManagePresets('')
 						]));
 			case 'SystemPreferencesPress':
 				return A2(
@@ -10769,7 +10684,7 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onSystemPreferencesOpen('')
+							_user$project$HomePorts$out_onSystemPreferencesOpen('')
 						]));
 			case 'LockScreenPressed':
 				return A2(
@@ -10777,7 +10692,7 @@ var _user$project$Home$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onLockScreenPressed('')
+							_user$project$HomePorts$out_onLockScreenPressed('')
 						]));
 			case 'UpdateMonitor':
 				return A2(
@@ -10853,9 +10768,9 @@ var _user$project$Home$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_user$project$Ports$in_updateMonitor(_user$project$Home$UpdateMonitor),
-				_user$project$Ports$in_updateMonitorMaxDisplays(_user$project$Home$UpdateMonitorMaxDisplays),
-				_user$project$Ports$in_themeSelected(_user$project$Home$UpdateTheme)
+				_user$project$HomePorts$in_updateMonitor(_user$project$Home$UpdateMonitor),
+				_user$project$HomePorts$in_updateMonitorMaxDisplays(_user$project$Home$UpdateMonitorMaxDisplays),
+				_user$project$CommonPorts$in_themeSelected(_user$project$Home$UpdateTheme)
 			]));
 };
 var _user$project$Home$SystemPreferencesPress = {ctor: 'SystemPreferencesPress'};
@@ -11261,6 +11176,8 @@ var _user$project$Home$view = function (model) {
 			]));
 };
 
+var _user$project$LockPorts$in_updateSecondsLeft = _elm_lang$core$Native_Platform.incomingPort('in_updateSecondsLeft', _elm_lang$core$Json_Decode$int);
+
 var _user$project$Lock$lockCountdownScreenView = F2(
 	function (model, style$) {
 		return A2(
@@ -11351,9 +11268,155 @@ var _user$project$Lock$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_user$project$Ports$in_updateSecondsLeft(_user$project$Lock$UpdateSecondsLeft)
+				_user$project$LockPorts$in_updateSecondsLeft(_user$project$Lock$UpdateSecondsLeft)
 			]));
 };
+
+var _user$project$MainPorts$in_monitorSetup = _elm_lang$core$Native_Platform.incomingPort('in_monitorSetup', _elm_lang$core$Json_Decode$string);
+var _user$project$MainPorts$in_openSystemPreferences = _elm_lang$core$Native_Platform.incomingPort('in_openSystemPreferences', _elm_lang$core$Json_Decode$string);
+var _user$project$MainPorts$in_returnToHomeMode = _elm_lang$core$Native_Platform.incomingPort('in_returnToHomeMode', _elm_lang$core$Json_Decode$string);
+var _user$project$MainPorts$in_lockScreen = _elm_lang$core$Native_Platform.incomingPort('in_lockScreen', _elm_lang$core$Json_Decode$string);
+var _user$project$MainPorts$in_managePresets = _elm_lang$core$Native_Platform.incomingPort('in_managePresets', _elm_lang$core$Json_Decode$string);
+
+var _user$project$MonitorSetupPorts$in_startEditingMonitor = _elm_lang$core$Native_Platform.incomingPort(
+	'in_startEditingMonitor',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		A2(_elm_lang$core$Json_Decode_ops[':='], 'number', _elm_lang$core$Json_Decode$string),
+		function (number) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				A2(_elm_lang$core$Json_Decode_ops[':='], 'isSelected', _elm_lang$core$Json_Decode$bool),
+				function (isSelected) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVisible', _elm_lang$core$Json_Decode$bool),
+						function (isVisible) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaOne', _elm_lang$core$Json_Decode$string),
+								function (vgaOne) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										A2(_elm_lang$core$Json_Decode_ops[':='], 'vgaTwo', _elm_lang$core$Json_Decode$string),
+										function (vgaTwo) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												A2(_elm_lang$core$Json_Decode_ops[':='], 'dviOne', _elm_lang$core$Json_Decode$string),
+												function (dviOne) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														A2(_elm_lang$core$Json_Decode_ops[':='], 'dviTwo', _elm_lang$core$Json_Decode$string),
+														function (dviTwo) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																A2(_elm_lang$core$Json_Decode_ops[':='], 'videoOne', _elm_lang$core$Json_Decode$string),
+																function (videoOne) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		A2(_elm_lang$core$Json_Decode_ops[':='], 'videoTwo', _elm_lang$core$Json_Decode$string),
+																		function (videoTwo) {
+																			return A2(
+																				_elm_lang$core$Json_Decode$andThen,
+																				A2(_elm_lang$core$Json_Decode_ops[':='], 'videoThree', _elm_lang$core$Json_Decode$string),
+																				function (videoThree) {
+																					return A2(
+																						_elm_lang$core$Json_Decode$andThen,
+																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaOneCycle', _elm_lang$core$Json_Decode$bool),
+																						function (isVgaOneCycle) {
+																							return A2(
+																								_elm_lang$core$Json_Decode$andThen,
+																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isVgaTwoCycle', _elm_lang$core$Json_Decode$bool),
+																								function (isVgaTwoCycle) {
+																									return A2(
+																										_elm_lang$core$Json_Decode$andThen,
+																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																										function (isDviOneCycle) {
+																											return A2(
+																												_elm_lang$core$Json_Decode$andThen,
+																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviOneCycle', _elm_lang$core$Json_Decode$bool),
+																												function (isDviOneCycle) {
+																													return A2(
+																														_elm_lang$core$Json_Decode$andThen,
+																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isDviTwoCycle', _elm_lang$core$Json_Decode$bool),
+																														function (isDviTwoCycle) {
+																															return A2(
+																																_elm_lang$core$Json_Decode$andThen,
+																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoOneCycle', _elm_lang$core$Json_Decode$bool),
+																																function (isVideoOneCycle) {
+																																	return A2(
+																																		_elm_lang$core$Json_Decode$andThen,
+																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoTwoCycle', _elm_lang$core$Json_Decode$bool),
+																																		function (isVideoTwoCycle) {
+																																			return A2(
+																																				_elm_lang$core$Json_Decode$andThen,
+																																				A2(_elm_lang$core$Json_Decode_ops[':='], 'isVideoThreeCycle', _elm_lang$core$Json_Decode$bool),
+																																				function (isVideoThreeCycle) {
+																																					return A2(
+																																						_elm_lang$core$Json_Decode$andThen,
+																																						A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																						function (isPipUpDownPressed) {
+																																							return A2(
+																																								_elm_lang$core$Json_Decode$andThen,
+																																								A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																								function (isPipLeftRightPressed) {
+																																									return A2(
+																																										_elm_lang$core$Json_Decode$andThen,
+																																										A2(_elm_lang$core$Json_Decode_ops[':='], 'isPipResizePressed', _elm_lang$core$Json_Decode$bool),
+																																										function (isPipResizePressed) {
+																																											return A2(
+																																												_elm_lang$core$Json_Decode$andThen,
+																																												A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdUpDownPressed', _elm_lang$core$Json_Decode$bool),
+																																												function (isOsdUpDownPressed) {
+																																													return A2(
+																																														_elm_lang$core$Json_Decode$andThen,
+																																														A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdLeftRightPressed', _elm_lang$core$Json_Decode$bool),
+																																														function (isOsdLeftRightPressed) {
+																																															return A2(
+																																																_elm_lang$core$Json_Decode$andThen,
+																																																A2(_elm_lang$core$Json_Decode_ops[':='], 'isOsdSelectPressed', _elm_lang$core$Json_Decode$bool),
+																																																function (isOsdSelectPressed) {
+																																																	return A2(
+																																																		_elm_lang$core$Json_Decode$andThen,
+																																																		A2(_elm_lang$core$Json_Decode_ops[':='], 'isOn', _elm_lang$core$Json_Decode$bool),
+																																																		function (isOn) {
+																																																			return _elm_lang$core$Json_Decode$succeed(
+																																																				{number: number, isSelected: isSelected, isVisible: isVisible, vgaOne: vgaOne, vgaTwo: vgaTwo, dviOne: dviOne, dviTwo: dviTwo, videoOne: videoOne, videoTwo: videoTwo, videoThree: videoThree, isVgaOneCycle: isVgaOneCycle, isVgaTwoCycle: isVgaTwoCycle, isDviOneCycle: isDviOneCycle, isDviOneCycle: isDviOneCycle, isDviTwoCycle: isDviTwoCycle, isVideoOneCycle: isVideoOneCycle, isVideoTwoCycle: isVideoTwoCycle, isVideoThreeCycle: isVideoThreeCycle, isPipUpDownPressed: isPipUpDownPressed, isPipLeftRightPressed: isPipLeftRightPressed, isPipResizePressed: isPipResizePressed, isOsdUpDownPressed: isOsdUpDownPressed, isOsdLeftRightPressed: isOsdLeftRightPressed, isOsdSelectPressed: isOsdSelectPressed, isOn: isOn});
+																																																		});
+																																																});
+																																														});
+																																												});
+																																										});
+																																								});
+																																						});
+																																				});
+																																		});
+																																});
+																														});
+																												});
+																										});
+																								});
+																						});
+																				});
+																		});
+																});
+														});
+												});
+										});
+								});
+						});
+				});
+		}));
+var _user$project$MonitorSetupPorts$out_exitAndSaveMonitorChanges = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_exitAndSaveMonitorChanges',
+	function (v) {
+		return {number: v.number, isSelected: v.isSelected, isVisible: v.isVisible, vgaOne: v.vgaOne, vgaTwo: v.vgaTwo, dviOne: v.dviOne, dviTwo: v.dviTwo, videoOne: v.videoOne, videoTwo: v.videoTwo, videoThree: v.videoThree, isVgaOneCycle: v.isVgaOneCycle, isVgaTwoCycle: v.isVgaTwoCycle, isDviOneCycle: v.isDviOneCycle, isDviOneCycle: v.isDviOneCycle, isDviTwoCycle: v.isDviTwoCycle, isVideoOneCycle: v.isVideoOneCycle, isVideoTwoCycle: v.isVideoTwoCycle, isVideoThreeCycle: v.isVideoThreeCycle, isPipUpDownPressed: v.isPipUpDownPressed, isPipLeftRightPressed: v.isPipLeftRightPressed, isPipResizePressed: v.isPipResizePressed, isOsdUpDownPressed: v.isOsdUpDownPressed, isOsdLeftRightPressed: v.isOsdLeftRightPressed, isOsdSelectPressed: v.isOsdSelectPressed, isOn: v.isOn};
+	});
+var _user$project$MonitorSetupPorts$out_returnToHomeMode = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_returnToHomeMode',
+	function (v) {
+		return v;
+	});
 
 var _user$project$MonitorSetup$setOsdSelectButtonPress = function (model) {
 	var monitor = model.selectedMonitor;
@@ -11635,7 +11698,7 @@ var _user$project$MonitorSetup$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_exitAndSaveMonitorChanges(_p2._0)
+							_user$project$MonitorSetupPorts$out_exitAndSaveMonitorChanges(_p2._0)
 						]));
 			case 'SignalInputToggle':
 				var selectedMonitor$ = model.selectedMonitor;
@@ -11734,7 +11797,7 @@ var _user$project$MonitorSetup$StartEditingMonitor = function (a) {
 	return {ctor: 'StartEditingMonitor', _0: a};
 };
 var _user$project$MonitorSetup$subscriptions = function (model) {
-	return _user$project$Ports$in_startEditingMonitor(_user$project$MonitorSetup$StartEditingMonitor);
+	return _user$project$MonitorSetupPorts$in_startEditingMonitor(_user$project$MonitorSetup$StartEditingMonitor);
 };
 var _user$project$MonitorSetup$ExitMonitorSettingSegmentPress = {ctor: 'ExitMonitorSettingSegmentPress'};
 var _user$project$MonitorSetup$OsdSelectButtonPress = {ctor: 'OsdSelectButtonPress'};
@@ -12545,6 +12608,22 @@ var _user$project$MonitorSetup$view = function (model) {
 			]));
 };
 
+var _user$project$SystemPreferencesPorts$out_onThemeSelected = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onThemeSelected',
+	function (v) {
+		return v;
+	});
+var _user$project$SystemPreferencesPorts$out_onSystemPreferencesClose = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_onSystemPreferencesClose',
+	function (v) {
+		return v;
+	});
+var _user$project$SystemPreferencesPorts$out_updateMonitorMaxDisplays = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_updateMonitorMaxDisplays',
+	function (v) {
+		return v;
+	});
+
 var _user$project$SystemPreferences$softwareUpdateBodyView = F2(
 	function (model, style$) {
 		return A2(
@@ -12691,7 +12770,7 @@ var _user$project$SystemPreferences$update = F2(
 					model,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onSystemPreferencesClose('')
+							_user$project$SystemPreferencesPorts$out_onSystemPreferencesClose('')
 						]));
 			case 'MonitorSharpPress':
 				return A2(
@@ -12734,7 +12813,7 @@ var _user$project$SystemPreferences$update = F2(
 						{maxMonitorDisplays: monitorDisplays}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_updateMonitorMaxDisplays(monitorDisplays)
+							_user$project$SystemPreferencesPorts$out_updateMonitorMaxDisplays(monitorDisplays)
 						]));
 			case 'DecreaseMonitorDisplayPress':
 				var monitorDisplays = A3(_elm_lang$core$Basics$clamp, 2, 12, model.maxMonitorDisplays - 1);
@@ -12745,7 +12824,7 @@ var _user$project$SystemPreferences$update = F2(
 						{maxMonitorDisplays: monitorDisplays}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_updateMonitorMaxDisplays(monitorDisplays)
+							_user$project$SystemPreferencesPorts$out_updateMonitorMaxDisplays(monitorDisplays)
 						]));
 			case 'ThemeSelected':
 				var _p2 = _p0._0;
@@ -12771,7 +12850,7 @@ var _user$project$SystemPreferences$update = F2(
 						{selectedTheme: selectedTheme$}),
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_user$project$Ports$out_onThemeSelected(_p2)
+							_user$project$SystemPreferencesPorts$out_onThemeSelected(_p2)
 						]));
 			default:
 				return A2(
@@ -13380,6 +13459,12 @@ var _user$project$SystemPreferences$view = function (model) {
 };
 var _user$project$SystemPreferences$NoOp = {ctor: 'NoOp'};
 
+var _user$project$PresetsPorts$out_presetSettingsClosed = _elm_lang$core$Native_Platform.outgoingPort(
+	'out_presetSettingsClosed',
+	function (v) {
+		return v;
+	});
+
 var _user$project$Presets$onEsc = F2(
 	function (fail, success) {
 		var tagger = function (code) {
@@ -13400,6 +13485,12 @@ var _user$project$Presets$onEnter = F2(
 			'keyup',
 			A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
 	});
+var _user$project$Presets$findIsSelected = function (preset) {
+	return preset.isSelected ? _elm_lang$core$Maybe$Just(preset) : _elm_lang$core$Maybe$Nothing;
+};
+var _user$project$Presets$findPresets = function (presets) {
+	return A2(_elm_lang$core$List$filterMap, _user$project$Presets$findIsSelected, presets);
+};
 var _user$project$Presets$setPresetNameCommit = F2(
 	function (preset, presets) {
 		return A2(
@@ -13453,13 +13544,51 @@ var _user$project$Presets$setPresetToEdit = F2(
 					p,
 					{
 						isEditingName: _elm_lang$core$Basics$not(p.isEditingName),
-						tempName: p.name
+						tempName: p.name,
+						isSelected: false
 					}) : _elm_lang$core$Native_Utils.update(
 					p,
-					{isEditingName: false, tempName: ''});
+					{isEditingName: false, tempName: '', isSelected: false});
 			},
 			presets);
 	});
+var _user$project$Presets$updateSelectedPreset = F2(
+	function (preset, presets) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? preset : _elm_lang$core$Native_Utils.update(
+					p,
+					{isSelected: false});
+			},
+			presets);
+	});
+var _user$project$Presets$setPresetToSelected = F2(
+	function (preset, presets) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.id, preset.id) ? _elm_lang$core$Native_Utils.update(
+					p,
+					{
+						isSelected: _elm_lang$core$Basics$not(p.isSelected)
+					}) : _elm_lang$core$Native_Utils.update(
+					p,
+					{tempName: ''});
+			},
+			presets);
+	});
+var _user$project$Presets$defaultPreset = function (id$) {
+	return {
+		id: id$,
+		name: '<empty>',
+		tempName: '',
+		monitors: _elm_lang$core$Native_List.fromArray(
+			[]),
+		isSelected: false,
+		isEditingName: false
+	};
+};
 var _user$project$Presets$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
@@ -13475,11 +13604,22 @@ var _user$project$Presets$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					model,
 					_elm_lang$core$Native_List.fromArray(
-						[]));
+						[
+							_user$project$PresetsPorts$out_presetSettingsClosed('')
+						]));
 			case 'PresetSelected':
+				var _p1 = _p0._0;
+				var newPreset = _elm_lang$core$Native_Utils.update(
+					_p1,
+					{
+						isSelected: _elm_lang$core$Basics$not(_p1.isSelected)
+					});
+				var newPresets = A2(_user$project$Presets$updateSelectedPreset, newPreset, model.presets);
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{presets: newPresets, hasSelected: newPreset.isSelected}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'PresetEdit':
@@ -13493,12 +13633,21 @@ var _user$project$Presets$update = F2(
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			case 'PresetCommit':
+				var selectedPresets = _user$project$Presets$findPresets(model.presets);
+				var selectedPreset = function () {
+					var _p2 = A2(_elm_lang$core$List$take, 1, selectedPresets);
+					if ((_p2.ctor === '::') && (_p2._1.ctor === '[]')) {
+						return _p2._0;
+					} else {
+						return _user$project$Presets$defaultPreset(-1);
+					}
+				}();
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							presets: A3(_user$project$Presets$setPresetCommit, _p0._0, model.presets, model.monitors)
+							presets: A3(_user$project$Presets$setPresetCommit, selectedPreset, model.presets, model.monitors)
 						}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
@@ -13534,17 +13683,6 @@ var _user$project$Presets$update = F2(
 						[]));
 		}
 	});
-var _user$project$Presets$defaultPreset = function (id$) {
-	return {
-		id: id$,
-		name: '<empty>',
-		tempName: '',
-		monitors: _elm_lang$core$Native_List.fromArray(
-			[]),
-		isSelected: false,
-		isEditingName: false
-	};
-};
 var _user$project$Presets$defaultModel = {
 	selectedTheme: _user$project$Types$DefaultTheme,
 	presets: _elm_lang$core$Native_List.fromArray(
@@ -13557,16 +13695,17 @@ var _user$project$Presets$defaultModel = {
 			_user$project$Presets$defaultPreset(6)
 		]),
 	monitors: _elm_lang$core$Native_List.fromArray(
-		[])
+		[]),
+	hasSelected: true
 };
 var _user$project$Presets$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
 	_user$project$Presets$defaultModel,
 	_elm_lang$core$Native_List.fromArray(
 		[]));
-var _user$project$Presets$Model = F3(
-	function (a, b, c) {
-		return {selectedTheme: a, presets: b, monitors: c};
+var _user$project$Presets$Model = F4(
+	function (a, b, c, d) {
+		return {selectedTheme: a, presets: b, monitors: c, hasSelected: d};
 	});
 var _user$project$Presets$Preset = F6(
 	function (a, b, c, d, e, f) {
@@ -13582,9 +13721,7 @@ var _user$project$Presets$PresetNameInput = F2(
 	function (a, b) {
 		return {ctor: 'PresetNameInput', _0: a, _1: b};
 	});
-var _user$project$Presets$PresetCommit = function (a) {
-	return {ctor: 'PresetCommit', _0: a};
-};
+var _user$project$Presets$PresetCommit = {ctor: 'PresetCommit'};
 var _user$project$Presets$PresetEdit = function (a) {
 	return {ctor: 'PresetEdit', _0: a};
 };
@@ -13628,14 +13765,18 @@ var _user$project$Presets$presetSettingTopBarView = F2(
 	});
 var _user$project$Presets$NoOp = {ctor: 'NoOp'};
 var _user$project$Presets$presetButtonView = function (preset) {
+	var isSelectedClass = preset.isSelected ? ' selected' : ' x';
 	var isEditingName = preset.isEditingName;
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Attributes$class('preset-button div-4-5 vdiv-1-2 button content-centered'),
+				_elm_lang$html$Html_Attributes$class(
+				A2(_elm_lang$core$Basics_ops['++'], 'preset-button div-4-5 vdiv-1-2 content-centered', isSelectedClass)),
 				_elm_lang$html$Html_Events$onDoubleClick(
-				_user$project$Presets$PresetEdit(preset))
+				_user$project$Presets$PresetEdit(preset)),
+				_elm_lang$html$Html_Events$onClick(
+				_user$project$Presets$PresetSelected(preset))
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -13669,7 +13810,7 @@ var _user$project$Presets$presetButtonView = function (preset) {
 						_elm_lang$html$Html_Attributes$class(
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							'div-4-5 vdiv-1-1',
+							'div-1-1 vdiv-1-1',
 							_elm_lang$core$Basics$not(isEditingName) ? ' hidden' : '')),
 						A2(
 						_user$project$Presets$onEsc,
@@ -13699,46 +13840,6 @@ var _user$project$Presets$presetButtonView = function (preset) {
 							]),
 						_elm_lang$core$Native_List.fromArray(
 							[]))
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-10')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$html$Html$img,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$class('icon'),
-								_elm_lang$html$Html_Attributes$src('images/load_icon.svg'),
-								_elm_lang$html$Html_Events$onClick(
-								_user$project$Presets$PresetSelected(preset))
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$class('div-1-10')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$html$Html$img,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$class('icon'),
-								_elm_lang$html$Html_Attributes$src('images/save_icon.svg'),
-								_elm_lang$html$Html_Events$onClick(
-								_user$project$Presets$PresetCommit(preset))
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
 					]))
 			]));
 };
@@ -13755,7 +13856,7 @@ var _user$project$Presets$presetContainerView = function (preset) {
 			]));
 };
 var _user$project$Presets$presetSettingBodyView = F2(
-	function (presets, style$) {
+	function (model, style$) {
 		return A2(
 			_elm_lang$html$Html$div,
 			_elm_lang$core$Native_List.fromArray(
@@ -13773,21 +13874,42 @@ var _user$project$Presets$presetSettingBodyView = F2(
 						[
 							_elm_lang$html$Html_Attributes$class('vdiv-1-2 div-1-1')
 						]),
-					A2(_elm_lang$core$List$map, _user$project$Presets$presetContainerView, presets)),
+					A2(_elm_lang$core$List$map, _user$project$Presets$presetContainerView, model.presets)),
 					A2(
 					_elm_lang$html$Html$div,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html_Attributes$class('vdiv-1-2 div-1-1')
+							_elm_lang$html$Html_Attributes$class('vdiv-1-2 div-1-1 content-centered')
 						]),
 					_elm_lang$core$Native_List.fromArray(
-						[]))
+						[
+							A2(
+							_elm_lang$html$Html$div,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$class('div-1-1 vdiv-1-2 ')
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									_elm_lang$html$Html$div,
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_elm_lang$html$Html_Attributes$class('vdiv-1-1'),
+											_elm_lang$html$Html_Events$onClick(_user$project$Presets$PresetCommit)
+										]),
+									_elm_lang$core$Native_List.fromArray(
+										[
+											_user$project$Icons$saveIcon(model.hasSelected)
+										]))
+								]))
+						]))
 				]));
 	});
 var _user$project$Presets$view = function (model) {
-	var _p1 = _user$project$Commons$getThemeStyle(model.selectedTheme);
-	var lowerBodyStyle = _p1._0;
-	var upperBodyStyle = _p1._1;
+	var _p3 = _user$project$Commons$getThemeStyle(model.selectedTheme);
+	var lowerBodyStyle = _p3._0;
+	var upperBodyStyle = _p3._1;
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -13795,7 +13917,7 @@ var _user$project$Presets$view = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(_user$project$Presets$presetSettingTopBarView, model, upperBodyStyle),
-				A2(_user$project$Presets$presetSettingBodyView, model.presets, lowerBodyStyle)
+				A2(_user$project$Presets$presetSettingBodyView, model, lowerBodyStyle)
 			]));
 };
 
@@ -13826,8 +13948,8 @@ var _user$project$Main$UpdateLockCountdownSecondsLeft = function (a) {
 var _user$project$Main$UnlockLockCountdown = function (a) {
 	return {ctor: 'UnlockLockCountdown', _0: a};
 };
-var _user$project$Main$LongPressedMonitor = function (a) {
-	return {ctor: 'LongPressedMonitor', _0: a};
+var _user$project$Main$MonitorSetup = function (a) {
+	return {ctor: 'MonitorSetup', _0: a};
 };
 var _user$project$Main$PresetsMsg = function (a) {
 	return {ctor: 'PresetsMsg', _0: a};
@@ -13943,7 +14065,7 @@ var _user$project$Main$update = F2(
 						[
 							A2(_elm_lang$core$Platform_Cmd$map, _user$project$Main$PresetsMsg, cmd)
 						]));
-			case 'LongPressedMonitor':
+			case 'MonitorSetup':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -14051,10 +14173,11 @@ var _user$project$Main$subscriptions = function (model) {
 				_elm_lang$core$Platform_Sub$map,
 				_user$project$Main$LockMsg,
 				_user$project$Lock$subscriptions(model.lockModel)),
-				_user$project$Ports$in_longPressedMonitor(_user$project$Main$LongPressedMonitor),
-				_user$project$Ports$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode),
-				_user$project$Ports$in_openSystemPreferences(_user$project$Main$OpenSystemPreferences),
-				_user$project$Ports$in_lockScreen(_user$project$Main$LockScreen)
+				_user$project$MainPorts$in_managePresets(_user$project$Main$ManagePresets),
+				_user$project$MainPorts$in_monitorSetup(_user$project$Main$MonitorSetup),
+				_user$project$MainPorts$in_returnToHomeMode(_user$project$Main$ReturnToHomeMode),
+				_user$project$MainPorts$in_openSystemPreferences(_user$project$Main$OpenSystemPreferences),
+				_user$project$MainPorts$in_lockScreen(_user$project$Main$LockScreen)
 			]));
 };
 var _user$project$Main$main = {

@@ -3,7 +3,7 @@ module SystemPreferences exposing (..)
 import Types exposing (..)
 import Icons exposing (..)
 import Commons exposing (..)
-import Ports
+import SystemPreferencesPorts
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -37,17 +37,17 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
     NoOp -> model ! []
-    CloseSystemPreferences -> model ! [ Ports.out_onSystemPreferencesClose "" ]
+    CloseSystemPreferences -> model ! [ SystemPreferencesPorts.out_onSystemPreferencesClose "" ]
     MonitorSharpPress -> { model | viewState = MonitorCount } ! []
     NetworkPress -> { model | viewState = Network } ! []
     ThemePress -> { model | viewState = Themes } ! []
     SoftwareUpdatePress -> { model | viewState = SoftwareUpdate } ! []
     IncreaseMonitorDisplayPress ->
       let monitorDisplays  = clamp 2 12 (model.maxMonitorDisplays + 1)
-      in { model | maxMonitorDisplays = monitorDisplays } ! [ Ports.out_updateMonitorMaxDisplays monitorDisplays ]
+      in { model | maxMonitorDisplays = monitorDisplays } ! [ SystemPreferencesPorts.out_updateMonitorMaxDisplays monitorDisplays ]
     DecreaseMonitorDisplayPress ->
       let monitorDisplays = clamp 2 12 (model.maxMonitorDisplays - 1)
-      in { model | maxMonitorDisplays = monitorDisplays } ! [ Ports.out_updateMonitorMaxDisplays monitorDisplays ]
+      in { model | maxMonitorDisplays = monitorDisplays } ! [ SystemPreferencesPorts.out_updateMonitorMaxDisplays monitorDisplays ]
   ---- type Theme = Default | DefaultFlat | Dark | DarkFlat
     ThemeSelected name ->
       let selectedTheme' =
@@ -57,7 +57,7 @@ update msg model =
               "Dark" -> DarkTheme
               "Dark Flat" -> DarkFlatTheme
               _ -> DefaultTheme
-      in { model | selectedTheme = selectedTheme' } ! [ Ports.out_onThemeSelected name ]
+      in { model | selectedTheme = selectedTheme' } ! [ SystemPreferencesPorts.out_onThemeSelected name ]
     BackToSystemPreferencesMain -> { model | viewState = Home } ! []
 
 init : (Model, Cmd Msg)

@@ -1,9 +1,11 @@
 module Home exposing (..)
 
-import Ports
 import Types exposing (..)
 import Commons exposing (..)
 import Icons exposing (..)
+
+import CommonPorts
+import HomePorts
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -73,17 +75,17 @@ update msg model =
     SelectMonitorToConfigure monitor' ->
       let model' = model
       in { model  | monitors = setMonitorAsSelected monitor' model'.monitors } ! []
-    MonitorPressedDown monitor -> model ! [ Ports.out_onPressedMonitor monitor ]
-    MonitorPressReleased -> model ! [ Ports.out_onPressReleasedMonitor ""]
+    MonitorPressedDown monitor -> model ! [ HomePorts.out_onPressedMonitor monitor ]
+    MonitorPressReleased -> model ! [ HomePorts.out_onPressReleasedMonitor ""]
     LongPressedMonitor number ->
       let model' = model
           foundMonitor = findMonitor number model'.monitors
       in { model  | monitors = setMonitorAsSelected foundMonitor model'.monitors } ! []
     PowerPress ->
       { model | monitors = setSelectedMonitorsToPowerPress model.monitors } ! []
-    PresetPress -> model ! [ Ports.out_onManagePresets "" ]
-    SystemPreferencesPress -> model ! [ Ports.out_onSystemPreferencesOpen "" ]
-    LockScreenPressed -> model ! [ Ports.out_onLockScreenPressed "" ]
+    PresetPress -> model ! [ HomePorts.out_onManagePresets "" ]
+    SystemPreferencesPress -> model ! [ HomePorts.out_onSystemPreferencesOpen "" ]
+    LockScreenPressed -> model ! [ HomePorts.out_onLockScreenPressed "" ]
     UpdateMonitor monitor -> { model | monitors = (updateMonitor monitor model.monitors) } ! []
     UpdateMonitorMaxDisplays maxMonitorDisplays -> { model | monitorDisplays = maxMonitorDisplays } ! []
     UpdateTheme name ->
@@ -231,12 +233,12 @@ homeMenuView style' =
 
 buildVersion : Html Msg
 buildVersion =
-  div [ class "build-version" ] [ text "v.1.052520161350" ]
+  div [ class "build-version" ] [ text "v.1.062120161550" ]
 
 -- WIRING
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-      [ Ports.in_updateMonitor UpdateMonitor
-      , Ports.in_updateMonitorMaxDisplays UpdateMonitorMaxDisplays
-      , Ports.in_themeSelected UpdateTheme ]
+      [ HomePorts.in_updateMonitor UpdateMonitor
+      , HomePorts.in_updateMonitorMaxDisplays UpdateMonitorMaxDisplays
+      , CommonPorts.in_themeSelected UpdateTheme ]

@@ -67,6 +67,10 @@ function main() {
     app.ports.in_themeSelected.send(theme);
   });
 
+  app.ports.out_presetSettingsClosed.subscribe(function(){
+    app.ports.in_returnToHomeMode.send("");
+  });
+
   app.ports.out_updateMonitorMaxDisplays.subscribe(function(monitorDisplays){
     app.ports.in_updateMonitorMaxDisplays.send(monitorDisplays);
   });

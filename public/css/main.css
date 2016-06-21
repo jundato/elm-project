@@ -543,10 +543,15 @@ canvas {
   display: block;
 }
 .preset-button {
-  color: #000;
   position: absolute;
   top: 25%;
   left: 10%;
+  border-radius: 8px;
+  background-color: #d3d6dd;
+  color: #000;
+}
+.preset-button.selected {
+  background-color: #acf;
 }
 .preset-button-input {
   height: 100%;
