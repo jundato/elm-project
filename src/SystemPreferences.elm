@@ -200,7 +200,7 @@ softwareUpdateBodyView model style' =
                       [ div [ class "vdiv-4-5 div-1-1 content-centered" ]
                             [ div [ class "div-1-1 vdiv-1-1 content-centered" ]
                                   [ div [ class "vdiv-1-1 div-2-3" ]
-                                        [ div [ class "vdiv-1-3 div-1-1 content-centered version" ] [ text "Version V1.023" ]
+                                        [ div [ class "vdiv-1-3 div-1-1 content-centered version" ] [ text "Version V1.062120161550" ]
                                         , div [ class "vdiv-2-3 div-1-1 menu content-centered" ]
                                               [ div [ class "vdiv-2-3 div-2-3" ]
                                                     [ updateIcon ] ] ] ] ] ]

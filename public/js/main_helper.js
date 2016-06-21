@@ -17,6 +17,7 @@ function main() {
       console.log(monitor);
       app.ports.in_startEditingMonitor.send(monitor);
       app.ports.in_longPressedMonitor.send(monitor);
+      app.ports.in_monitorSetup.send("");
     },1000);
   });
 

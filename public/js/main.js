@@ -12691,7 +12691,7 @@ var _user$project$SystemPreferences$softwareUpdateBodyView = F2(
 																]),
 															_elm_lang$core$Native_List.fromArray(
 																[
-																	_elm_lang$html$Html$text('Version V1.023')
+																	_elm_lang$html$Html$text('Version V1.062120161550')
 																])),
 															A2(
 															_elm_lang$html$Html$div,
